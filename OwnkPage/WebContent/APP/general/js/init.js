@@ -8,9 +8,7 @@ try {
 		//JSON
 		jsonrpc = createJSONRpcClient();
 		
-		//Carga de Archivos
-		SI.Files.stylizeAll();
-		
+				
 } catch (e) {
 	alert(e);
 }

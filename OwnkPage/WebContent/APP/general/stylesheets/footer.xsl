@@ -4,18 +4,11 @@
 	
 	<!-- TEMPLATE PRINCIPAL -->
 	<xsl:template name="footer">
-		<xsl:param name="visible"/>
-		
-		<xsl:if test="$visible='true'">
-			<div class="msg-footer corner" >
-				<div>Ownk © 2015 - Todos los derechos reservados</div>
-				<div>Design by Ownk Team</div>
-				
-			</div>
-			
-		</xsl:if>
-		
-		
+		<div class="footer fixed">
+           <div>
+               <strong>Copyright</strong> Ownk S.A.S 2015
+           </div>
+        </div>
 		
 	</xsl:template>
 	

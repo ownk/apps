@@ -3,7 +3,7 @@
 	<xsl:output method="html" omit-xml-declaration="yes" encoding="UTF-8" indent="yes"/>
 	
 	<xsl:include href="general/stylesheets/header.xsl"/>
-	<xsl:include href="general/stylesheets/plugins.xsl"/>
+	<xsl:include href="general/stylesheets/nav_bar.xsl"/>
 	<xsl:include href="general/stylesheets/footer.xsl"/>
 	
 <!-- ========================================================= -->	
@@ -23,23 +23,35 @@
 				<!-- ================================== -->
 				<!-- CSS ============================== -->
 				<!-- ================================== -->
-					<link rel="stylesheet" href="{$CONTEXTPATH}/general/css/general.css" type="text/css"/>
-					
-					
 				
-					<!-- Bootstrap -->
-					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"/>
-					<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap-theme.min.css"/>
-					
-					
-					<!-- CSS por pagina -->
-					<xsl:for-each select="WEB/PAGE//add[@type='css']">
-						<link rel="stylesheet" href="{$CONTEXTPATH}/{@src}" type="text/css"/>
-					</xsl:for-each>
-					
-					<xsl:for-each select="WEB/PAGE//add[@type='css_link']">
-						<link rel="stylesheet" href="{@src}"/>
-					</xsl:for-each>
+				
+				<meta charset="utf-8"/>
+			    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+			
+			    <title>INSPINIA | Dashboard</title>
+			
+			    <link href="{$CONTEXTPATH}/general/css/bootstrap.min.css" rel="stylesheet"/>
+			    <link href="{$CONTEXTPATH}/general/font-awesome/css/font-awesome.css" rel="stylesheet"/>
+			
+			    <!-- Toastr style -->
+			    <link href="{$CONTEXTPATH}/general/css/plugins/toastr/toastr.min.css" rel="stylesheet"/>
+			
+			    <!-- Gritter -->
+			    <link href="{$CONTEXTPATH}/general/js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
+			
+			    <link href="{$CONTEXTPATH}/general/css/animate.css" rel="stylesheet"/>
+			    <link href="{$CONTEXTPATH}/general/css/style.css" rel="stylesheet"/>
+				
+				
+				
+				<!-- CSS por pagina -->
+				<xsl:for-each select="WEB/PAGE//add[@type='css']">
+					<link rel="stylesheet" href="{$CONTEXTPATH}/{@src}" type="text/css"/>
+				</xsl:for-each>
+				
+				<xsl:for-each select="WEB/PAGE//add[@type='css_link']">
+					<link rel="stylesheet" href="{@src}"/>
+				</xsl:for-each>
             	
             	
             	<!-- ================================== -->
@@ -47,57 +59,70 @@
 				<!-- ================================== -->
 				
 					
-					<script> var GLOBAL_CONTEXTPATH = '<xsl:value-of select="$CONTEXTPATH"/>'; <!-- window.history.forward(0); --></script>
+				<script> var GLOBAL_CONTEXTPATH = '<xsl:value-of select="$CONTEXTPATH"/>'; <!-- window.history.forward(0); --></script>
+				
+				 <!-- Mainly scripts -->
+			    <script src="{$CONTEXTPATH}/general/js/jquery-2.1.1.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/bootstrap.min.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+			
+			    <!-- Flot -->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/flot/jquery.flot.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/flot/jquery.flot.spline.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/flot/jquery.flot.resize.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/flot/jquery.flot.pie.js"></script>
+			
+			    <!-- Peity -->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/peity/jquery.peity.min.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/demo/peity-demo.js"></script>
+			
+			    <!-- Custom and plugin javascript -->
+			    <script src="{$CONTEXTPATH}/general/js/inspinia.js"></script>
+			    <script src="{$CONTEXTPATH}/general/js/plugins/pace/pace.min.js"></script>
+			
+			    <!-- jQuery UI -->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+			
+			    <!-- GITTER -->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/gritter/jquery.gritter.min.js"></script>
+			
+			    <!-- Sparkline -->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/sparkline/jquery.sparkline.min.js"></script>
+			
+			    <!-- Sparkline demo data  -->
+			    <script src="{$CONTEXTPATH}/general/js/demo/sparkline-demo.js"></script>
+			
+			    <!-- ChartJS-->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/chartJs/Chart.min.js"></script>
+			
+			    <!-- Toastr -->
+			    <script src="{$CONTEXTPATH}/general/js/plugins/toastr/toastr.min.js"></script>
+				
+				<!-- Json -->
+				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/jsonrpc/jsonrpc.js"></script>
+				
 					
-					<!-- Jquery-->
-					<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
-					
-					<!-- general -->
-					<script type="text/javascript" src="{$CONTEXTPATH}/general/js/osm-core.js"></script>
-					<script type="text/javascript" src="{$CONTEXTPATH}/general/js/ui-jcore.js"></script>
-					<script type="text/javascript" src="{$CONTEXTPATH}/general/js/si.files.js"></script>
-					
-					
-					
-					<!-- bootstrap -->
-					<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
-					
-					
-					<!-- Json -->
-					<script type="text/javascript" src="{$CONTEXTPATH}/general/js/jsonrpc/jsonrpc.js"></script>
-					
+				<!-- VARIABLES -->
+				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/init.js"></script>
 			
 				
-					<!-- VARIABLES -->
-					<script type="text/javascript" src="{$CONTEXTPATH}/general/js/init.js"></script>
+				<!-- JavaScript por pagina -->							
+	           	<xsl:for-each select="WEB/PAGE//add[@type='script']">
+					<script type="text/javascript" src="{$CONTEXTPATH}/{@src}"></script>
+				</xsl:for-each>
 				
-					
-					<!-- JavaScript por pagina -->							
-	            	<xsl:for-each select="WEB/PAGE//add[@type='script']">
-						<script type="text/javascript" src="{$CONTEXTPATH}/{@src}"></script>
-					</xsl:for-each>
-					
-					<xsl:for-each select="WEB/PAGE//add[@type='script_link']">
-						<script href="{@src}"/>
-					</xsl:for-each>
+				<xsl:for-each select="WEB/PAGE//add[@type='script_link']">
+					<script href="{@src}"/>
+				</xsl:for-each>
 				
 			</head>
 			
 			<body>
 				
-				<!-- SE MUESTRA EL CONTENIDO SEGUN EL ESQUEMA ESPECIFICADO -->
-				<xsl:choose>
-					<xsl:when test="count(//esquemaC)>0">
-						<xsl:call-template name="esquemaC"/>
-					</xsl:when>
 					
-					<xsl:otherwise>
-						<xsl:call-template name="esquemaC"/>
-					</xsl:otherwise>
-				
-				
-				</xsl:choose>		
-			 	
+					<xsl:apply-templates select="WEB/PAGE/*"/>
 				
 			</body>
 		</html>
@@ -126,20 +151,6 @@
 	<xsl:template match="add">
 	</xsl:template>
 	
-	<xsl:template match="esquemaHMPCF">
-	</xsl:template>
-	
-	<xsl:template match="esquemaHMCPF">
-	</xsl:template>
-	
-	<xsl:template match="esquemaHMCF">
-	</xsl:template>
-	
-	<xsl:template match="esquemaHCF">
-	</xsl:template>
-	
-	<xsl:template match="esquemaC">
-	</xsl:template>
 	
 	<xsl:template match="GENERAL">
 	</xsl:template>
@@ -169,7 +180,7 @@
 	</xsl:template>
 
 	<xsl:template match="form">
-		<form action="{@destino}" method="post" enctype="{@enctype}" onsubmit="return false;">
+		<form class="{@class}" action="{@destino}" method="post" enctype="{@enctype}" onsubmit="return false;">
 			<xsl:if test="string-length(@id)>0">
 				<xsl:attribute name="name"><xsl:value-of select="@id"/></xsl:attribute>
 				<xsl:attribute name="id"><xsl:value-of select="@id"/></xsl:attribute>

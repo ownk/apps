@@ -82,7 +82,7 @@ public class InitApp extends HttpServlet implements Servlet {
 		
 		try {
 			RouterPage routerPage;
-			routerPage = RouterPage.getRouter(GeneralConstants.WEBPACKAGE, privatePageGenerator, publicPageGenerator);
+			routerPage = RouterPage.getRouter(GeneralConstants.WEBPACKAGE, privatePageGenerator, publicPageGenerator, "/denegado/PageAccesoDenegado.pub", "/error/PageError.pub");
 			routerPage.routePage(this, request, response);
 			
 			//Se inicializan servicios json si aun no se han inicializado
