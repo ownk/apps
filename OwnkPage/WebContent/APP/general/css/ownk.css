@@ -1,0 +1,31 @@
+
+
+.navbar-top-links li a.logo-ownk{
+	
+	padding: 0px;
+}
+
+.navbar-top-links li a img.logo-ownk
+{
+	margin-top: 10px;
+	margin-left: 0px;
+	margin-bottom: 10px;
+
+}
+
+.icono-ownk{
+	
+	
+}
+
+.fixed{
+	position: fixed;
+	min-width: 96%;
+	width: auto;
+	border-bottom: 1px solid #e7eaec !important;
+}
+
+#nav-bar-top.full{
+	
+	width: 100%;
+}

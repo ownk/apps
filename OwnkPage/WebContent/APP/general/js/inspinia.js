@@ -125,10 +125,18 @@ $(function() {
         if ($(this).width() < 769) {
             $('body').addClass('body-small');
             
-            setTimeout(
-                    function () {
-                    	$('.navbar-minimalize').click();
-                    }, 1000);
+            $('#nav-bar-top').addClass('full');
+            
+            
+            if(!$('body').hasClass('ownk-mobile')){
+	            setTimeout(
+	                    function () {
+	                    	$('.navbar-minimalize').click();
+	                    }, 1000);
+            }else{
+            	$('body').addClass('ownk-mobile');
+            }
+            
             
             
         } else {

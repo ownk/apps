@@ -41,6 +41,7 @@
 			
 			    <link href="{$CONTEXTPATH}/general/css/animate.css" rel="stylesheet"/>
 			    <link href="{$CONTEXTPATH}/general/css/style.css" rel="stylesheet"/>
+			    <link href="{$CONTEXTPATH}/general/css/ownk.css" rel="stylesheet"/>
 				
 				
 				

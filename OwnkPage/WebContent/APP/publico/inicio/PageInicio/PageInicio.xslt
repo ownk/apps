@@ -66,7 +66,7 @@
 						                    </p>
 						                </div>
 						                <div class="carousel-image wow zoomIn">
-						                    <img src="publico/inicio/PageInicio/img/laptop.png" alt="laptop"/>
+						                    <img src="{//contextPath}/publico/inicio/PageInicio/img/laptop.png" alt="laptop"/>
 						                </div>
 						            </div>
 						            <!-- Set background for slide in css -->
@@ -143,7 +143,7 @@
 						            </div>
 						        </div>
 						        <div class="col-md-6 text-center  wow zoomIn">
-						            <img src="publico/inicio/PageInicio/img/perspective.png" alt="dashboard" class="img-responsive"/>
+						            <img src="{//contextPath}/publico/inicio/PageInicio/img/perspective.png" alt="dashboard" class="img-responsive"/>
 						        </div>
 						        <div class="col-md-3 text-center wow fadeInRight">
 						            <div>
@@ -173,7 +173,7 @@
 						            <a href="" class="btn btn-primary">Learn more</a>
 						        </div>
 						        <div class="col-lg-6 text-right wow fadeInRight">
-						            <img src="publico/inicio/PageInicio/img/dashboard.png" alt="dashboard" class="img-responsive pull-right"/>
+						            <img src="{//contextPath}/publico/inicio/PageInicio/img/dashboard.png" alt="dashboard" class="img-responsive pull-right"/>
 						        </div>
 						    </div>
 						</section>
@@ -190,7 +190,7 @@
 						        <div class="row">
 						            <div class="col-sm-4 wow fadeInLeft">
 						                <div class="team-member">
-						                    <img src="publico/inicio/PageInicio/img/avatar3.jpg" class="img-responsive img-circle img-small" alt=""/>
+						                    <img src="{//contextPath}/publico/inicio/PageInicio/img/avatar3.jpg" class="img-responsive img-circle img-small" alt=""/>
 						                    <h4><span class="navy">Amelia</span> Smith</h4>
 						                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus. </p>
 						                    <ul class="list-inline social-icon">
@@ -205,7 +205,7 @@
 						            </div>
 						            <div class="col-sm-4">
 						                <div class="team-member wow zoomIn">
-						                    <img src="publico/inicio/PageInicio/img/avatar1.jpg" class="img-responsive img-circle" alt=""/>
+						                    <img src="{//contextPath}/publico/inicio/PageInicio/img/avatar1.jpg" class="img-responsive img-circle" alt=""/>
 						                    <h4><span class="navy">John</span> Novak</h4>
 						                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.</p>
 						                    <ul class="list-inline social-icon">
@@ -220,7 +220,7 @@
 						            </div>
 						            <div class="col-sm-4 wow fadeInRight">
 						                <div class="team-member">
-						                    <img src="publico/inicio/PageInicio/img/avatar2.jpg" class="img-responsive img-circle img-small" alt=""/>
+						                    <img src="{//contextPath}/publico/inicio/PageInicio/img/avatar2.jpg" class="img-responsive img-circle img-small" alt=""/>
 						                    <h4><span class="navy">Peter</span> Johnson</h4>
 						                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.</p>
 						                    <ul class="list-inline social-icon">
@@ -259,7 +259,7 @@
 						                <a href="" class="btn btn-primary">Learn more</a>
 						            </div>
 						            <div class="col-lg-6 text-right m-t-n-lg wow zoomIn">
-						                <img src="publico/inicio/PageInicio/img/iphone.jpg" class="img-responsive" alt="dashboard"/>
+						                <img src="{//contextPath}/publico/inicio/PageInicio/img/iphone.jpg" class="img-responsive" alt="dashboard"/>
 						            </div>
 						            <div class="col-lg-3 features-text text-right wow fadeInRight">
 						                <small>INSPINIA</small>
