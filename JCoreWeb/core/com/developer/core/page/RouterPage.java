@@ -26,10 +26,15 @@ public class RouterPage {
 	private IXMLPageGenerador privatePageGenerador;
 	private IXMLPageGenerador publicPageGenerador;
 	private String urlPageAccesoDenegado;
+	private String urlPageError;
 	
 	private String webpackage;
 	
-	private RouterPage (String webPackageInit, IXMLPageGenerador privatePageGenerator, IXMLPageGenerador publicPageGenerador, String urlPageAccesoDenegado){
+	private RouterPage (String webPackageInit, 
+			IXMLPageGenerador privatePageGenerator, 
+			IXMLPageGenerador publicPageGenerador, 
+			String urlPageAccesoDenegado,
+			String urlPageError){
 		
 		xmlPageGenerator = new XMLPageExecuter();
 		xslTransformer = new XSLTransformer();
@@ -37,7 +42,7 @@ public class RouterPage {
 		this.privatePageGenerador = privatePageGenerator;
 		this.publicPageGenerador = publicPageGenerador;
 		this.urlPageAccesoDenegado = urlPageAccesoDenegado;
-		
+		this.urlPageError = urlPageError;
 		
 	}
 	
@@ -60,15 +65,19 @@ public class RouterPage {
 	 * @throws Exception 
 	 */
 	
-	public static RouterPage getRouter(String webPackageInit, IXMLPageGenerador privatePageGenerator, IXMLPageGenerador publicPageGenerator, String urlPageAccesoDenegado) throws Exception{
+	public static RouterPage getRouter(	String webPackageInit, 
+										IXMLPageGenerador privatePageGenerator, 
+										IXMLPageGenerador publicPageGenerator, 
+										String urlPageAccesoDenegado,
+										String urlPageError) throws Exception{
 		
-		if(webPackageInit== null || privatePageGenerator == null || publicPageGenerator == null || urlPageAccesoDenegado == null){
+		if(webPackageInit== null || privatePageGenerator == null || publicPageGenerator == null || urlPageAccesoDenegado == null || urlPageError==null){
 		
-			throw new Exception("Los parametros webPackageInit, privatePageGenerator, publicPageGenerator y urlPageAccesoDenegado no pueden ser nulos ");
+			throw new Exception("Los parametros webPackageInit, privatePageGenerator, publicPageGenerator,  urlPageAccesoDenegado y urlPageError no pueden ser nulos ");
 		}else{
 		
 			if(enrutador == null) {
-				enrutador = new RouterPage(webPackageInit, privatePageGenerator, publicPageGenerator, urlPageAccesoDenegado);
+				enrutador = new RouterPage(webPackageInit, privatePageGenerator, publicPageGenerator, urlPageAccesoDenegado,urlPageError );
 			
 			}
 			
@@ -156,7 +165,9 @@ public class RouterPage {
 		//PrintWriter out = response.getWriter();
 		
 		PrintWriter out = new PrintWriter( new OutputStreamWriter(response.getOutputStream(), "UTF8"), true);
-
+		String nextPage = this.urlPageError;
+		
+		
 		try {
 
 			
@@ -179,7 +190,7 @@ public class RouterPage {
 			
 			Class<?> classPage = Class.forName(classname);
 
-			String nextPage = null;
+			
 			StringBuffer xmlPage = null;
 			
 			/*
@@ -264,6 +275,19 @@ public class RouterPage {
 			
 
 		} catch (Throwable e) {
+			
+			if (nextPage != null) {
+
+				if (nextPage.charAt(0) != '/') {
+					nextPage = "/" + nextPage;
+				}
+
+				response.resetBuffer();
+				response.setStatus(302);
+				response.sendRedirect(request.getContextPath() + nextPage);
+				return;
+			}
+			
 			e.printStackTrace();
 			out.println(e.getMessage());
 		}
@@ -327,8 +351,22 @@ public class RouterPage {
 					
 				}
 			} else {
-				PrintWriter out = resp.getWriter();
-				out.println("Recurso No disponible: " + file.getAbsolutePath());
+				
+				
+				if (this.urlPageError != null) {
+
+					if (urlPageError.charAt(0) != '/') {
+						urlPageError = "/" + urlPageError;
+					}
+
+					resp.resetBuffer();
+					resp.setStatus(302);
+					resp.sendRedirect(req.getContextPath() + urlPageError);
+					return;
+				}
+				
+					
+				
 			}
 
 		} catch (Exception e) {
