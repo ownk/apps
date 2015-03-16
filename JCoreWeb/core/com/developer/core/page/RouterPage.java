@@ -25,16 +25,18 @@ public class RouterPage {
 	private XSLTransformer xslTransformer;
 	private IXMLPageGenerador privatePageGenerador;
 	private IXMLPageGenerador publicPageGenerador;
+	private String urlPageAccesoDenegado;
 	
 	private String webpackage;
 	
-	private RouterPage (String webPackageInit, IXMLPageGenerador privatePageGenerator, IXMLPageGenerador publicPageGenerador){
+	private RouterPage (String webPackageInit, IXMLPageGenerador privatePageGenerator, IXMLPageGenerador publicPageGenerador, String urlPageAccesoDenegado){
 		
 		xmlPageGenerator = new XMLPageExecuter();
 		xslTransformer = new XSLTransformer();
 		this.webpackage = webPackageInit;
 		this.privatePageGenerador = privatePageGenerator;
 		this.publicPageGenerador = publicPageGenerador;
+		this.urlPageAccesoDenegado = urlPageAccesoDenegado;
 		
 		
 	}
@@ -58,15 +60,15 @@ public class RouterPage {
 	 * @throws Exception 
 	 */
 	
-	public static RouterPage getRouter(String webPackageInit, IXMLPageGenerador privatePageGenerator, IXMLPageGenerador publicPageGenerator) throws Exception{
+	public static RouterPage getRouter(String webPackageInit, IXMLPageGenerador privatePageGenerator, IXMLPageGenerador publicPageGenerator, String urlPageAccesoDenegado) throws Exception{
 		
-		if(webPackageInit== null || privatePageGenerator == null || publicPageGenerator == null ){
+		if(webPackageInit== null || privatePageGenerator == null || publicPageGenerator == null || urlPageAccesoDenegado == null){
 		
-			throw new Exception("Los parametros webPackageInit, privatePageGenerator, publicPageGenerator no pueden ser nulos ");
+			throw new Exception("Los parametros webPackageInit, privatePageGenerator, publicPageGenerator y urlPageAccesoDenegado no pueden ser nulos ");
 		}else{
 		
 			if(enrutador == null) {
-				enrutador = new RouterPage(webPackageInit, privatePageGenerator, publicPageGenerator);
+				enrutador = new RouterPage(webPackageInit, privatePageGenerator, publicPageGenerator, urlPageAccesoDenegado);
 			
 			}
 			
@@ -195,8 +197,8 @@ public class RouterPage {
 					xmlPage = xmlPageGenerator.getXMLPage(request, publicPageGenerador, outputExecutionPage);
 					
 				} else {
-					out.println("acceso denegado");
-					return;
+					nextPage = urlPageAccesoDenegado;
+					
 				}
 
 				nextPage = page.getNextPage();
@@ -216,8 +218,7 @@ public class RouterPage {
 					xmlPage = xmlPageGenerator.getXMLPage(request, privatePageGenerador, outputExecutionPage);
 					
 				} else {
-					out.println("acceso denegado");
-					return;
+					nextPage = urlPageAccesoDenegado;
 				}
 
 				nextPage = page.getNextPage();
