@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="JCoreWeb" default="Preparar-JAR">
+	 <property name="src.dir" location="core"/>
+    <property name="web.dir" location="WebContent"/>
+    <property name="lib.dir" location="${web.dir}/WEB-INF/lib"/>
+    <property name="bin.dir" location="WebContent/WEB-INF/classes"/>
+    <property environment="env"/>
+    <property name="project.name" value="pruebaweb"/>
+    <path id="project.classpath">
+        <pathelement location="${src.dir}"/>
+        <fileset dir="${lib.dir}">
+            <include name="*.jar"/>
+        </fileset>
+    </path>
+    <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+    <!-- Crear JAR -->
+    <target name="Preparar-JAR">
+        <javac srcdir="${src.dir}" destdir="${bin.dir}">
+            <classpath refid="project.classpath"/>
+        </javac>
+        <delete file="jar/jcoreweb.jar"/>
+        <zip destfile="jar/jcoreweb.jar">
+            <zipfileset dir="${bin.dir}">
+                <include name="**/*.*"/>
+            </zipfileset>
+        </zip>
+    </target>
+</project>
