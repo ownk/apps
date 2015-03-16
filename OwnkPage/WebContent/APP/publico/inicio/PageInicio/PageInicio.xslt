@@ -19,7 +19,16 @@
 			<!-- ================================== -->
 			
 			<!-- <add type='css' 	src="publico/inicio/PageInicio/PageInicio.css" /> -->
-			<add type='script' 	src="publico/inicio/PageInicio/PageInicio.js" />
+			
+			
+			<add type='css' 	src="publico/inicio/PageInicio/css/animate.min.css" />
+			<add type='css' 	src="publico/inicio/PageInicio/css/inicio.css" />
+			
+			<add type='script' 	src="publico/inicio/PageInicio/js/classie.js" />
+			<add type='script' 	src="publico/inicio/PageInicio/js/cbpAnimatedHeader.js" />
+			<add type='script' 	src="publico/inicio/PageInicio/js/wow.min.js" />
+			<add type='script' 	src="publico/inicio/PageInicio/js/inspinia.js" />
+			
 					
 
 			<!-- ================================== -->
@@ -35,430 +44,462 @@
 			        	<xsl:call-template name="nav-bar-top"/>
 			        </div>
 			        
-	                <div class="row  border-bottom white-bg dashboard-header">
-	
-	                    <div class="col-sm-3">
-	                        <h2>Welcome Amelia</h2>
-	                        <small>You have 42 messages and 6 notifications.</small>
-	                        <ul class="list-group clear-list m-t">
-	                            <li class="list-group-item fist-item">
-	                                <span class="pull-right">
-	                                    09:00 pm
-	                                </span>
-	                                <span class="label label-success">1</span> Please contact me
-	                            </li>
-	                            <li class="list-group-item">
-	                                <span class="pull-right">
-	                                    10:16 am
-	                                </span>
-	                                <span class="label label-info">2</span> Sign a contract
-	                            </li>
-	                            <li class="list-group-item">
-	                                <span class="pull-right">
-	                                    08:22 pm
-	                                </span>
-	                                <span class="label label-primary">3</span> Open new shop
-	                            </li>
-	                            <li class="list-group-item">
-	                                <span class="pull-right">
-	                                    11:06 pm
-	                                </span>
-	                                <span class="label label-default">4</span> Call back to Sylvia
-	                            </li>
-	                            <li class="list-group-item">
-	                                <span class="pull-right">
-	                                    12:00 am
-	                                </span>
-	                                <span class="label label-primary">5</span> Write a letter to Sandra
-	                            </li>
-	                        </ul>
-	                    </div>
-	                    <div class="col-sm-6">
-	                        <div class="flot-chart dashboard-chart">
-	                            <div class="flot-chart-content" id="flot-dashboard-chart"></div>
-	                        </div>
-	                        <div class="row text-left">
-	                            <div class="col-xs-4">
-	                                <div class=" m-l-md">
-	                                <span class="h4 font-bold m-t block">$ 406,100</span>
-	                                <small class="text-muted m-b block">Sales marketing report</small>
-	                                </div>
-	                            </div>
-	                            <div class="col-xs-4">
-	                                <span class="h4 font-bold m-t block">$ 150,401</span>
-	                                <small class="text-muted m-b block">Annual sales revenue</small>
-	                            </div>
-	                            <div class="col-xs-4">
-	                                <span class="h4 font-bold m-t block">$ 16,822</span>
-	                                <small class="text-muted m-b block">Half-year revenue margin</small>
-	                            </div>
-	
-	                        </div>
-	                    </div>
-	                    <div class="col-sm-3">
-	                        <div class="statistic-box">
-	                        <h4>
-	                            Project Beta progress
-	                        </h4>
-	                        <p>
-	                            You have two project with not compleated task.
-	                        </p>
-	                            <div class="row text-center">
-	                                <div class="col-lg-6">
-	                                    <canvas id="polarChart" width="80" height="80"></canvas>
-	                                    <h5 >Kolter</h5>
-	                                </div>
-	                                <div class="col-lg-6">
-	                                    <canvas id="doughnutChart" width="78" height="78"></canvas>
-	                                    <h5 >Maxtor</h5>
-	                                </div>
-	                            </div>
-	                            <div class="m-t">
-	                                <small>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</small>
-	                            </div>
-	
-	                        </div>
-	                    </div>
-	
-	            </div>
-	            
-		        <div class="row">
-		            <div class="col-lg-12">
-		                <div class="wrapper wrapper-content">
-		                        <div class="row">
-		                        <div class="col-lg-4">
-		                            <div class="ibox float-e-margins">
-		                                <div class="ibox-title">
-		                                    <h5>New data for the report</h5> <span class="label label-primary">IN+</span>
-		                                    <div class="ibox-tools">
-		                                        <a class="collapse-link">
-		                                            <i class="fa fa-chevron-up"></i>
-		                                        </a>
-		                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                                            <i class="fa fa-wrench"></i>
-		                                        </a>
-		                                        <ul class="dropdown-menu dropdown-user">
-		                                            <li><a href="#">Config option 1</a>
-		                                            </li>
-		                                            <li><a href="#">Config option 2</a>
-		                                            </li>
-		                                        </ul>
-		                                        <a class="close-link">
-		                                            <i class="fa fa-times"></i>
-		                                        </a>
-		                                    </div>
-		                                </div>
-		                                <div class="ibox-content">
-		                                    <div>
-		
-		                                        <div class="pull-right text-right">
-		
-		                                            <span class="bar_dashboard">5,3,9,6,5,9,7,3,5,2,4,7,3,2,7,9,6,4,5,7,3,2,1,0,9,5,6,8,3,2,1</span>
-		                                            <br/>
-		                                            <small class="font-bold">$ 20 054.43</small>
-		                                        </div>
-		                                        <h4>NYS report new data!
-		                                            <br/>
-		                                            <small class="m-r"><a href="graph_flot.html"> Check the stock price! </a> </small>
-		                                        </h4>
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            <div class="ibox float-e-margins">
-		                                <div class="ibox-title">
-		                                    <h5>Read below comments and tweets</h5>
-		                                    <div class="ibox-tools">
-		                                        <a class="collapse-link">
-		                                            <i class="fa fa-chevron-up"></i>
-		                                        </a>
-		                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                                            <i class="fa fa-wrench"></i>
-		                                        </a>
-		                                        <ul class="dropdown-menu dropdown-user">
-		                                            <li><a href="#">Config option 1</a>
-		                                            </li>
-		                                            <li><a href="#">Config option 2</a>
-		                                            </li>
-		                                        </ul>
-		                                        <a class="close-link">
-		                                            <i class="fa fa-times"></i>
-		                                        </a>
-		                                    </div>
-		                                </div>
-		                                <div class="ibox-content no-padding">
-		                                    <ul class="list-group">
-		                                        <li class="list-group-item">
-		                                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-		                                            <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
-		                                        </li>
-		                                        <li class="list-group-item">
-		                                            <p><a class="text-info" href="#">@Stock Man</a> Check this stock chart. This price is crazy! </p>
-		                                            <div class="text-center m">
-		                                                <span id="sparkline8"></span>
-		                                            </div>
-		                                            <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 hours ago</small>
-		                                        </li>
-		                                        <li class="list-group-item">
-		                                            <p><a class="text-info" href="#">@Kevin Smith</a> Lorem ipsum unknown printer took a galley </p>
-		                                            <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
-		                                        </li>
-		                                        <li class="list-group-item ">
-		                                            <p><a class="text-info" href="#">@Jonathan Febrick</a> The standard chunk of Lorem Ipsum</p>
-		                                            <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 hour ago</small>
-		                                        </li>
-		                                        <li class="list-group-item">
-		                                            <p><a class="text-info" href="#">@Alan Marry</a> I belive that. Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
-		                                            <small class="block text-muted"><i class="fa fa-clock-o"></i> 1 minuts ago</small>
-		                                        </li>
-		                                        <li class="list-group-item">
-		                                            <p><a class="text-info" href="#">@Kevin Smith</a> Lorem ipsum unknown printer took a galley </p>
-		                                            <small class="block text-muted"><i class="fa fa-clock-o"></i> 2 minuts ago</small>
-		                                        </li>
-		                                    </ul>
-		                                </div>
-		                            </div>
-		                        </div>
-		                            <div class="col-lg-4">
-		                                <div class="ibox float-e-margins">
-		                                    <div class="ibox-title">
-		                                        <h5>Your daily feed</h5>
-		                                        <div class="ibox-tools">
-		                                            <span class="label label-warning-light">10 Messages</span>
-		                                           </div>
-		                                    </div>
-		                                    <div class="ibox-content">
-		
-		                                        <div>
-		                                            <div class="feed-activity-list">
-		
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/profile.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right">5m ago</small>
-		                                                        <strong>Monica Smith</strong> posted a new blog. <br/>
-		                                                        <small class="text-muted">Today 5:60 pm - 12.06.2014</small>
-		
-		                                                    </div>
-		                                                </div>
-		
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/a2.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right">2h ago</small>
-		                                                        <strong>Mark Johnson</strong> posted message on <strong>Monica Smith</strong> site. <br/>
-		                                                        <small class="text-muted">Today 2:10 pm - 12.06.2014</small>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/a3.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right">2h ago</small>
-		                                                        <strong>Janet Rosowski</strong> add 1 photo on <strong>Monica Smith</strong>. <br/>
-		                                                        <small class="text-muted">2 days ago at 8:30am</small>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/a4.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right text-navy">5h ago</small>
-		                                                        <strong>Chris Johnatan Overtunk</strong> started following <strong>Monica Smith</strong>. <br/>
-		                                                        <small class="text-muted">Yesterday 1:21 pm - 11.06.2014</small>
-		                                                        <div class="actions">
-		                                                            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-		                                                            <a class="btn btn-xs btn-white"><i class="fa fa-heart"></i> Love</a>
-		                                                        </div>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/a5.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right">2h ago</small>
-		                                                        <strong>Kim Smith</strong> posted message on <strong>Monica Smith</strong> site. <br/>
-		                                                        <small class="text-muted">Yesterday 5:20 pm - 12.06.2014</small>
-		                                                        <div class="well">
-		                                                            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s.
-		                                                            Over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-		                                                        </div>
-		                                                        <div class="pull-right">
-		                                                            <a class="btn btn-xs btn-white"><i class="fa fa-thumbs-up"></i> Like </a>
-		                                                        </div>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/profile.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right">23h ago</small>
-		                                                        <strong>Monica Smith</strong> love <strong>Kim Smith</strong>. <br/>
-		                                                        <small class="text-muted">2 days ago at 2:30 am - 11.06.2014</small>
-		                                                    </div>
-		                                                </div>
-		                                                <div class="feed-element">
-		                                                    <a href="profile.html" class="pull-left">
-		                                                        <img alt="image" class="img-circle" src="{//contextPath}/general/img/a7.jpg"/>
-		                                                    </a>
-		                                                    <div class="media-body ">
-		                                                        <small class="pull-right">46h ago</small>
-		                                                        <strong>Mike Loreipsum</strong> started following <strong>Monica Smith</strong>. <br/>
-		                                                        <small class="text-muted">3 days ago at 7:58 pm - 10.06.2014</small>
-		                                                    </div>
-		                                                </div>
-		                                            </div>
-		
-		                                            <button class="btn btn-primary btn-block m-t"><i class="fa fa-arrow-down"></i> Show More</button>
-		
-		                                        </div>
-		
-		                                    </div>
-		                                </div>
-		
-		                            </div>
-		                        <div class="col-lg-4">
-		                            <div class="ibox float-e-margins">
-		                                <div class="ibox-title">
-		                                    <h5>Alpha project</h5>
-		                                    <div class="ibox-tools">
-		                                        <a class="collapse-link">
-		                                            <i class="fa fa-chevron-up"></i>
-		                                        </a>
-		                                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-		                                            <i class="fa fa-wrench"></i>
-		                                        </a>
-		                                        <ul class="dropdown-menu dropdown-user">
-		                                            <li><a href="#">Config option 1</a>
-		                                            </li>
-		                                            <li><a href="#">Config option 2</a>
-		                                            </li>
-		                                        </ul>
-		                                        <a class="close-link">
-		                                            <i class="fa fa-times"></i>
-		                                        </a>
-		                                    </div>
-		                                </div>
-		                                <div class="ibox-content ibox-heading">
-		                                    <h3>You have meeting today!</h3>
-		                                    <small><i class="fa fa-map-marker"></i> Meeting is on 6:00am. Check your schedule to see detail.</small>
-		                                </div>
-		                                <div class="ibox-content inspinia-timeline">
-		
-		                                    <div class="timeline-item">
-		                                        <div class="row">
-		                                            <div class="col-xs-3 date">
-		                                                <i class="fa fa-briefcase"></i>
-		                                                6:00 am
-		                                                <br/>
-		                                                <small class="text-navy">2 hour ago</small>
-		                                            </div>
-		                                            <div class="col-xs-7 content no-top-border">
-		                                                <p class="m-b-xs"><strong>Meeting</strong></p>
-		
-		                                                <p>Conference on the sales results for the previous year. Monica please examine sales trends in marketing and products. Below please find the current status of the
-		                                                    sale.</p>
-		
-		                                                <p><span data-diameter="40" class="updating-chart">5,3,9,6,5,9,7,3,5,2,5,3,9,6,5,9,4,7,3,2,9,8,7,4,5,1,2,9,5,4,7,2,7,7,3,5,2</span></p>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="timeline-item">
-		                                        <div class="row">
-		                                            <div class="col-xs-3 date">
-		                                                <i class="fa fa-file-text"></i>
-		                                                7:00 am
-		                                                <br/>
-		                                                <small class="text-navy">3 hour ago</small>
-		                                            </div>
-		                                            <div class="col-xs-7 content">
-		                                                <p class="m-b-xs"><strong>Send documents to Mike</strong></p>
-		                                                <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since.</p>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="timeline-item">
-		                                        <div class="row">
-		                                            <div class="col-xs-3 date">
-		                                                <i class="fa fa-coffee"></i>
-		                                                8:00 am
-		                                                <br/>
-		                                            </div>
-		                                            <div class="col-xs-7 content">
-		                                                <p class="m-b-xs"><strong>Coffee Break</strong></p>
-		                                                <p>
-		                                                    Go to shop and find some products.
-		                                                    Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's.
-		                                                </p>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="timeline-item">
-		                                        <div class="row">
-		                                            <div class="col-xs-3 date">
-		                                                <i class="fa fa-phone"></i>
-		                                                11:00 am
-		                                                <br/>
-		                                                <small class="text-navy">21 hour ago</small>
-		                                            </div>
-		                                            <div class="col-xs-7 content">
-		                                                <p class="m-b-xs"><strong>Phone with Jeronimo</strong></p>
-		                                                <p>
-		                                                    Lorem Ipsum has been the industry's standard dummy text ever since.
-		                                                </p>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="timeline-item">
-		                                        <div class="row">
-		                                            <div class="col-xs-3 date">
-		                                                <i class="fa fa-user-md"></i>
-		                                                09:00 pm
-		                                                <br/>
-		                                                <small>21 hour ago</small>
-		                                            </div>
-		                                            <div class="col-xs-7 content">
-		                                                <p class="m-b-xs"><strong>Go to the doctor dr Smith</strong></p>
-		                                                <p>
-		                                                    Find some issue and go to doctor.
-		                                                </p>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		                                    <div class="timeline-item">
-		                                        <div class="row">
-		                                            <div class="col-xs-3 date">
-		                                                <i class="fa fa-comments"></i>
-		                                                12:50 pm
-		                                                <br/>
-		                                                <small class="text-navy">48 hour ago</small>
-		                                            </div>
-		                                            <div class="col-xs-7 content">
-		                                                <p class="m-b-xs"><strong>Chat with Monica and Sandra</strong></p>
-		                                                <p>
-		                                                    Web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).
-		                                                </p>
-		                                            </div>
-		                                        </div>
-		                                    </div>
-		
-		                                </div>
-		                            </div>
-		                        </div>
-		
-		                        </div>
-		                </div>
-		                <xsl:call-template name="footer"></xsl:call-template>
-		            </div>
-		        </div>
-		
+	                
+	                
+	                	<div id="inSlider" class="carousel slide carousel-fade" data-ride="carousel">
+						    <ol class="carousel-indicators">
+						        <li data-target="#inSlider" data-slide-to="0" class="active"></li>
+						        <li data-target="#inSlider" data-slide-to="1"></li>
+						    </ol>
+						    <div class="carousel-inner" role="listbox">
+						        <div class="item active">
+						            <div class="container">
+						                <div class="carousel-caption">
+						                    <h1>We craft<br/>
+						                        brands, web apps,<br/>
+						                        and user interfaces<br/>
+						                        we are IN+ studio</h1>
+						                    <p>Lorem Ipsum is simply dummy text of the printing.</p>
+						                    <p>
+						                        <a class="btn btn-lg btn-primary" href="#" role="button">READ MORE</a>
+						                        <a class="caption-link" href="#" role="button">Inspinia Theme</a>
+						                    </p>
+						                </div>
+						                <div class="carousel-image wow zoomIn">
+						                    <img src="publico/inicio/PageInicio/img/laptop.png" alt="laptop"/>
+						                </div>
+						            </div>
+						            <!-- Set background for slide in css -->
+						            <div class="header-back one"></div>
+						
+						        </div>
+						        <div class="item">
+						            <div class="container">
+						                <div class="carousel-caption blank">
+						                    <h1>We create meaningful <br/> interfaces that inspire.</h1>
+						                    <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam.</p>
+						                    <p><a class="btn btn-lg btn-primary" href="#" role="button">Learn more</a></p>
+						                </div>
+						            </div>
+						            <!-- Set background for slide in css -->
+						            <div class="header-back two"></div>
+						        </div>
+						    </div>
+						    <a class="left carousel-control" href="#inSlider" role="button" data-slide="prev">
+						        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+						        <span class="sr-only">Previous</span>
+						    </a>
+						    <a class="right carousel-control" href="#inSlider" role="button" data-slide="next">
+						        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+						        <span class="sr-only">Next</span>
+						    </a>
+						</div>
+						
+						
+						<section id="features" class="container services">
+						    <div class="row">
+						        <div class="col-sm-3">
+						            <h2>Full responsive</h2>
+						            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            <p><a class="navy-link" href="#" role="button">Details ...</a></p>
+						        </div>
+						        <div class="col-sm-3">
+						            <h2>LESS/SASS Files</h2>
+						            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            <p><a class="navy-link" href="#" role="button">Details ...</a></p>
+						        </div>
+						        <div class="col-sm-3">
+						            <h2>6 Charts Library</h2>
+						            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            <p><a class="navy-link" href="#" role="button">Details ...</a></p>
+						        </div>
+						        <div class="col-sm-3">
+						            <h2>Advanced Forms</h2>
+						            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            <p><a class="navy-link" href="#" role="button">Details ...</a></p>
+						        </div>
+						    </div>
+						</section>
+						
+						<section  class="container features">
+						    <div class="row">
+						        <div class="col-lg-12 text-center">
+						            <div class="navy-line"></div>
+						            <h1>Over 40+ unique view<br/> <span class="navy"> with many custom components</span> </h1>
+						            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+						        </div>
+						    </div>
+						    <div class="row">
+						        <div class="col-md-3 text-center wow fadeInLeft">
+						            <div>
+						                <i class="fa fa-mobile features-icon"></i>
+						                <h2>Full responsive</h2>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            </div>
+						            <div class="m-t-lg">
+						                <i class="fa fa-bar-chart features-icon"></i>
+						                <h2>6 Charts Library</h2>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            </div>
+						        </div>
+						        <div class="col-md-6 text-center  wow zoomIn">
+						            <img src="publico/inicio/PageInicio/img/perspective.png" alt="dashboard" class="img-responsive"/>
+						        </div>
+						        <div class="col-md-3 text-center wow fadeInRight">
+						            <div>
+						                <i class="fa fa-envelope features-icon"></i>
+						                <h2>Mail pages</h2>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            </div>
+						            <div class="m-t-lg">
+						                <i class="fa fa-google features-icon"></i>
+						                <h2>AngularJS version</h2>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. Nullam id dolor id nibh ultricies vehicula ut id elit. Morbi leo risus.</p>
+						            </div>
+						        </div>
+						    </div>
+						    <div class="row">
+						        <div class="col-lg-12 text-center">
+						            <div class="navy-line"></div>
+						            <h1>Discover great feautres</h1>
+						            <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+						        </div>
+						    </div>
+						    <div class="row features-block">
+						        <div class="col-lg-6 features-text wow fadeInLeft">
+						            <small>INSPINIA</small>
+						            <h2>Perfectly designed </h2>
+						            <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
+						            <a href="" class="btn btn-primary">Learn more</a>
+						        </div>
+						        <div class="col-lg-6 text-right wow fadeInRight">
+						            <img src="publico/inicio/PageInicio/img/dashboard.png" alt="dashboard" class="img-responsive pull-right"/>
+						        </div>
+						    </div>
+						</section>
+						
+						<section id="team" class="gray-section team">
+						    <div class="container">
+						        <div class="row m-b-lg">
+						            <div class="col-lg-12 text-center">
+						                <div class="navy-line"></div>
+						                <h1>Our Team</h1>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-sm-4 wow fadeInLeft">
+						                <div class="team-member">
+						                    <img src="publico/inicio/PageInicio/img/avatar3.jpg" class="img-responsive img-circle img-small" alt=""/>
+						                    <h4><span class="navy">Amelia</span> Smith</h4>
+						                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus. </p>
+						                    <ul class="list-inline social-icon">
+						                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+						                        </li>
+						                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+						                        </li>
+						                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+						                        </li>
+						                    </ul>
+						                </div>
+						            </div>
+						            <div class="col-sm-4">
+						                <div class="team-member wow zoomIn">
+						                    <img src="publico/inicio/PageInicio/img/avatar1.jpg" class="img-responsive img-circle" alt=""/>
+						                    <h4><span class="navy">John</span> Novak</h4>
+						                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.</p>
+						                    <ul class="list-inline social-icon">
+						                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+						                        </li>
+						                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+						                        </li>
+						                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+						                        </li>
+						                    </ul>
+						                </div>
+						            </div>
+						            <div class="col-sm-4 wow fadeInRight">
+						                <div class="team-member">
+						                    <img src="publico/inicio/PageInicio/img/avatar2.jpg" class="img-responsive img-circle img-small" alt=""/>
+						                    <h4><span class="navy">Peter</span> Johnson</h4>
+						                    <p>Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.</p>
+						                    <ul class="list-inline social-icon">
+						                        <li><a href="#"><i class="fa fa-twitter"></i></a>
+						                        </li>
+						                        <li><a href="#"><i class="fa fa-facebook"></i></a>
+						                        </li>
+						                        <li><a href="#"><i class="fa fa-linkedin"></i></a>
+						                        </li>
+						                    </ul>
+						                </div>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+						                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+						            </div>
+						        </div>
+						    </div>
+						</section>
+						
+						<section class="features">
+						    <div class="container">
+						        <div class="row">
+						            <div class="col-lg-12 text-center">
+						                <div class="navy-line"></div>
+						                <h1>Even more great feautres</h1>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+						            </div>
+						        </div>
+						        <div class="row features-block">
+						            <div class="col-lg-3 features-text wow fadeInLeft">
+						                <small>INSPINIA</small>
+						                <h2>Perfectly designed </h2>
+						                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
+						                <a href="" class="btn btn-primary">Learn more</a>
+						            </div>
+						            <div class="col-lg-6 text-right m-t-n-lg wow zoomIn">
+						                <img src="publico/inicio/PageInicio/img/iphone.jpg" class="img-responsive" alt="dashboard"/>
+						            </div>
+						            <div class="col-lg-3 features-text text-right wow fadeInRight">
+						                <small>INSPINIA</small>
+						                <h2>Perfectly designed </h2>
+						                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with latest jQuery plugins.</p>
+						                <a href="" class="btn btn-primary">Learn more</a>
+						            </div>
+						        </div>
+						    </div>
+						
+						</section>
+						
+						<section id="testimonials" class="navy-section testimonials">
+						
+						    <div class="container">
+						        <div class="row">
+						            <div class="col-lg-12 text-center wow zoomIn">
+						                <i class="fa fa-comment big-icon"></i>
+						                <h1>
+						                    What our users say
+						                </h1>
+						                <div class="testimonials-text">
+						                    <i>"Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like)."</i>
+						                </div>
+						                <small>
+						                    <strong>12.02.2014 - Andy Smith</strong>
+						                </small>
+						            </div>
+						        </div>
+						    </div>
+						
+						</section>
+						<section class="features">
+						    <div class="container">
+						        <div class="row">
+						            <div class="col-lg-12 text-center">
+						                <div class="navy-line"></div>
+						                <h1>More and more extra great feautres</h1>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod. </p>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-lg-5 col-lg-offset-1 features-text">
+						                <small>INSPINIA</small>
+						                <h2>Perfectly designed </h2>
+						                <i class="fa fa-bar-chart big-icon pull-right"></i>
+						                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
+						            </div>
+						            <div class="col-lg-5 features-text">
+						                <small>INSPINIA</small>
+						                <h2>Perfectly designed </h2>
+						                <i class="fa fa-bolt big-icon pull-right"></i>
+						                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-lg-5 col-lg-offset-1 features-text">
+						                <small>INSPINIA</small>
+						                <h2>Perfectly designed </h2>
+						                <i class="fa fa-clock-o big-icon pull-right"></i>
+						                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
+						            </div>
+						            <div class="col-lg-5 features-text">
+						                <small>INSPINIA</small>
+						                <h2>Perfectly designed </h2>
+						                <i class="fa fa-users big-icon pull-right"></i>
+						                <p>INSPINIA Admin Theme is a premium admin dashboard template with flat design concept. It is fully responsive admin dashboard template built with Bootstrap 3+ Framework, HTML5 and CSS3, Media query. It has a huge collection of reusable UI components and integrated with.</p>
+						            </div>
+						        </div>
+						    </div>
+						
+						</section>
+						<section id="pricing" class="pricing">
+						    <div class="container">
+						        <div class="row m-b-lg">
+						            <div class="col-lg-12 text-center">
+						                <div class="navy-line"></div>
+						                <h1>App Pricing</h1>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-lg-4 wow zoomIn">
+						                <ul class="pricing-plan list-unstyled">
+						                    <li class="pricing-title">
+						                        Basic
+						                    </li>
+						                    <li class="pricing-desc">
+						                        Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+						                    </li>
+						                    <li class="pricing-price">
+						                        <span>$16</span> / month
+						                    </li>
+						                    <li>
+						                        Dashboards
+						                    </li>
+						                    <li>
+						                        Projects view
+						                    </li>
+						                    <li>
+						                        Contacts
+						                    </li>
+						                    <li>
+						                        Calendar
+						                    </li>
+						                    <li>
+						                        AngularJs
+						                    </li>
+						                    <li>
+						                        <a class="btn btn-primary btn-xs" href="#">Signup</a>
+						                    </li>
+						                </ul>
+						            </div>
+						
+						            <div class="col-lg-4 wow zoomIn">
+						                <ul class="pricing-plan list-unstyled selected">
+						                    <li class="pricing-title">
+						                        Standard
+						                    </li>
+						                    <li class="pricing-desc">
+						                        Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+						                    </li>
+						                    <li class="pricing-price">
+						                        <span>$22</span> / month
+						                    </li>
+						                    <li>
+						                        Dashboards
+						                    </li>
+						                    <li>
+						                        Projects view
+						                    </li>
+						                    <li>
+						                        Contacts
+						                    </li>
+						                    <li>
+						                        Calendar
+						                    </li>
+						                    <li>
+						                        AngularJs
+						                    </li>
+						                    <li>
+						                        <strong>Support platform</strong>
+						                    </li>
+						                    <li class="plan-action">
+						                        <a class="btn btn-primary btn-xs" href="#">Signup</a>
+						                    </li>
+						                </ul>
+						            </div>
+						
+						            <div class="col-lg-4 wow zoomIn">
+						                <ul class="pricing-plan list-unstyled">
+						                    <li class="pricing-title">
+						                        Premium
+						                    </li>
+						                    <li class="pricing-desc">
+						                        Lorem ipsum dolor sit amet, illum fastidii dissentias quo ne. Sea ne sint animal iisque, nam an soluta sensibus.
+						                    </li>
+						                    <li class="pricing-price">
+						                        <span>$160</span> / month
+						                    </li>
+						                    <li>
+						                        Dashboards
+						                    </li>
+						                    <li>
+						                        Projects view
+						                    </li>
+						                    <li>
+						                        Contacts
+						                    </li>
+						                    <li>
+						                        Calendar
+						                    </li>
+						                    <li>
+						                        AngularJs
+						                    </li>
+						                    <li>
+						                        <a class="btn btn-primary btn-xs" href="#">Signup</a>
+						                    </li>
+						                </ul>
+						            </div>
+						        </div>
+						        <div class="row m-t-lg">
+						            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg">
+						                <p>*Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for 'lorem ipsum' will uncover many web sites still in their infancy. <span class="navy">Various versions</span>  have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).</p>
+						            </div>
+						        </div>
+						    </div>
+						
+						</section>
+						
+						<section id="contact" class="gray-section contact">
+						    <div class="container">
+						        <div class="row m-b-lg">
+						            <div class="col-lg-12 text-center">
+						                <div class="navy-line"></div>
+						                <h1>Contact Us</h1>
+						                <p>Donec sed odio dui. Etiam porta sem malesuada magna mollis euismod.</p>
+						            </div>
+						        </div>
+						        <div class="row m-b-lg">
+						            <div class="col-lg-3 col-lg-offset-3">
+						                <address>
+						                    <strong><span class="navy">Company name, Inc.</span></strong><br/>
+						                    795 Folsom Ave, Suite 600<br/>
+						                    San Francisco, CA 94107<br/>
+						                    <abbr title="Phone">P:</abbr> (123) 456-7890
+						                </address>
+						            </div>
+						            <div class="col-lg-4">
+						                <p class="text-color">
+						                    Consectetur adipisicing elit. Aut eaque, totam corporis laboriosam veritatis quis ad perspiciatis, totam corporis laboriosam veritatis, consectetur adipisicing elit quos non quis ad perspiciatis, totam corporis ea,
+						                </p>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-lg-12 text-center">
+						                <a href="mailto:test@email.com" class="btn btn-primary">Send us mail</a>
+						                <p class="m-t-sm">
+						                    Or follow us on social platform
+						                </p>
+						                <ul class="list-inline social-icon">
+						                    <li><a href="#"><i class="fa fa-twitter"></i></a>
+						                    </li>
+						                    <li><a href="#"><i class="fa fa-facebook"></i></a>
+						                    </li>
+						                    <li><a href="#"><i class="fa fa-linkedin"></i></a>
+						                    </li>
+						                </ul>
+						            </div>
+						        </div>
+						        <div class="row">
+						            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+						                <p><strong>2015 Ownk</strong><br/> consectetur adipisicing elit. Aut eaque, laboriosam veritatis, quos non quis ad perspiciatis, totam corporis ea, alias ut unde.</p>
+						            </div>
+						        </div>
+						    </div>
+						</section>
+	                
+	                
+	                
 		        </div>
 		    </div>
 		

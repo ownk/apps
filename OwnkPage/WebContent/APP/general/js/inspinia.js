@@ -40,6 +40,8 @@ $(document).ready(function () {
     });
     */
     
+   
+    
 
     // minimalize menu
     $('.navbar-minimalize').click(function () {
@@ -78,11 +80,27 @@ $(document).ready(function () {
     $(window).bind("load resize click scroll", function() {
         if(!$("body").hasClass('body-small')) {
             fix_height();
+            
         }
     })
 
     $("[data-toggle=popover]")
         .popover();
+    
+    
+//    $(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
+//    $("body").removeClass('boxed-layout');
+//    $("body").addClass('fixed-nav');
+    
+    $("body").addClass('mini-navbar');
+    SmoothlyMenu();
+    
+    
+    
+    
+    
+    
+    
 });
 
 
@@ -105,31 +123,50 @@ function animationHover(element, animation){
 $(function() {
     $(window).bind("load resize", function() {
         if ($(this).width() < 769) {
-            $('body').addClass('body-small')
+            $('body').addClass('body-small');
+            
+            setTimeout(
+                    function () {
+                    	$('.navbar-minimalize').click();
+                    }, 1000);
+            
+            
         } else {
-            $('body').removeClass('body-small')
+            $('body').removeClass('body-small');
+            
         }
+        
+        
     })
 })
 
 function SmoothlyMenu() {
     if (!$('body').hasClass('mini-navbar') || $('body').hasClass('body-small')) {
+    	
+    	
+    	
+    	
         // Hide menu in order to smoothly turn on when maximize menu
+    	
         $('#side-menu').hide();
         // For smoothly turn on menu
         setTimeout(
             function () {
                 $('#side-menu').fadeIn(500);
             }, 100);
+        
+        
     } else if ($('body').hasClass('fixed-sidebar')){
         $('#side-menu').hide();
         setTimeout(
             function () {
                 $('#side-menu').fadeIn(500);
             }, 300);
+    	
     } else {
         // Remove all inline style from jquery fadeIn function to reset menu state
         $('#side-menu').removeAttr('style');
+    	
     }
 }
 
