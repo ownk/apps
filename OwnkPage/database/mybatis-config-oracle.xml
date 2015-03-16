@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	
+	<!-- properties se definen los datos para la conexion -->
+	<!-- como las tenemos en un archivo de propiedades -->	
+	<!-- utilizamos el atributo resource para referenciarlo -->
+	<properties resource="oracle.properties"/>
+	
+	<!-- settings configuracion-->
+	<!-- setting parametro de configuracion es una etiqueta llave valor -->	
+	<!-- name=llave; value=valor -->	
+	
+	<settings>
+		<setting name="cacheEnabled" value="true"/>
+		<setting name="lazyLoadingEnabled" value="true"/>
+		<setting name="multipleResultSetsEnabled" value="true"/>
+		<setting name="useColumnLabel" value="true"/>
+		<setting name="useGeneratedKeys" value="false"/>
+		<setting name="defaultExecutorType" value="SIMPLE"/>
+		<setting name="defaultStatementTimeout" value="25000"/>
+	</settings>
+
+	<!-- <typeAliases> -->
+		<!-- ================================ -->
+		<!-- Modulo general ================= -->
+		<!-- ================================ -->
+		<!-- <typeAlias alias="" type="" />  -->
+		
+		<!-- ================================ -->
+		<!-- Modulo autenticacion =========== -->
+		<!-- ================================ -->
+		<!-- <typeAlias alias="" type="" /> -->
+			
+		<!-- ================================ -->
+		<!-- Modulo notificaciones ========== -->
+		<!-- ================================ -->
+		<!-- <typeAlias alias="" type="" />  -->
+	
+	<!-- </typeAliases> -->
+	
+	<!-- environments default configuracion por defecto-->
+	<!-- aqui se configuran las conexiones a la base de datos -->
+	<!-- environment una configuracion especifica -->
+	<environments default="development"> 
+		<environment id="development"> 
+			<transactionManager type="JDBC"/> 
+			<dataSource type="POOLED"> 
+				<property name="driver" value="${driver}"/> 
+				<property name="url" value="${url}"/> 
+				<property name="username" value="${username}"/> 
+				<property name="password" value="${password}"/> 
+			</dataSource> 
+		</environment> 
+	</environments> 
+	
+	
+	
+	
+	<mappers>
+		<!-- ================================ -->
+		<!-- Modulo general ================= -->
+		<!-- ================================ -->
+		
+		<!-- ================================ -->
+		<!-- Modulo autenticacion =========== -->
+		<!-- ================================ -->
+		<mapper resource="com/developer/persistence/modulo/autenticacion/mapper/xml/ServicioDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/autenticacion/mapper/xml/UsuarioDao.xml" />
+	
+		<!-- ================================ -->
+		<!-- Modulo notificaciones ========== -->
+		<!-- ================================ -->
+		<mapper resource="com/developer/persistence/modulo/notificaciones/mapper/xml/NotificacionInternaDao.xml" />
+	</mappers>
+	
+</configuration>

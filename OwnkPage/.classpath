@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="web"/>
+	<classpathentry kind="src" path="logica"/>
+	<classpathentry kind="src" path="database"/>
+	<classpathentry kind="src" path="test"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
+	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
+	<classpathentry kind="lib" path="/JCoreWeb/jar/jcoreweb.jar" sourcepath="/JCoreWeb"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/asm-1.5.3.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/avalon-framework-4.2.0.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cglib-2.1_3.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-controller-3.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-pipeline-3.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-poi-block.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-rest-3.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-servlet-3.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-sitemap-3.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cocoon-stringtemplate-3.0.0-alpha-1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/commons-email-1.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/commons-fileupload-1.2.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/commons-httpclient-3.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/commons-io-1.4.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/commons-logging-api-gump-03122009.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/jabsorb-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/log4j-1.2.16.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/mail.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/mybatis-3.0.4.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/ojdbc14.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/postgresql.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/serializer-2.7.0.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/servlet-api.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/slf4j-api-1.4.2.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/slf4j-jdk14-1.4.2.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xalan-2.7.0.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xercesImpl-2.7.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xml-apis-1.3.04.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xml-apis-ext-1.3.04.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xmlgraphics-commons-1.3.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xstream-1.3.1.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/3"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8">
+		<attributes>
+			<attribute name="owner.project.facets" value="java"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
+</classpath>
