@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.general.mapper.dao.PersonaDao">
+
+	<select id="getPersonaPorUsuario" parameterType="usuario" resultType="persona">
+		select p.* from ge_tpern p, ge_testd
+		where pern_pern = estd_pern
+		and estd_usua = #{usua_usua}
+		union 
+		select p.* from ge_tpern p, ge_tprof
+		where pern_pern = prof_pern
+		and prof_usua = #{usua_usua}
+		union
+		select p.* from ge_tpern p, ge_tpdop
+		where pern_pern = pdop_pern
+		and pdop_usua = #{usua_usua}
+		
+	</select>
+	
+	<select id="getPersona" parameterType="java.lang.Long" resultType="persona">
+		select p.* from ge_tpern p
+		where pern_pern = #{pern_pern}
+		
+	</select>
+	
+</mapper>

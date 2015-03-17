@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<json-services>
+
+	<service urn="nonsessionservice" class="com.developer.web.content.jsonrpc.services.EjemploJsonNonSessionService"/>
+	<session-service urn="sessionservice" class="com.developer.web.content.jsonrpc.services.EjemploJsonSessionService"/>
+	
+	
+	<!-- MODULO NOTIFICACIONES -->
+	<session-service urn="notificacionJSONServicio" class="com.developer.web.content.jsonrpc.services.modulo.notitficaciones.NotificacionJSONServicio"/>
+	
+</json-services>

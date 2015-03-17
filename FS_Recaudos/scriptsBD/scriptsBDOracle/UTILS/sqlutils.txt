@@ -1,0 +1,25 @@
+===================================
+== Eliminar objetos comunes de bd
+===================================
+SELECT * FROM (
+SELECT 'DROP TABLE '||table_name||' CASCADE CONSTRAINTS;' FROM user_tables UNION
+SELECT 'DROP VIEW '||VIEW_NAME||';' FROM user_views UNION
+SELECT 'DROP SEQUENCE '|| SEQUENCE_NAME||';' FROM user_sequences UNION
+SELECT 'DROP SYNONYM ' || SYNONYM_NAME ||';' FROM user_synonyms UNION
+SELECT 'DROP FUNCTION ' || OBJECT_NAME ||';' FROM user_procedures UNION
+SELECT 'PURGE RECYCLEBIN;' FROM dual)
+ORDER BY 1 ASC;
+
+
+delete from ge_testd;
+delete from ge_tpdop;
+delete from ge_tpdsa;
+delete from ge_tcord;
+delete from ge_tacpro;
+delete from ge_tprof;
+
+delete from aut_turol
+where UROL_USUA not in ('administrador','PUBLICO' );
+
+delete from aut_tusua
+where usua_usua not in ('administrador', 'SYSTEM', 'PUBLICO');

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.autenticacion.mapper.dao.UsuarioDao">
+
+	<select id="isUsuarioValido" parameterType="usuario" resultType="usuario">
+		select usua_usua, usua_mail from aut_tusua
+		where usua_usua = #{usua_usua}
+		and usua_clave = #{usua_clave}
+	</select>
+	
+	<select id="getMenuHorizontalPorUsuario" parameterType="usuario" resultType="servicio">
+		select distinct aut_tservicio.*, aut_tmodulo.*, aut_tsurl.* from aut_turol, aut_tsrol, aut_tservicio, aut_tmodulo, aut_tsurl
+		where urol_usua = #{usua_usua}
+		and urol_rol = srol_rol
+		and servicio_servicio = srol_servicio
+		and surl_servicio = servicio_servicio
+		and surl_tipo = 'P'
+		and modulo_modulo = servicio_modulo
+		and srol_visible = 'S'
+		order by servicio_modulo, servicio_orden asc 
+	</select>
+	
+	<select id="getServicioUsuarioPorURL" parameterType="usuarioURL" resultType="servicio">
+		select distinct aut_tservicio.*, aut_tmodulo.* from aut_turol, aut_tsrol, aut_tservicio, aut_tmodulo, aut_tsurl
+		where urol_usua = #{usua_usua}
+		and urol_rol = srol_rol
+		and servicio_servicio = srol_servicio
+		and surl_servicio = servicio_servicio
+		and modulo_modulo = servicio_modulo
+		and surl_url = #{url}
+	</select>
+	
+	<select id="getModulosPorUsuario" parameterType="usuarioURL" resultType="modulo">
+		select distinct aut_tmodulo.* from aut_turol, aut_tsrol, aut_tservicio, aut_tmodulo, aut_tsurl
+		where urol_usua = #{usua_usua}
+		and urol_rol = srol_rol
+		and servicio_servicio = srol_servicio
+		and surl_servicio = servicio_servicio
+		and modulo_modulo = servicio_modulo
+		and srol_visible = 'S'
+	</select>
+	
+	<select id="getUsuario" parameterType="java.lang.String" resultType="usuario">
+		select usua_usua, usua_mail from aut_tusua
+		where usua_usua = #{usua_usua}
+		
+	</select>
+	
+	<select id="getRolesPorUsuario" parameterType="java.lang.Long" resultType="java.lang.String">
+		select distinct ur.urol_rol from aut_turol ur
+		where ur.urol_usua = #{usua_usua}
+		
+	</select>
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<project name="FS_Recaudos" default="subir">
+
+	<property prefix="env" file="build.properties" />
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<property  name="project.name" value="FS_Recaudos" />
+
+	<property name="web.dir" location="WebContent" />
+	<property name="lib.dir" location="${web.dir}/WEB-INF/lib" />
+	<property name="bin.dir" location="${web.dir}/WEB-INF/classes" />
+	
+	<property name="cweb.dir" location="../JCoreWeb/WebContent" />
+	<property name="clib.dir" location="../JCoreWeb/WebContent/WEB-INF/lib" />
+	<property name="cjar.dir" location="../JCoreWeb/jar" />
+	
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<property environment="env" />
+	
+		
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	<target name="subir">
+		<copy todir="${env.TOMCAT_HOME}/webapps/${project.name}">
+			<fileset dir="${cweb.dir}">
+				<include name="**/*.*" />
+				<exclude name="**/servlet-api.jar"/>
+			</fileset>
+			<fileset dir="${web.dir}">
+				<include name="**/*.*" />
+			</fileset>
+			
+		</copy>
+		<copy todir="${env.TOMCAT_HOME}/webapps/${project.name}/WEB-INF/classes">
+			<fileset dir="${bin.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		<copy todir="${env.TOMCAT_HOME}/webapps/${project.name}/WEB-INF/lib">
+			<fileset dir="${clib.dir}">
+				<include name="**/*.*" />
+			</fileset>
+			<fileset dir="${cjar.dir}">
+							<include name="*.jar" />
+			</fileset>
+			<fileset dir="${lib.dir}">
+				<include name="**/*.*" />
+			</fileset>
+		</copy>
+		
+		
+	</target>
+
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<target name="subirCompleto">
+		<delete dir="${env.TOMCAT_HOME}/work" />
+		<delete dir="${env.TOMCAT_HOME}/webapps/${project.name}" />
+		<antcall target="subir" />
+	</target>
+
+	 <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	    
+    <target name="borrarWork">
+        <delete dir="${env.TOMCAT_HOME}/work"/>
+    </target>
+	    
+    <!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+
+	
+	<target name="checkTomcatHome">
+			<echo message="Verificando carpeta ${env.TOMCAT_HOME}" />
+			<condition property="local.tomcathome.exists">
+				<available file="${env.TOMCAT_HOME}" type="dir" />
+			</condition>
+	</target>
+	<!-- +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+</project>
