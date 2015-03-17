@@ -207,12 +207,15 @@ public class RouterPage {
 					outputExecutionPage = page.executeAction(request);
 					xmlPage = xmlPageGenerator.getXMLPage(request, publicPageGenerador, outputExecutionPage);
 					
+					
+					nextPage = page.getNextPage();
+					
 				} else {
 					nextPage = urlPageAccesoDenegado;
 					
 				}
 
-				nextPage = page.getNextPage();
+				
 			}
 
 			/*
@@ -228,11 +231,13 @@ public class RouterPage {
 					outputExecutionPage = page.executeAction(request);
 					xmlPage = xmlPageGenerator.getXMLPage(request, privatePageGenerador, outputExecutionPage);
 					
+					nextPage = page.getNextPage();
+					
 				} else {
 					nextPage = urlPageAccesoDenegado;
 				}
 
-				nextPage = page.getNextPage();
+				
 			}
 
 			/*
