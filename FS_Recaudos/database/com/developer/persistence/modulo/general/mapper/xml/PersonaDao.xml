@@ -5,17 +5,9 @@
 <mapper namespace="com.developer.persistence.modulo.general.mapper.dao.PersonaDao">
 
 	<select id="getPersonaPorUsuario" parameterType="usuario" resultType="persona">
-		select p.* from ge_tpern p, ge_testd
-		where pern_pern = estd_pern
-		and estd_usua = #{usua_usua}
-		union 
-		select p.* from ge_tpern p, ge_tprof
-		where pern_pern = prof_pern
-		and prof_usua = #{usua_usua}
-		union
-		select p.* from ge_tpern p, ge_tpdop
-		where pern_pern = pdop_pern
-		and pdop_usua = #{usua_usua}
+		select p.* from ge_tpern p, ge_toper
+		where pern_pern = oper_pern
+		and oper_usua = #{usua_usua}
 		
 	</select>
 	
