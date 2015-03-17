@@ -188,7 +188,7 @@
 	    </xsl:copy>
 	</xsl:template>
 
-	<xsl:template match="form">
+	<!-- <xsl:template match="form">
 		<form class="{@class}" action="{@destino}" method="post" enctype="{@enctype}" onsubmit="return false;">
 			<xsl:if test="string-length(@id)>0">
 				<xsl:attribute name="name"><xsl:value-of select="@id"/></xsl:attribute>
@@ -196,7 +196,7 @@
 			</xsl:if>
 			<xsl:apply-templates/>
 		</form>
-	</xsl:template>
+	</xsl:template> -->
 	
 	
 	

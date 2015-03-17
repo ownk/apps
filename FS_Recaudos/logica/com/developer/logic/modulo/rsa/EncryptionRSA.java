@@ -11,8 +11,12 @@ import java.security.KeyPairGenerator;
 import java.security.NoSuchAlgorithmException;
 import java.security.PrivateKey;
 import java.security.PublicKey;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.crypto.Cipher;
+
+import com.developer.logic.modulo.notificaciones.NotificacionServicio;
 
 /**
  * @author JavaDigest
@@ -23,17 +27,17 @@ public class EncryptionRSA {
   /**
    * String to hold name of the encryption algorithm.
    */
-  public static final String ALGORITHM = "RSA";
+  private  final String ALGORITHM = "RSA";
 
   /**
    * String to hold the name of the private key file.
    */
-  public static final String PRIVATE_KEY_FILE = "private.key";
+  private  final String PRIVATE_KEY_FILE = "private.key";
 
   /**
    * String to hold name of the public key file.
    */
-  public static final String PUBLIC_KEY_FILE = "public.key";
+  private  final String PUBLIC_KEY_FILE = "public.key";
 
   /**
    * Generate key which contains a pair of private and public key using 1024
@@ -43,7 +47,61 @@ public class EncryptionRSA {
    * @throws IOException
    * @throws FileNotFoundException
    */
-  public static void generateKey() {
+  
+  private static EncryptionRSA instance;
+  
+
+  private Map<String, byte[]> mapEncrypts = null;
+  
+  
+  private PublicKey publicKey;
+  
+  private PrivateKey privateKey;
+  
+  private EncryptionRSA(){
+	  
+	  mapEncrypts = new HashMap<String, byte[]>();
+	  // Check if the pair of keys are present else generate those.
+      if (!areKeysPresent()) {
+        // Method generates a pair of keys using the RSA algorithm and stores it
+        // in their respective files
+    	  generateKey();
+      }
+	  
+  
+      try{
+	      ObjectInputStream inputStreamPublicKey = null;
+	
+	      //  public key
+	      inputStreamPublicKey = new ObjectInputStream(new FileInputStream(this.PUBLIC_KEY_FILE));
+	      this.publicKey = (PublicKey) inputStreamPublicKey.readObject();
+	      inputStreamPublicKey.close();
+	       
+	      //  private key.
+	      ObjectInputStream inputStreamPrivateKey = null;
+	      inputStreamPrivateKey = new ObjectInputStream(new FileInputStream(this.PRIVATE_KEY_FILE));
+	      this.privateKey = (PrivateKey) inputStreamPrivateKey.readObject();
+	      
+	      inputStreamPrivateKey.close();
+      
+	  } catch (Exception e) {
+		  e.printStackTrace();
+	  }
+	  
+	  
+  }
+  
+  
+  public static EncryptionRSA getInstance() {
+		if (instance == null) {
+			instance = new EncryptionRSA();
+		}
+		
+		return instance;
+  }
+  
+  
+  private void generateKey() {
     try {
       final KeyPairGenerator keyGen = KeyPairGenerator.getInstance(ALGORITHM);
       keyGen.initialize(1024);
@@ -85,7 +143,7 @@ public class EncryptionRSA {
    * 
    * @return flag indicating if the pair of keys were generated.
    */
-  public static boolean areKeysPresent() {
+  private boolean areKeysPresent() {
 
     File privateKey = new File(PRIVATE_KEY_FILE);
     File publicKey = new File(PUBLIC_KEY_FILE);
@@ -106,38 +164,48 @@ public class EncryptionRSA {
    * @return Encrypted text
    * @throws java.lang.Exception
    */
-  public static byte[] encrypt(String text, PublicKey key) {
+  public String encrypt(String text) {
+	  
+	String textEncrypt = null;   
     byte[] cipherText = null;
     try {
       // get an RSA cipher object and print the provider
       final Cipher cipher = Cipher.getInstance(ALGORITHM);
       // encrypt the plain text using the public key
-      cipher.init(Cipher.ENCRYPT_MODE, key);
+      cipher.init(Cipher.ENCRYPT_MODE, this.publicKey);
       cipherText = cipher.doFinal(text.getBytes());
+      textEncrypt =cipherText.toString();
+      mapEncrypts.put(textEncrypt, cipherText);
+      
     } catch (Exception e) {
       e.printStackTrace();
     }
-    return cipherText;
+    return textEncrypt;
   }
 
   /**
    * Decrypt text using private key.
    * 
-   * @param text
+   * @param textEncrypt
    *          :encrypted text
    * @param key
    *          :The private key
    * @return plain text
    * @throws java.lang.Exception
    */
-  public static String decrypt(byte[] text, PrivateKey key) {
+  public String decrypt(String textEncrypt) {
+	  
+	  
     byte[] dectyptedText = null;
     try {
       // get an RSA cipher object and print the provider
       final Cipher cipher = Cipher.getInstance(ALGORITHM);
 
+      
+      byte[] text = mapEncrypts.get(textEncrypt);
+      
       // decrypt the text using the private key
-      cipher.init(Cipher.DECRYPT_MODE, key);
+      cipher.init(Cipher.DECRYPT_MODE, this.privateKey);
       dectyptedText = cipher.doFinal(text);
 
     } catch (Exception ex) {
@@ -145,6 +213,11 @@ public class EncryptionRSA {
     }
 
     return new String(dectyptedText);
+  }
+  
+  public byte[] getByteEncrypt(String textEncrypt){
+	  
+	  return mapEncrypts.get(textEncrypt);
   }
 
   /**
@@ -154,32 +227,16 @@ public class EncryptionRSA {
 
     try {
 
-      // Check if the pair of keys are present else generate those.
-      if (!areKeysPresent()) {
-        // Method generates a pair of keys using the RSA algorithm and stores it
-        // in their respective files
-        generateKey();
-      }
-
       final String originalText = "Text to be encrypted ";
-      ObjectInputStream inputStream = null;
-
-      // Encrypt the string using the public key
-      inputStream = new ObjectInputStream(new FileInputStream(PUBLIC_KEY_FILE));
-      final PublicKey publicKey = (PublicKey) inputStream.readObject();
-      final byte[] cipherText = encrypt(originalText, publicKey);
-
-      // Decrypt the cipher text using the private key.
-      inputStream = new ObjectInputStream(new FileInputStream(PRIVATE_KEY_FILE));
-      final PrivateKey privateKey = (PrivateKey) inputStream.readObject();
-      final String plainText = decrypt(cipherText, privateKey);
+      
+      String textoEncrypt = EncryptionRSA.getInstance().encrypt(originalText);
+       
+      final String plainText = EncryptionRSA.getInstance().decrypt(textoEncrypt);
 
       // Printing the Original, Encrypted and Decrypted Text
       
-      
-      
       System.out.println("Original: " + originalText);
-      System.out.println("Encrypted: " +cipherText.toString());
+      System.out.println("Encrypted: " +textoEncrypt);
       System.out.println("Decrypted: " + plainText);
 
     } catch (Exception e) {

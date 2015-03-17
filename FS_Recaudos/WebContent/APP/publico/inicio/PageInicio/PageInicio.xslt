@@ -48,7 +48,7 @@
 			            
 			            </p>
 			            <p>Empecemos. Pruebalo!!!.</p>
-			            <form class="m-t" role="form" id="form_login" destino="">
+			            <form class="m-t" role="form" >
 			                <div class="form-group">
 			                    <input id="login" name="login" type="text" class="form-control" placeholder="Username" required=""/>
 			                </div>

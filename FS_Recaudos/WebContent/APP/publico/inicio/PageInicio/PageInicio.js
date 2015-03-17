@@ -4,25 +4,25 @@ function encriptarEnviar(){
 	
 	// --
 	
-	var DOCUMENTO_USUARIO = eclogin(osm_encode(osm_getValor("login")));
-	var PASSWORD_USUARIO = eclogin(osm_encode(osm_getValor("pass")));
+	var DOCUMENTO_USUARIO = encrypt(osm_getValor("login"));
+	var PASSWORD_USUARIO = encrypt(osm_getValor("pass"));
 
 	// --
 	
 	osm_setValor("documento_usuario",DOCUMENTO_USUARIO);
 	osm_setValor("password", PASSWORD_USUARIO);
 	
-	osm_setValor("token",$("#auth_token").val());
-	
-	// --
-	
+		
 	osm_setValor("login","");
 	osm_setValor("pass","");
 
 	// --
 	
 	osm_block_window();
-	osm_timeout(function(){	osm_enviarFormulario("login_form"); }, 1000);
+	osm_timeout(function(){	
+		osm_enviarFormulario("login_form"); 
+		
+		}, 1000);
 }
 
 
@@ -76,24 +76,14 @@ function validacionCampos(){
 
 
 
-$(function(){
-	null;
-});
-
-
-
-
-function eclogin(mensaje) {
+function encrypt(mensaje) {
 	
-	var cE = osm_getValor("pkcE");
-	var cN = osm_getValor("pkcN");
+	if(jsonrpc.rsaJSONServicio != null){
+		var res=jsonrpc.rsaJSONServicio.encrypt(mensaje);
+	}
+		
+	return res;	
 	
-	var rsa = new RSAKey();
-	rsa.setPublic(cN, cE);
-	
-	var res = rsa.encrypt(mensaje); 
-	
-	return hex2b64(res);
 }
 
 
