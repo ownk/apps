@@ -13,7 +13,7 @@ import com.developer.core.page.ContextInfo;
 import com.developer.core.page.IXMLPageGenerador;
 import com.developer.core.page.RouterPage;
 import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.autenticacion.AutenticacionServicio;
+import com.developer.logic.modulo.autenticacion.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.GeneradorSessionApp;
 import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
 import com.developer.logic.modulo.notificaciones.NotificacionServicio;
@@ -46,7 +46,7 @@ public class InitApp extends HttpServlet implements Servlet {
 		
 		//Se inicializa el controlador de autenticacion
 		SimpleLogger.info("Inicializando servicio de autenticacion");
-		AutenticacionServicio.getInstance().setGeneradorSession(new GeneradorSessionApp());
+		AutenticadorServicio.getInstance().setGeneradorSession(new GeneradorSessionApp());
 		
 		//Configuracion del correo
 		SimpleLogger.info("Inicializando servicio correo");
@@ -57,7 +57,7 @@ public class InitApp extends HttpServlet implements Servlet {
 		NotificacionServicio.initService();
 		
 		SimpleLogger.info("Inicializando generadores contenido xml");
-		this.privatePageGenerator = new XMLPrivateGenerator(AutenticacionServicio.getInstance());
+		this.privatePageGenerator = new XMLPrivateGenerator(AutenticadorServicio.getInstance());
 		this.publicPageGenerator = new XMLPublicGenerator();
 		
 		
@@ -86,7 +86,7 @@ public class InitApp extends HttpServlet implements Servlet {
 			routerPage.routePage(this, request, response);
 			
 			//Se inicializan servicios json si aun no se han inicializado
-			SessionAppUsuario sessionAppUsuario = AutenticacionServicio.getInstance().getSessionAppUsuario(request);
+			SessionAppUsuario sessionAppUsuario = AutenticadorServicio.getInstance().getSessionAppUsuario(request);
 			
 			if(sessionAppUsuario!=null){
 				JSONServiceManager.geJsonrpcManager().initJSonSessionServices(sessionAppUsuario);

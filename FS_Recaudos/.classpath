@@ -11,6 +11,7 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/asm-1.5.3.jar"/>
 	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/avalon-framework-4.2.0.jar"/>
 	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/cglib-2.1_3.jar"/>

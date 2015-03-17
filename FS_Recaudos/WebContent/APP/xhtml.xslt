@@ -101,6 +101,11 @@
 			    <!-- Toastr -->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/toastr/toastr.min.js"></script>
 				
+				
+				<!-- UTILS-->
+				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/core.js"></script>
+				
+				
 				<!-- Json -->
 				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/jsonrpc/jsonrpc.js"></script>
 				
@@ -108,6 +113,10 @@
 				<!-- VARIABLES -->
 				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/init.js"></script>
 			
+			
+				<script type='text/javascript' src='{$CONTEXTPATH}/general/js/jsbn/base64.js'> </script>
+				<script type='text/javascript' src='{$CONTEXTPATH}/general/js/jsbn/jsbn.js'> </script>
+				<script type='text/javascript' src='{$CONTEXTPATH}/general/js/jsbn/rsa.js'> </script>
 				
 				<!-- JavaScript por pagina -->							
 	           	<xsl:for-each select="WEB/PAGE//add[@type='script']">
@@ -120,12 +129,11 @@
 				
 			</head>
 			
-			<body>
+			
 				
 					
-					<xsl:apply-templates select="WEB/PAGE/*"/>
-				
-			</body>
+			<xsl:apply-templates select="WEB/PAGE/*"/>
+			
 		</html>
 		
 	</xsl:template>

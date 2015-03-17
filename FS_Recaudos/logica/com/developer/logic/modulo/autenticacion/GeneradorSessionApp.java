@@ -27,7 +27,7 @@ public class GeneradorSessionApp {
 		SimpleLogger.info("Validando usuario: "+login);
 		
 		//Se valida que el login y password sean correctos
-		Usuario  usuario = AutenticacionServicio.getInstance().isUsuarioValido(login, pass);
+		Usuario  usuario = AutenticadorServicio.getInstance().isUsuarioValido(login, pass);
 				
 		if(usuario != null){
 			HttpSession session = null;
