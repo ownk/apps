@@ -4,7 +4,7 @@ FECHA:
 AUTOR:		  
 DERECHOS:		
 TABLA:	    
-FUNCION:		almacena el historial de estados proceso unificacion de archivos
+FUNCION:		almacena el historial de estados de proceso unificacion de archivos
 		
 OBSERVACIONES:	
 ******************************************************************************/
@@ -17,7 +17,7 @@ Prompt Creando tabla UN_THPRUN
 Prompt
 
 CREATE TABLE "FS_RECAUDOS_US"."UN_THPRUN" 
-(	"HPRUN_PRUN" 	NUMBER	 				constraint NN_UN_THPRUN_HPRUN not null,
+(	"HPRUN_PRUN" 	NUMBER	 				constraint NN_UN_THPRUN_PRUN not null,
 	"HPRUN_EPRUN" 	VARCHAR2(20 BYTE)		constraint NN_UN_THPRUN_EPRUN not null, 
 	"HPRUN_FASIG" 	DATE					constraint NN_UN_THPRUN_FASIG not null, 
 	"HPRUN_OBSER" 	VARCHAR2(2000 BYTE)		constraint NN_UN_THPRUN_OBSER not null, 
@@ -27,7 +27,7 @@ CREATE TABLE "FS_RECAUDOS_US"."UN_THPRUN"
 
 COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_THPRUN"."HPRUN_PRUN" IS 'Identificador deL proceso de unificacion relacionado';
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_THPRUN"."HPRUN_EPRUN" IS 'estado en el que se encuentra el proceso de unificacion relacionado';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_THPRUN"."HPRUN_EPRUN" IS 'Estado en el que se encuentra el proceso de unificacion relacionado';
 
 COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_THPRUN"."HPRUN_FASIG" IS 'Fecha de asignación del estado al proceso de unificacion relacionado';
 

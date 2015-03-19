@@ -24,10 +24,10 @@ Prompt
 		"AZPU_PRUN" 		NUMBER					constraint NN_UN_TAZPU_PRUN not null, 
 		"AZPU_URL" 		    VARCHAR2(200 BYTE)		constraint NN_UN_TAZPU_URL not null, 
 		"AZPU_HASH" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_HASH not null, 
-		"AZPU_BYTES" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_BYTES not null, 
+		"AZPU_BYTES" 		VARCHAR2(100 BYTE)		constraint NN_UN_TAZPU_BYTES not null, 
 		"AZPU_NOMBRE" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_NOMBRE not null, 
 		"AZPU_EXTENSION" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_EXTENSION not null,
-        "AZPU_TOTAL_ARCH" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_TOTAL_ARCH not null
+        "AZPU_ARCHIVOS" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_ARCHIVOS not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -53,7 +53,7 @@ Prompt
  
    COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TAZPU"."AZPU_EXTENSION" IS 'Extension original del archivo, la cual determina el tipo de documento almacenado';
 
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TAZPU_TOTAL_ARCH"  IS 'Cantidad de archivos que contiene el archivo zip';
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TAZPU"."AZPU_ARCHIVOS"  IS 'Cantidad de archivos que contiene el archivo zip';
    
    COMMENT ON TABLE "FS_RECAUDOS_US"."UN_TAZPU"  IS 'Tabla que almacena la informacion de los archivos ZIP que contienen los archivos a unificar';
    

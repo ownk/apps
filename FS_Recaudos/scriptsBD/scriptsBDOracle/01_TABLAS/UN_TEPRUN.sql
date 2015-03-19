@@ -4,7 +4,7 @@
   AUTOR:		  
   DERECHOS:		
   TABLA:	    
-  FUNCION:		estados de proceso de unificacion de archivos
+  FUNCION:		estados posibles de proceso de unificacion de archivos
 			
   OBSERVACIONES:	
 ******************************************************************************/
@@ -23,11 +23,11 @@ Prompt
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
 
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TEPRUN"."EPRUN_EPRUN" IS 'Estados posibles de un proceso de unificacion de archivos';
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TEPRUN"."EPRUN_EPRUN" IS 'Estado posible de un proceso de unificacion de archivos';
  
    COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TEPRUN"."EPRUN_DESCRI" IS 'Descripcion del estado del proceso de unificacion de archivos';
  
-   COMMENT ON TABLE "FS_RECAUDOS_US"."UN_TEPRUN"  IS 'Tabla donde se almacenan los estados de proceso de unificacion de archivos';
+   COMMENT ON TABLE "FS_RECAUDOS_US"."UN_TEPRUN"  IS 'Tabla donde se almacenan los posibles  estados de un proceso de unificacion de archivos';
 
    prompt Llave Primaria
 

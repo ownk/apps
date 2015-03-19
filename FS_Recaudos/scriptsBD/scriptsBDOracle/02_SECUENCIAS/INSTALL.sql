@@ -1,6 +1,0 @@
-PROMPT GE_SPERN.sql...
-@@GE_SPERN.sql
-
-PROMPT NO_SNOTI.sql...
-@@NO_SNOTI.sql
-
