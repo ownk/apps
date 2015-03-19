@@ -43,6 +43,9 @@
 			    <link href="{$CONTEXTPATH}/general/css/style.css" rel="stylesheet"/>
 			    <link href="{$CONTEXTPATH}/general/css/ownk.css" rel="stylesheet"/>
 				
+				<!-- dropzone -->
+				<link href="{$CONTEXTPATH}/general/css/plugins/dropzone/basic.css" rel="stylesheet"/>
+    			<link href="{$CONTEXTPATH}/general/css/plugins/dropzone/dropzone.css" rel="stylesheet"/>
 				
 				
 				<!-- CSS por pagina -->
@@ -104,6 +107,9 @@
 				
 				<!-- UTILS-->
 				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/core.js"></script>
+				
+				<!-- DROPZONE -->
+    			<script type="text/javascript" src="{$CONTEXTPATH}/general/js/plugins/dropzone/dropzone.js"></script>
 				
 				
 				<!-- Json -->

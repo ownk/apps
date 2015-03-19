@@ -120,7 +120,7 @@ public class AutenticadorServicio {
 		 
 
 	public static void main(String[] args) {
-		String claveEncriptada = com.developer.core.utils.StringUtils.MD5("0002"+"1234");
+		String claveEncriptada = com.developer.core.utils.StringUtils.MD5("operador"+"1234");
 		System.out.println(claveEncriptada);
 	}
 }

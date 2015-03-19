@@ -25,23 +25,31 @@
 		<setting name="defaultStatementTimeout" value="25000"/>
 	</settings>
 
-	<!-- <typeAliases> -->
+	<typeAliases>
 		<!-- ================================ -->
 		<!-- Modulo general ================= -->
 		<!-- ================================ -->
-		<!-- <typeAlias alias="" type="" />  -->
+		<typeAlias alias="persona" type="com.developer.logic.modulo.general.dto.Persona" />
+		
 		
 		<!-- ================================ -->
 		<!-- Modulo autenticacion =========== -->
 		<!-- ================================ -->
-		<!-- <typeAlias alias="" type="" /> -->
-			
+		<typeAlias alias="usuario" type="com.developer.logic.modulo.autenticacion.dto.Usuario" />
+		<typeAlias alias="servicio" type="com.developer.logic.modulo.autenticacion.dto.Servicio" />
+		<typeAlias alias="usuarioURL" type="com.developer.logic.modulo.autenticacion.dto.UsuarioURL" />
+		<typeAlias alias="modulo" type="com.developer.logic.modulo.autenticacion.dto.Modulo" />
+		
+		
+		
 		<!-- ================================ -->
 		<!-- Modulo notificaciones ========== -->
 		<!-- ================================ -->
-		<!-- <typeAlias alias="" type="" />  -->
+		<typeAlias alias="notificacion" type="com.developer.logic.modulo.notificaciones.dto.Notificacion" />
 	
-	<!-- </typeAliases> -->
+	
+	
+	</typeAliases>
 	
 	<!-- environments default configuracion por defecto-->
 	<!-- aqui se configuran las conexiones a la base de datos -->
@@ -65,6 +73,8 @@
 		<!-- ================================ -->
 		<!-- Modulo general ================= -->
 		<!-- ================================ -->
+		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/PersonaDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/ServerDao.xml" />
 		
 		<!-- ================================ -->
 		<!-- Modulo autenticacion =========== -->

@@ -21,7 +21,7 @@
 			
 			
 			    <div class="middle-box text-center animated fadeInDown">
-			        <h1>No Access</h1>
+			        <h1>!</h1>
 			        <h3 class="font-bold">No Access</h3>
 			
 			        <div class="error-desc">
