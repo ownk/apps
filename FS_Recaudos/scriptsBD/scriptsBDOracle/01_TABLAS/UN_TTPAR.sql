@@ -1,12 +1,8 @@
 /******************************************************************************
-  VERSION:		
-  FECHA:		  
-  AUTOR:		  
-  DERECHOS:		
-  TABLA:	    
-  FUNCION:		estados posibles de un archivo de recaudo
-			
-  OBSERVACIONES:	
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	      
+	FUNCION:Tipos de archivo de recaudo
 ******************************************************************************/
 
 set define '&'
@@ -20,7 +16,6 @@ Prompt
    (	"TPAR_TPAR" 		VARCHAR2(100 BYTE)			constraint NN_UN_TTPAR_TPAR not null, 
 		"TPAR_DESCRI" 		VARCHAR2(2000 BYTE)			constraint NN_UN_TTPAR_DESCRI not null,
 		"TPAR_USUA" 		VARCHAR2(100 BYTE)			constraint NN_UN_TTPAR_USUA not null
-		
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  

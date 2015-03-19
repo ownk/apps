@@ -1,12 +1,7 @@
 ﻿/******************************************************************************
-VERSION:		
-FECHA:		  
-AUTOR:		  
-DERECHOS:		
-TABLA:	    
-FUNCION:		Configuracion general
-		
-OBSERVACIONES:	
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	
 ******************************************************************************/
 
 set define '&'

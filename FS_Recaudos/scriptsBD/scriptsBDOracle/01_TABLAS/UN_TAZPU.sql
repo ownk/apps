@@ -1,12 +1,8 @@
 ﻿/******************************************************************************
-  VERSION:		
-  FECHA:		  
-  AUTOR:		  
-  DERECHOS:		
-  TABLA:	    
-  FUNCION:		Archivo zip asociado a cada proceso de unificacion de archivos
-			
-  OBSERVACIONES:	
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	     
+	FUNCION: Archivo zip asociado a cada proceso de unificacion de archivos
 ******************************************************************************/
 
 set define '&'
@@ -18,14 +14,14 @@ Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."UN_TAZPU" 
    (	"AZPU_AZPU" 		NUMBER					constraint NN_UN_TAZPU_AZPU not null,
-		"AZPU_OBSERV" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_OBSERV not null, 
-		"AZPU_FCREA" 		DATE					constraint NN_UN_TAZPU_FCREA not null, 
 		"AZPU_USUA" 		VARCHAR2(100 BYTE)		constraint NN_UN_TAZPU_USUA not null, 
 		"AZPU_PRUN" 		NUMBER					constraint NN_UN_TAZPU_PRUN not null, 
-		"AZPU_URL" 		    VARCHAR2(200 BYTE)		constraint NN_UN_TAZPU_URL not null, 
+		"AZPU_URL" 		    VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_URL not null, 
 		"AZPU_HASH" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_HASH not null, 
 		"AZPU_BYTES" 		VARCHAR2(100 BYTE)		constraint NN_UN_TAZPU_BYTES not null, 
-		"AZPU_NOMBRE" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_NOMBRE not null, 
+		"AZPU_NOMBRE" 		VARCHAR2(1000 BYTE)		constraint NN_UN_TAZPU_NOMBRE not null, 
+		"AZPU_OBSERV" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_OBSERV not null, 
+		"AZPU_FCREA" 		DATE					constraint NN_UN_TAZPU_FCREA not null, 
 		"AZPU_EXTENSION" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_EXTENSION not null,
         "AZPU_ARCHIVOS" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_ARCHIVOS not null
    ) 

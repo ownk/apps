@@ -1,12 +1,7 @@
 /******************************************************************************
-  VERSION:		
-  FECHA:		  
-  AUTOR:		  
-  DERECHOS:		
-  TABLA:	    
-  FUNCION:		
-			
-  OBSERVACIONES:	
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	
 ******************************************************************************/
 
 set define '&'
@@ -27,19 +22,19 @@ CREATE TABLE "FS_RECAUDOS_US"."GE_TPERN"
 /  
 
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_PERN" IS 'identificaci�n de una persona registrada en el sistema';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_PERN" IS 'identificacion de una persona registrada en el sistema';
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_NOMB" IS 'nombres de la persona que se inscribir� en el sistema';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_NOMB" IS 'nombres de la persona que se inscribira en el sistema';
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_PAPELL" IS 'primer apellido de la persona que se inscribir� en el sistema';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_PAPELL" IS 'primer apellido de la persona que se inscribira en el sistema';
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_SAPELL" IS 'segundo apellido de la persona que se inscribir� en el sistema';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_SAPELL" IS 'segundo apellido de la persona que se inscribira en el sistema';
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_TDOC" IS 'id del tipo de documento de la persona que se inscribir� en el sistema';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_TDOC" IS 'id del tipo de documento de la persona que se inscribira en el sistema';
 
-COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_DOC" IS 'numero de documento de identificaci�n de la persona que se inscribir� en el sistema';
+COMMENT ON COLUMN "FS_RECAUDOS_US"."GE_TPERN"."PERN_DOC" IS 'numero de documento de identificacion de la persona que se inscribira en el sistema';
 
-COMMENT ON TABLE "FS_RECAUDOS_US"."GE_TPERN"  IS 'Informaci�n b�sica de las personas que sean usuarios del FS_RECAUDOS';
+COMMENT ON TABLE "FS_RECAUDOS_US"."GE_TPERN"  IS 'Informacion basica de las personas que sean usuarios del FS_RECAUDOS';
 
 
 prompt Llave Primaria

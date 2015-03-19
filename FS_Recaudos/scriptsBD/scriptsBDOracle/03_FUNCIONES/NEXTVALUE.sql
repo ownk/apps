@@ -1,12 +1,9 @@
 /******************************************************************************
-VERSION:		
-FECHA:		  
-AUTOR:		  
-DERECHOS:		
-TABLA:	    
-FUNCION:	Retornar el valor de la secuencia en oracle
-		
-OBSERVACIONES:	
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	
+	FUNCION: Retornar el valor de la secuencia en oracle
+
 ******************************************************************************/
 
 -- 

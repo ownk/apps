@@ -5,9 +5,9 @@
 ******************************************************************************/
 
 Prompt 
-Prompt Creando secuencia GE_SPERN
+Prompt Creando secuencia UN_SPRUN
 Prompt
 
-CREATE SEQUENCE  "FS_RECAUDOS_US"."GE_SPERN"  
+CREATE SEQUENCE  "FS_RECAUDOS_US"."UN_SPRUN"  
 MINVALUE 1 MAXVALUE 999999999999999999999999999 
-INCREMENT BY 1 START WITH 246 NOCACHE  NOORDER  NOCYCLE ;
+INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;

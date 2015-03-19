@@ -1,12 +1,9 @@
 /******************************************************************************
-VERSION:		
-FECHA:		  
-AUTOR:		  
-DERECHOS:		
-TABLA:	    
-FUNCION:	Retornar el sysdate en oracle
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	
+	FUNCION:	Retornar el sysdate en oracle
 		
-OBSERVACIONES:	
 ******************************************************************************/
 
 --

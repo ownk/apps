@@ -6,7 +6,6 @@
   TABLA:	    
   FUNCION:		estados posibles de un archivo de recaudo unificado
 			
-  OBSERVACIONES:	
 ******************************************************************************/
 
 set define '&'

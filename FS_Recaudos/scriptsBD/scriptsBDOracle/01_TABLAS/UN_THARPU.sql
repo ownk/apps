@@ -1,12 +1,8 @@
 /******************************************************************************
-VERSION:		
-FECHA:		  
-AUTOR:		  
-DERECHOS:		
-TABLA:	    
-FUNCION:		almacena el historial de estados de un archivo por unificar
-		
-OBSERVACIONES:	
+	VERSION: 1.0		
+	FECHA:	 19/03/2015	  
+	AUTOR:	 ownk	  
+	FUNCION: Almacena el historial de estados de un archivo por unificar
 ******************************************************************************/
 
 set define '&'
