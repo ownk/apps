@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacionArchivosDao">
+	
+	<insert id="iniciarProcesoUnificacionArchivos" parameterType="procesoUnificacionArchivos">
+		insert into ant_tantp(  antp_antp, antp_prop,
+								antp_fcrea, antp_obser,
+								antp_eantp, antp_moda, 
+								antp_pcur, antp_titu,
+								antp_descri, antp_frmu_ini
+								<if test="antp_cias!=null">
+								, antp_cias
+								</if>
+								
+								)
+		
+					values(		#{antp_antp} , #{antp_prop}, 
+								now(), #{antp_obser},
+								#{antp_eantp}, #{antp_moda}, 
+								#{antp_pcur}, #{antp_titu},
+								#{antp_descri}, #{antp_frmu_ini}
+								<if test="antp_cias!=null">
+								, #{antp_cias}
+								</if>
+								
+								)
+  
+	</insert>
+	
+	<insert id="crearHistoricoProceso" parameterType="java.util.HashMap" >
+	
+		insert into ant_thantp 
+				(	hantp_antp,	hantp_eantp,
+					hantp_fasig,hantp_usua,
+					hantp_obser)
+		
+		values 	(	#{hantp_antp}, #{hantp_eantp},
+					now(), #{hantp_usua},
+					#{hantp_obser}	)
+	</insert>
+	
+	<update id="setEstadoProceso" parameterType="procesoUnificacionArchivos">
+		update ant_tantp
+		set antp_eantp = #{antp_eantp}
+		where antp_antp = #{antp_antp}
+	</update>
+	
+	<select id="getProcesosPorEstados" parameterType="java.util.HashMap" resultType="procesoUnificacionArchivos">
+		select * from ant_tantp
+		where antp_eantp is not null
+		<if test="antp_estados != null">
+			and antp_eantp in ( ${antp_estados} )
+		</if>
+		order by antp_fcrea asc
+	</select>
+	
+
+	<select id="getHistoricoPorProceso" parameterType="java.lang.Long" resultType="historicoProceso">
+		select * from ant_thantp
+		where hantp_antp = #{antp_antp}
+		order by hantp_fasig asc
+	</select>
+	
+	<select id="getProceso" parameterType="java.lang.Long" resultType="procesoUnificacionArchivos">
+		select * from ant_tantp
+		where antp_antp = #{antp_antp}
+	</select>
+	
+
+	
+	
+	
+	
+	
+</mapper>
