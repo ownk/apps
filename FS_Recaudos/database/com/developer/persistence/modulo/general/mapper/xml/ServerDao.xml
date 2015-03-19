@@ -5,7 +5,7 @@
 <mapper namespace="com.developer.persistence.modulo.general.mapper.dao.ServerDao">
 
 	<select id="getSysdate" resultType="java.util.Date">
-		select sysdate from dual
+		select now() from dual
 	</select>
 	
 	

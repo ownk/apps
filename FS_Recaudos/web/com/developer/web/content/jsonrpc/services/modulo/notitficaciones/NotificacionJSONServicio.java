@@ -3,10 +3,10 @@ package com.developer.web.content.jsonrpc.services.modulo.notitficaciones;
 import java.util.List;
 
 import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.logic.modulo.notificaciones.NotificacionServicio;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.notificaciones.dto.Notificacion;
+import com.developer.logic.modulo.notificaciones.modelo.NotificacionServicio;
 import com.developer.web.content.jsonrpc.IJsonSessionService;
 
 public class NotificacionJSONServicio implements IJsonSessionService{

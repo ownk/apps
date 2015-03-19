@@ -1,8 +1,8 @@
-package com.developer.logic.modulo.general;
+package com.developer.logic.modulo.general.modelo;
 
 import java.util.Date;
 
-import com.developer.persistence.modulo.general.ServerControllerDB;
+import com.developer.persistence.modulo.general.controllerdb.ServerControllerDB;
 
 public class ServerServicio {
 	

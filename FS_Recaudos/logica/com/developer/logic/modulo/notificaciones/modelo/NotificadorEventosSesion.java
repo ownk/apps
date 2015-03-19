@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.notificadoreventos;
+package com.developer.logic.modulo.notificaciones.modelo;
 
 import java.util.ArrayList;
 import java.util.List;

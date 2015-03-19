@@ -3,8 +3,8 @@ package com.developer.web.content.privado.inicio;
 import javax.servlet.http.HttpServletRequest;
 
 import com.developer.core.page.PrivatePage;
-import com.developer.logic.modulo.autenticacion.AutenticadorServicio;
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
+import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.rsa.EncryptionRSA;
 
 public class PageLogin extends PrivatePage{

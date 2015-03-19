@@ -5,8 +5,8 @@ import java.util.Date;
 import com.developer.core.utils.JavaToXML;
 import com.developer.core.utils.ObjectToXML;
 import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
-import com.developer.persistence.modulo.general.ServerControllerDB;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
+import com.developer.persistence.modulo.general.controllerdb.ServerControllerDB;
 
 public class GeneradorInfoSessionAppUsuarioXML {
 	

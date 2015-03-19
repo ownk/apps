@@ -23,7 +23,7 @@ Prompt
 		"AZPU_OBSERV" 		VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_OBSERV not null, 
 		"AZPU_FCREA" 		DATE					constraint NN_UN_TAZPU_FCREA not null, 
 		"AZPU_EXTENSION" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_EXTENSION not null,
-        "AZPU_ARCHIVOS" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TAZPU_ARCHIVOS not null
+        "AZPU_ARCHIVOS" 	NUMBER					constraint NN_UN_TAZPU_ARCHIVOS not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  

@@ -1,4 +1,4 @@
-package com.developer.persistence.modulo.notificaciones;
+package com.developer.persistence.modulo.notificaciones.controllerdb;
 
 import java.util.HashMap;
 import java.util.List;

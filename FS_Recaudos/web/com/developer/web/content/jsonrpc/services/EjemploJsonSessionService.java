@@ -1,6 +1,6 @@
 package com.developer.web.content.jsonrpc.services;
 
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.web.content.jsonrpc.IJsonSessionService;
 
 public class EjemploJsonSessionService implements IJsonSessionService{

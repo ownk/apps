@@ -16,7 +16,7 @@ import java.util.Map;
 
 import javax.crypto.Cipher;
 
-import com.developer.logic.modulo.notificaciones.NotificacionServicio;
+import com.developer.logic.modulo.notificaciones.modelo.NotificacionServicio;
 
 /**
  * @author JavaDigest

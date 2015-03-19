@@ -3,7 +3,7 @@ package com.developer.web.content.privado.inicio;
 import javax.servlet.http.HttpServletRequest;
 
 import com.developer.core.page.PrivatePage;
-import com.developer.logic.modulo.autenticacion.AutenticadorServicio;
+import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 
 public class PageBienvenida extends PrivatePage{
 	

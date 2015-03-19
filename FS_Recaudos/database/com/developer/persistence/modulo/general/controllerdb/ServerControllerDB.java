@@ -1,4 +1,4 @@
-package com.developer.persistence.modulo.general;
+package com.developer.persistence.modulo.general.controllerdb;
 
 import java.util.Date;
 

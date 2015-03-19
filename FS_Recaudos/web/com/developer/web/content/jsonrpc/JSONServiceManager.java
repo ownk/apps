@@ -10,7 +10,7 @@ import org.xml.sax.InputSource;
 
 import com.developer.core.page.ContextInfo;
 import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 
 
 

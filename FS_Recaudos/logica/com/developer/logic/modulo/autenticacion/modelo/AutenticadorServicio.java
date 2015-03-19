@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.autenticacion;
+package com.developer.logic.modulo.autenticacion.modelo;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Servicio;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.persistence.modulo.autenticacion.UsuarioControllerDB;
+import com.developer.persistence.modulo.autenticacion.controllerdb.UsuarioControllerDB;
 
 public class AutenticadorServicio {
 	

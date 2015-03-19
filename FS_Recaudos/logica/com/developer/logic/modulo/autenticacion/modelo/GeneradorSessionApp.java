@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.autenticacion;
+package com.developer.logic.modulo.autenticacion.modelo;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.general.dto.Persona;
-import com.developer.persistence.modulo.general.PersonaControllerDB;
+import com.developer.persistence.modulo.general.controllerdb.PersonaControllerDB;
 
 
 public class GeneradorSessionApp {

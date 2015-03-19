@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.notificaciones;
+package com.developer.logic.modulo.notificaciones.modelo;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -7,7 +7,7 @@ import org.apache.commons.lang.StringUtils;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.notificaciones.dto.Notificacion;
-import com.developer.persistence.modulo.notificaciones.NotificacionInternaControllerDB;
+import com.developer.persistence.modulo.notificaciones.controllerdb.NotificacionInternaControllerDB;
 
 /**
  * Notificador de correo Observa el controlador de las notificaciones y envia

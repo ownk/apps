@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.autenticacion;
+package com.developer.logic.modulo.autenticacion.modelo;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.servlet.http.HttpSession;
 
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.general.dto.Persona;
-import com.developer.logic.modulo.notificadoreventos.NotificadorEventosSesion;
+import com.developer.logic.modulo.notificaciones.modelo.NotificadorEventosSesion;
 
 
 public class SessionAppUsuario {

@@ -6,7 +6,7 @@ import com.developer.core.utils.ObjectToXML;
 import com.developer.logic.modulo.autenticacion.dto.Modulo;
 import com.developer.logic.modulo.autenticacion.dto.Servicio;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.persistence.modulo.autenticacion.UsuarioControllerDB;
+import com.developer.persistence.modulo.autenticacion.controllerdb.UsuarioControllerDB;
 
 public class GeneradorMenuHorizontalXML {
 	

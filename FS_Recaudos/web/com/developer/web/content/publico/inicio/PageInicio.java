@@ -12,7 +12,7 @@ import org.apache.commons.lang.StringUtils;
 import com.developer.core.page.PublicPage;
 import com.developer.core.utils.ObjectToXML;
 import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.autenticacion.AutenticadorServicio;
+import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.rsa.EncryptionRSA;
 
 public class PageInicio extends PublicPage {

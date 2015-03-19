@@ -1,6 +1,6 @@
 package com.developer.web.content.jsonrpc;
 
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 
 public interface IJsonSessionService {
 

@@ -13,10 +13,10 @@ import com.developer.core.page.ContextInfo;
 import com.developer.core.page.IXMLPageGenerador;
 import com.developer.core.page.RouterPage;
 import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.autenticacion.AutenticadorServicio;
-import com.developer.logic.modulo.autenticacion.GeneradorSessionApp;
-import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
-import com.developer.logic.modulo.notificaciones.NotificacionServicio;
+import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
+import com.developer.logic.modulo.autenticacion.modelo.GeneradorSessionApp;
+import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
+import com.developer.logic.modulo.notificaciones.modelo.NotificacionServicio;
 import com.developer.mybatis.DBManager;
 import com.developer.web.content.jsonrpc.JSONServiceManager;
 

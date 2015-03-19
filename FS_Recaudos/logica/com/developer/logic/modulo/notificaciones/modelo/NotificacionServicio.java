@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.notificaciones;
+package com.developer.logic.modulo.notificaciones.modelo;
 
 import java.util.List;
 import java.util.Observable;
@@ -6,7 +6,7 @@ import java.util.Observable;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.notificaciones.dto.Notificacion;
-import com.developer.persistence.modulo.notificaciones.NotificacionInternaControllerDB;
+import com.developer.persistence.modulo.notificaciones.controllerdb.NotificacionInternaControllerDB;
 
 public class NotificacionServicio extends Observable{
 
