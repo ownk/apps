@@ -6,7 +6,7 @@
 ******************************************************************************/
 
 set define '&'
-define Indices=TS_IFS_RECAUDOS_US
+define Indices=TS_IRECAUDOS
 
 Prompt 
 Prompt Creando tabla UN_THPRUN

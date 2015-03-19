@@ -63,9 +63,3 @@ alter table "FS_RECAUDOS_US"."UN_TAZPU"
        primary key ("AZPU_AZPU")
        using index 
        tablespace &Indices;
-
-
-prompt Creacion de indice, llave unica
-
-  
-/

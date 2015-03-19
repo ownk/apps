@@ -75,9 +75,3 @@ alter table "FS_RECAUDOS_US"."UN_TARPU"
        primary key ("ARPU_ARPU")
        using index 
        tablespace &Indices;
-
-
-prompt Creacion de indice, llave unica
-
-  
-/

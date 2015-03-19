@@ -71,9 +71,3 @@ alter table "FS_RECAUDOS_US"."UN_TARUN"
        primary key ("ARUN_ARUN")
        using index 
        tablespace &Indices;
-
-
-prompt Creacion de indice, llave unica
-
-  
-/

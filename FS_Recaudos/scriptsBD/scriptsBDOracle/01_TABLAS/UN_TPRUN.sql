@@ -38,6 +38,6 @@ prompt Llave Primaria
 
 alter table "FS_RECAUDOS_US"."UN_TPRUN"
   add  constraint "PK_UN_TPRUN"
-       primary key ("USUA_USUA") 
+       primary key ("PRUN_PRUN") 
        using index 
        tablespace &Indices;
