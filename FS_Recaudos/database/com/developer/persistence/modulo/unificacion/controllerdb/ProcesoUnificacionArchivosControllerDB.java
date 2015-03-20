@@ -36,7 +36,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 		try {
 
 			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
-			return dao.getProcesoUnificacionArchivos(prun_prun);
+			return dao.getProceso(prun_prun);
 			
 		} catch (Exception e) {
 			SimpleLogger.error("Error getProcesoUnificacionArchivos", e);
@@ -57,7 +57,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 		try{
 			
 			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
-			return dao.getHistoricoPorProcesoUnificacionArchivos(prun_prun);
+			return dao.getHistoricoPorProceso(prun_prun);
 			
 		}catch (Exception e) {
 			SimpleLogger.error("Error getHistoricoPorProcesoUnificacionArchivos ", e);
@@ -90,7 +90,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 				hashMap.put("prun_estados", estados);
 			}
 			
-			return dao.getProcesoUnificacionArchivossPorEstados(hashMap);
+			return dao.getProcesoPorEstados(hashMap);
 			
 		} catch (Exception e) {
 			SimpleLogger.error("Error getProcesoUnificacionArchivosPorEstados", e);
@@ -122,7 +122,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 			try {
 				
 				ProcesoUnificacionArchivosDao procesoUnificacionArchivosDao = session.getMapper(ProcesoUnificacionArchivosDao.class);
-				procesoUnificacionArchivosDao.setEstadoProcesoUnificacionArchivos(procesoUnificacionArchivos);
+				procesoUnificacionArchivosDao.setEstadoProceso(procesoUnificacionArchivos);
 
 			} catch (Exception e) {
 				respuesta = false;
@@ -167,7 +167,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 			hashMap.put("hprun_usua", usuario.getUsua_usua());
 			hashMap.put("hprun_obser", observacion);
 			
-			procesoUnificacionArchivosDao.crearHistoricoProcesoUnificacionArchivos(hashMap);
+			procesoUnificacionArchivosDao.crearHistoricoProceso(hashMap);
 			
 			
 			return procesoUnificacionArchivos;

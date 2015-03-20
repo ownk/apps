@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarDao">
+	
+	<select id="getSiguienteID" resultType="java.lang.Long" >
+		select nextvalue('ant_sdaan') from dual
+	</select>
+	
+	<insert id="crearArchivo" parameterType="archivoRecaudoPorUnificar">
+		insert into ant_tdaan( daan_daan , daan_antp,
+		daan_falm, daan_url, 
+		daan_hash, daan_bytes, 
+		daan_nombre, daan_extension, 
+		daan_usua, daan_tdaan)
+		
+		values ( #{daan_daan} , #{daan_antp}, 
+		now(), #{daan_url}, 
+		#{daan_hash}, #{daan_bytes}, 
+		#{daan_nombre}, #{daan_extension},
+		#{daan_usua}, #{daan_tdaan})
+	</insert>
+	
+	
+	<select id="getDocumento" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
+		select * from ant_tdaan, ant_ttdaan
+		where daan_daan = #{daan_daan}
+		and daan_tdaan = tdaan_tdaan
+		
+	</select>
+	
+	<select id="getDocumentosPorProcesoUnificacion" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
+		select * from ant_tdaan, ant_ttdaan
+		where daan_antp = #{antp_antp}
+		and daan_tdaan = tdaan_tdaan
+	</select>
+	
+	<insert id="crearHistorico" parameterType="java.util.HashMap" >
+	
+		insert into ant_thantp 
+				(	hantp_antp,	hantp_eantp,
+					hantp_fasig,hantp_usua,
+					hantp_obser)
+		
+		values 	(	#{hantp_antp}, #{hantp_eantp},
+					now(), #{hantp_usua},
+					#{hantp_obser}	)
+	</insert>
+	
+	<update id="setEstadoProceso" parameterType="archivoRecaudoPorUnificar">
+		update ant_tantp
+		set antp_eantp = #{antp_eantp}
+		where antp_antp = #{antp_antp}
+	</update>
+	
+	<select id="getHistoricoArchivo" parameterType="java.lang.Long" resultType="historicoArchivoRecaudoPorUnificar">
+		select * from ant_thantp
+		where hantp_antp = #{antp_antp}
+		order by hantp_fasig asc
+	</select>
+	
+	
+</mapper>

@@ -10,15 +10,15 @@ public interface ProcesoUnificacionArchivosDao {
 
 	public void iniciarProcesoUnificacionArchivos(ProcesoUnificacionArchivos procesoUnificacionArchivos);
 	
-	public void crearHistoricoProcesoUnificacionArchivos(HashMap<String, Object> hashMap);
+	public void crearHistoricoProceso(HashMap<String, Object> hashMap);
 	
-	public void setEstadoProcesoUnificacionArchivos(ProcesoUnificacionArchivos procesoUnificacionArchivos);
+	public void setEstadoProceso(ProcesoUnificacionArchivos procesoUnificacionArchivos);
 	
-	public List<HistoricoProcesoUnificacionArchivos> getHistoricoPorProcesoUnificacionArchivos(Long prun_prun);
+	public List<HistoricoProcesoUnificacionArchivos> getHistoricoPorProceso(Long prun_prun);
 	
-	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos(Long prun_prun);
+	public ProcesoUnificacionArchivos getProceso(Long prun_prun);
 	
-	public List<ProcesoUnificacionArchivos> getProcesoUnificacionArchivossPorEstados(HashMap<String, Object> hashMap);
+	public List<ProcesoUnificacionArchivos> getProcesoPorEstados(HashMap<String, Object> hashMap);
 	
 
 }

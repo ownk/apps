@@ -57,7 +57,7 @@
 	</select>
 	
 
-	<select id="getHistoricoPorProceso" parameterType="java.lang.Long" resultType="historicoProceso">
+	<select id="getHistoricoPorProceso" parameterType="java.lang.Long" resultType="historicoProcesoUnificacionArchivos">
 		select * from ant_thantp
 		where hantp_antp = #{antp_antp}
 		order by hantp_fasig asc

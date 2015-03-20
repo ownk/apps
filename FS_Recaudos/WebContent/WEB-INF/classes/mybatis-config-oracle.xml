@@ -48,6 +48,18 @@
 		<typeAlias alias="notificacion" type="com.developer.logic.modulo.notificaciones.dto.Notificacion" />
 	
 	
+		<!-- ================================ -->
+		<!-- Modulo Unificacion Archivos ==== -->
+		<!-- ================================ -->
+		<typeAlias alias="archivoRecaudoPorUnificar" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar" />
+		<typeAlias alias="archivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado" />
+		<typeAlias alias="archivoZIPProcesoUnificacion" type="com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion" />
+		<typeAlias alias="procesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos" />
+		<typeAlias alias="historicoArchivoRecaudoPorUnificar" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar" />
+		<typeAlias alias="historicoArchivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoUnificado" />
+		<typeAlias alias="historicoProcesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos" />
+	
+	
 	
 	</typeAliases>
 	
@@ -86,6 +98,19 @@
 		<!-- Modulo notificaciones ========== -->
 		<!-- ================================ -->
 		<mapper resource="com/developer/persistence/modulo/notificaciones/mapper/xml/NotificacionInternaDao.xml" />
+		
+		
+		<!-- ================================ -->
+		<!-- Modulo Unificacion Archivos ==== -->
+		<!-- ================================ -->
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoPorUnificar.xml" />
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoUnificado.xml" />
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoZIPProcesoUnificacion.xml" />
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TipoArchivoRecaudo.xml" />
+		
+		
+		
 	</mappers>
 	
 </configuration>

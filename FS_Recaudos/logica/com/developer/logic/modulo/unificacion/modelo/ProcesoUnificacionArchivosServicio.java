@@ -180,7 +180,7 @@ public class ProcesoUnificacionArchivosServicio {
 				
 				//Se cambia de estado
 				ProcesoUnificacionArchivosDao procesoUnificacionArchivosMapper = session.getMapper(ProcesoUnificacionArchivosDao.class);
-				procesoUnificacionArchivosMapper.setEstadoProcesoUnificacionArchivos(prun);
+				procesoUnificacionArchivosMapper.setEstadoProceso(prun);
 				
 				//Se crea el historico de la prepropuesta
 				HashMap<String, Object> hashMap = new HashMap<String, Object>();
@@ -189,7 +189,7 @@ public class ProcesoUnificacionArchivosServicio {
 				hashMap.put("hprun_usua", usuario.getUsua_usua());
 				hashMap.put("hprun_obser", observacion);
 				
-				procesoUnificacionArchivosMapper.crearHistoricoProcesoUnificacionArchivos(hashMap);
+				procesoUnificacionArchivosMapper.crearHistoricoProceso(hashMap);
 				
 
 			} catch (Exception e) {
