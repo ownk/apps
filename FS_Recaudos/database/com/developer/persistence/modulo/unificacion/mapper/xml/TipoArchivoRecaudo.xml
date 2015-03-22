@@ -4,21 +4,25 @@
 
 <mapper namespace="com.developer.persistence.modulo.unificacion.mapper.dao.TipoArchivoRecaudoDao">
 	
-	
-	
 	<insert id="crearTipoArchivo" parameterType="tipoArchivoRecaudo">
-		insert into ant_tdaan( daan_daan , daan_antp,
-		daan_falm, daan_url, 
-		daan_hash, daan_bytes, 
-		daan_nombre, daan_extension, 
-		daan_usua, daan_tdaan)
-		
-		values ( #{daan_daan} , #{daan_antp}, 
-		now(), #{daan_url}, 
-		#{daan_hash}, #{daan_bytes}, 
-		#{daan_nombre}, #{daan_extension},
-		#{daan_usua}, #{daan_tdaan})
+		insert into UN_TTPAR 
+		(
+			tpar_tpar,
+			tpar_descri,
+			tpar_usua 	    
+		)
+		values 
+		(
+			{tpar_tpar},
+			{tpar_descri},
+			{tpar_usua}
+		)
 	</insert>
+	
+	<select id="getTipoArchivo" parameterType="java.lang.String" resultType="tipoArchivoRecaudo">
+		select * from UN_TTPAR
+		where tpar_tpar = {tpar_tpar}
+	</select>
 	
 	
 </mapper>

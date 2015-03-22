@@ -9,5 +9,5 @@ public interface TipoArchivoRecaudoDao {
 	
 	public void crearTipoArchivo(TipoArchivoRecaudo tipoArchivo);
 	
-	
+	public TipoArchivoRecaudo getTipoArchivo(String tpar_tpar);
 }

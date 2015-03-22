@@ -5,35 +5,52 @@
 <mapper namespace="com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoZIPProcesoUnificacionDao">
 	
 	<select id="getSiguienteID" resultType="java.lang.Long" >
-		select nextvalue('ant_sdaan') from dual
+		select nextvalue('un_sazpu') from dual
 	</select>
 	
 	<insert id="crearArchivoZIP" parameterType="archivoZIPProcesoUnificacion">
-		insert into ant_tdaan( daan_daan , daan_antp,
-		daan_falm, daan_url, 
-		daan_hash, daan_bytes, 
-		daan_nombre, daan_extension, 
-		daan_usua, daan_tdaan)
-		
-		values ( #{daan_daan} , #{daan_antp}, 
-		now(), #{daan_url}, 
-		#{daan_hash}, #{daan_bytes}, 
-		#{daan_nombre}, #{daan_extension},
-		#{daan_usua}, #{daan_tdaan})
+		insert into UN_TAZPU
+		(
+			azpu_azpu,
+			azpu_usua,
+			azpu_prun,
+			azpu_url,
+			azpu_hash,
+			azpu_bytes,
+			azpu_nombre,
+			azpu_observ,
+			azpu_fcrea,
+			azpu_extension,
+			azpu_archivos	
+		)
+		values
+		(
+			{azpu_azpu},
+			{azpu_usua},
+			{azpu_prun},
+			{azpu_url},
+			{azpu_hash},
+			{azpu_bytes},
+			{azpu_nombre},
+			{azpu_observ},
+			{azpu_fcrea},
+			{azpu_extension},
+			{azpu_archivos}
+		)
 	</insert>
 	
 	
 	<select id="getDocumento" parameterType="java.lang.Long" resultType="archivoZIPProcesoUnificacion" >
-		select * from ant_tdaan, ant_ttdaan
-		where daan_daan = #{daan_daan}
-		and daan_tdaan = tdaan_tdaan
+		select * from un_tazpu
+		where azpu_azpu = #{azpu_azpu}
+		
 		
 	</select>
 	
 	<select id="getDocumentosPorProcesoUnificacion" parameterType="java.lang.Long" resultType="archivoZIPProcesoUnificacion" >
-		select * from ant_tdaan, ant_ttdaan
-		where daan_antp = #{antp_antp}
-		and daan_tdaan = tdaan_tdaan
+		select * from un_tazpu
+		where azpu_prun = #{prun_prun}
+	
 	</select>
 	
 	

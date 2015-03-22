@@ -4,68 +4,66 @@
 
 <mapper namespace="com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacionArchivosDao">
 	
+	<select id="getSiguienteID" resultType="java.lang.Long" >
+		select nextvalue('un_sprun') from dual
+	</select>
+	
 	<insert id="iniciarProcesoUnificacionArchivos" parameterType="procesoUnificacionArchivos">
-		insert into ant_tantp(  antp_antp, antp_prop,
-								antp_fcrea, antp_obser,
-								antp_eantp, antp_moda, 
-								antp_pcur, antp_titu,
-								antp_descri, antp_frmu_ini
-								<if test="antp_cias!=null">
-								, antp_cias
-								</if>
-								
-								)
-		
-					values(		#{antp_antp} , #{antp_prop}, 
-								now(), #{antp_obser},
-								#{antp_eantp}, #{antp_moda}, 
-								#{antp_pcur}, #{antp_titu},
-								#{antp_descri}, #{antp_frmu_ini}
-								<if test="antp_cias!=null">
-								, #{antp_cias}
-								</if>
-								
-								)
-  
+		insert into UN_TPRUN 
+		(
+			prun_prun,
+			prun_usua,
+			prun_eprun,
+			prun_fcrea,
+			prun_observ
+		)
+		values 
+		(
+			{prun_prun},
+			{prun_usua},
+			{prun_eprun},
+			{prun_fcrea},
+			{prun_observ}
+		)
 	</insert>
 	
 	<insert id="crearHistoricoProceso" parameterType="java.util.HashMap" >
 	
-		insert into ant_thantp 
-				(	hantp_antp,	hantp_eantp,
-					hantp_fasig,hantp_usua,
-					hantp_obser)
+		insert into un_thprun
+				(	hprun_prun,	hprun_eprun,
+					hprun_fasig,hprun_usua,
+					hprun_obser)
 		
-		values 	(	#{hantp_antp}, #{hantp_eantp},
-					now(), #{hantp_usua},
-					#{hantp_obser}	)
+		values 	(	#{hprun_prun}, #{hprun_eprun},
+					now(), #{hprun_usua},
+					#{hprun_obser}	)
 	</insert>
 	
 	<update id="setEstadoProceso" parameterType="procesoUnificacionArchivos">
-		update ant_tantp
-		set antp_eantp = #{antp_eantp}
-		where antp_antp = #{antp_antp}
+		update un_tprun
+		set prun_eprun = #{prun_eprun}
+		where prun_prun = #{prun_prun}
 	</update>
 	
 	<select id="getProcesosPorEstados" parameterType="java.util.HashMap" resultType="procesoUnificacionArchivos">
-		select * from ant_tantp
-		where antp_eantp is not null
-		<if test="antp_estados != null">
-			and antp_eantp in ( ${antp_estados} )
+		select * from un_tprun
+		where prun_eprun is not null
+		<if test="prun_estados != null">
+			and prun_eprun in ( ${prun_estados} )
 		</if>
-		order by antp_fcrea asc
+		order by prun_fcrea asc
 	</select>
 	
 
 	<select id="getHistoricoPorProceso" parameterType="java.lang.Long" resultType="historicoProcesoUnificacionArchivos">
-		select * from ant_thantp
-		where hantp_antp = #{antp_antp}
-		order by hantp_fasig asc
+		select * from un_thprun
+		where hprun_prun = #{prun_prun}
+		order by hprun_fasig asc
 	</select>
 	
 	<select id="getProceso" parameterType="java.lang.Long" resultType="procesoUnificacionArchivos">
-		select * from ant_tantp
-		where antp_antp = #{antp_antp}
+		select * from un_tprun
+		where prun_prun = #{prun_prun}
 	</select>
 	
 

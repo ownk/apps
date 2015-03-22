@@ -7,6 +7,8 @@ import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArc
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 
 public interface ProcesoUnificacionArchivosDao {
+	
+	public Long getSiguienteID();
 
 	public void iniciarProcesoUnificacionArchivos(ProcesoUnificacionArchivos procesoUnificacionArchivos);
 	

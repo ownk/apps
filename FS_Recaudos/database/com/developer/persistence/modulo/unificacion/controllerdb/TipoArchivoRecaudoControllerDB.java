@@ -4,6 +4,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
+import com.developer.mybatis.DBManager;
 import com.developer.persistence.modulo.unificacion.mapper.dao.TipoArchivoRecaudoDao;
 
 public class TipoArchivoRecaudoControllerDB {
@@ -37,7 +38,25 @@ public class TipoArchivoRecaudoControllerDB {
 		
 	}
 	
-	
+	public TipoArchivoRecaudo getTipoArchivo(String tpar_tpar){
+		
+		SqlSession session = DBManager.openSession();
+
+		try {
+
+			TipoArchivoRecaudoDao dao = session.getMapper(TipoArchivoRecaudoDao.class);
+			return dao.getTipoArchivo(tpar_tpar);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getTipoArchivoRecaudo", e);
+			return null;
+
+		} finally {
+			session.close();
+		}
+		
+		
+	}
 	
 		
 	 

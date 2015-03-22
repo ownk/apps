@@ -30,6 +30,26 @@ public class ProcesoUnificacionArchivosControllerDB {
 	 *===================================================
 	 */
 	
+	public Long getSiguienteID(){
+		SqlSession session = DBManager.openSession();
+		try {
+			
+			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
+			Long prun_prun= dao.getSiguienteID();
+
+			return prun_prun;
+
+		}catch (Exception e) {
+			SimpleLogger.error("Error ", e);
+			return null;
+			
+		} 	finally {
+			session.close();
+		}
+	}
+	
+	
+	
 	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos(Long prun_prun){
 		SqlSession session = DBManager.openSession();
 

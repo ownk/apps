@@ -36,6 +36,15 @@ public class ProcesoUnificacionArchivosServicio {
 	 * ======================================
 	 */
 	
+
+	public Long getSiguienteID(){
+		
+		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		return controllerDB.getSiguienteID();
+		
+	}
+	
+	
 	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(Long prun_prun,  String observacionDeInicio,  Usuario usuario, StringBuffer mensajeErrorOut){
 		
 		
@@ -244,6 +253,14 @@ public class ProcesoUnificacionArchivosServicio {
 		
 	}
 	
+
+	
+	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos(Long prun_prun){
+		
+		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		return controllerDB.getProcesoUnificacionArchivos(prun_prun);
+		
+	}
 	
 	
 

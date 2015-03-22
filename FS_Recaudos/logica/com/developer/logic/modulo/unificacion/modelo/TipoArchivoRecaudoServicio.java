@@ -23,7 +23,13 @@ public class TipoArchivoRecaudoServicio {
 	 * ==========================================
 	 */
 	
-	
+
+	public TipoArchivoRecaudo getTipoArchivoRecaudo(String tpar_tpar){
+		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
+		return controllerDB.getTipoArchivo(tpar_tpar);
+		
+		
+	}
 	/**
 	 * ==========================================
 	 * OPERACIONES TRANSACCIONES ================
