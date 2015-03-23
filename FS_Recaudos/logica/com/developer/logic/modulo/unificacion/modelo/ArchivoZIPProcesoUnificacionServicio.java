@@ -2,10 +2,10 @@ package com.developer.logic.modulo.unificacion.modelo;
 
 import java.util.List;
 
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.session.SqlSession;
 
-import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
-import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoZIPProcesoUnificacionControllerDB;
 
@@ -49,21 +49,19 @@ public class ArchivoZIPProcesoUnificacionServicio {
 		
 	}
 	
-	public String getRutaBaseDeArchivos(){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
-		String rutaGeneral = parametroRutas.getConfig_valor();
+	
+	
+	public String getNombreArchivoEnServidor(FileItem file){
+	
 		
+		String nombreReal = FilenameUtils.getBaseName(file.getName());
+		String extension = FilenameUtils.getExtension(file.getName());
+		String nombreEnServidor = nombreReal+"."+extension;
 		
-		return rutaGeneral+ "ArchivosAnexosAnteproyecto";
-		
+		return nombreEnServidor;
 	}
 	
-	public String construirNombreDeArchivo(Long prun_prun, Long azpu_azpu){
-		
-		return "docAnexoAntp_"+prun_prun.toString()+"_doc_"+azpu_azpu+".ud";
-		
-		
-	}
+	
 	
 	/**
 	 * ==========================================

@@ -30,6 +30,7 @@
 		<!-- Modulo general ================= -->
 		<!-- ================================ -->
 		<typeAlias alias="persona" type="com.developer.logic.modulo.general.dto.Persona" />
+		<typeAlias alias="parametroConfiguracionGeneral" type="com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral" />
 		
 		
 		<!-- ================================ -->
@@ -87,6 +88,7 @@
 		<!-- ================================ -->
 		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/PersonaDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/ServerDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/ConfiguracionGeneralDao.xml" />
 		
 		<!-- ================================ -->
 		<!-- Modulo autenticacion =========== -->

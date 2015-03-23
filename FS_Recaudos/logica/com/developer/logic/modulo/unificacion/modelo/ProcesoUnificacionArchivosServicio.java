@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
+import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.dto.Persona;
+import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
 import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.mybatis.DBManager;
@@ -262,7 +264,15 @@ public class ProcesoUnificacionArchivosServicio {
 		
 	}
 	
-	
+	public String getRutaTemporalArchivosZIP(Long prun_prun){
+		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+		
+		
+		// TODO: Volver parametro la carpeta de proceso de unificacion
+		return rutaGeneral+ "/temp/prun/"+prun_prun+"/zip/";
+		
+	}
 
 	
 
