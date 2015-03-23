@@ -1,6 +1,7 @@
 package com.developer.core.page;
 
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -73,6 +74,7 @@ public abstract class Page {
 		if(parametrosRequest== null || reiniciarMapa){
 			
 			Map<String, Object> mapMultipart = new HashMap<String, Object>();
+			ArrayList<Object> files = new ArrayList<Object>();
 
 			try {
 				if (ServletFileUpload.isMultipartContent(request)) {
@@ -88,8 +90,18 @@ public abstract class Page {
 						if (item.isFormField()) {
 							mapMultipart.put(item.getFieldName(), item.getString(GeneralConstants.ENCONDING));
 						} else {
-							mapMultipart.put(item.getFieldName(), item);
+							
+							
+							if (item.getFieldName().equals("file[]")) {
+								files.add(item);
+							}
 						}
+					}
+					
+					
+					if(files.size()>0){
+						mapMultipart.put("file[]", files);
+						
 					}
 					
 					parametrosRequest = mapMultipart;
