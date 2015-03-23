@@ -28,6 +28,8 @@
 
 
 <div><textarea id="code" name="code">
+<![CDATA[
+
 / utilities to quickly load a csv file - for more exhaustive analysis of the csv contents see csvguess.q
 / 2009.09.20 - updated to match latest csvguess.q 
 
@@ -130,7 +132,8 @@ bulkload:{[file;info]
 	loadhdrs:exec c from info where not t=" ";loadfmts:exec t from info;
 	.csv.fs2[{[file;loadhdrs;loadfmts] `DATA insert $[count DATA;flip loadhdrs!(loadfmts;.csv.DELIM)0:file;loadhdrs xcol(loadfmts;enlist .csv.DELIM)0:file]}[file;loadhdrs;loadfmts]];
 	count DATA}
-@[.:;"\\l csvutil.custom.q";::]; / save your custom settings in csvutil.custom.q to override those set at the beginning of the file 
+@[.:;"\\l csvutil.custom.q";::]; / save your custom settings in csvutil.custom.q to override those set at the beginning of the file
+]]> 
 </textarea></div>
 
     <script>
