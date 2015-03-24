@@ -1,8 +1,13 @@
 package com.developer.logic.modulo.unificacion.modelo;
 
+import java.io.File;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
@@ -20,7 +25,6 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacio
 
 public class ProcesoUnificacionArchivosServicio {
 	
-	public static String PROCESO_SOL_REVISOR_ANTEPROYECTO = "SLREV";
 	
 	private static ProcesoUnificacionArchivosServicio instance;
 	
@@ -47,7 +51,7 @@ public class ProcesoUnificacionArchivosServicio {
 	}
 	
 	
-	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(Long prun_prun,  String observacionDeInicio,  Usuario usuario, StringBuffer mensajeErrorOut){
+	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(Long prun_prun,  String observacionDeInicio, Date currentDate, ArrayList<File> filesZIP,  Usuario usuario, StringBuffer mensajeErrorOut){
 		
 		
 		SqlSession session = DBManager.openSession();
@@ -88,6 +92,7 @@ public class ProcesoUnificacionArchivosServicio {
 				ProcesoUnificacionArchivos procesoUnificacionArchivos = ProcesoUnificacionArchivosControllerDB.getInstance().iniciarProcesoUnificacionArchivosTransaccional(	session, 
 																														prun_prun, 
 																														observacionDeInicio,
+																														currentDate,
 																														usuario, 
 																														mensajeErrorOut);
 				
@@ -95,57 +100,47 @@ public class ProcesoUnificacionArchivosServicio {
 				// TODO: Colocar los arhivos ZIP a asociar al proceso unificado
 				
 				
-				if(procesoUnificacionArchivos!= null){
+				if(procesoUnificacionArchivos!= null ){
 					
-					/*
-						//Se crea el documento al procesoUnificacionArchivos acorde al documento al propuesta
-						Long idDocumento = DocumentoProcesoUnificacionArchivosServicio.getInstance().getSiguienteID();
-						Long version = DocumentoProcesoUnificacionArchivosServicio.getInstance().getSiguienteVersion(procesoUnificacionArchivos.getPrun_prop());
 						
-						String rutabase =  DocumentoProcesoUnificacionArchivosServicio.getInstance().getRutaBaseDeArchivos();
-						String nombreEnServidor = DocumentoProcesoUnificacionArchivosServicio.getInstance().construirNombreDeArchivo(procesoUnificacionArchivos.getPrun_prop(), idDocumento, version);
-						String ruta = rutabase+"/"+nombreEnServidor;
-						
-						DocumentoPropuesta docProp= DocumentoPropuestaServicio.getInstance().getDocumentoActualPorPropuesta(prun_prun);
-						String filename = docProp.getDprop_url();
-						File filePropuesta= new File(filename);
-						File fileProcesoUnificacionArchivos = new File(ruta);
-						
-						if(filePropuesta.exists() ){
-						
-							FileUtils.copyFile(filePropuesta, fileProcesoUnificacionArchivos);
+						for (File fileZIP : filesZIP) {
 							
-							DocumentoProcesoUnificacionArchivos documentoProcesoUnificacionArchivos = new DocumentoProcesoUnificacionArchivos();
-							documentoProcesoUnificacionArchivos.setDprun_extension(docProp.getDprop_extension());
-							documentoProcesoUnificacionArchivos.setDprun_falm(ServerServicio.getInstance().getSysdate());
-							documentoProcesoUnificacionArchivos.setDprun_dprun(idDocumento);
-							documentoProcesoUnificacionArchivos.setDprun_prun(procesoUnificacionArchivos.getPrun_prun());
-							documentoProcesoUnificacionArchivos.setDprun_bytes(docProp.getDprop_bytes());
-							documentoProcesoUnificacionArchivos.setDprun_nombre(docProp.getDprop_nombre());
-							documentoProcesoUnificacionArchivos.setDprun_hash(docProp.getDprop_hash());
-							documentoProcesoUnificacionArchivos.setDprun_url(ruta);
-							documentoProcesoUnificacionArchivos.setDprun_vers(version);
-							documentoProcesoUnificacionArchivos.setDprun_usua(usuario.getUsua_usua());
-							documentoProcesoUnificacionArchivos.setDprun_observ(observacionDeInicio);
+						
+							//Se crean los documentos asociados al proceso
+							ArchivoZIPProcesoUnificacionServicio archivoZIPProcesoUnificacionServicio = new ArchivoZIPProcesoUnificacionServicio();
 							
-							sinErrores = DocumentoProcesoUnificacionArchivosServicio.getInstance().crearDocumentoTransaccional(session, documentoProcesoUnificacionArchivos) && sinErrores;
+							String rutabase = this.getRutaFinalArchivosZIP(procesoUnificacionArchivos);
+							String nombreEnServidor = archivoZIPProcesoUnificacionServicio.getNombreArchivoEnServidor(fileZIP);
+							String ruta = rutabase+"/"+nombreEnServidor;
 							
-							if(sinErrores){
-								session.commit();
-								procesoUnificacionArchivos.setDocumentoProcesoUnificacionArchivos(documentoProcesoUnificacionArchivos);
-								procesoUnificacionArchivosIniciada = procesoUnificacionArchivos;
+						
+							File fileProcesoUnificacionArchivos = new File(ruta);
+							
+							if(fileZIP.exists() ){
+							
+								FileUtils.copyFile(fileZIP, fileProcesoUnificacionArchivos);
+								
+								
+								
 							}else{
 								session.rollback();
-								SimpleLogger.error("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al procesoUnificacionArchivos de forma correcta");
-								mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al  procesoUnificacionArchivos de forma correcta");
+								SimpleLogger.error("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
+								mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
 							}
+						
+						}
+					
+						if(sinErrores){
+							session.commit();
+							procesoUnificacionArchivosIniciada = procesoUnificacionArchivos;
+							
+							
+							
 						}else{
 							session.rollback();
-							SimpleLogger.error("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
-							mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
+							SimpleLogger.error("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al procesoUnificacionArchivos de forma correcta");
+							mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al  procesoUnificacionArchivos de forma correcta");
 						}
-						
-						*/
 					}else{
 						session.rollback();
 						SimpleLogger.error(mensajeErrorOut.toString());
@@ -274,6 +269,19 @@ public class ProcesoUnificacionArchivosServicio {
 		
 	}
 
-	
+	public String getRutaFinalArchivosZIP(ProcesoUnificacionArchivos procesoUnificacionArchivos){
+		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+		
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(procesoUnificacionArchivos.getPrun_fcrea());
+	    int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH)+1;
+	    int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+		// TODO: Volver parametro la carpeta de proceso de unificacion
+		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/azpu/";
+		
+	}
 
 }

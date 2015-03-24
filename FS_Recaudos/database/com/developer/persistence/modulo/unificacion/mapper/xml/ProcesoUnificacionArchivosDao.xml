@@ -19,11 +19,11 @@
 		)
 		values 
 		(
-			{prun_prun},
-			{prun_usua},
-			{prun_eprun},
-			{prun_fcrea},
-			{prun_observ}
+			#{prun_prun},
+			#{prun_usua},
+			#{prun_eprun},
+			#{prun_fcrea},
+			#{prun_observ}
 		)
 	</insert>
 	

@@ -28,20 +28,20 @@
 		)
 		values
 		(
-			{arun_arun}, 		
-			{arun_usua}, 		
-			{arun_prun}, 		
-			{arun_tpar}, 		
-			{arun_earun}, 	
-			{arun_url}, 		
-			{arun_hash}, 		
-			{arun_bytes}, 	
-			{arun_nombre}, 	
-			{arun_observ}, 	
-			{arun_fcrea}, 	
-			{arun_extension},
-			{arun_registros},
-			{arun_archivos}
+			#{arun_arun}, 		
+			#{arun_usua}, 		
+			#{arun_prun}, 		
+			#{arun_tpar}, 		
+			#{arun_earun}, 	
+			#{arun_url}, 		
+			#{arun_hash}, 		
+			#{arun_bytes}, 	
+			#{arun_nombre}, 	
+			#{arun_observ}, 	
+			now(), 	
+			#{arun_extension},
+			#{arun_registros},
+			#{arun_archivos}
 		)
 	</insert>
 	

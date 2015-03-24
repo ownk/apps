@@ -8,7 +8,7 @@ import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.unificacion.modelo.ProcesoUnificacionArchivosServicio;
 
-public class PageIniciarProcesoUnificacion extends PrivatePage {
+public class PageRegistrarArchivosZIPRecaudo extends PrivatePage {
 	
 	public StringBuffer executeAction(HttpServletRequest request) {
 		
@@ -22,7 +22,7 @@ public class PageIniciarProcesoUnificacion extends PrivatePage {
 		if(sessionAppUsuario!=null){
 						
 			//Servicio
-			ProcesoUnificacionArchivosServicio servicio = ProcesoUnificacionArchivosServicio.getInstance();
+			ProcesoUnificacionArchivosServicio servicio = new ProcesoUnificacionArchivosServicio();
 			
 			//Se consulta el siguiente id de proceso
 			Long prun_prun= servicio.getSiguienteID();

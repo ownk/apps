@@ -24,7 +24,7 @@
 				/> -->
 
 			<add type='script'
-				src="privado/unificacion/PageIniciarProcesoUnificacion/js/Upload.js" />
+				src="privado/unificacion/PageRegistrarArchivosZIPRecaudo/js/Upload.js" />
 
 
 
@@ -89,11 +89,13 @@
 												method="post" enctype="multipart/form-data">
 												<div class="dropzone-previews"></div>
 												<button type="submit" class="btn btn-primary pull-right">Cargar Archivos</button>
+												<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
+													value="{//prun_prun}" />
 
 
 											</form>
 											<div>
-																								<a class="btn btn-primary" href="">Limpiar</a>
+												<a class="btn btn-primary" href="">Limpiar</a>
 												<div class="m text-right">
 													<small>
 														Recurde que el proceso actual presenta un identificador
@@ -127,12 +129,12 @@
 
 											<div class="m text-center">
 												<form id="form_unificar"
-													action="{//contextPath}/unificacion/PageUnificarArchivos.do"
+													action="{//contextPath}/unificacion/PageIniciarProcesoUnificacionArchivos.do"
 													method="post">
 													<div class="dropzone-previews"></div>
 													<button disabled="true" id="btn_unificarArchivos"
 														type="submit" class="btn btn-primary pull-right">Cargar Archivos</button>
-														
+
 													<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 														value="{//prun_prun}" />
 												</form>

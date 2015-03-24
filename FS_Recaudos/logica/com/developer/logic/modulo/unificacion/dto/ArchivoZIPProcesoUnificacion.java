@@ -5,6 +5,10 @@ import java.util.Date;
 public class ArchivoZIPProcesoUnificacion {
 	
 	
+	public static String ZIP = "ZIP";
+	public static String RAR = "RAR";
+
+	
 	//Atributos atomicos
 	Long azpu_azpu;
 	String azpu_usua;

@@ -25,17 +25,17 @@
 		)
 		values
 		(
-			{azpu_azpu},
-			{azpu_usua},
-			{azpu_prun},
-			{azpu_url},
-			{azpu_hash},
-			{azpu_bytes},
-			{azpu_nombre},
-			{azpu_observ},
-			{azpu_fcrea},
-			{azpu_extension},
-			{azpu_archivos}
+			#{azpu_azpu},
+			#{azpu_usua},
+			#{azpu_prun},
+			#{azpu_url},
+			#{azpu_hash},
+			#{azpu_bytes},
+			#{azpu_nombre},
+			#{azpu_observ},
+			now(),
+			#{azpu_extension},
+			#{azpu_archivos}
 		)
 	</insert>
 	

@@ -1,5 +1,6 @@
 package com.developer.persistence.modulo.unificacion.controllerdb;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -163,6 +164,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(	SqlSession session, 
 															Long prun_prun, 
 															String observacion,
+															Date currentDate,
 															Usuario usuario, 
 															StringBuffer mensajeError){
 		
@@ -173,6 +175,8 @@ public class ProcesoUnificacionArchivosControllerDB {
 		procesoUnificacionArchivos.setPrun_prun(prun_prun);
 		procesoUnificacionArchivos.setPrun_observ(observacion);
 		procesoUnificacionArchivos.setPrun_eprun(ProcesoUnificacionArchivos.INICIADO);
+		procesoUnificacionArchivos.setPrun_usua(usuario.getUsua_usua());
+		procesoUnificacionArchivos.setPrun_fcrea(currentDate);
 		
 		try{
 			ProcesoUnificacionArchivosDao procesoUnificacionArchivosDao= session.getMapper(ProcesoUnificacionArchivosDao.class);

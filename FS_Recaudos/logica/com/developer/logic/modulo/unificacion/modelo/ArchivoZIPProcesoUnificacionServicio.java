@@ -1,5 +1,6 @@
 package com.developer.logic.modulo.unificacion.modelo;
 
+import java.io.File;
 import java.util.List;
 
 import org.apache.commons.fileupload.FileItem;
@@ -52,16 +53,23 @@ public class ArchivoZIPProcesoUnificacionServicio {
 	
 	
 	public String getNombreArchivoEnServidor(FileItem file){
+		return getNombreArchivoEnServidor(file.getName());
+	}
 	
+	public String getNombreArchivoEnServidor(File file){
+		return getNombreArchivoEnServidor(file.getName());
 		
-		String nombreReal = FilenameUtils.getBaseName(file.getName());
-		String extension = FilenameUtils.getExtension(file.getName());
+		
+	}
+	
+	
+	private String getNombreArchivoEnServidor(String fileName){
+		String nombreReal = FilenameUtils.getBaseName(fileName);
+		String extension = FilenameUtils.getExtension(fileName);
 		String nombreEnServidor = nombreReal+"."+extension;
 		
 		return nombreEnServidor;
 	}
-	
-	
 	
 	/**
 	 * ==========================================

@@ -34,8 +34,8 @@
 			<body>
 
 				<div id="wrapper">
-					<a href ="{//contextPath}/unificacion/PageIniciarProcesoUnificacion.do" >
-					Iniciar proceso Unificacion Archivos
+					<a href ="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do" >
+					Registrar Archivos ZIP Recaudo
 					</a>
 					
 				</div>

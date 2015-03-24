@@ -28,20 +28,20 @@
 		)
 		values
 		(
-			{arpu_arpu},	
-			{arpu_tpar},		
-			{arpu_usua},	
-			{arpu_prun},	
-			{arpu_azpu},	
-			{arpu_earpu},	
-			{arpu_url},		
-			{arpu_hash},	
-			{arpu_bytes},	
-			{arpu_nombre},	
-			{arpu_extension},
-			{arpu_registros},
-			{arpu_observ},	
-			{arpu_fcrea}	
+			#{arpu_arpu},	
+			#{arpu_tpar},		
+			#{arpu_usua},	
+			#{arpu_prun},	
+			#{arpu_azpu},	
+			#{arpu_earpu},	
+			#{arpu_url},		
+			#{arpu_hash},	
+			#{arpu_bytes},	
+			#{arpu_nombre},	
+			#{arpu_extension},
+			#{arpu_registros},
+			#{arpu_observ},	
+			now()	
 		)
 	</insert>
 	

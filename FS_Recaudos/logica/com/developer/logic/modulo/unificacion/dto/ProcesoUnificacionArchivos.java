@@ -8,7 +8,6 @@ public class ProcesoUnificacionArchivos {
 	//Estados
 	
 	public static String INICIADO = "INICIADO";
-	public static String ASOCIANDO_ARCHIVOS = "ASOCIANDO_ARCHIVOS";
 	public static String UNIFICANDO_ARCHIVOS = "UNIFICANDO_ARCHIVOS";
 	public static String FINALIZADO = "FINALIZADO";
 
