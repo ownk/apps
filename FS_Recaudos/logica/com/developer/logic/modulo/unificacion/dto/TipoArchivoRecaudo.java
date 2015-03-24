@@ -4,9 +4,14 @@ package com.developer.logic.modulo.unificacion.dto;
 public class TipoArchivoRecaudo {
 	
 	
+	public static Long ESTR_FIDUCIARIA = new Long(1);
+	public static Long ESTR_ASOBANCARIA = new Long(2);
+	
+	
 	String tpar_tpar;
 	String tpar_descri;
 	String tpar_usua;
+	Long   tpar_estr;
 	
 	
 	public String getTpar_tpar() {
@@ -26,6 +31,12 @@ public class TipoArchivoRecaudo {
 	}
 	public void setTpar_usua(String tpar_usua) {
 		this.tpar_usua = tpar_usua;
+	}
+	public Long getTpar_estr() {
+		return tpar_estr;
+	}
+	public void setTpar_estr(Long tpar_estr) {
+		this.tpar_estr = tpar_estr;
 	} 
 	
 	

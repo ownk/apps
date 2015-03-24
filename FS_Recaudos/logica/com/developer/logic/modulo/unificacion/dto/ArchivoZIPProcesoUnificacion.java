@@ -1,6 +1,8 @@
 package com.developer.logic.modulo.unificacion.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class ArchivoZIPProcesoUnificacion {
 	
@@ -22,6 +24,14 @@ public class ArchivoZIPProcesoUnificacion {
 	String azpu_extension;
 	Long azpu_archivos;
 	
+	
+	//Atributos calculados
+	ProcesoUnificacionArchivos procesoUnificacionArchivos;
+	List<ArchivoRecaudoPorUnificar> archivosARPU;
+	
+	public ArchivoZIPProcesoUnificacion() {
+		archivosARPU = new ArrayList<ArchivoRecaudoPorUnificar>();
+	}
 	
 	public Long getAzpu_azpu() {
 		return azpu_azpu;
@@ -88,6 +98,19 @@ public class ArchivoZIPProcesoUnificacion {
 	}
 	public void setAzpu_archivos(Long azpu_archivos) {
 		this.azpu_archivos = azpu_archivos;
+	}
+	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos() {
+		return procesoUnificacionArchivos;
+	}
+	public void setProcesoUnificacionArchivos(
+			ProcesoUnificacionArchivos procesoUnificacionArchivos) {
+		this.procesoUnificacionArchivos = procesoUnificacionArchivos;
+	}
+	public List<ArchivoRecaudoPorUnificar> getArchivosARPU() {
+		return archivosARPU;
+	}
+	public void setArchivosARPU(List<ArchivoRecaudoPorUnificar> archivosARPU) {
+		this.archivosARPU = archivosARPU;
 	}
 	
 	

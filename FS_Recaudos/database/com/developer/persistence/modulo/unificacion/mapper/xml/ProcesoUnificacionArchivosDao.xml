@@ -15,7 +15,9 @@
 			prun_usua,
 			prun_eprun,
 			prun_fcrea,
-			prun_observ
+			prun_observ,
+			prun_archivos
+			
 		)
 		values 
 		(
@@ -23,7 +25,8 @@
 			#{prun_usua},
 			#{prun_eprun},
 			#{prun_fcrea},
-			#{prun_observ}
+			#{prun_observ},
+			#{prun_archivos}
 		)
 	</insert>
 	

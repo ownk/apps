@@ -5,6 +5,15 @@ import java.util.Date;
 public class ArchivoRecaudoPorUnificar {
 	
 	
+
+	//Estados
+	
+	public static String CARGADO = "CARGADO";
+	public static String UNIFICADO = "UNIFICADO";
+	
+
+	
+	
 	//Atributos atomicos
 	Long arpu_arpu;
 	Long arpu_azpu;
@@ -21,6 +30,10 @@ public class ArchivoRecaudoPorUnificar {
 	Long arpu_registros;
 	Date arpu_fcrea;
 	
+	
+	//Atributos Calculados
+	ProcesoUnificacionArchivos procesoUnificacionArchivos;
+	ArchivoZIPProcesoUnificacion archivoAZPU;
 	
 	
 	public Long getArpu_arpu() {
@@ -106,6 +119,20 @@ public class ArchivoRecaudoPorUnificar {
 	}
 	public void setArpu_fcrea(Date arpu_fcrea) {
 		this.arpu_fcrea = arpu_fcrea;
+	}
+	
+	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos() {
+		return procesoUnificacionArchivos;
+	}
+	public void setProcesoUnificacionArchivos(
+			ProcesoUnificacionArchivos procesoUnificacionArchivos) {
+		this.procesoUnificacionArchivos = procesoUnificacionArchivos;
+	}
+	public ArchivoZIPProcesoUnificacion getArchivoAZPU() {
+		return archivoAZPU;
+	}
+	public void setArchivoAZPU(ArchivoZIPProcesoUnificacion archivosAZPU) {
+		this.archivoAZPU = archivosAZPU;
 	}
 	
 	

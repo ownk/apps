@@ -1,6 +1,8 @@
 package com.developer.logic.modulo.unificacion.dto;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 
 public class ProcesoUnificacionArchivos {
@@ -12,13 +14,23 @@ public class ProcesoUnificacionArchivos {
 	public static String FINALIZADO = "FINALIZADO";
 
 
-	
+	//Atributos atomicos
 	private	Long    prun_prun 	 ;
 	private	String  prun_usua 	 ;
 	private	String	prun_eprun   ;
 	private	Date	prun_fcrea   ;
 	private	String	prun_observ  ;
+	private Long 	prun_archivos;
 	
+	
+	
+	//Atributos calculados
+	List<ArchivoZIPProcesoUnificacion> archivosAZPU;
+	
+	
+	public ProcesoUnificacionArchivos() {
+		archivosAZPU = new ArrayList<ArchivoZIPProcesoUnificacion>();
+	}
 	
 	public Long getPrun_prun() {
 		return prun_prun;
@@ -50,9 +62,21 @@ public class ProcesoUnificacionArchivos {
 	public void setPrun_observ(String prun_observ) {
 		this.prun_observ = prun_observ;
 	}
+	public List<ArchivoZIPProcesoUnificacion> getArchivosAZPU() {
+		return archivosAZPU;
+	}
+	public void setArchivosAZPU(List<ArchivoZIPProcesoUnificacion> archivosAZPU) {
+		this.archivosAZPU = archivosAZPU;
+	}
+	public Long getPrun_archivos() {
+		return prun_archivos;
+	}
+	public void setPrun_archivos(Long prun_archivos) {
+		this.prun_archivos = prun_archivos;
+	}
 
 
-
+	
 
 
 }

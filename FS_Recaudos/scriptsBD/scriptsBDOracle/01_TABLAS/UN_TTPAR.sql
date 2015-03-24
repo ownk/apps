@@ -15,7 +15,8 @@ Prompt
   CREATE TABLE "FS_RECAUDOS_US"."UN_TTPAR" 
    (	"TPAR_TPAR" 		VARCHAR2(100 BYTE)			constraint NN_UN_TTPAR_TPAR not null, 
 		"TPAR_DESCRI" 		VARCHAR2(2000 BYTE)			constraint NN_UN_TTPAR_DESCRI not null,
-		"TPAR_USUA" 		VARCHAR2(100 BYTE)			constraint NN_UN_TTPAR_USUA not null
+		"TPAR_USUA" 		VARCHAR2(100 BYTE)			constraint NN_UN_TTPAR_USUA not null,
+		"TPAR_ESTR" 		NUMBER						constraint NN_UN_TTPAR_ESTR not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -25,6 +26,8 @@ Prompt
    COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TTPAR"."TPAR_DESCRI" IS 'Descripcion del tipo de archivo';
 
    COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TTPAR"."TPAR_USUA" IS 'Usuario que crea el tipo de archivo';
+   
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TTPAR"."TPAR_ESTR" IS 'Estructura del tipo archivo. 1-Fiduciaria 2-Asobancaria';
  
    COMMENT ON TABLE "FS_RECAUDOS_US"."UN_TTPAR"  IS 'Tabla donde se almacenan los tipos de archivos de recaudo';
 

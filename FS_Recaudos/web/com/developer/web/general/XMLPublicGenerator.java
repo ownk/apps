@@ -5,7 +5,7 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 
 import com.developer.core.page.IXMLPageGenerador;
-import com.developer.core.utils.JavaToXML;
+import com.developer.core.utils.ObjectToXML;
 
 public class XMLPublicGenerator implements IXMLPageGenerador {
 
@@ -35,7 +35,7 @@ public class XMLPublicGenerator implements IXMLPageGenerador {
 		StringBuffer xmlRequesAttributes = new StringBuffer();
 		for (Enumeration<String> e = request.getAttributeNames(); e.hasMoreElements();) {
 			String attrname = e.nextElement();
-			xmlRequesAttributes.append(JavaToXML.exe(attrname, request.getAttribute(attrname)));
+			xmlRequesAttributes.append(ObjectToXML.getInstance().getXML(request.getAttribute(attrname)));
 		}
 		
 		return xmlRequesAttributes;
@@ -48,7 +48,7 @@ public class XMLPublicGenerator implements IXMLPageGenerador {
 		
 		for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements();) {
 			String attrname = e.nextElement();
-			xmlRequesParameters.append(JavaToXML.exe(attrname, request.getParameter(attrname)));
+			xmlRequesParameters.append(ObjectToXML.getInstance().getXML(request.getParameter(attrname)));
 		}
 		
 		return xmlRequesParameters;

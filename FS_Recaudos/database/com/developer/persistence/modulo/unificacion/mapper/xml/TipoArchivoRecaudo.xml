@@ -9,19 +9,21 @@
 		(
 			tpar_tpar,
 			tpar_descri,
-			tpar_usua 	    
+			tpar_usua,
+			tpar_estr	    
 		)
 		values 
 		(
-			{tpar_tpar},
-			{tpar_descri},
-			{tpar_usua}
+			#{tpar_tpar},
+			#{tpar_descri},
+			#{tpar_usua},
+			#{tpar_estr}
 		)
 	</insert>
 	
 	<select id="getTipoArchivo" parameterType="java.lang.String" resultType="tipoArchivoRecaudo">
 		select * from UN_TTPAR
-		where tpar_tpar = {tpar_tpar}
+		where tpar_tpar = #{tpar_tpar}
 	</select>
 	
 	

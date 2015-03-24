@@ -59,6 +59,9 @@
 		<typeAlias alias="historicoArchivoRecaudoPorUnificar" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar" />
 		<typeAlias alias="historicoArchivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoUnificado" />
 		<typeAlias alias="historicoProcesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos" />
+		<typeAlias alias="tipoArchivoRecaudo" type="com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo" />
+	
+	
 	
 	
 	

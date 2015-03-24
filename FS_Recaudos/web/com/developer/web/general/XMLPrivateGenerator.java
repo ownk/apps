@@ -56,7 +56,7 @@ public class XMLPrivateGenerator implements IXMLPageGenerador{
 		StringBuffer xmlRequesAttributes = new StringBuffer();
 		for (Enumeration<String> e = request.getAttributeNames(); e.hasMoreElements();) {
 			String attrname = e.nextElement();
-			xmlRequesAttributes.append(JavaToXML.exe(attrname, request.getAttribute(attrname)));
+			xmlRequesAttributes.append(ObjectToXML.getInstance().getXML(request.getAttribute(attrname)));
 		}
 		
 		return xmlRequesAttributes;
@@ -69,7 +69,7 @@ public class XMLPrivateGenerator implements IXMLPageGenerador{
 		
 		for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements();) {
 			String attrname = e.nextElement();
-			xmlRequesParameters.append(JavaToXML.exe(attrname, request.getParameter(attrname)));
+			xmlRequesParameters.append(ObjectToXML.getInstance().getXML(request.getParameter(attrname)));
 		}
 		
 		return xmlRequesParameters;
@@ -91,7 +91,7 @@ public class XMLPrivateGenerator implements IXMLPageGenerador{
 				
 				//Solo las variables que inicien como var. seran mostradas en el xml de la pagina
 				if(attrname.startsWith("var.")){
-					xmlSessionInfo.append(JavaToXML.exe(attrname, sessionAppUsuario.getHttpSession().getAttribute(attrname)));
+					xmlSessionInfo.append(ObjectToXML.getInstance().getXML(sessionAppUsuario.getHttpSession().getAttribute(attrname)));
 				
 				}
 			}

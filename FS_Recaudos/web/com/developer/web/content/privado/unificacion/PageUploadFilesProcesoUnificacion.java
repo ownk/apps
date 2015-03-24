@@ -1,6 +1,5 @@
 package com.developer.web.content.privado.unificacion;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -79,11 +78,10 @@ public class PageUploadFilesProcesoUnificacion extends PrivatePage {
 					String nombreEnServidor = ArchivoZIPProcesoUnificacionServicio
 							.getInstance().getNombreArchivoEnServidor(fileItem);
 
-					String ruta = ServletUtils.copyFileItem(rutabase, fileItem,
+					ServletUtils.copyFileItem(rutabase, fileItem,
 							nombreEnServidor);
 
-					File file = new File(ruta);
-					System.out.println(file.exists());
+					
 
 				}
 

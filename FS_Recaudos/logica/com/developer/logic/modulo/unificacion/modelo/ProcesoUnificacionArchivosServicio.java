@@ -15,6 +15,7 @@ import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.dto.Persona;
 import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
+import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.mybatis.DBManager;
@@ -85,45 +86,69 @@ public class ProcesoUnificacionArchivosServicio {
 				return null;
 			}
 			
+			if(currentDate==null){
+				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado la fecha para el inicio del mismo.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
 			
+			if(filesZIP==null){
+				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado los archivos para el inicio del mismo.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
 			
 			//Se verifica que no existan errores para crear el procesoUnificacionArchivos
 			if(sinErrores){
 				ProcesoUnificacionArchivos procesoUnificacionArchivos = ProcesoUnificacionArchivosControllerDB.getInstance().iniciarProcesoUnificacionArchivosTransaccional(	session, 
-																														prun_prun, 
+																														prun_prun,
+																														new Long(filesZIP.size()),
 																														observacionDeInicio,
 																														currentDate,
 																														usuario, 
 																														mensajeErrorOut);
 				
 				
-				// TODO: Colocar los arhivos ZIP a asociar al proceso unificado
-				
-				
+			
 				if(procesoUnificacionArchivos!= null ){
-					
 						
+					ArchivoZIPProcesoUnificacionServicio archivoZIPProcesoUnificacionServicio = new ArchivoZIPProcesoUnificacionServicio();
+					String rutabaseZIP = this.getRutaFinalArchivosZIP(procesoUnificacionArchivos);	
+					String rutabaseUnZIP = this.getRutaFinalArchivosUnZIP(procesoUnificacionArchivos);
+					
 						for (File fileZIP : filesZIP) {
 							
 						
 							//Se crean los documentos asociados al proceso
-							ArchivoZIPProcesoUnificacionServicio archivoZIPProcesoUnificacionServicio = new ArchivoZIPProcesoUnificacionServicio();
-							
-							String rutabase = this.getRutaFinalArchivosZIP(procesoUnificacionArchivos);
 							String nombreEnServidor = archivoZIPProcesoUnificacionServicio.getNombreArchivoEnServidor(fileZIP);
-							String ruta = rutabase+"/"+nombreEnServidor;
+							String ruta = rutabaseZIP+"/"+nombreEnServidor;
 							
 						
 							File fileProcesoUnificacionArchivos = new File(ruta);
 							
-							if(fileZIP.exists() ){
+							if(fileZIP.exists() && sinErrores){
 							
 								FileUtils.copyFile(fileZIP, fileProcesoUnificacionArchivos);
+								
+								ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion = archivoZIPProcesoUnificacionServicio.crearDocumentoTransaccional(session, procesoUnificacionArchivos, fileZIP, rutabaseUnZIP, mensajeErrorOut);
+								
+								if(archivoZIPProcesoUnificacion==null){
+									sinErrores =false;
+									SimpleLogger.error("Error creando archivo zip "+fileZIP.getName());
+									mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
+								}else{
+									procesoUnificacionArchivos.getArchivosAZPU().add(archivoZIPProcesoUnificacion);
+									
+								}
 								
 								
 								
 							}else{
-								session.rollback();
+								sinErrores = false;
 								SimpleLogger.error("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
 								mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No existe documento asociado al procesoUnificacionArchivos.");
 							}
@@ -263,8 +288,6 @@ public class ProcesoUnificacionArchivosServicio {
 		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
-		
-		// TODO: Volver parametro la carpeta de proceso de unificacion
 		return rutaGeneral+ "/temp/prun/"+prun_prun+"/zip/";
 		
 	}
@@ -279,8 +302,36 @@ public class ProcesoUnificacionArchivosServicio {
 	    int month = cal.get(Calendar.MONTH)+1;
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 		
-		// TODO: Volver parametro la carpeta de proceso de unificacion
 		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/azpu/";
+		
+	}
+	
+	public String getRutaFinalArchivosUnZIP(ProcesoUnificacionArchivos procesoUnificacionArchivos){
+		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+		
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(procesoUnificacionArchivos.getPrun_fcrea());
+	    int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH)+1;
+	    int day = cal.get(Calendar.DAY_OF_MONTH);
+	
+		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/arpu/";
+		
+	}
+	
+	public String getRutaFinalArchivosUnificados(ProcesoUnificacionArchivos procesoUnificacionArchivos){
+		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+		
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(procesoUnificacionArchivos.getPrun_fcrea());
+	    int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH)+1;
+	    int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+
+		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/arun/";
 		
 	}
 

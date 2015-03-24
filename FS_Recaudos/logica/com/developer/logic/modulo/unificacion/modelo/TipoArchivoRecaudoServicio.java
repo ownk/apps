@@ -26,7 +26,7 @@ public class TipoArchivoRecaudoServicio {
 
 	public TipoArchivoRecaudo getTipoArchivoRecaudo(String tpar_tpar){
 		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
-		return controllerDB.getTipoArchivo(tpar_tpar);
+		return controllerDB.getTipoArchivo(tpar_tpar.toUpperCase());
 		
 		
 	}
@@ -37,12 +37,20 @@ public class TipoArchivoRecaudoServicio {
 	 */
 	
 	public boolean crearTipoArchivoTransaccional(SqlSession session,
-			TipoArchivoRecaudo documento) {
+			TipoArchivoRecaudo tipoArchivo) {
 		
-		return TipoArchivoRecaudoControllerDB.getInstance().crearTipoArchivoTransaccional(session, documento);
+		tipoArchivo.setTpar_tpar(tipoArchivo.getTpar_tpar().toUpperCase());
+		
+		return TipoArchivoRecaudoControllerDB.getInstance().crearTipoArchivoTransaccional(session, tipoArchivo);
 		
 	}
 
+	public TipoArchivoRecaudo getTipoArchivoRecaudoTransaccional(SqlSession session, String tpar_tpar){
+		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
+		return controllerDB.getTipoArchivoTransaccional(session, tpar_tpar.toUpperCase());
+		
+		
+	}
 	
 			
 	

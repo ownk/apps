@@ -17,10 +17,12 @@ import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.modelo.ProcesoUnificacionArchivosServicio;
+import com.developer.web.general.MensajeErrorWeb;
 
 public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 
-	String nextPage = "/unificacion/PageProcesoUnificacionArchivos";
+	String nextPage = null;
+	MensajeErrorWeb errorWeb = new MensajeErrorWeb();
 
 	public StringBuffer executeAction(HttpServletRequest request) {
 
@@ -31,6 +33,8 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 		SessionAppUsuario sessionAppUsuario = AutenticadorServicio
 				.getInstance().getSessionAppUsuario(request);
 
+		StringBuffer mensajeErrorOut = new StringBuffer();
+		
 		if (sessionAppUsuario != null) {
 
 			Map<String, Object> parameters = getParameters(request, true);
@@ -42,61 +46,92 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 			if (procesoUnificacionArchivos != null
 					&& procesoUnificacionArchivos.getPrun_prun() != null) {
 
-				StringBuffer mensajeErrorOut = new StringBuffer();
+				
 
 				ArrayList<File> filesZIP = getFilesZIP(procesoUnificacionArchivos
 						.getPrun_prun());
 				
-				Date currentDate = ServerServicio.getInstance().getSysdate();
 				
-				ProcesoUnificacionArchivosServicio procesoUnificacionArchivosServicio = new ProcesoUnificacionArchivosServicio();
-				procesoUnificacionArchivos = procesoUnificacionArchivosServicio
-						.iniciarProcesoUnificacionArchivosTransaccional(
-								procesoUnificacionArchivos.getPrun_prun(),
-								"Inicio de proceso ", currentDate, filesZIP,
-								sessionAppUsuario.getUsuario(), mensajeErrorOut);
+				if(filesZIP!= null && filesZIP.size()>0){
 				
-				
-				
-
-				if (procesoUnificacionArchivos == null) {
+					Date currentDate = ServerServicio.getInstance().getSysdate();
+					
+					ProcesoUnificacionArchivosServicio procesoUnificacionArchivosServicio = new ProcesoUnificacionArchivosServicio();
+					procesoUnificacionArchivos = procesoUnificacionArchivosServicio
+							.iniciarProcesoUnificacionArchivosTransaccional(
+									procesoUnificacionArchivos.getPrun_prun(),
+									"Inicio de proceso ", currentDate, filesZIP,
+									sessionAppUsuario.getUsuario(), mensajeErrorOut);
 					
 					
-					String uri = request.getRequestURI();
-					String rsname = uri.substring(request.getContextPath().length(), uri.lastIndexOf("."));
 					
-					this.nextPage = rsname+"?error=2";
-					sessionAppUsuario.getHttpSession().removeAttribute(
-							"var.error");
-					sessionAppUsuario.getHttpSession().setAttribute(
-							"var.error", mensajeErrorOut.toString());
-
+	
+					if (procesoUnificacionArchivos == null) {
+						
+						
+						
+					sessionAppUsuario
+								.notificarEvento("Error iniciando proceso de unificacion de archivos: "
+										+ mensajeErrorOut.toString());
+						
+						
+						errorWeb.setError("1");
+						errorWeb.setMensajeError(mensajeErrorOut.toString());
+						
+						xmlPage.append(objectToXML.getXML(errorWeb));
+						
+					} else {
+	
+						
+						// Se crea un nuevo mensaje de session
+						sessionAppUsuario
+								.notificarEvento("Proceso Unificacion Archivos No. "
+										+ procesoUnificacionArchivos.getPrun_prun()
+										+ " se ha creado con éxito!");
+						
+						
+						xmlPage.append(objectToXML.getXML(procesoUnificacionArchivos));
+	
+					}
+				}else{
+					
+					mensajeErrorOut.append("No existen archivos asociados al proceso ");
+					
+					
 					sessionAppUsuario
 							.notificarEvento("Error iniciando proceso de unificacion de archivos: "
 									+ mensajeErrorOut.toString());
-				} else {
-
-					sessionAppUsuario.getHttpSession().setAttribute(
-							"var.procesoUnificacionArchivos",
-							procesoUnificacionArchivos);
-
-					// Se crea un nuevo mensaje de session
-					sessionAppUsuario
-							.notificarEvento("Proceso Unificacion Archivos No. "
-									+ procesoUnificacionArchivos.getPrun_prun()
-									+ " se ha creado con éxito!");
-
+					
+					errorWeb.setError("2");
+					errorWeb.setMensajeError(mensajeErrorOut.toString());
+					
+					xmlPage.append(objectToXML.getXML(errorWeb));
+					
 				}
+			}else{
+				
+				mensajeErrorOut.append("No se encontro identificador de proceso ");
+				
+				sessionAppUsuario
+						.notificarEvento("Error iniciando proceso de unificacion de archivos: "
+								+ mensajeErrorOut.toString());
+				
+				errorWeb.setError("3");
+				errorWeb.setMensajeError(mensajeErrorOut.toString());
+				
+				xmlPage.append(objectToXML.getXML(errorWeb));
+				
 			}
 
 		} else {
 			
-			
-			String uri = request.getRequestURI();
-			String rsname = uri.substring(request.getContextPath().length(), uri.lastIndexOf("."));
-			
-			this.nextPage = rsname+"?error=1";
-			
+			mensajeErrorOut.append("Usuario no se ha autenticado correctamente ");
+
+
+			errorWeb.setError(MensajeErrorWeb.ERROR_AUTENTICACION);
+			errorWeb.setMensajeError(mensajeErrorOut.toString());;
+			xmlPage.append(objectToXML.getXML(errorWeb));
+						
 
 			
 		}
@@ -132,7 +167,7 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 				String extension = FilenameUtils.getExtension(file.getName());
 
 				if (extension.toUpperCase().equals(
-						ArchivoZIPProcesoUnificacion.ZIP)) {
+						ArchivoZIPProcesoUnificacion.ZIP) || extension.toUpperCase().equals(ArchivoZIPProcesoUnificacion.RAR)) {
 					filesZIP.add(file);
 				}
 

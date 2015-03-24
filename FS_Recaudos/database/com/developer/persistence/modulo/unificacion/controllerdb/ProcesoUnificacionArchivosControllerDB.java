@@ -163,6 +163,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	
 	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(	SqlSession session, 
 															Long prun_prun, 
+															Long prun_archivos,
 															String observacion,
 															Date currentDate,
 															Usuario usuario, 
@@ -177,6 +178,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 		procesoUnificacionArchivos.setPrun_eprun(ProcesoUnificacionArchivos.INICIADO);
 		procesoUnificacionArchivos.setPrun_usua(usuario.getUsua_usua());
 		procesoUnificacionArchivos.setPrun_fcrea(currentDate);
+		procesoUnificacionArchivos.setPrun_archivos(prun_archivos);
 		
 		try{
 			ProcesoUnificacionArchivosDao procesoUnificacionArchivosDao= session.getMapper(ProcesoUnificacionArchivosDao.class);

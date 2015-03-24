@@ -41,7 +41,23 @@ public class TipoArchivoRecaudoControllerDB {
 	public TipoArchivoRecaudo getTipoArchivo(String tpar_tpar){
 		
 		SqlSession session = DBManager.openSession();
+		
+		try{
+		
+			return getTipoArchivoTransaccional(session, tpar_tpar);
+		} catch (Exception e) {
+			SimpleLogger.error("Error getTipoArchivoRecaudo", e);
+			return null;
 
+		} finally {
+			session.close();
+		}
+		
+		
+	}
+	
+	public TipoArchivoRecaudo getTipoArchivoTransaccional(SqlSession session, String tpar_tpar){
+		
 		try {
 
 			TipoArchivoRecaudoDao dao = session.getMapper(TipoArchivoRecaudoDao.class);
@@ -51,9 +67,7 @@ public class TipoArchivoRecaudoControllerDB {
 			SimpleLogger.error("Error getTipoArchivoRecaudo", e);
 			return null;
 
-		} finally {
-			session.close();
-		}
+		} 
 		
 		
 	}
