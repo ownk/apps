@@ -306,7 +306,7 @@ public class ProcesoUnificacionArchivosServicio {
 	    int month = cal.get(Calendar.MONTH)+1;
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 		
-		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/azpu/";
+		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/01_azpu/";
 		
 	}
 	
@@ -320,7 +320,7 @@ public class ProcesoUnificacionArchivosServicio {
 	    int month = cal.get(Calendar.MONTH)+1;
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 	
-		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/arpu/";
+		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/02_arpu/";
 		
 	}
 	
@@ -335,7 +335,7 @@ public class ProcesoUnificacionArchivosServicio {
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 		
 
-		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/arun/";
+		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/03_arun/";
 		
 	}
 	
