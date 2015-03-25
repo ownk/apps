@@ -41,7 +41,7 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 	
 	
 	
-	public Boolean crearDocumentoTransaccional(SqlSession session, ArchivoZIPProcesoUnificacion documento){
+	public Boolean crearArchivoTransaccional(SqlSession session, ArchivoZIPProcesoUnificacion documento){
 		
 		try{
 			
@@ -51,7 +51,7 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 			return true;
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error crearDocumentoTransaccional", e);
+			SimpleLogger.error("Error crearArchivoTransaccional", e);
 			return false;
 		}
 		
@@ -60,17 +60,17 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 	
 	
 	
-	public ArchivoZIPProcesoUnificacion getDocumento(Long azpu_azpu){
+	public ArchivoZIPProcesoUnificacion getArchivo(Long azpu_azpu){
 		SqlSession session = DBManager.openSession();
 		
 		try{
 			
 			ArchivoZIPProcesoUnificacionDao dao = session.getMapper(ArchivoZIPProcesoUnificacionDao.class);
-			return dao.getDocumento(azpu_azpu);
+			return dao.getArchivo(azpu_azpu);
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error getDocumento", e);
+			SimpleLogger.error("Error getArchivo", e);
 			return null;
 		} 	finally {
 			session.close();
@@ -78,17 +78,17 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 		
 	}
 			
-	public List<ArchivoZIPProcesoUnificacion> getDocumentosPorProcesoUnificacion(Long prun_prun){
+	public List<ArchivoZIPProcesoUnificacion> getArchivosPorPRUN(Long prun_prun){
 		SqlSession session = DBManager.openSession();
 		
 		try{
 			
 			ArchivoZIPProcesoUnificacionDao dao = session.getMapper(ArchivoZIPProcesoUnificacionDao.class);
-			return dao.getDocumentosPorProcesoUnificacion(prun_prun);
+			return dao.getArchivosPorPRUN(prun_prun);
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error getDocumentosPorProcesoUnificacion", e);
+			SimpleLogger.error("Error getArchivosPorProcesoUnificacion", e);
 			return null;
 		} 	finally {
 			session.close();

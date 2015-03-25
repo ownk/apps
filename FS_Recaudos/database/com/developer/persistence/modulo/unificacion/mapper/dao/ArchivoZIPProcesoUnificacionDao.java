@@ -11,7 +11,7 @@ public interface ArchivoZIPProcesoUnificacionDao {
 	
 	public void crearArchivoZIP(ArchivoZIPProcesoUnificacion documento);
 	
-	public ArchivoZIPProcesoUnificacion getDocumento(Long azpu_azpu);
+	public ArchivoZIPProcesoUnificacion getArchivo(Long azpu_azpu);
 	
-	public List<ArchivoZIPProcesoUnificacion> getDocumentosPorProcesoUnificacion(Long prun_prun);
+	public List<ArchivoZIPProcesoUnificacion> getArchivosPorPRUN(Long prun_prun);
 }

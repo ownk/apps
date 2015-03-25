@@ -34,9 +34,17 @@
 			<body>
 
 				<div id="wrapper">
+				<div>
 					<a href ="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do" >
 					Registrar Archivos ZIP Recaudo
 					</a>
+				</div>	
+					
+				<div>	
+					<a href ="{//contextPath}/unificacion/PageConsultarProcesos.do" >
+					Consultar Procesos
+					</a>
+				</div>	
 					
 				</div>
 			</body>

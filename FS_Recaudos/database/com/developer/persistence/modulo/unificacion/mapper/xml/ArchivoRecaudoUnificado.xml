@@ -46,14 +46,14 @@
 	</insert>
 	
 	
-	<select id="getDocumento" parameterType="java.lang.Long" resultType="archivoRecaudoUnificado" >
+	<select id="getArchivo" parameterType="java.lang.Long" resultType="archivoRecaudoUnificado" >
 		select * from un_tarun
 		where arun_arun = #{arun_arun}
 		
 		
 	</select>
 	
-	<select id="getDocumentosPorProcesoUnificacion" parameterType="java.lang.Long" resultType="archivoRecaudoUnificado" >
+	<select id="getArchivosPorPRUN" parameterType="java.lang.Long" resultType="archivoRecaudoUnificado" >
 		select * from un_tarun
 		where arun_prun = #{prun_prun}
 		

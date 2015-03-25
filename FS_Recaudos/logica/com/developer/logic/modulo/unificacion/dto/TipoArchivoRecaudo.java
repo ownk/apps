@@ -14,6 +14,8 @@ public class TipoArchivoRecaudo {
 	Long   tpar_estr;
 	
 	
+	
+	
 	public String getTpar_tpar() {
 		return tpar_tpar;
 	}

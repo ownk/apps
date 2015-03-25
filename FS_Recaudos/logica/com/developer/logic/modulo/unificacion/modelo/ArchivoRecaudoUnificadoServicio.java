@@ -35,16 +35,16 @@ public class ArchivoRecaudoUnificadoServicio {
 	}
 	
 	
-	public ArchivoRecaudoUnificado getDocumento(Long arun_arun){
+	public ArchivoRecaudoUnificado getArchivo(Long arun_arun){
 		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
-		return controllerDB.getDocumento(arun_arun);
+		return controllerDB.getArchivo(arun_arun);
 		
 		
 	}
 	
-	public List<ArchivoRecaudoUnificado> getDocumentosPorAnteproyecto(Long prun_prun){
+	public List<ArchivoRecaudoUnificado> getArchivosPorAnteproyecto(Long prun_prun){
 		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
-		return controllerDB.getDocumentosPorProcesoUnificacion(prun_prun);
+		return controllerDB.getArchivosPorProcesoUnificacion(prun_prun);
 		
 		
 	}
@@ -71,10 +71,10 @@ public class ArchivoRecaudoUnificadoServicio {
 	 * ==========================================
 	 */
 	
-	public boolean crearDocumentoTransaccional(SqlSession session,
+	public boolean crearArchivoTransaccional(SqlSession session,
 			ArchivoRecaudoUnificado documento) {
 		
-		return ArchivoRecaudoUnificadoControllerDB.getInstance().crearDocumentoTransaccional(session, documento);
+		return ArchivoRecaudoUnificadoControllerDB.getInstance().crearArchivoTransaccional(session, documento);
 		
 	}
 

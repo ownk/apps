@@ -26,6 +26,7 @@ public class ProcesoUnificacionArchivos {
 	
 	//Atributos calculados
 	List<ArchivoZIPProcesoUnificacion> archivosAZPU;
+	List<HistoricoProcesoUnificacionArchivos> historicoProcesoUnificacionArchivos;
 	
 	
 	public ProcesoUnificacionArchivos() {
@@ -73,6 +74,15 @@ public class ProcesoUnificacionArchivos {
 	}
 	public void setPrun_archivos(Long prun_archivos) {
 		this.prun_archivos = prun_archivos;
+	}
+
+	public List<HistoricoProcesoUnificacionArchivos> getHistoricoProcesoUnificacionArchivos() {
+		return historicoProcesoUnificacionArchivos;
+	}
+
+	public void setHistoricoProcesoUnificacionArchivos(
+			List<HistoricoProcesoUnificacionArchivos> historicoProcesoUnificacionArchivos) {
+		this.historicoProcesoUnificacionArchivos = historicoProcesoUnificacionArchivos;
 	}
 
 

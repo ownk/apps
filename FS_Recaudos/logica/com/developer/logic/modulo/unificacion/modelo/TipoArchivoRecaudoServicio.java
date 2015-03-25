@@ -1,5 +1,7 @@
 package com.developer.logic.modulo.unificacion.modelo;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
@@ -53,7 +55,12 @@ public class TipoArchivoRecaudoServicio {
 	}
 	
 			
-	
+	public List<TipoArchivoRecaudo> getTipoArchivosRecaudoPorPRUN( Long prun_prun){
+		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
+		return controllerDB.getTiposArchivoPorPRUN(prun_prun);
+		
+		
+	}
 	 
 
 }

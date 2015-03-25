@@ -1,5 +1,7 @@
 package com.developer.persistence.modulo.unificacion.controllerdb;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
@@ -72,7 +74,25 @@ public class TipoArchivoRecaudoControllerDB {
 		
 	}
 	
+	public List<TipoArchivoRecaudo> getTiposArchivoPorPRUN(Long prun_prun){
 		
+		SqlSession session = DBManager.openSession();
+		try {
+	
+			TipoArchivoRecaudoDao dao = session.getMapper(TipoArchivoRecaudoDao.class);
+			return dao.getTiposArchivoPorPRUN(prun_prun);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getTiposArchivoPorPRUN", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
+	
+	
+
 	 
 
 }

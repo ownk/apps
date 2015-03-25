@@ -123,6 +123,74 @@ public class ProcesoUnificacionArchivosControllerDB {
 		
 	}
 	
+	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, String...prun_estados){
+		
+		SqlSession session = DBManager.openSession();
+
+		try {
+			
+			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
+			
+			HashMap<String , Object> hashMap = new HashMap<String, Object>();
+			
+			if(prun_estados!=null){
+				String estados="";
+				for (String string : prun_estados) {
+					estados = estados+"'"+string+"',";
+				}
+				estados = estados.substring(0, estados.lastIndexOf(','));
+				
+				hashMap.put("prun_estados", estados);
+			}
+			
+			hashMap.put("pageNumber", pageNumber);
+			hashMap.put("pageSize", pageSize);
+			
+			return dao.getProcesos(hashMap);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getProcesosUnificacionArchivosPaginado", e);
+			return null;
+
+		} finally {
+			session.close();
+		}
+		
+	}
+	
+	public Long getTotalProcesos(String...prun_estados){
+		
+		SqlSession session = DBManager.openSession();
+
+		try {
+			
+			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
+			
+			HashMap<String , Object> hashMap = new HashMap<String, Object>();
+			
+			if(prun_estados!=null){
+				String estados="";
+				for (String string : prun_estados) {
+					estados = estados+"'"+string+"',";
+				}
+				estados = estados.substring(0, estados.lastIndexOf(','));
+				
+				hashMap.put("prun_estados", estados);
+			}
+			
+			
+			
+			return dao.getTotalProcesos(hashMap);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getProcesosUnificacionArchivosPaginado", e);
+			return null;
+
+		} finally {
+			session.close();
+		}
+		
+	}
 		
 	/**
 	 *===================================================

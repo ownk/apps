@@ -69,7 +69,35 @@
 		where prun_prun = #{prun_prun}
 	</select>
 	
-
+	<select id="getProcesos" parameterType="java.util.HashMap" resultType="procesoUnificacionArchivos">
+		SELECT p.* FROM
+		(
+		    SELECT a.prun_prun, rownum prun_rownum
+		    FROM
+		    (
+		      SELECT p.* from un_tprun p
+		      where prun_prun is not null
+		      <if test="prun_estados != null">
+				and prun_eprun in ( ${prun_estados} )
+			  </if>
+		      order by prun_prun desc, prun_fcrea desc
+		    ) a
+		    WHERE ((#{pageNumber} * #{pageSize}) + 1 ) > rownum
+		)a, un_tprun p
+		WHERE prun_rownum >= (((#{pageNumber}-1) * #{pageSize}) + 1)
+		and a.prun_prun = p.prun_prun
+		order by p.prun_prun desc, p.prun_fcrea desc
+		
+	</select>
+	
+	<select id="getTotalProcesos" parameterType="java.util.HashMap" resultType="java.lang.Long">
+		
+	      SELECT count(1) from un_tprun p
+	      where prun_prun is not null
+	      <if test="prun_estados != null">
+			and prun_eprun in ( ${prun_estados} )
+		  </if>
+	</select>
 	
 	
 	

@@ -29,6 +29,8 @@ public class ArchivoZIPProcesoUnificacion {
 	ProcesoUnificacionArchivos procesoUnificacionArchivos;
 	List<ArchivoRecaudoPorUnificar> archivosARPU;
 	
+	
+	
 	public ArchivoZIPProcesoUnificacion() {
 		archivosARPU = new ArrayList<ArchivoRecaudoPorUnificar>();
 	}

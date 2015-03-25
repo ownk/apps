@@ -42,17 +42,24 @@ public class ArchivoZIPProcesoUnificacionServicio {
 	}
 	
 	
-	public ArchivoZIPProcesoUnificacion getDocumento(Long azpu_azpu){
+	public ArchivoZIPProcesoUnificacion getArchivo(Long azpu_azpu){
 		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
-		return controllerDB.getDocumento(azpu_azpu);
+		ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion =  controllerDB.getArchivo(azpu_azpu);
 		
+		completarInformacionAdicionalArhivo(archivoZIPProcesoUnificacion);
 		
+		return archivoZIPProcesoUnificacion;
 	}
 	
-	public List<ArchivoZIPProcesoUnificacion> getDocumentosPorAnteproyecto(Long prun_prun){
+	public List<ArchivoZIPProcesoUnificacion> getArchivosPorProceso(Long prun_prun){
 		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
-		return controllerDB.getDocumentosPorProcesoUnificacion(prun_prun);
+		List<ArchivoZIPProcesoUnificacion> list =  controllerDB.getArchivosPorPRUN(prun_prun);
 		
+		for (ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion : list) {
+			completarInformacionAdicionalArhivo(archivoZIPProcesoUnificacion);
+		}
+		
+		return list;
 		
 	}
 	
@@ -127,7 +134,7 @@ public class ArchivoZIPProcesoUnificacionServicio {
 					archivoZIPProcesoUnificacion.setAzpu_archivos(new Long(totalFiles));
 				
 					
-					sinErrores = sinErrores && ArchivoZIPProcesoUnificacionControllerDB.getInstance().crearDocumentoTransaccional(session, archivoZIPProcesoUnificacion);
+					sinErrores = sinErrores && ArchivoZIPProcesoUnificacionControllerDB.getInstance().crearArchivoTransaccional(session, archivoZIPProcesoUnificacion);
 					
 					if(sinErrores){
 						archivoZIPProcesoUnificacion.setProcesoUnificacionArchivos(procesoUnificacionArchivos);
@@ -179,7 +186,23 @@ public class ArchivoZIPProcesoUnificacionServicio {
 	
 	
 
-	
+	private void completarInformacionAdicionalArhivo(ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion){
+		
+		try {
+			if(archivoZIPProcesoUnificacion!= null && archivoZIPProcesoUnificacion.getAzpu_azpu()!=null){
+				
+				ArchivoRecaudoPorUnificarServicio servicio = new ArchivoRecaudoPorUnificarServicio();
+				List<ArchivoRecaudoPorUnificar> archivosARPU =servicio.getArchivosPorAZPU(archivoZIPProcesoUnificacion.getAzpu_azpu());
+				
+				archivoZIPProcesoUnificacion.setArchivosARPU(archivosARPU);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+	}
 			
 	
 	 

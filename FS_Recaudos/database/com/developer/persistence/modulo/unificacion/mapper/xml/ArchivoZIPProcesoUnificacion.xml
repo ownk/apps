@@ -40,14 +40,14 @@
 	</insert>
 	
 	
-	<select id="getDocumento" parameterType="java.lang.Long" resultType="archivoZIPProcesoUnificacion" >
+	<select id="getArchivo" parameterType="java.lang.Long" resultType="archivoZIPProcesoUnificacion" >
 		select * from un_tazpu
 		where azpu_azpu = #{azpu_azpu}
 		
 		
 	</select>
 	
-	<select id="getDocumentosPorProcesoUnificacion" parameterType="java.lang.Long" resultType="archivoZIPProcesoUnificacion" >
+	<select id="getArchivosPorPRUN" parameterType="java.lang.Long" resultType="archivoZIPProcesoUnificacion" >
 		select * from un_tazpu
 		where azpu_prun = #{prun_prun}
 	

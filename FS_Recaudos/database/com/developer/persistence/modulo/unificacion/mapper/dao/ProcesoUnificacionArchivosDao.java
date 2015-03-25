@@ -22,5 +22,7 @@ public interface ProcesoUnificacionArchivosDao {
 	
 	public List<ProcesoUnificacionArchivos> getProcesoPorEstados(HashMap<String, Object> hashMap);
 	
-
+	public List<ProcesoUnificacionArchivos> getProcesos(HashMap<String, Object> hashMap);
+	
+	public Long getTotalProcesos(HashMap<String, Object> hashMap);
 }

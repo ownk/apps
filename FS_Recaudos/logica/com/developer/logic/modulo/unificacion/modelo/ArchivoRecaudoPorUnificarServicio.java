@@ -10,10 +10,12 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.session.SqlSession;
 
+import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
+import com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar;
 import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
 import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoPorUnificarControllerDB;
 
@@ -43,17 +45,37 @@ public class ArchivoRecaudoPorUnificarServicio {
 	}
 	
 	
-	public ArchivoRecaudoPorUnificar getDocumento(Long arpu_arpu){
+	public ArchivoRecaudoPorUnificar getArchivoRecaudo(Long arpu_arpu){
 		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
-		return controllerDB.getDocumento(arpu_arpu);
+		ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = controllerDB.getDocumento(arpu_arpu);
 		
+		completarInformacionAdicionalArchivo(archivoRecaudoPorUnificar);
+		
+		return archivoRecaudoPorUnificar;
 		
 	}
 	
-	public List<ArchivoRecaudoPorUnificar> getDocumentosPorAnteproyecto(Long prun_prun){
+	public List<ArchivoRecaudoPorUnificar> getArchivosPorPRUN(Long prun_prun){
 		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
-		return controllerDB.getDocumentosPorProcesoUnificacion(prun_prun);
+		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosPorPRUN(prun_prun);
 		
+		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
+			completarInformacionAdicionalArchivo(archivoRecaudoPorUnificar);
+		}
+		
+		return list;
+		
+	}
+	
+	public List<ArchivoRecaudoPorUnificar> getArchivosPorAZPU(Long azpu_azpu){
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosPorAZPU(azpu_azpu);
+		
+		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
+			completarInformacionAdicionalArchivo(archivoRecaudoPorUnificar);
+		}
+		
+		return list;
 		
 	}
 	
@@ -66,6 +88,19 @@ public class ArchivoRecaudoPorUnificarServicio {
 		
 	}
 	
+	
+	public List<ArchivoRecaudoPorUnificar> getArchivosTPARxPRUN(Long prun_prun, String tpar_tpar){
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosTPARxPRUN(prun_prun, tpar_tpar);
+		
+		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
+			completarInformacionAdicionalArchivo(archivoRecaudoPorUnificar);
+		}
+		
+		return list;
+		
+		
+	}
 	
 	/**
 	 * ==========================================
@@ -183,8 +218,27 @@ public class ArchivoRecaudoPorUnificarServicio {
 			return null;
 		}
 	}
-
 	
+	
+	
+
+	private void completarInformacionAdicionalArchivo(ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar){
+		try {
+			
+			if(archivoRecaudoPorUnificar!=null && archivoRecaudoPorUnificar.getArpu_arpu()!=null){
+			
+				List<HistoricoArchivoRecaudoPorUnificar> historicoArchivoRecaudoPorUnificar= ArchivoRecaudoPorUnificarControllerDB.getInstance().getHistoricoArchivo(archivoRecaudoPorUnificar.getArpu_arpu());
+				archivoRecaudoPorUnificar.setHistoricoArchivoRecaudoPorUnificar(historicoArchivoRecaudoPorUnificar);
+				
+			}
+			
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error consultando informacion adicional Archivo.",e);
+		
+		}
+		
+	}
 			
 	
 	 

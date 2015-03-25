@@ -43,7 +43,7 @@ public class ArchivoRecaudoUnificadoControllerDB {
 	
 	
 	
-	public Boolean crearDocumentoTransaccional(SqlSession session, ArchivoRecaudoUnificado documento){
+	public Boolean crearArchivoTransaccional(SqlSession session, ArchivoRecaudoUnificado documento){
 		
 		try{
 			
@@ -62,13 +62,13 @@ public class ArchivoRecaudoUnificadoControllerDB {
 				
 				return true;
 			}catch (Exception e) {
-				SimpleLogger.error("Error crearDocumentoTransaccional", e);
+				SimpleLogger.error("Error crearArchivoTransaccional", e);
 				return false;
 			}
 			
 		
 		}catch (Exception e) {
-			SimpleLogger.error("Error crearDocumentoTransaccional", e);
+			SimpleLogger.error("Error crearArchivoTransaccional", e);
 			return false;
 		}
 		
@@ -129,17 +129,17 @@ public class ArchivoRecaudoUnificadoControllerDB {
 	
 	
 	
-	public ArchivoRecaudoUnificado getDocumento(Long arun_arun){
+	public ArchivoRecaudoUnificado getArchivo(Long arun_arun){
 		SqlSession session = DBManager.openSession();
 		
 		try{
 			
 			ArchivoRecaudoUnificadoDao dao = session.getMapper(ArchivoRecaudoUnificadoDao.class);
-			return dao.getDocumento(arun_arun);
+			return dao.getArchivo(arun_arun);
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error getDocumento", e);
+			SimpleLogger.error("Error getArchivo", e);
 			return null;
 		} 	finally {
 			session.close();
@@ -147,17 +147,17 @@ public class ArchivoRecaudoUnificadoControllerDB {
 		
 	}
 			
-	public List<ArchivoRecaudoUnificado> getDocumentosPorProcesoUnificacion(Long prun_prun){
+	public List<ArchivoRecaudoUnificado> getArchivosPorProcesoUnificacion(Long prun_prun){
 		SqlSession session = DBManager.openSession();
 		
 		try{
 			
 			ArchivoRecaudoUnificadoDao dao = session.getMapper(ArchivoRecaudoUnificadoDao.class);
-			return dao.getDocumentosPorProcesoUnificacion(prun_prun);
+			return dao.getArchivosPorPRUN(prun_prun);
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error getDocumentosPorProcesoUnificacion", e);
+			SimpleLogger.error("Error getArchivosPorProcesoUnificacion", e);
 			return null;
 		} 	finally {
 			session.close();

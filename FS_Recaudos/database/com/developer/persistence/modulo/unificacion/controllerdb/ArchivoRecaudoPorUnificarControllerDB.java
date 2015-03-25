@@ -8,6 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
+import com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar;
 import com.developer.mybatis.DBManager;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarDao;
 
@@ -137,7 +138,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 		try{
 			
 			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
-			return dao.getDocumento(arpu_arpu);
+			return dao.getArchivo(arpu_arpu);
 			
 			
 		}catch (Exception e) {
@@ -149,17 +150,36 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 		
 	}
 			
-	public List<ArchivoRecaudoPorUnificar> getDocumentosPorProcesoUnificacion(Long arpu_arpu){
+	public List<ArchivoRecaudoPorUnificar> getArchivosPorPRUN(Long prun_prun){
 		SqlSession session = DBManager.openSession();
 		
 		try{
 			
 			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
-			return dao.getDocumentosPorProcesoUnificacion(arpu_arpu);
+			return dao.getArchivosPorPRUN(prun_prun);
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error getDocumentosPorProcesoUnificacion", e);
+			SimpleLogger.error("Error getArchivosPorPRUN", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
+	
+	public List<ArchivoRecaudoPorUnificar> getArchivosPorAZPU(Long azpu_azpu){
+		SqlSession session = DBManager.openSession();
+		
+		try{
+			
+			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
+			return dao.getArchivosPorAZPU(azpu_azpu);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getArchivosPorAZPU", e);
 			return null;
 		} 	finally {
 			session.close();
@@ -167,6 +187,48 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 		
 	}
 		
+	public List<HistoricoArchivoRecaudoPorUnificar> getHistoricoArchivo(Long arpu_arpu){
+		SqlSession session = DBManager.openSession();
+		
+		try{
+			
+			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
+			return dao.getHistoricoArchivo(arpu_arpu);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getHistoricoArchivo", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
+	public List<ArchivoRecaudoPorUnificar>  getArchivosTPARxPRUN(Long prun_prun, String tpar_tpar ) {
+
+		SqlSession session = DBManager.openSession();
+
+		try {
+
+			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
+			
+			HashMap<String , Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("prun_prun", prun_prun);
+			hashMap.put("tpar_tpar", tpar_tpar);
+			
+			
+			return dao.getArchivosTPARxPRUN(hashMap);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getArchivosTPARxPRUN", e);
+			return null;
+
+		} finally {
+			session.close();
+		}
+
+	}
 	 
 
 }

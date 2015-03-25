@@ -27,4 +27,13 @@
 	</select>
 	
 	
+	<select id="getTiposArchivoPorPRUN" parameterType="java.lang.Long" resultType="tipoArchivoRecaudo">
+		select tpar.* from un_ttpar tpar, (
+		select arpu_tpar, count(1) from un_tarpu
+		where arpu_prun = #{prun_prun}
+		group by arpu_tpar) arpu
+		where arpu.arpu_tpar = tpar.tpar_tpar
+	</select>
+	
+	
 </mapper>

@@ -280,7 +280,11 @@ public class ProcesoUnificacionArchivosServicio {
 	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos(Long prun_prun){
 		
 		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
-		return controllerDB.getProcesoUnificacionArchivos(prun_prun);
+		ProcesoUnificacionArchivos procesoUnificacionArchivos = controllerDB.getProcesoUnificacionArchivos(prun_prun);
+		
+		completarInformacionAdicionalProcesoUnificacion(procesoUnificacionArchivos);
+		
+		return procesoUnificacionArchivos;
 		
 	}
 	
@@ -334,5 +338,65 @@ public class ProcesoUnificacionArchivosServicio {
 		return rutaGeneral+ "/prun/"+year+"/"+month+"/"+day+"/prun_"+procesoUnificacionArchivos.getPrun_prun()+"/arun/";
 		
 	}
+	
+	private void completarInformacionAdicionalProcesoUnificacion(ProcesoUnificacionArchivos procesoUnificacionArchivos ){
+		try {
+			if(procesoUnificacionArchivos!=null && procesoUnificacionArchivos.getPrun_prun()!=null){
+				List<HistoricoProcesoUnificacionArchivos> historicoProcesoUnificacionArchivos = getHistoricoPorProcesoUnificacionArchivos(procesoUnificacionArchivos.getPrun_prun());
+				procesoUnificacionArchivos.setHistoricoProcesoUnificacionArchivos(historicoProcesoUnificacionArchivos);
+				
+				ArchivoZIPProcesoUnificacionServicio servicio = new ArchivoZIPProcesoUnificacionServicio();
+				List<ArchivoZIPProcesoUnificacion> archivosAZPU = servicio.getArchivosPorProceso(procesoUnificacionArchivos.getPrun_prun());
+				
+				procesoUnificacionArchivos.setArchivosAZPU(archivosAZPU);
+				
+				
+			}
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
+	
+	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, String...prun_estados){
+		
+		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		
+		List<ProcesoUnificacionArchivos> procesos = controllerDB.getProcesosUnificacionArchivosPaginado(pageNumber, pageSize, prun_estados);
+
+		if(procesos!=null){
+			
+			//Se completa la informacion adicional al anteproyecto
+			for (ProcesoUnificacionArchivos proceso : procesos) {
+				completarInformacionAdicionalProcesoUnificacion(proceso);
+			}
+			
+		}
+		
+		return procesos;
+		
+		
+	}
+	
+	public Long getTotalProcesos(String...prun_estados){
+		
+		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		
+		Long total = controllerDB.getTotalProcesos( prun_estados);
+
+		if(total==null){
+			
+			total = new Long(0);
+		}
+		
+		return total;
+		
+		
+	}
+	
 
 }

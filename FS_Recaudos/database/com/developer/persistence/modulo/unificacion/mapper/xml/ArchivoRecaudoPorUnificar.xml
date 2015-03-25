@@ -46,14 +46,19 @@
 	</insert>
 	
 	
-	<select id="getDocumento" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
+	<select id="getArchivo" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
 		select * from un_tarpu
 		where arpu_arpu = #{arpu_arpu}
 	</select>
 	
-	<select id="getDocumentosPorProcesoUnificacion" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
+	<select id="getArchivosPorPRUN" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
 		select * from un_tarpu
 		where arpu_prun = #{prun_prun}
+	</select>
+	
+	<select id="getArchivosPorAZPU" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificar" >
+		select * from un_tarpu
+		where arpu_azpu = #{azpu_azpu}
 	</select>
 	
 	<insert id="crearHistorico" parameterType="java.util.HashMap" >
@@ -79,6 +84,15 @@
 		where harpu_arpu = #{arpu_arpu}
 		order by harpu_fasig asc
 	</select>
+	
+	
+	<select id="getArchivosTPARxPRUN" parameterType="java.util.HashMap" resultType="archivoRecaudoPorUnificar">
+		select * from un_tarpu
+		where arpu_prun = #{prun_prun}
+		and arpu_tpar = #{tpar_tpar}
+		order by arpu_arpu
+	</select>
+	
 	
 	
 </mapper>
