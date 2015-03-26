@@ -27,7 +27,7 @@ Prompt
 
    COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TTPAR"."TPAR_USUA" IS 'Usuario que crea el tipo de archivo';
    
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TTPAR"."TPAR_ESTR" IS 'Estructura del tipo archivo. 1-Fiduciaria 2-Asobancaria';
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TTPAR"."TPAR_ESTR" IS 'Estructura del tipo archivo';
  
    COMMENT ON TABLE "FS_RECAUDOS_US"."UN_TTPAR"  IS 'Tabla donde se almacenan los tipos de archivos de recaudo';
 

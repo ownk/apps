@@ -2,7 +2,7 @@
 	VERSION: 1.0		
 	FECHA:	 19/03/2015	  
 	AUTOR:	 ownk	  	    
-	FUNCION:		Proceso de Unificacion de archivos
+	FUNCION: Proceso de Unificacion de archivos
 ******************************************************************************/
 
 set define '&'
@@ -18,6 +18,8 @@ CREATE TABLE "FS_RECAUDOS_US"."UN_TPRUN"
 	"PRUN_EPRUN" 	VARCHAR2(20 BYTE)		constraint NN_UN_TPRUN_EPRUN NOT NULL,
 	"PRUN_FCREA" 	DATE					constraint NN_UN_TPRUN_FCREA NOT NULL,
 	"PRUN_OBSERV" 	VARCHAR2(2000 BYTE)		constraint NN_UN_TPRUN_OBSERV NOT NULL,
+	"PRUN_FINI" 	DATE					constraint NN_UN_TPRUN_FINI NOT NULL,
+	"PRUN_FFIN" 	DATE					constraint NN_UN_TPRUN_FFIN NOT NULL,
 	"PRUN_ARCHIVOS" NUMBER					constraint NN_UN_TPRUN_ARCHIVOS NOT NULL
 )  storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -32,6 +34,10 @@ COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TPRUN"."PRUN_FCREA" IS 'Fecha de creacion
 COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TPRUN"."PRUN_EPRUN" IS 'Estado actual del proceso';
 
 COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TPRUN"."PRUN_OBSERV" IS 'Observacion';
+
+COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TPRUN"."PRUN_FINI" IS 'Fecha desde la cual se hara la unificacion ';
+
+COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TPRUN"."PRUN_FFIN" IS 'Fecha fin hasta la cual se hara la unificacion';
 
 COMMENT ON COLUMN "FS_RECAUDOS_US"."UN_TPRUN"."PRUN_ARCHIVOS" IS 'Cantidad de archivos zip a procesar';
 

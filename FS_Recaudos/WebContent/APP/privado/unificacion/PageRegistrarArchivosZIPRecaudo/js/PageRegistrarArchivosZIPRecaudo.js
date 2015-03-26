@@ -1,5 +1,12 @@
  $(document).ready(function(){
-
+			
+			$('#form_iniciarProceso .input-daterange').datepicker({
+                keyboardNavigation: false,
+                forceParse: false,
+                autoclose: true,
+				format: 'dd/mm/yyyy' 
+            });
+			
             Dropzone.options.myAwesomeDropzone = {
 
                 autoProcessQueue: false,

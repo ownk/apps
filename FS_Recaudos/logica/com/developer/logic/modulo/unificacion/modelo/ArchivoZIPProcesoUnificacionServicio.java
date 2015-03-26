@@ -143,7 +143,7 @@ public class ArchivoZIPProcesoUnificacionServicio {
 						
 						for (File file : unZIPFiles) {
 							
-							ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar= archivoRecaudoPorUnificarServicio.crearDocumentoTransaccional(session, archivoZIPProcesoUnificacion, file, mensajeErrorOut);
+							ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar= archivoRecaudoPorUnificarServicio.crearDocumentoTransaccional(session, archivoZIPProcesoUnificacion, file, rutaUnZip, mensajeErrorOut);
 						
 							if(archivoRecaudoPorUnificar==null){
 								return null;

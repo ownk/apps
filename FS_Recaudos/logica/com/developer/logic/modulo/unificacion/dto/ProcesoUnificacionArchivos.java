@@ -20,6 +20,8 @@ public class ProcesoUnificacionArchivos {
 	private	String	prun_eprun   ;
 	private	Date	prun_fcrea   ;
 	private	String	prun_observ  ;
+	private	Date	prun_fini    ;
+	private	Date	prun_ffin    ;
 	private Long 	prun_archivos;
 	
 	
@@ -74,6 +76,23 @@ public class ProcesoUnificacionArchivos {
 	}
 	public void setPrun_archivos(Long prun_archivos) {
 		this.prun_archivos = prun_archivos;
+	}
+	
+
+	public Date getPrun_fini() {
+		return prun_fini;
+	}
+
+	public void setPrun_fini(Date prun_fini) {
+		this.prun_fini = prun_fini;
+	}
+
+	public Date getPrun_ffin() {
+		return prun_ffin;
+	}
+
+	public void setPrun_ffin(Date prun_ffin) {
+		this.prun_ffin = prun_ffin;
 	}
 
 	public List<HistoricoProcesoUnificacionArchivos> getHistoricoProcesoUnificacionArchivos() {

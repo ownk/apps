@@ -16,6 +16,8 @@
 			prun_eprun,
 			prun_fcrea,
 			prun_observ,
+			prun_fini,
+			prun_ffin,
 			prun_archivos
 			
 		)
@@ -26,6 +28,8 @@
 			#{prun_eprun},
 			#{prun_fcrea},
 			#{prun_observ},
+			#{prun_fini},
+			#{prun_ffin},
 			#{prun_archivos}
 		)
 	</insert>

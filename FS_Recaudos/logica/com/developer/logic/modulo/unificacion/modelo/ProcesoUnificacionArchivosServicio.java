@@ -52,7 +52,7 @@ public class ProcesoUnificacionArchivosServicio {
 	}
 	
 	
-	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(Long prun_prun,  String observacionDeInicio, Date currentDate, ArrayList<File> filesZIP,  Usuario usuario, StringBuffer mensajeErrorOut){
+	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(Long prun_prun,  String observacionDeInicio, Date currentDate, ArrayList<File> filesZIP,  Date prun_fini, Date prun_ffin, Usuario usuario, StringBuffer mensajeErrorOut){
 		
 		
 		SqlSession session = DBManager.openSession();
@@ -102,12 +102,30 @@ public class ProcesoUnificacionArchivosServicio {
 				return null;
 			}
 			
+			if(prun_fini==null){
+				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado la fecha inicio desde la cual se hara la unificacion.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+			
+			if(prun_ffin==null){
+				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado la fecha fin hsta la cual se hara la unificacion.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+			
 			//Se verifica que no existan errores para crear el procesoUnificacionArchivos
 			if(sinErrores){
 				ProcesoUnificacionArchivos procesoUnificacionArchivos = ProcesoUnificacionArchivosControllerDB.getInstance().iniciarProcesoUnificacionArchivosTransaccional(	session, 
 																														prun_prun,
 																														new Long(filesZIP.size()),
 																														observacionDeInicio,
+																														prun_fini,
+																														prun_ffin,
 																														currentDate,
 																														usuario, 
 																														mensajeErrorOut);

@@ -60,7 +60,9 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 					procesoUnificacionArchivos = procesoUnificacionArchivosServicio
 							.iniciarProcesoUnificacionArchivosTransaccional(
 									procesoUnificacionArchivos.getPrun_prun(),
-									"Inicio de proceso ", currentDate, filesZIP,
+									"Inicio de proceso ", currentDate, filesZIP, 
+									procesoUnificacionArchivos.getPrun_fini(), 
+									procesoUnificacionArchivos.getPrun_ffin(),
 									sessionAppUsuario.getUsuario(), mensajeErrorOut);
 					
 					

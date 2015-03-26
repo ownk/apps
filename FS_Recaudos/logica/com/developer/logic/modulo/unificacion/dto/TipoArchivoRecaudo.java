@@ -6,7 +6,7 @@ public class TipoArchivoRecaudo {
 	
 	public static Long ESTR_FIDUCIARIA = new Long(1);
 	public static Long ESTR_ASOBANCARIA = new Long(2);
-	
+	public static Long ESTR_DEFAULT = new Long(3);
 	
 	String tpar_tpar;
 	String tpar_descri;

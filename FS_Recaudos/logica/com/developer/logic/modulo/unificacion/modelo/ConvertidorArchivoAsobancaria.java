@@ -69,7 +69,7 @@ public class ConvertidorArchivoAsobancaria {
 
 	}
 
-	public File generarArchivoFiduciaria() {
+	public File generarArchivoFiduciaria(StringBuffer mensajeErrorOut) {
 
 		/***************************************************************************
 		 * Informacion del archivo
@@ -144,17 +144,19 @@ public class ConvertidorArchivoAsobancaria {
 
 			}
 
-			return createFile(this.rutaArchivosPorUnificar, this.nombreArchivoPorUnificar, listRegistros);
+			return createFile(this.rutaArchivosPorUnificar, this.nombreArchivoPorUnificar, listRegistros, mensajeErrorOut);
 
 		} else {
+			
+			mensajeErrorOut.append("Archivo no tiene registros a transformar");
 			return null;
 		}
 
 	}
 	
-	private File createFile(String rutaArchivosPorUnificar, String nombreArchivoPorUnificar, List<String> registros){
+	private File createFile(String rutaArchivosPorUnificar, String nombreArchivoPorUnificar, List<String> registros, StringBuffer mensajeErrorOut){
 		
-		
+		Boolean sinErrores = true;
 		FileWriter fichero = null;
         PrintWriter printerWriter = null;
         try
@@ -170,6 +172,8 @@ public class ConvertidorArchivoAsobancaria {
            
 		   
         } catch (Exception e) {
+        	sinErrores = false;
+        	mensajeErrorOut.append("No se puede generar archivo."+e.getMessage());
             e.printStackTrace();
         } finally {
            try {
@@ -179,6 +183,10 @@ public class ConvertidorArchivoAsobancaria {
 	           }
 	           
            } catch (Exception e2) {
+        	   
+        	   
+        	  sinErrores = false;
+        	  mensajeErrorOut.append("No se puede generar archivo."+e2.getMessage());
               e2.printStackTrace();
            }
         }
@@ -283,16 +291,10 @@ public class ConvertidorArchivoAsobancaria {
 
 	public static void main(String[] args) {
 		File file = new File("RCCA03201.d50");
-
+		StringBuffer mensajeErrorOut = new StringBuffer();
 		ConvertidorArchivoAsobancaria lectorArchivoAsobancaria = new ConvertidorArchivoAsobancaria(file, "D:\\", "RCCA03201_jc.d50");
-		lectorArchivoAsobancaria.generarArchivoFiduciaria();
+		lectorArchivoAsobancaria.generarArchivoFiduciaria(mensajeErrorOut);
 
-		// System.out.println(String.format("%-24s", "12312456789789"));
-		//
-		// BigDecimal bigDecimal = new BigDecimal(1212);
-		// bigDecimal = bigDecimal.divide(new BigDecimal(100));
-		//
-		// System.out.println(bigDecimal);
 
 	}
 

@@ -1,11 +1,15 @@
 package com.developer.web.content.privado.unificacion;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.developer.core.page.PrivatePage;
 import com.developer.core.utils.ObjectToXML;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
+import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.modelo.ProcesoUnificacionArchivosServicio;
 
 public class PageRegistrarArchivosZIPRecaudo extends PrivatePage {
@@ -28,7 +32,9 @@ public class PageRegistrarArchivosZIPRecaudo extends PrivatePage {
 			Long prun_prun= servicio.getSiguienteID();
 			xmlPage.append("<prun_prun>"+prun_prun+"</prun_prun>");
 				
-			
+			Date currenteDate = ServerServicio.getInstance().getSysdate();
+			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+			xmlPage.append("<prun_fini>"+simpleDateFormat.format(currenteDate)+"</prun_fini>");
 		
 		}else{
 			xmlPage.append("<error>1</error>");

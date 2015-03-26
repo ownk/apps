@@ -48,6 +48,10 @@
     			<link href="{$CONTEXTPATH}/general/css/plugins/dropzone/dropzone.css" rel="stylesheet"/>
 				
 				
+				<!-- datapicker -->
+				<link href="{$CONTEXTPATH}/general/css/plugins/datapicker/datepicker3.css" rel="stylesheet"/>
+				
+				
 				<!-- CSS por pagina -->
 				<xsl:for-each select="WEB/PAGE//add[@type='css']">
 					<link rel="stylesheet" href="{$CONTEXTPATH}/{@src}" type="text/css"/>
@@ -104,6 +108,9 @@
 			    <!-- Toastr -->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/toastr/toastr.min.js"></script>
 				
+				
+				 <!-- Data picker -->
+   				<script src="{$CONTEXTPATH}/general/js/plugins/datapicker/bootstrap-datepicker.js"/>
 				
 				<!-- UTILS-->
 				<script type="text/javascript" src="{$CONTEXTPATH}/general/js/core.js"></script>

@@ -109,60 +109,16 @@ public class ArchivoRecaudoPorUnificarServicio {
 	 */
 	
 	public ArchivoRecaudoPorUnificar crearDocumentoTransaccional(SqlSession session, ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion,
-			File fileUnZIP, StringBuffer mensajeErrorOut ) {
+			File fileUnZIP, String rutaUnZip, StringBuffer mensajeErrorOut ) {
 		
 		
 		try {
 			
 		
 			boolean sinErrores = true;
-			Long hash =FileUtils.checksumCRC32(fileUnZIP);
-			Long size = fileUnZIP.length();
-			Long totalRegistros=new Long(0);
 			
 			
-			 
-	        //Declarar una variable BufferedReader
-	        BufferedReader bufferedReader = null;
-	        try {
-	           //Crear un objeto BufferedReader al que se le pasa 
-	           //un objeto FileReader con el nombre del fichero
-	        	bufferedReader = new BufferedReader(new FileReader(fileUnZIP));
-	        	
-	           //Leer la primera línea, guardando en un String
-	           bufferedReader.readLine();
-	           
-	           //Repetir mientras no se llegue al final del fichero
-	           while(bufferedReader.ready())
-	           {
-	               //Hacer lo que sea con la línea leída
-	        	   
-	        	  bufferedReader.readLine();
-	        	   totalRegistros++;
-	           }
-	        }
-	        catch (FileNotFoundException e) {
-	            System.out.println("Error: Fichero no encontrado");
-	            System.out.println(e.getMessage());
-	            return null;
-	        }
-	        catch(Exception e) {
-	            System.out.println("Error de lectura del fichero");
-	            System.out.println(e.getMessage());
-	            return null;
-	        }
-	        finally {
-	            try {
-	                if(bufferedReader != null)
-	                	bufferedReader.close();
-	            }
-	            catch (Exception e) {
-	            	
-	                System.out.println("Error al cerrar el fichero");
-	                System.out.println(e.getMessage());
-	                return null;
-	            }
-	        }
+			
 			
 			String tpar_tpar =FilenameUtils.getExtension(fileUnZIP.getName());
 	        TipoArchivoRecaudo tipoArchivoRecaudo = TipoArchivoRecaudoServicio.getInstance().getTipoArchivoRecaudoTransaccional(session, tpar_tpar);
@@ -179,40 +135,104 @@ public class ArchivoRecaudoPorUnificarServicio {
 	    		sinErrores = sinErrores && TipoArchivoRecaudoServicio.getInstance().crearTipoArchivoTransaccional(session, tipoArchivoRecaudo);
 	        }
 	        
-	        if(sinErrores){
 	        
-				ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = new ArchivoRecaudoPorUnificar();
-				archivoRecaudoPorUnificar.setArpu_azpu(archivoZIPProcesoUnificacion.getAzpu_azpu());
-				archivoRecaudoPorUnificar.setArpu_arpu(getSiguienteID());
-				archivoRecaudoPorUnificar.setArpu_bytes(size.toString());
-				archivoRecaudoPorUnificar.setArpu_extension(FilenameUtils.getExtension(fileUnZIP.getName()));
-				archivoRecaudoPorUnificar.setArpu_nombre(FilenameUtils.getBaseName(fileUnZIP.getName()));
-				archivoRecaudoPorUnificar.setArpu_fcrea(archivoZIPProcesoUnificacion.getAzpu_fcrea());
-				archivoRecaudoPorUnificar.setArpu_hash( hash.toString());
-				archivoRecaudoPorUnificar.setArpu_observ(archivoZIPProcesoUnificacion.getAzpu_observ());
-				archivoRecaudoPorUnificar.setArpu_prun(archivoZIPProcesoUnificacion.getAzpu_prun());
-				archivoRecaudoPorUnificar.setArpu_url(fileUnZIP.getAbsolutePath());
-				archivoRecaudoPorUnificar.setArpu_usua(archivoZIPProcesoUnificacion.getAzpu_usua());
-				archivoRecaudoPorUnificar.setArpu_tpar(tipoArchivoRecaudo.getTpar_tpar());
-				archivoRecaudoPorUnificar.setArpu_earpu(ArchivoRecaudoPorUnificar.CARGADO);
-				archivoRecaudoPorUnificar.setArpu_registros(totalRegistros);
-				
-				
-				sinErrores = sinErrores &&ArchivoRecaudoPorUnificarControllerDB.getInstance().crearDocumentoTransaccional(session, archivoRecaudoPorUnificar);
-				
-				
-				if(sinErrores){
+	        
+	        fileUnZIP = TransformadorPorTipoArchivoRecaudoServicio.getInstance().hacerTransformacionPorTipoArchivo(tipoArchivoRecaudo, fileUnZIP, rutaUnZip, mensajeErrorOut);
+	        
+			
+			
+			if(fileUnZIP!=null && fileUnZIP.exists() && sinErrores){
+			
+			
+					Long hash =FileUtils.checksumCRC32(fileUnZIP);
+					Long size = fileUnZIP.length();
+					Long totalRegistros=new Long(0);
 					
-					return archivoRecaudoPorUnificar;
-				}else{
-					return null;
-				}
-				
-				
-	        }else{
-	        	
-	        	return null;
-	        }
+					
+					 
+			        //Declarar una variable BufferedReader
+			        BufferedReader bufferedReader = null;
+			        try {
+			           //Crear un objeto BufferedReader al que se le pasa 
+			           //un objeto FileReader con el nombre del fichero
+			        	bufferedReader = new BufferedReader(new FileReader(fileUnZIP));
+			        	
+			           //Leer la primera línea, guardando en un String
+			           bufferedReader.readLine();
+			           
+			           //Repetir mientras no se llegue al final del fichero
+			           while(bufferedReader.ready())
+			           {
+			               //Hacer lo que sea con la línea leída
+			        	   
+			        	  bufferedReader.readLine();
+			        	   totalRegistros++;
+			           }
+			        }
+			        catch (FileNotFoundException e) {
+			            System.out.println("Error: Fichero no encontrado");
+			            System.out.println(e.getMessage());
+			            return null;
+			        }
+			        catch(Exception e) {
+			            System.out.println("Error de lectura del fichero");
+			            System.out.println(e.getMessage());
+			            return null;
+			        }
+			        finally {
+			            try {
+			                if(bufferedReader != null)
+			                	bufferedReader.close();
+			            }
+			            catch (Exception e) {
+			            	
+			                System.out.println("Error al cerrar el fichero");
+			                System.out.println(e.getMessage());
+			                return null;
+			            }
+			        }
+					
+					
+			        if(sinErrores){
+			        	
+			        	
+			        	//Se verifica si es necesario h
+			        
+						ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = new ArchivoRecaudoPorUnificar();
+						archivoRecaudoPorUnificar.setArpu_azpu(archivoZIPProcesoUnificacion.getAzpu_azpu());
+						archivoRecaudoPorUnificar.setArpu_arpu(getSiguienteID());
+						archivoRecaudoPorUnificar.setArpu_bytes(size.toString());
+						archivoRecaudoPorUnificar.setArpu_extension(FilenameUtils.getExtension(fileUnZIP.getName()));
+						archivoRecaudoPorUnificar.setArpu_nombre(FilenameUtils.getBaseName(fileUnZIP.getName()));
+						archivoRecaudoPorUnificar.setArpu_fcrea(archivoZIPProcesoUnificacion.getAzpu_fcrea());
+						archivoRecaudoPorUnificar.setArpu_hash( hash.toString());
+						archivoRecaudoPorUnificar.setArpu_observ(archivoZIPProcesoUnificacion.getAzpu_observ());
+						archivoRecaudoPorUnificar.setArpu_prun(archivoZIPProcesoUnificacion.getAzpu_prun());
+						archivoRecaudoPorUnificar.setArpu_url(fileUnZIP.getAbsolutePath());
+						archivoRecaudoPorUnificar.setArpu_usua(archivoZIPProcesoUnificacion.getAzpu_usua());
+						archivoRecaudoPorUnificar.setArpu_tpar(tipoArchivoRecaudo.getTpar_tpar());
+						archivoRecaudoPorUnificar.setArpu_earpu(ArchivoRecaudoPorUnificar.CARGADO);
+						archivoRecaudoPorUnificar.setArpu_registros(totalRegistros);
+						
+						
+						sinErrores = sinErrores &&ArchivoRecaudoPorUnificarControllerDB.getInstance().crearDocumentoTransaccional(session, archivoRecaudoPorUnificar);
+						
+						
+						if(sinErrores){
+							
+							return archivoRecaudoPorUnificar;
+						}else{
+							return null;
+						}
+						
+						
+			        }else{
+			        	
+			        	return null;
+			        }
+			}else{
+				return null;
+			}
         
 		} catch (Exception e) {
 			return null;

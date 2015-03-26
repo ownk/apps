@@ -24,7 +24,7 @@
 				/> -->
 
 			<add type='script'
-				src="privado/unificacion/PageRegistrarArchivosZIPRecaudo/js/Upload.js" />
+				src="privado/unificacion/PageRegistrarArchivosZIPRecaudo/js/PageRegistrarArchivosZIPRecaudo.js" />
 
 
 
@@ -88,7 +88,7 @@
 												action="{//contextPath}/unificacion/PageUploadFilesProcesoUnificacion.do"
 												method="post" enctype="multipart/form-data">
 												<div class="dropzone-previews"></div>
-												<button type="submit" class="btn btn-primary pull-right">Cargar Archivos</button>
+												<button type="submit" class="btn btn-primary pull-right">Registrar Archivos</button>
 												<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 													value="{//prun_prun}" />
 
@@ -127,19 +127,35 @@
 
 
 
-											<div class="m text-center">
+											<div class="form-group" id="form_iniciarProceso">
 												<form id="form_unificar"
 													action="{//contextPath}/unificacion/PageIniciarProcesoUnificacionArchivos.do"
 													method="post">
 													<div class="dropzone-previews"></div>
-													<button disabled="true" id="btn_unificarArchivos"
-														type="submit" class="btn btn-primary pull-right">Cargar Archivos</button>
-
+													
+													
+													
 													<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 														value="{//prun_prun}" />
-												</form>
-
-											</div>
+																							
+					                                <label class="font-noraml">Fe select</label>
+					                                <div class="input-daterange input-group" id="datepicker">
+					                                	<span class="input-group-addon">Fecha Inicio</span>
+					                                
+					                                 	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                    <input type="text" class="input-sm form-control" name="ProcesoUnificacionArchivos.prun_fini" value="{//prun_fini}"/>
+					                                    
+					                                    <span class="input-group-addon">Fecha fin</span>
+					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
+					                                    <input type="text" class="input-sm form-control" name="ProcesoUnificacionArchivos.prun_ffin" value="{//prun_fini}" />
+					                                </div>
+					                                
+					                                <button disabled="true" id="btn_unificarArchivos"
+														type="submit" class="btn btn-primary pull-right">Crear Proceso</button>
+					                                
+				                                
+				                                </form>
+				                            </div>
 
 										</div>
 									</div>
