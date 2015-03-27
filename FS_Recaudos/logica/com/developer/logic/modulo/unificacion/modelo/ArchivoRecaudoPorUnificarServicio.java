@@ -137,7 +137,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 	        
 	        
 	        
-	        fileUnZIP = TransformadorPorTipoArchivoRecaudoServicio.getInstance().hacerTransformacionPorTipoArchivo(tipoArchivoRecaudo, fileUnZIP, rutaUnZip, mensajeErrorOut);
+	        fileUnZIP = TransformadorArchivoRecaudoServicio.getInstance().hacerTransformacionPorTipoArchivoTransaccional(session, tipoArchivoRecaudo, archivoZIPProcesoUnificacion.getAzpu_prun(), fileUnZIP, rutaUnZip, archivoZIPProcesoUnificacion.getAzpu_usua(), mensajeErrorOut);
 	        
 			
 			

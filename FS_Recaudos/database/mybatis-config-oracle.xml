@@ -60,6 +60,7 @@
 		<typeAlias alias="historicoArchivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoUnificado" />
 		<typeAlias alias="historicoProcesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos" />
 		<typeAlias alias="tipoArchivoRecaudo" type="com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo" />
+		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo" />
 	
 	
 	
@@ -113,6 +114,7 @@
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoZIPProcesoUnificacion.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TipoArchivoRecaudo.xml" />
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TransformacionArchivoRecaudo.xml" />
 		
 		
 		

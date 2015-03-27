@@ -17,6 +17,9 @@ public class ConvertidorArchivoAsobancaria {
 	File fileAsobancaria;
 	String[][] registros;
 	Boolean hayRegistros = false;
+	
+	Long totalRegistrosFileOrigen;
+	Long totalRegistrosFileDestino;
 
 	String rutaArchivosPorUnificar;
 	String nombreArchivoPorUnificar;
@@ -24,6 +27,9 @@ public class ConvertidorArchivoAsobancaria {
 	public ConvertidorArchivoAsobancaria(File fileAsobancaria, String rutaArchivosPorUnificar, String nombreArchivoPorUnificar ) {
 		this.rutaArchivosPorUnificar = rutaArchivosPorUnificar;
 		this.nombreArchivoPorUnificar = nombreArchivoPorUnificar;
+		
+		totalRegistrosFileOrigen = new Long(0);
+		totalRegistrosFileDestino = new Long(0);
 		
 		leerRegistros(fileAsobancaria);
 	}
@@ -90,6 +96,8 @@ public class ConvertidorArchivoAsobancaria {
 
 		// Si hay cuentas se buscan las cuentas del tercero
 		if (hayRegistros) {
+			
+			
 
 			String linea = registros[0][1];
 			fecha = linea.substring(10, 18);
@@ -143,20 +151,33 @@ public class ConvertidorArchivoAsobancaria {
 				listRegistros.add(detalle);
 
 			}
+			
+			
+			totalRegistrosFileOrigen = new Long(registros.length);
+			totalRegistrosFileDestino = new Long(listRegistros.size());
 
 			return createFile(this.rutaArchivosPorUnificar, this.nombreArchivoPorUnificar, listRegistros, mensajeErrorOut);
 
 		} else {
 			
-			mensajeErrorOut.append("Archivo no tiene registros a transformar");
+			mensajeErrorOut.append("Archivo"+fileAsobancaria.getName()+"no tiene registros a transformar");
 			return null;
 		}
 
 	}
 	
+	public Long getTotalRegistrosFileOrigen(){
+		return totalRegistrosFileOrigen;
+	}
+	
+	
+	public Long getTotalRegistrosFileDestino(){
+		
+		return totalRegistrosFileDestino;
+	}
+	
 	private File createFile(String rutaArchivosPorUnificar, String nombreArchivoPorUnificar, List<String> registros, StringBuffer mensajeErrorOut){
 		
-		Boolean sinErrores = true;
 		FileWriter fichero = null;
         PrintWriter printerWriter = null;
         try
@@ -172,8 +193,8 @@ public class ConvertidorArchivoAsobancaria {
            
 		   
         } catch (Exception e) {
-        	sinErrores = false;
-        	mensajeErrorOut.append("No se puede generar archivo."+e.getMessage());
+
+        	mensajeErrorOut.append("No se puede generar archivo:"+nombreArchivoPorUnificar+". "+e.getMessage());
             e.printStackTrace();
         } finally {
            try {
@@ -185,8 +206,8 @@ public class ConvertidorArchivoAsobancaria {
            } catch (Exception e2) {
         	   
         	   
-        	  sinErrores = false;
-        	  mensajeErrorOut.append("No se puede generar archivo."+e2.getMessage());
+
+        	  mensajeErrorOut.append("No se puede generar archivo:"+nombreArchivoPorUnificar+". "+e2.getMessage());
               e2.printStackTrace();
            }
         }
@@ -203,25 +224,10 @@ public class ConvertidorArchivoAsobancaria {
 		
 	}
 
-	public String get(String valor) {
-
-		try {
-
-			if (StringOsmoUtils.esVacio(valor)) {
-				return null;
-			}
-
-			return valor.trim();
-
-		} catch (Exception e) {
-			SimpleLogger.error("Error", e);
-			return null;
-		}
-	}
-
+	
 	// -----------
 
-	public Long getLong(String valor) {
+	private Long getLong(String valor) {
 
 		try {
 
@@ -240,7 +246,7 @@ public class ConvertidorArchivoAsobancaria {
 
 	// -----------
 
-	public BigDecimal getBigDecimal(String valor) {
+	private BigDecimal getBigDecimal(String valor) {
 
 		try {
 
@@ -257,21 +263,9 @@ public class ConvertidorArchivoAsobancaria {
 		}
 	}
 
-	public Boolean getBoolean(String valor) {
+	
 
-		if (StringOsmoUtils.esVacio(valor)) {
-			return null;
-		}
-
-		if (StringOsmoUtils.esVerdad(valor.trim())) {
-			return true;
-		} else {
-			return false;
-		}
-
-	}
-
-	public BigDecimal getMoneda2Decimals(String valor) {
+	private BigDecimal getMoneda2Decimals(String valor) {
 
 		BigDecimal resultado = getBigDecimal(valor);
 
@@ -284,10 +278,10 @@ public class ConvertidorArchivoAsobancaria {
 		}
 
 	}
+		
 	
 	
-	
-	
+
 
 	public static void main(String[] args) {
 		File file = new File("RCCA03201.d50");
