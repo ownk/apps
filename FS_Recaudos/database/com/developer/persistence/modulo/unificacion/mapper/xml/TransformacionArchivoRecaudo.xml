@@ -26,17 +26,17 @@
 		)
 		values
 		(
-			{trar_trar}, 			
-			{trar_tpar},				
-			{trar_usua}, 			
-			{trar_prun}, 			
-			{trar_url_file_ini}, 	
-			{trar_url_file_fin}, 	
-			{trar_bytes_file_ini}, 	
-			{trar_bytes_file_fin}, 	
-			{trar_reg_file_ini}, 	
-			{trar_reg_file_fin}, 	
-			{trar_observ}, 			
+			#{trar_trar}, 			
+			#{trar_tpar},				
+			#{trar_usua}, 			
+			#{trar_prun}, 			
+			#{trar_url_file_ini}, 	
+			#{trar_url_file_fin}, 	
+			#{trar_bytes_file_ini}, 	
+			#{trar_bytes_file_fin}, 	
+			#{trar_reg_file_ini}, 	
+			#{trar_reg_file_fin}, 	
+			#{trar_observ}, 			
 			now()
 		)
 	</insert>
