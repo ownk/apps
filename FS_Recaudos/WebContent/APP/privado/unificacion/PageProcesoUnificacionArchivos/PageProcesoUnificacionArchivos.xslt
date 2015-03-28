@@ -23,8 +23,7 @@
 				src="publico/inicio/PageInicio/js/wow.min.js" /> <add type='script' src="publico/inicio/PageInicio/js/inspinia.js" 
 				/> -->
 
-			<add type='script'
-				src="privado/unificacion/PageRegistrarArchivosZIPRecaudo/js/Upload.js" />
+			
 
 
 

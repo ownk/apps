@@ -5,6 +5,8 @@ import java.util.Date;
 public class ArchivoRecaudoUnificado {
 	
 	
+	public static String CREADO = "CREADO";
+	
 	//Atributos atomicos
 	Long arun_arun;
 	String arun_usua;

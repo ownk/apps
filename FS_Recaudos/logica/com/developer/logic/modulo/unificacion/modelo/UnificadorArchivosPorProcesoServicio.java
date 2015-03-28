@@ -5,10 +5,16 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
+import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
+import com.developer.mybatis.DBManager;
 
 public class UnificadorArchivosPorProcesoServicio {
 	
@@ -22,7 +28,9 @@ public class UnificadorArchivosPorProcesoServicio {
 	}
 	
 	
-	public void generarArchivosUnificadosPorProces(ProcesoUnificacionArchivos procesoUnificacionArchivos){
+	public Boolean generarArchivosUnificadosPorProceso(ProcesoUnificacionArchivos procesoUnificacionArchivos, Usuario usuario, StringBuffer mensajeErrorOut){
+		
+		Boolean sinErrores =true; 
 		
 		TipoArchivoRecaudoServicio tipoArchivoRecaudoServicio = new TipoArchivoRecaudoServicio();
 		List<TipoArchivoRecaudo> tiposArchivoRecaudo = tipoArchivoRecaudoServicio.getTipoArchivosRecaudoPorPRUN(procesoUnificacionArchivos.getPrun_prun());
@@ -43,29 +51,85 @@ public class UnificadorArchivosPorProcesoServicio {
 	    		folder.mkdir();
 		}
 		
-		
-		for (TipoArchivoRecaudo tipoArchivoRecaudo : tiposArchivoRecaudo) {
-			List<ArchivoRecaudoPorUnificar> archivosARPU = archivoRecaudoPorUnificarServicio.getArchivosTPARxPRUN(procesoUnificacionArchivos.getPrun_prun(), tipoArchivoRecaudo.getTpar_tpar());
-			
-			
-			if(archivosARPU!=null){
-			
-				String nombreArchivoUnificado = "arun_"+procesoUnificacionArchivos.getPrun_prun()+"_"+getDateString(currentDate)+"."+tipoArchivoRecaudo.getTpar_tpar().toLowerCase();
 				
-				if( (tipoArchivoRecaudo.getTpar_estr().equals(TipoArchivoRecaudo.ESTR_ASOBANCARIA)) || ( 
-						tipoArchivoRecaudo.getTpar_estr().equals(TipoArchivoRecaudo.ESTR_FIDUCIARIA))	){
+		SqlSession session = DBManager.openSession();
+		
+		try {
+		
+			for (TipoArchivoRecaudo tipoArchivoRecaudo : tiposArchivoRecaudo) {
+				List<ArchivoRecaudoPorUnificar> archivosARPU = archivoRecaudoPorUnificarServicio.getArchivosTPARxPRUN(procesoUnificacionArchivos.getPrun_prun(), tipoArchivoRecaudo.getTpar_tpar());
+				
+				
+				if(archivosARPU!=null){
+					ArchivoRecaudoUnificado archivoRecaudoUnificado;
+					String nombreArchivoUnificado = "arun_"+procesoUnificacionArchivos.getPrun_prun()+"_"+getDateString(currentDate)+"."+tipoArchivoRecaudo.getTpar_tpar().toLowerCase();
+					
+					if( (tipoArchivoRecaudo.getTpar_estr().equals(TipoArchivoRecaudo.ESTR_ASOBANCARIA)) || ( 
+							tipoArchivoRecaudo.getTpar_estr().equals(TipoArchivoRecaudo.ESTR_FIDUCIARIA))	){
+						
+							archivoRecaudoUnificado = unificadorArchivosFiduciaria.createARUN(rutaArchivosUnificados, 
+																							  nombreArchivoUnificado, 
+																							  procesoUnificacionArchivos, 
+																							  tipoArchivoRecaudo, 
+																							  archivosARPU, 
+																							  usuario.getUsua_usua(), 
+																							  mensajeErrorOut);
+						
+					}else{
+						
+							archivoRecaudoUnificado = unificadorArchivosDefault.createARUN(	rutaArchivosUnificados, 
+																						  	nombreArchivoUnificado, 
+																						  	procesoUnificacionArchivos, 
+																						  	tipoArchivoRecaudo, 
+																						  	archivosARPU, 
+																						  	usuario.getUsua_usua(), 
+																						  	mensajeErrorOut);
+					}
 					
 					
-					unificadorArchivosFiduciaria.createARUN(rutaArchivosUnificados, nombreArchivoUnificado, archivosARPU);
+					if(archivoRecaudoUnificado==null){
+						sinErrores = false;
+						break;
+					}else{
+						
+						ArchivoRecaudoUnificadoServicio archivoRecaudoUnificadoServicio = new ArchivoRecaudoUnificadoServicio();
+						sinErrores = sinErrores && archivoRecaudoUnificadoServicio.crearArchivoTransaccional(session, archivoRecaudoUnificado);
+						
+						if(!sinErrores){
+							
+							mensajeErrorOut.append("Error creando registro de ArchivoUnificado en Base de Datos"+archivoRecaudoUnificado.getArun_nombre()+"."+archivoRecaudoUnificado.getArun_extension());
+							break;
+							
+						}
+					}
+					
+					
+				
 				}else{
-					unificadorArchivosDefault.createARUN(rutaArchivosUnificados, nombreArchivoUnificado, archivosARPU);
+					sinErrores=false;
 				}
 				
-			
+				
 			}
 			
+			//Si al final del procso no hay errores se hace commt;
+			if(sinErrores){
+				session.commit();
+			}
+					
 			
+		}catch (Exception e) {
+			SimpleLogger.error("Error ", e);
+			session.rollback();
+			mensajeErrorOut.append("Error Unificando Archivos. No se ha podido finalizar correctamente.");
+			
+		} 	finally {
+			session.close();
 		}
+		
+		
+		return sinErrores;
+		
 		
 		
 	}
