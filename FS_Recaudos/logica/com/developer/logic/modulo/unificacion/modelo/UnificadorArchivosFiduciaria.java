@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.apache.commons.io.FileUtils;
@@ -32,6 +33,7 @@ public class UnificadorArchivosFiduciaria {
 		PrintWriter printerWriter = null;
 		try {
 
+			SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");
 			fichero = new FileWriter(rutaArchivosUnificados
 					+ nombreArchivoUnificado);
 			printerWriter = new PrintWriter(fichero);
@@ -57,6 +59,12 @@ public class UnificadorArchivosFiduciaria {
 							String encabezado = bufferedReader.readLine();
 
 							if (!isEncabezadoDone) {
+								
+								String date = dateFormat.format(procesoUnificacionArchivos.getPrun_ffin());
+
+								encabezado = encabezado.substring(0,117);
+								encabezado = encabezado+date;
+																
 								totalRegistros++;
 								printerWriter.println(encabezado);
 								isEncabezadoDone = true;
