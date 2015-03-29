@@ -1,19 +1,11 @@
 package com.developer.web.content.publico.inicio;
 
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.security.PrivateKey;
-import java.security.PublicKey;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang.StringUtils;
 
 import com.developer.core.page.PublicPage;
-import com.developer.core.utils.ObjectToXML;
-import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
-import com.developer.logic.modulo.rsa.EncryptionRSA;
 
 public class PageInicio extends PublicPage {
 
@@ -28,6 +20,10 @@ public class PageInicio extends PublicPage {
 		
 		StringBuffer xmlPage = null;
 		xmlPage = new StringBuffer();
+		
+		
+		//Se cierra la session si existe
+		AutenticadorServicio.getInstance().cerrarSession(request);
 		
 				
 		//Se verifica si existen errores

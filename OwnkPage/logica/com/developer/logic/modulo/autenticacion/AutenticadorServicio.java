@@ -7,18 +7,17 @@ import org.apache.commons.lang.StringUtils;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Servicio;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.persistence.modulo.autenticacion.UsuarioControllerDB;
 
-public class AutenticacionServicio {
+public class AutenticadorServicio {
 	
 	//Colaboradores
 	GeneradorSessionApp generadorSession;
 	
-	private static AutenticacionServicio instance;
+	private static AutenticadorServicio instance;
 	
-	public static AutenticacionServicio getInstance() {
+	public static AutenticadorServicio getInstance() {
 		if (instance == null) {
-			instance = new AutenticacionServicio();
+			instance = new AutenticadorServicio();
 		}
 		
 		return instance;
@@ -31,8 +30,7 @@ public class AutenticacionServicio {
 		
 	public Usuario isUsuarioValido(String login, String clave){
 		
-		String claveEncriptada = com.developer.core.utils.StringUtils.MD5(login+clave);
-		Usuario usuarioAutenticado = UsuarioControllerDB.getInstance().isUsuarioValido(login, claveEncriptada);
+		Usuario usuarioAutenticado = UsuarioServicio.getInstance().isUsuarioValido(login, clave);
 						
 		return usuarioAutenticado;
 	}
@@ -44,7 +42,7 @@ public class AutenticacionServicio {
 		Boolean isURLValida = false;
 		
 		//Se valida si existe algun servicio asociado a la url, para el usuario especificado
-		Servicio servicio = UsuarioControllerDB.getInstance().getServicioUsuarioPorURL(usuario, url);
+		Servicio servicio = UsuarioServicio.getInstance().getServicioUsuarioPorURL(usuario, url);
 		
 		if(servicio != null){
 			isURLValida = true;
@@ -113,14 +111,19 @@ public class AutenticacionServicio {
 	}
 	
 	public SessionAppUsuario getSessionAppUsuario(HttpServletRequest request){
-		
 		return generadorSession.getSessionAppUsuario(request);
 	}
 	
+	
+	public void cerrarSession(HttpServletRequest request){
+		generadorSession.cerrarSession(request);
+	}
 		 
 
 	public static void main(String[] args) {
-		String claveEncriptada = com.developer.core.utils.StringUtils.MD5("0002"+"1234");
+		String claveEncriptada = com.developer.core.utils.StringUtils.MD5("1234");
 		System.out.println(claveEncriptada);
+		
+		
 	}
 }

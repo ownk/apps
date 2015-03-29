@@ -1,5 +1,6 @@
 package com.developer.persistence.modulo.autenticacion.controllerdb;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -110,6 +111,31 @@ public class UsuarioControllerDB {
 		
 	}
 	
+	
+	public List<Servicio> getServiciosTipoListadoPorUsuario(Usuario usuario){
+		
+		List<Servicio> serviciosPorUsuario = null;
+		
+		SqlSession session = DBManager.openSession();
+		
+		try {
+
+			UsuarioDao dao = session.getMapper(UsuarioDao.class);
+			serviciosPorUsuario = dao.getServiciosTipoListadoPorUsuario(usuario);
+
+			 
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error obteniendo servicios tipo listado por usuario: "+usuario.getUsua_usua(), e);
+			
+		} finally {
+			session.close();
+		}
+		
+		return serviciosPorUsuario;
+		
+	}
+	
 	public List<Modulo> getModulosPorUsuario(Usuario usuario){
 		
 		List<Modulo> modulosPorUsuario = null;
@@ -158,7 +184,7 @@ public class UsuarioControllerDB {
 	}
 	
 	
-	public List<String> getRolesPorUsuario(Usuario usuario){
+	private List<String> getRolesPorUsuario(Usuario usuario){
 		SqlSession session = DBManager.openSession();
 		List<String> roles = null;
 		
@@ -176,6 +202,50 @@ public class UsuarioControllerDB {
 		
 		return roles;
 		
+	}
+	
+	
+	public Usuario crearUsuarioTransaccional(	SqlSession session, 
+			Usuario usuario, 
+			Usuario usuarioCreador, 
+			StringBuffer mensajeError){
+
+
+		try{
+		UsuarioDao dao= session.getMapper(UsuarioDao.class);
+		
+		//Se crea la preusuario
+		dao.crearUsuario(usuario);
+		return usuario;
+		
+		}catch (Exception e) {
+			SimpleLogger.error("Error crearUsuarioTransaccional", e);
+			mensajeError.append("Error al crear el registro de proyecto curricular");
+			return null;
+		}
+		
+		
+	}
+	
+	public Boolean asignarRolPorUsuarioTransaccional(SqlSession session, String usua_usua, String rol_rol, StringBuffer mensajeError){
+	
+		try{
+			UsuarioDao dao= session.getMapper(UsuarioDao.class);
+		
+			//Se crea la preusuario
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("usua_usua", usua_usua);
+			hashMap.put("rol_rol", rol_rol);
+			dao.asignarRolPorUsuario(hashMap);
+			
+			return true;
+		
+		}catch (Exception e) {
+			SimpleLogger.error("Error crearUsuarioTransaccional", e);
+			mensajeError.append("Error al crear el registro de proyecto curricular");
+			return false;
+		}
+			
 	}
 	
 	

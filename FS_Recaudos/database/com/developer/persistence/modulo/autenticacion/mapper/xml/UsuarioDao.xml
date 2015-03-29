@@ -4,6 +4,20 @@
 
 <mapper namespace="com.developer.persistence.modulo.autenticacion.mapper.dao.UsuarioDao">
 
+	<insert id="crearUsuario" parameterType="usuario">
+		Insert into aut_tusua 
+		(usua_usua,usua_clave,usua_mail) 
+		values 
+		(#{usua_usua},#{usua_clave},#{usua_mail})
+	</insert>
+	
+	<insert id="asignarRolPorUsuario" parameterType="java.util.HashMap" >
+		insert into aut_turol 
+		(urol_usua,urol_rol) 
+		values (#{usua_usua},#{rol_rol})
+	</insert>
+	
+	
 	<select id="isUsuarioValido" parameterType="usuario" resultType="usuario">
 		select usua_usua, usua_mail from aut_tusua
 		where usua_usua = #{usua_usua}
@@ -19,7 +33,20 @@
 		and surl_tipo = 'P'
 		and modulo_modulo = servicio_modulo
 		and srol_visible = 'S'
-		order by servicio_modulo, servicio_orden asc 
+		order by servicio_modulo, servicio_orden asc
+	</select>
+	
+	<select id="getServiciosTipoListadoPorUsuario" parameterType="usuario" resultType="servicio">
+		select distinct aut_tservicio.*, aut_tmodulo.*, aut_tsurl.* from aut_turol, aut_tsrol, aut_tservicio, aut_tmodulo, aut_tsurl
+		where urol_usua = #{usua_usua}
+		and urol_rol = srol_rol
+		and servicio_servicio = srol_servicio
+		and surl_servicio = servicio_servicio
+		and surl_tipo = 'P'
+		and modulo_modulo = servicio_modulo
+		and srol_visible = 'S'
+		and servicio_tipo = 'L'
+		order by modulo_orden, servicio_modulo, servicio_orden asc
 	</select>
 	
 	<select id="getServicioUsuarioPorURL" parameterType="usuarioURL" resultType="servicio">
@@ -40,6 +67,7 @@
 		and surl_servicio = servicio_servicio
 		and modulo_modulo = servicio_modulo
 		and srol_visible = 'S'
+		order by modulo_orden asc
 	</select>
 	
 	<select id="getUsuario" parameterType="java.lang.String" resultType="usuario">

@@ -1,5 +1,6 @@
 package com.developer.persistence.modulo.autenticacion.mapper.dao;
 
+import java.util.HashMap;
 import java.util.List;
 
 import com.developer.logic.modulo.autenticacion.dto.Modulo;
@@ -20,4 +21,11 @@ public interface UsuarioDao {
 	public Usuario getUsuario(String usua_usua);
 	
 	public List<String> getRolesPorUsuario(Usuario usuario);
+	
+	public List<Servicio> getServiciosTipoListadoPorUsuario(Usuario usuario);
+	
+	public void crearUsuario(Usuario usuario);
+	
+	public void asignarRolPorUsuario(HashMap<String, Object> hashMap);
+	
 }

@@ -11,7 +11,7 @@ import com.developer.persistence.modulo.general.PersonaControllerDB;
 
 public class GeneradorSessionApp {
 	
-	public static String TOKEN= "01928384756";
+	public static String TOKEN= "1346798520";
 	
 	//atributos que se registran en el inicio de session
 	public static String SESSION_TOKEN= "SESSION_TOKEN";
@@ -27,7 +27,7 @@ public class GeneradorSessionApp {
 		SimpleLogger.info("Validando usuario: "+login);
 		
 		//Se valida que el login y password sean correctos
-		Usuario  usuario = AutenticacionServicio.getInstance().isUsuarioValido(login, pass);
+		Usuario  usuario = AutenticadorServicio.getInstance().isUsuarioValido(login, pass);
 				
 		if(usuario != null){
 			HttpSession session = null;
@@ -37,12 +37,12 @@ public class GeneradorSessionApp {
 				
 				SimpleLogger.info("Session ya iniciada. Se invalida session y se crea nueva session");
 				
-				request.getSession().invalidate();
+				cerrarSession(request);
 				session = request.getSession();
 									
 				
 			}else{
-				//Se crea la session y se agrega parametro de inicio
+				//Se crea la session
 				SimpleLogger.info("No existe session. Se crea nueva session");
 				session = request.getSession();
 				
@@ -130,14 +130,37 @@ public class GeneradorSessionApp {
 					
 					SimpleLogger.info("Session APP INVALIDA. Usuario no registrado");
 				}
-				
-				
+						
+			}else{
+				SimpleLogger.info("Session APP INVALIDA. Información incosistente");
 			}
 		}
 		
 		return sessionAppUsuario;
 		
 	}
+
+	public void cerrarSession(HttpServletRequest request) {
+		
+		HttpSession session = request.getSession(false);
+		
+		if(session!= null){
+			
+			
+			session.removeAttribute(SESSION_APP);
+			session.removeAttribute(SESSION_PERSONA);
+			session.removeAttribute(SESSION_TOKEN);
+			session.removeAttribute(SESSION_USUARIO);
+			session.removeAttribute(TOKEN);
+			
+			
+			SimpleLogger.info("Session ya iniciada. Se invalida session");
+			request.getSession(false).invalidate();
+		}
+		
+	}
+	
+	
 	
 	
 	

@@ -88,7 +88,7 @@
 												action="{//contextPath}/unificacion/PageUploadFilesProcesoUnificacion.do"
 												method="post" enctype="multipart/form-data">
 												<div class="dropzone-previews"></div>
-												<button type="submit" class="btn btn-primary pull-right">Registrar Archivos</button>
+												<button type="submit" class="btn btn-primary pull-right" id="btn_registrarArchivos">Registrar Archivos</button>
 												<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 													value="{//prun_prun}" />
 

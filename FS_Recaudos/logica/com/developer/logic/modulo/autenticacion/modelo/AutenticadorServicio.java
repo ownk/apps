@@ -44,7 +44,7 @@ public class AutenticadorServicio {
 		Boolean isURLValida = false;
 		
 		//Se valida si existe algun servicio asociado a la url, para el usuario especificado
-		Servicio servicio = UsuarioControllerDB.getInstance().getServicioUsuarioPorURL(usuario, url);
+		Servicio servicio = UsuarioServicio.getInstance().getServicioUsuarioPorURL(usuario, url);
 		
 		if(servicio != null){
 			isURLValida = true;
@@ -113,14 +113,19 @@ public class AutenticadorServicio {
 	}
 	
 	public SessionAppUsuario getSessionAppUsuario(HttpServletRequest request){
-		
 		return generadorSession.getSessionAppUsuario(request);
 	}
 	
+	
+	public void cerrarSession(HttpServletRequest request){
+		generadorSession.cerrarSession(request);
+	}
 		 
 
 	public static void main(String[] args) {
-		String claveEncriptada = com.developer.core.utils.StringUtils.MD5("operador"+"1234");
+		String claveEncriptada = com.developer.core.utils.StringUtils.MD5("1234");
 		System.out.println(claveEncriptada);
+		
+		
 	}
 }

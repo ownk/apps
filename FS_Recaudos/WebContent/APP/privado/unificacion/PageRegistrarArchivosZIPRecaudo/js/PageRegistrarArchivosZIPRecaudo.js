@@ -24,14 +24,14 @@
                         myDropzone.processQueue();
                     });
                     this.on("sendingmultiple", function() {
-						alert("Enviando archivos a servidor");
+						
                     });
                     this.on("successmultiple", function(files, response) {
-						alert("Archivos almacenados en servidor");
 						$('#btn_unificarArchivos').removeAttr('disabled');
+					
                     });
                     this.on("errormultiple", function(files, response) {
-						alert("Error enviando archivos al servidor");
+						
                     });
                 }
 
