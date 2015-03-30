@@ -33,7 +33,7 @@
 						<div class="row  border-bottom white-bg dashboard-header">
 
 							<div class="col-lg-10">
-								<h2>Consulta de Procesos de Unificación de Recaudo </h2>
+								<h2>Consulta de Procesos de Unificación de Archivos </h2>
 								<ol class="breadcrumb">
 									<li>
 										<a>Consultas</a>
@@ -136,7 +136,7 @@
 																			<th>No.</th>
 																			<th>Fecha de radicación </th>
 																			<th>Usuario </th>
-																			<th>Total ZIP </th>
+																			<th>ZIP </th>
 																			<th>Fecha Inicio</th>
 																			<th>Fecha FIn</th>
 																			<th>Action</th>

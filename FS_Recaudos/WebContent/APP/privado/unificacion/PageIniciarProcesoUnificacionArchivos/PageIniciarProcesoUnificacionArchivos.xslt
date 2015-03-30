@@ -66,8 +66,8 @@
 																<h2>Resultado</h2>
 																<div class="alert alert-danger">
 																	<p>
-																		Lo sentimos, no se pudo Iniciar el proceso de
-																		unificacion de
+																		Lo sentimos, no se pudo iniciar el proceso de
+																		unificación de
 																		archivos. Por favor intentelo
 																		nuevamente.
 

@@ -77,7 +77,7 @@
 															<div class="m-b-md">
 
 																<h2>
-																	Proceso de Unificacion Archivos No. No.
+																	Proceso de Unificación Archivos No.
 																	<xsl:value-of select="//prun_prun" />
 																</h2>
 															</div>
