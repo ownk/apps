@@ -36,7 +36,7 @@
 										<a>Consolidación Archivos</a>
 									</li>
 									<li class="active">
-										<strong>Iniciar Proceso Unficación </strong>
+										<strong>Iniciar Proceso Unificación </strong>
 									</li>
 								</ol>
 							</div>

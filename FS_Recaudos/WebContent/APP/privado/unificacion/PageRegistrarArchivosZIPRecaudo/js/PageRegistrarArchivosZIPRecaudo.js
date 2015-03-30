@@ -28,7 +28,7 @@
                     });
                     this.on("successmultiple", function(files, response) {
 						$('#btn_unificarArchivos').removeAttr('disabled');
-						
+						$('#btn_unificarArchivos').removeClass('btn-outline');
 					
                     });
                     this.on("errormultiple", function(files, response) {

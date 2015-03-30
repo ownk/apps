@@ -72,11 +72,9 @@
 										<div class="col-lg-12">
 											<div class="ibox float-e-margins">
 												<div class="ibox-title">
+													
 													<h5>Cargar archivos ZIP</h5>
 													<div class="ibox-tools">
-														<a class="collapse-link">
-															<i class="fa fa-chevron-up"></i>
-														</a>
 														<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 															<i class="fa fa-wrench"></i>
 														</a>
@@ -88,6 +86,7 @@
 														</ul>
 
 													</div>
+													<span class="label label-warning pull-right">Revisar Opciones</span>
 												</div>
 												<div class="ibox-content">
 													

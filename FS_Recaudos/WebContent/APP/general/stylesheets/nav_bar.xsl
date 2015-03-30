@@ -15,17 +15,11 @@
                             	<img alt="image" class="img-circle" src="{//contextPath}/general/img/profile_small.jpg" />
                             	 
                             </span>
-                            <a data-toggle="dropdown" class="dropdown-toggle" href="#">
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">Usuario</strong>
-                             </span> <span class="text-muted text-xs block">Rol <b class="caret"></b></span> </span> </a>
+                           
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><xsl:value-of select="//Persona/pern_nomb"/></strong>
+                             </span> <span class="text-muted text-xs block"><xsl:value-of select="//Usuario/usua_usua"/> <b class="caret"></b></span> </span> 
                              </div>
-                            <ul class="dropdown-menu animated fadeInRight m-t-xs">
-                                <li><a href="profile.html">Profile</a></li>
-                                <li><a href="contacts.html">Contacts</a></li>
-                                <li><a href="mailbox.html">Mailbox</a></li>
-                                <li class="divider"></li>
-                                <li><a href="login.html">Salir</a></li>
-                            </ul>
+                           
                         </div>
                        
                     </li>
@@ -33,7 +27,7 @@
                         <a href="{//contextPath}/inicio/PageBienvenida.do"><i class="fa fa-star"></i> <span class="nav-label">Inicio </span></a>
                     </li>
                     <li >
-                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Consolidación de archivos</span><span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-files-o"></i> <span class="nav-label">Recaudos</span><span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li><a href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">Registrar Archivos ZIP </a></li>
                         </ul>
@@ -68,7 +62,7 @@
         </div>
             <ul class="nav navbar-top-links navbar-right">
                 <li>
-                    <span class="m-r-sm text-muted welcome-message">Bienvenido: Usuario </span>
+                    <span class="m-r-sm text-muted welcome-message">Bienvenido: <xsl:value-of select="//Persona/pern_nomb"/> </span>
                 </li>
                 <li class="dropdown">
                     <a class="dropdown-toggle count-info" data-toggle="dropdown" href="#">

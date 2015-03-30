@@ -86,9 +86,9 @@
 														<div class="col-sm-12 m-b-xs">
 															<label class="font-noraml">En esta sección podrás consultar los
 																procesos ya creados. Los procesos listados estan
-																organizados desde el mas reciente al mas antiguo. Se
+																organizados desde el más reciente al más antiguo. Se
 																deseas consultar alguno en particular debes hacer click
-																sobre el registro en particular.</label>
+																sobre el registro deseado.</label>
 
 															<div class="hr-line-dashed"></div>
 														</div>
@@ -152,7 +152,7 @@
 
 																			</form>
 
-																			<tr>
+																			<tr onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
 																				<td class=" align-center">
 																					<xsl:value-of select="prun_prun" />
 																				</td>
