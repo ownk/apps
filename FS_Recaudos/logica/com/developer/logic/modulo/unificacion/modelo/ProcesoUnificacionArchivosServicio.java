@@ -15,9 +15,11 @@ import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.dto.Persona;
 import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
+import com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo;
 import com.developer.mybatis.DBManager;
 import com.developer.persistence.modulo.general.controllerdb.PersonaControllerDB;
 import com.developer.persistence.modulo.unificacion.controllerdb.ProcesoUnificacionArchivosControllerDB;
@@ -366,8 +368,16 @@ public class ProcesoUnificacionArchivosServicio {
 				ArchivoZIPProcesoUnificacionServicio servicio = new ArchivoZIPProcesoUnificacionServicio();
 				List<ArchivoZIPProcesoUnificacion> archivosAZPU = servicio.getArchivosPorProceso(procesoUnificacionArchivos.getPrun_prun());
 				
-				procesoUnificacionArchivos.setArchivosAZPU(archivosAZPU);
+				ArchivoRecaudoUnificadoServicio unificadoServicio = new ArchivoRecaudoUnificadoServicio();
+				List<ArchivoRecaudoUnificado> archivosARUN = unificadoServicio.getArchivosPorPRUN(procesoUnificacionArchivos.getPrun_prun());
 				
+				TransformadorArchivoRecaudoServicio transformadorArchivoRecaudoServicio = new TransformadorArchivoRecaudoServicio();
+				List<TransformacionArchivoRecaudo> archivosTRAR = transformadorArchivoRecaudoServicio.getTranformacionsPorPRUN(procesoUnificacionArchivos.getPrun_prun());
+				
+				
+				procesoUnificacionArchivos.setArchivosARUN(archivosARUN);
+				procesoUnificacionArchivos.setArchivosAZPU(archivosAZPU);
+				procesoUnificacionArchivos.setArchivosTRAR(archivosTRAR);
 				
 			}
 			

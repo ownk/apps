@@ -3,7 +3,6 @@ package com.developer.logic.modulo.unificacion.modelo;
 import java.io.File;
 import java.util.List;
 
-import org.apache.commons.fileupload.FileItem;
 import org.apache.commons.io.FilenameUtils;
 import org.apache.ibatis.session.SqlSession;
 
@@ -37,18 +36,8 @@ public class TransformadorArchivoRecaudoServicio {
 
 	}
 
-	public TransformacionArchivoRecaudo getArchivo(Long azpu_azpu) {
-		TransformadorArchivoRecaudoControllerDB controllerDB = TransformadorArchivoRecaudoControllerDB
-				.getInstance();
-		TransformacionArchivoRecaudo transformacionArchivoRecaudo = controllerDB
-				.getArchivo(azpu_azpu);
 
-		completarInformacionAdicionalArhivo(transformacionArchivoRecaudo);
-
-		return transformacionArchivoRecaudo;
-	}
-
-	public List<TransformacionArchivoRecaudo> getArchivosPorProceso(
+	public List<TransformacionArchivoRecaudo> getTranformacionsPorPRUN(
 			Long prun_prun) {
 		TransformadorArchivoRecaudoControllerDB controllerDB = TransformadorArchivoRecaudoControllerDB
 				.getInstance();
@@ -63,22 +52,7 @@ public class TransformadorArchivoRecaudoServicio {
 
 	}
 
-	public String getNombreArchivoEnServidor(FileItem file) {
-		return getNombreArchivoEnServidor(file.getName());
-	}
 
-	public String getNombreArchivoEnServidor(File file) {
-		return getNombreArchivoEnServidor(file.getName());
-
-	}
-
-	private String getNombreArchivoEnServidor(String fileName) {
-		String nombreReal = FilenameUtils.getBaseName(fileName);
-		String extension = FilenameUtils.getExtension(fileName);
-		String nombreEnServidor = nombreReal + "." + extension;
-
-		return nombreEnServidor;
-	}
 
 	/**
 	 * ========================================== 

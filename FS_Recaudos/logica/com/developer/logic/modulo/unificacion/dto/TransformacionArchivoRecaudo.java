@@ -1,5 +1,6 @@
 package com.developer.logic.modulo.unificacion.dto;
 
+import java.io.File;
 import java.util.Date;
 
 public class TransformacionArchivoRecaudo {
@@ -16,6 +17,14 @@ public class TransformacionArchivoRecaudo {
 	Long trar_reg_file_fin; 	
 	String trar_observ; 			
 	Date trar_fcrea;
+	
+	//Atributos calculados
+	String nombreOrigen =null;
+	String nombreDestino =null;
+	
+	public TransformacionArchivoRecaudo() {
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Long getTrar_trar() {
 		return trar_trar;
@@ -45,12 +54,27 @@ public class TransformacionArchivoRecaudo {
 		return trar_url_file_ini;
 	}
 	public void setTrar_url_file_ini(String trar_url_file_ini) {
+		
+		File file = new File(trar_url_file_ini);
+		if(file.exists()){
+			nombreOrigen = file.getName();
+			
+		}
+		
+		
 		this.trar_url_file_ini = trar_url_file_ini;
 	}
 	public String getTrar_url_file_fin() {
 		return trar_url_file_fin;
 	}
 	public void setTrar_url_file_fin(String trar_url_file_fin) {
+		
+		File file = new File(trar_url_file_fin);
+		if(file.exists()){
+			nombreDestino = file.getName();
+			
+		}
+		
 		this.trar_url_file_fin = trar_url_file_fin;
 	}
 	public Long getTrar_bytes_file_ini() {

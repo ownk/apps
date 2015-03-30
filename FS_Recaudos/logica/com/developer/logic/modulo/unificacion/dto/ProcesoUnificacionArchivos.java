@@ -28,11 +28,14 @@ public class ProcesoUnificacionArchivos {
 	
 	//Atributos calculados
 	List<ArchivoZIPProcesoUnificacion> archivosAZPU;
+	List<ArchivoRecaudoUnificado> archivosARUN;
 	List<HistoricoProcesoUnificacionArchivos> historicoProcesoUnificacionArchivos;
-	
+	List<TransformacionArchivoRecaudo> archivosTRAR;
 	
 	public ProcesoUnificacionArchivos() {
 		archivosAZPU = new ArrayList<ArchivoZIPProcesoUnificacion>();
+		archivosARUN = new ArrayList<ArchivoRecaudoUnificado>();
+		archivosTRAR = new ArrayList<TransformacionArchivoRecaudo>();
 	}
 	
 	public Long getPrun_prun() {
@@ -102,6 +105,22 @@ public class ProcesoUnificacionArchivos {
 	public void setHistoricoProcesoUnificacionArchivos(
 			List<HistoricoProcesoUnificacionArchivos> historicoProcesoUnificacionArchivos) {
 		this.historicoProcesoUnificacionArchivos = historicoProcesoUnificacionArchivos;
+	}
+
+	public List<ArchivoRecaudoUnificado> getArchivosARUN() {
+		return archivosARUN;
+	}
+
+	public void setArchivosARUN(List<ArchivoRecaudoUnificado> archivosARUN) {
+		this.archivosARUN = archivosARUN;
+	}
+
+	public List<TransformacionArchivoRecaudo> getArchivosTRAR() {
+		return archivosTRAR;
+	}
+
+	public void setArchivosTRAR(List<TransformacionArchivoRecaudo> archivosTRAR) {
+		this.archivosTRAR = archivosTRAR;
 	}
 
 

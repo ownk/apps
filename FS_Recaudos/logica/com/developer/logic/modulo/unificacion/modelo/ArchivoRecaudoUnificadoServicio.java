@@ -42,7 +42,7 @@ public class ArchivoRecaudoUnificadoServicio {
 		
 	}
 	
-	public List<ArchivoRecaudoUnificado> getArchivosPorAnteproyecto(Long prun_prun){
+	public List<ArchivoRecaudoUnificado> getArchivosPorPRUN(Long prun_prun){
 		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
 		return controllerDB.getArchivosPorProcesoUnificacion(prun_prun);
 		
