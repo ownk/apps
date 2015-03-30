@@ -5,40 +5,70 @@ import java.util.List;
 
 public class PaginatorWeb {
 	
-	double totalPages;
-	double pageSize;
-	double pageNumber;
+	long totalPages;
+	long pageSize;
+	long pageNumber;
+	long totalSize;
+	long sizeIni;
+	long sizeFin;
+	
 	List<PagePaginatorWeb> pages;
 	
-	public double getTotalPages() {
+	public long getTotalPages() {
 		return totalPages;
 	}
-	public void setTotalPages(double totalPages) {
+	public void setTotalPages(long totalPages) {
 		this.totalPages = totalPages;
 	}
-	public double getPageSize() {
+	public long getPageSize() {
 		return pageSize;
 	}
-	public void setPageSize(double pageSize) {
+	public void setPageSize(long pageSize) {
 		this.pageSize = pageSize;
 	}
-	public double getPageNumber() {
+	public long getPageNumber() {
+		
+		
 		return pageNumber;
 	}
-	public void setPageNumber(double pageNumber) {
+	public void setPageNumber(long pageNumber) {
 		this.pageNumber = pageNumber;
 	}
+	
+	
+	public long getSizeIni() {
+		return sizeIni;
+	}
+	public void setSizeIni(long sizeIni) {
+		this.sizeIni = sizeIni;
+	}
+	public long getSizeFin() {
+		return sizeFin;
+	}
+	public void setSizeFin(long sizeFin) {
+		this.sizeFin = sizeFin;
+	}
+	public long getTotalSize() {
+		return totalSize;
+	}
+	public void setTotalSize(long totalSize) {
+		
+		this.totalSize = Math.round(totalSize);
+	}
+	
 	
 	public List<PagePaginatorWeb> generatePages() {
 		
 		pages = new ArrayList<PagePaginatorWeb>();
-		Boolean isActive = false;
-		for (double i = 1; i <= totalPages; i++) {
+		Boolean isActive;
+		for (long i = 1; i <= totalPages; i++) {
 			
 			
 			
 			if(pageNumber==i){
-				isActive = true;
+				isActive = new Boolean(true);
+			}else{
+				isActive = new Boolean(false);
 			}
 			pages.add(new PagePaginatorWeb(i, isActive));
 			

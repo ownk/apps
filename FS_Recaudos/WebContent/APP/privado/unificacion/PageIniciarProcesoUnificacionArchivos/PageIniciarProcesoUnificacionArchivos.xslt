@@ -4,61 +4,181 @@
 	<xsl:output method="xml" version="1.0" encoding="UTF-8"
 		indent="yes" />
 
+	<xsl:include href="../../../general/stylesheets/nav_bar.xsl" />
+	<xsl:include href="../../../general/stylesheets/footer.xsl" />
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 	<xsl:template match="/">
 
 		<PAGE>
-			
+
 			<xsl:apply-templates select="//XMLPAGE/*" />
-			
+
 			<body>
-			<xsl:choose>
-				<xsl:when test="count(//MensajeErrorWeb)>0">
-					<div>
-							Lo sentimos, no se pudo Iniciar el proceso de unificacion de archivos. Por favor intentelo nuevamente.
-							
-							
-							<div>
-							Error: <xsl:value-of select="//MensajeErrorWeb/mensajeError"></xsl:value-of>
-							
+
+				<div id="wrapper">
+
+					<!-- MENU -->
+					<xsl:call-template name="nav-bar-left" />
+
+					<div id="page-wrapper" class="gray-bg dashbard-1">
+						<div class="row border-bottom">
+							<xsl:call-template name="nav-bar-top" />
+						</div>
+
+						<!-- TITULO -->
+						<div class="row  border-bottom white-bg dashboard-header">
+
+							<div class="col-lg-10">
+								<h2>Inicio de proceso de unificación de archivos de recaudo </h2>
+								<ol class="breadcrumb">
+									<li>
+										<a>Consolidación Archivos</a>
+									</li>
+									<li class="active">
+										<strong>Iniciar Proceso Unficación </strong>
+									</li>
+								</ol>
 							</div>
-							
-							
-							<div style="text-align:right">
-							
-								<div id="wrapper">
-									<a href ="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do" >
-									Registrar Archivos ZIP Recaudo
-									</a>
-									
+
+						</div>
+
+						<!-- CONTENIDO -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="wrapper wrapper-content">
+									<xsl:choose>
+										<xsl:when test="count(//MensajeErrorWeb)>0">
+
+
+											<div class="ibox float-e-margins">
+
+												<div class="" id="ibox-content">
+
+													<div id="vertical-timeline"
+														class="vertical-container light-timeline left-orientation">
+														<div class="vertical-timeline-block">
+															<div class="vertical-timeline-icon navy-bg">
+																<i class="fa fa-briefcase"></i>
+															</div>
+
+															<div class="vertical-timeline-content">
+																<h2>Resultado</h2>
+																<div class="alert alert-danger">
+																	<p>
+																		Lo sentimos, no se pudo Iniciar el proceso de
+																		unificacion de
+																		archivos. Por favor intentelo
+																		nuevamente.
+
+
+																		<div>
+																			<xsl:value-of select="//MensajeErrorWeb/mensajeError"></xsl:value-of>
+
+																		</div>
+
+
+																	</p>
+																</div>
+																<div style="text-align:right">
+
+																	
+																		<a class="btn btn-primary btn-sm"
+																			href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
+																			Registrar Archivos ZIP Recaudo
+																		</a>
+
+																</div>
+
+																<!-- <span class="vertical-date">
+																	Today
+																	<br />
+																	<small>Dec 24</small>
+																</span> -->
+
+
+
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+
+											</div>
+
+
+
+										</xsl:when>
+
+										<xsl:otherwise>
+
+
+											<div class="ibox float-e-margins">
+
+												<div class="" id="ibox-content">
+
+													<div id="vertical-timeline"
+														class="vertical-container light-timeline left-orientation">
+														<div class="vertical-timeline-block">
+															<div class="vertical-timeline-icon navy-bg">
+																<i class="fa fa-briefcase"></i>
+															</div>
+
+															<div class="vertical-timeline-content">
+																<h2>Resultado</h2>
+
+																<div class="alert alert-success">
+																	<p>
+																		El proceso
+																		<b>
+																			<xsl:value-of
+																				select="//ProcesoUnificacionArchivos/prun_prun"></xsl:value-of>
+																		</b>
+																		se ha creado exitosamente!.
+																	</p>
+																</div>
+																<form
+																	action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
+																	method="post">
+
+																	<button type="submit" class="btn btn-primary btn-sm pull-right">Consultar Proceso</button>
+																	<input type="hidden"
+																		name="ProcesoUnificacionArchivos.prun_prun" value="{//ProcesoUnificacionArchivos/prun_prun}" />
+
+
+																</form>
+																<!-- <span class="vertical-date">
+																	Today
+																	<br />
+																	<small>Dec 24</small>
+																</span> -->
+
+
+
+															</div>
+														</div>
+
+
+													</div>
+												</div>
+
+											</div>
+
+										</xsl:otherwise>
+
+									</xsl:choose>
+
+
+
+
 								</div>
 							</div>
+						</div>
 					</div>
-				</xsl:when>
-				
-				<xsl:otherwise>
-					<div>
-							
-							<div>
-							El proceso <b><xsl:value-of select="//ProcesoUnificacionArchivos/prun_prun"></xsl:value-of></b> se ha creado exitosamente!.
-							</div>
-							
-							<form action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do" method="post">
-								
-								<button type="submit" class="btn btn-primary pull-right">Consultar Proceso</button>
-								<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
-									value="{//ProcesoUnificacionArchivos/prun_prun}" />
 
+				</div>
 
-							</form>
-					</div>	
-					
-					
-				
-				</xsl:otherwise>
-			
-			</xsl:choose>
 			</body>
 		</PAGE>
 

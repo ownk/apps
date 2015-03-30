@@ -22,15 +22,13 @@
 			
 			    <div class="middle-box text-center animated fadeInDown">
 			        <h1>!</h1>
-			        <h3 class="font-bold">No Access</h3>
+			        <h3 class="font-bold">Acceso Denegado</h3>
 			
 			        <div class="error-desc">
-			            Sorry, but the page you are try to inside can be access. Try checking the URL for error, then hit the refresh button on your browser or try found something else in our app.
-			            <form class="form-inline m-t" role="form">
-			                <div class="form-group">
-			                    <input type="text" class="form-control" placeholder="Search for page"/>
-			                </div>
-			                <button type="submit" class="btn btn-primary">Search</button>
+			            Lo sentimos, pero la página a la que estas tratando de ingresar no puede ser accedida. Intenta comprobar la URL de error, después has clic en el botón de regenerar de su navegador o probar encontrado algo más en nuestra aplicación.
+			            <form class="form-inline m-t" role="form" action="{//contextPath}/inicio/PageInicio.pub">
+			                
+			                <button type="submit" class="btn btn-primary">Inicio</button>
 			            </form>
 			        </div>
 			    </div>

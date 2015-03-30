@@ -4,6 +4,8 @@
 	<xsl:output method="xml" version="1.0" encoding="UTF-8"
 		indent="yes" />
 
+	<xsl:include href="../../../general/stylesheets/nav_bar.xsl" />
+	<xsl:include href="../../../general/stylesheets/footer.xsl" />
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 
 	<xsl:template match="/">
@@ -36,133 +38,169 @@
 
 				<div id="wrapper">
 
+					<!-- MENU -->
+					<xsl:call-template name="nav-bar-left" />
 
-					<div id="page-wrapper" class="gray-bg">
-						<div class="row wrapper border-bottom white-bg page-heading">
+					<div id="page-wrapper" class="gray-bg dashbard-1">
+						<div class="row border-bottom">
+							<xsl:call-template name="nav-bar-top" />
+						</div>
+
+						<!-- TITULO -->
+						<div class="row  border-bottom white-bg dashboard-header">
+
 							<div class="col-lg-10">
-								<h2>File upload</h2>
+								<h2>Registro de Archivos de Recaudo </h2>
 								<ol class="breadcrumb">
 									<li>
-										<a href="index.html">Home</a>
-									</li>
-									<li>
-										<a>Forms</a>
+										<a>Consolidación Archivos</a>
 									</li>
 									<li class="active">
-										<strong>File upload</strong>
+										<strong>Registrar Archivos ZIP </strong>
 									</li>
 								</ol>
 							</div>
-							<div class="col-lg-2">
 
-							</div>
 						</div>
-						<div class="wrapper wrapper-content animated fadeIn">
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="ibox float-e-margins">
-										<div class="ibox-title">
-											<h5>Carga de Archivos</h5>
-											<div class="ibox-tools">
-												<a class="collapse-link">
-													<i class="fa fa-chevron-up"></i>
-												</a>
-												<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-													<i class="fa fa-wrench"></i>
-												</a>
-												<ul class="dropdown-menu dropdown-user">
-													<li>
-														<a href="#">Config option 1</a>
-													</li>
-													<li>
-														<a href="#">Config option 2</a>
-													</li>
-												</ul>
-												<a class="close-link">
-													<i class="fa fa-times"></i>
-												</a>
-											</div>
-										</div>
-										<div class="ibox-content">
-											<form id="my-awesome-dropzone" class="dropzone"
-												action="{//contextPath}/unificacion/PageUploadFilesProcesoUnificacion.do"
-												method="post" enctype="multipart/form-data">
-												<div class="dropzone-previews"></div>
-												<button type="submit" class="btn btn-primary pull-right" id="btn_registrarArchivos">Registrar Archivos</button>
-												<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
-													value="{//prun_prun}" />
 
+						<!-- CONTENIDO -->
+						<div class="row">
+							<div class="col-lg-12">
+								<div class="wrapper wrapper-content animated fadeInUp">
 
-											</form>
-											<div>
-												<a class="btn btn-primary" href="">Limpiar</a>
-												<div class="m text-right">
-													<small>
-														Recurde que el proceso actual presenta un identificador
-														unico para su consulta.
-														<a href="" target="_blank">
-															Proceso de unificacion de archivos No.
-															<xsl:value-of select="//prun_prun"></xsl:value-of>
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="ibox float-e-margins">
+												<div class="ibox-title">
+													<h5>Cargar archivos ZIP</h5>
+													<div class="ibox-tools">
+														<a class="collapse-link">
+															<i class="fa fa-chevron-up"></i>
 														</a>
+														<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+															<i class="fa fa-wrench"></i>
+														</a>
+														<ul class="dropdown-menu dropdown-user">
+															<li>
+																<a href="">Limpiar formulario</a>
+															</li>
 
-													</small>
+														</ul>
+
+													</div>
 												</div>
+												<div class="ibox-content">
+													
+													<label class="font-noraml">Selecciona los archivos ZIP que quieres asociar al proceso. Puedes arrastrar tus archivos o dar click sobre el area para eligirlos. Una vez identifiques los archivos da click en botón <b>Registrar Archivos</b> </label>
+
+													<div class="hr-line-dashed"></div>
+						
+												
+													<form id="my-awesome-dropzone" class="dropzone"
+														action="{//contextPath}/unificacion/PageUploadFilesProcesoUnificacion.do"
+														method="post" enctype="multipart/form-data">
+														<div class="dropzone-previews"></div>
+														<button type="submit" class="btn btn-primary btn-sm pull-right"
+															id="btn_registrarArchivos">Registrar Archivos</button>
+														<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
+															value="{//prun_prun}" />
+
+
+													</form>
+													<div>
+
+														<div class="m text-right">
+
+															<small>
+																Recurde que el proceso actual presenta un identificador
+																unico para su consulta.
+																<a>
+																	Proceso de unificacion de archivos No.
+																	<xsl:value-of select="//prun_prun"></xsl:value-of>
+																</a>
+
+															</small>
+														</div>
 
 
 
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
 
-							<div class="row">
-								<div class="col-lg-12">
-									<div class="ibox ">
-										<div class="ibox-title">
-											<h5>Proceso Unificacion</h5>
+									<div class="row">
+										<div class="col-lg-12">
+											<div class="ibox ">
+												<div class="ibox-title">
+													<h5>Crear proceso</h5>
 
-										</div>
-										<div class="ibox-content">
+												</div>
+												<div class="ibox-content">
+
+													<div class="form-group form-horizontal" id="form_iniciarProceso">
+														<form id="form_unificar"
+															action="{//contextPath}/unificacion/PageIniciarProcesoUnificacionArchivos.do"
+															method="post">
+
+
+															<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
+																value="{//prun_prun}" />
+
+															<label class="font-noraml">Por favor selecciona las <b>fechas de inicio y fin </b> con las cuales quieres crear el proceso de unificación de archivos. Recuerda que las fechas se utilizarán para generar el archivo consolidado por cada cuenta.</label>
+
+															<div class="hr-line-dashed"></div>
+															<div class="input-daterange input-group" id="datepicker">
+																<span class="input-group-addon">Fecha Inicio</span>
+
+																<span class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</span>
+																<input type="text" class="input-sm form-control"
+																	name="ProcesoUnificacionArchivos.prun_fini" value="{//prun_fini}" />
+
+																<span class="input-group-addon">Fecha fin</span>
+																<span class="input-group-addon">
+																	<i class="fa fa-calendar"></i>
+																</span>
+																<input type="text" class="input-sm form-control"
+																	name="ProcesoUnificacionArchivos.prun_ffin" value="{//prun_fini}" />
+
+															</div>
 
 
 
-											<div class="form-group" id="form_iniciarProceso">
-												<form id="form_unificar"
-													action="{//contextPath}/unificacion/PageIniciarProcesoUnificacionArchivos.do"
-													method="post">
-													<div class="dropzone-previews"></div>
-													
-													
-													
-													<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
-														value="{//prun_prun}" />
-																							
-					                                <label class="font-noraml">Fe select</label>
-					                                <div class="input-daterange input-group" id="datepicker">
-					                                	<span class="input-group-addon">Fecha Inicio</span>
-					                                
-					                                 	<span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-					                                    <input type="text" class="input-sm form-control" name="ProcesoUnificacionArchivos.prun_fini" value="{//prun_fini}"/>
-					                                    
-					                                    <span class="input-group-addon">Fecha fin</span>
-					                                    <span class="input-group-addon"><i class="fa fa-calendar"></i></span>
-					                                    <input type="text" class="input-sm form-control" name="ProcesoUnificacionArchivos.prun_ffin" value="{//prun_fini}" />
-					                                </div>
-					                                
-					                                <button disabled="true" id="btn_unificarArchivos"
-														type="submit" class="btn btn-primary pull-right">Crear Proceso</button>
-					                                
-				                                
-				                                </form>
-				                            </div>
 
+															<div class="hr-line-dashed"></div>
+															<div class="form-group">
+																<div class="col-sm-1">
+																	<button disabled="true" id="btn_unificarArchivos"
+																		type="submit" class="btn-outline btn btn-primary btn-sm">Crear Proceso</button>
+																</div>
+
+															</div>
+
+
+														</form>
+													</div>
+
+												</div>
+											</div>
 										</div>
 									</div>
+
+
+
+
+
+
+
+
 								</div>
 							</div>
-
 						</div>
+
 
 
 					</div>

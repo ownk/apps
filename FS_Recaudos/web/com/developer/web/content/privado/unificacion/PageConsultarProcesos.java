@@ -56,7 +56,10 @@ public class PageConsultarProcesos extends PrivatePage{
 			PaginatorWeb paginatorWeb = new PaginatorWeb();
 			paginatorWeb.setPageNumber(pageNumberLong);
 			paginatorWeb.setPageSize(pageSizeLong);
-			paginatorWeb.setTotalPages(totalPages);
+			paginatorWeb.setTotalPages(Math.round(totalPages));
+			paginatorWeb.setTotalSize(totalProcesos);
+			paginatorWeb.setSizeIni(1+(pageNumberLong-1)*pageSizeLong);
+			paginatorWeb.setSizeFin(procesos.size()+(pageNumberLong-1)*pageSizeLong);
 			paginatorWeb.generatePages();
 			
 			if(procesos!=null){

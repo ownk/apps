@@ -84,8 +84,8 @@
 			
 			    <!-- Peity -->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/peity/jquery.peity.min.js"></script>
-			    <script src="{$CONTEXTPATH}/general/js/demo/peity-demo.js"></script>
-			
+			 	<script src="{$CONTEXTPATH}/general/js/demo/peity-demo.js"></script>
+			 
 			    <!-- Custom and plugin javascript -->
 			    <script src="{$CONTEXTPATH}/general/js/inspinia.js"></script>
 			    <script src="{$CONTEXTPATH}/general/js/plugins/pace/pace.min.js"></script>
@@ -99,9 +99,7 @@
 			    <!-- Sparkline -->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/sparkline/jquery.sparkline.min.js"></script>
 			
-			    <!-- Sparkline demo data  -->
-			    <script src="{$CONTEXTPATH}/general/js/demo/sparkline-demo.js"></script>
-			
+						
 			    <!-- ChartJS-->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/chartJs/Chart.min.js"></script>
 			
@@ -151,20 +149,6 @@
 		
 	</xsl:template>
 	
-<!-- ========================================================== -->
-<!-- = ESQUEMAS DE VISUALIZACION ==============================	-->
-<!-- ========================================================== -->
-
-
-<!-- = solo el contenido ====================================== -->	
-	<xsl:template name="esquemaC">
-		<!-- contenido -->
-		<div style="" >
-					
-			<xsl:apply-templates select="WEB/PAGE/*"/>
-		</div>
-		
-	</xsl:template>
 	
 	
 <!-- ========================================================== -->

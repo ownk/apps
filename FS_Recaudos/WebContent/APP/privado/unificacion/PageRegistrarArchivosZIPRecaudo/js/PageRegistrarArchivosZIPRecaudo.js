@@ -28,6 +28,7 @@
                     });
                     this.on("successmultiple", function(files, response) {
 						$('#btn_unificarArchivos').removeAttr('disabled');
+						
 					
                     });
                     this.on("errormultiple", function(files, response) {
