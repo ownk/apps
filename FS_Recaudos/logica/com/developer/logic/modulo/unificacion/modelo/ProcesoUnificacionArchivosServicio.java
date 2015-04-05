@@ -174,6 +174,10 @@ public class ProcesoUnificacionArchivosServicio {
 							}
 						
 						}
+						
+					
+						
+						
 					
 						if(sinErrores){
 							session.commit();
@@ -186,6 +190,12 @@ public class ProcesoUnificacionArchivosServicio {
 							SimpleLogger.error("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al procesoUnificacionArchivos de forma correcta");
 							mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al  procesoUnificacionArchivos de forma correcta");
 						}
+						
+						
+						
+						
+						
+						
 					}else{
 						session.rollback();
 						SimpleLogger.error(mensajeErrorOut.toString());

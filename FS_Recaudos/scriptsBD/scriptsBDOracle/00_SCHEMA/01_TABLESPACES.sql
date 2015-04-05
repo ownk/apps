@@ -5,17 +5,6 @@ REM Base de Datos : FS_RECAUDOS_US
 REM ******************************************************************
 
 
-REM TABLESPACE Y SEGMENTOS DE ROLLBACK
-set feedback off
-spool TMP.lst
-select distinct 'pause DEBE estar conectado con Usuario SYSTEM' || chr(10) || 'ROLL' || chr(10) || 'EXIT'
-from dual
-where user <> 'SYSTEM'
-/
-spool off
-start TMP.lst
-set feedback on
-
 REM TABLESPACE TEMPORAL
 
 Create Temporary tablespace TS_TRECAUDOS TEMPFILE

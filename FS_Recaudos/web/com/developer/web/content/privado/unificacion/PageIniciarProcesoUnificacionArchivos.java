@@ -17,6 +17,7 @@ import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.modelo.ProcesoUnificacionArchivosServicio;
+import com.developer.logic.modulo.unificacion.modelo.UnificadorArchivosPorProcesoServicio;
 import com.developer.web.general.MensajeErrorWeb;
 
 public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
@@ -47,7 +48,7 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 					&& procesoUnificacionArchivos.getPrun_prun() != null) {
 
 				
-
+				
 				ArrayList<File> filesZIP = getFilesZIP(procesoUnificacionArchivos
 						.getPrun_prun());
 				
@@ -93,6 +94,21 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 						
 						
 						xmlPage.append(objectToXML.getXML(procesoUnificacionArchivos));
+						
+						//Se procede a crear la unificacion de archivos de forma automatica
+						UnificadorArchivosPorProcesoServicio unificadorArchivosPorProcesoServicio = new UnificadorArchivosPorProcesoServicio();
+						Boolean sinErrores = unificadorArchivosPorProcesoServicio.generarArchivosUnificadosPorProceso(procesoUnificacionArchivos, sessionAppUsuario.getUsuario(), mensajeErrorOut);
+						
+						if(sinErrores){
+
+							// Se crea un nuevo mensaje de session
+							sessionAppUsuario
+									.notificarEvento("La unificacion de Archivos No. "
+											+ procesoUnificacionArchivos.getPrun_prun()
+											+ " se ha creado con éxito!");
+		
+						}
+						
 	
 					}
 				}else{

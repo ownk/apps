@@ -6,8 +6,7 @@ Create user FS_RECAUDOS_US
  Identified by fs_recaudos_us
  Default tablespace TS_DRECAUDOS
  Temporary tablespace TS_TRECAUDOS	
- account unlock	
-;
+ account unlock;
 
 
 Grant 
@@ -18,5 +17,4 @@ Grant
   CREATE TRIGGER, CREATE USER , CREATE VIEW, 
   DROP PUBLIC SYNONYM, EXECUTE ANY PROCEDURE, 
   SELECT ANY SEQUENCE, SELECT ANY TABLE, 
-  UNLIMITED TABLESPACE to FS_RECAUDOS_US
-;
+  UNLIMITED TABLESPACE to FS_RECAUDOS_US;
