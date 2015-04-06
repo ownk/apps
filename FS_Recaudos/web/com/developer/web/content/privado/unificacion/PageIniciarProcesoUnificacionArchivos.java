@@ -11,6 +11,7 @@ import org.apache.commons.io.FilenameUtils;
 
 import com.developer.core.page.PrivatePage;
 import com.developer.core.utils.ObjectToXML;
+import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
@@ -116,6 +117,15 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 											+ procesoUnificacionArchivos.getPrun_prun()
 											+ " se ha creado con éxito!");
 		
+						}
+						
+						//Se procede a eliminar archivos temporales
+						try {
+							procesoUnificacionArchivosServicio.eliminarArchivosTemporalesPorProceso(procesoUnificacionArchivos.getPrun_prun());
+							
+							
+						} catch (Exception e) {
+							SimpleLogger.warn("Warning: NO se ha podido eliminar el archivo temporal proceso "+procesoUnificacionArchivos.getPrun_prun(), e);
 						}
 						
 	

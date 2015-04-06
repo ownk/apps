@@ -346,6 +346,14 @@ public class ProcesoUnificacionArchivosServicio {
 		return rutaGeneral+ "/temp/prun/"+prun_prun+"/zip/";
 		
 	}
+	
+	public String getRutaTemporalPorProceso(Long prun_prun){
+		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+		
+		return rutaGeneral+ "/temp/prun/"+prun_prun+"/";
+		
+	}
 
 	public String getRutaFinalArchivosZIP(ProcesoUnificacionArchivos procesoUnificacionArchivos){
 		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
@@ -478,6 +486,34 @@ public class ProcesoUnificacionArchivosServicio {
 		
 		
 	}
+	
+	public void eliminarArchivosTemporalesPorProceso(Long prun_prun){
+		
+		String path = getRutaTemporalPorProceso(prun_prun);
+		File file = new File(path);  
+	      
+	    this.eliminarArchivosHijo(file);  
+			
+	    file.delete();  
+		
+	}
+	
+	private void eliminarArchivosHijo(File dir) {  
+	    File[] children = dir.listFiles();  
+	 
+	    for (int i = 0; children != null && i < children.length; i++) {  
+	        File child = children[i];  
+	        if (child.isDirectory()) {  
+	           this.eliminarArchivosHijo(child);  
+	        }  
+	        if (child.exists()) {  
+	            child.delete();  
+	        }  
+	    }  
+	   
+	} 
+	
+	
 	
 
 }

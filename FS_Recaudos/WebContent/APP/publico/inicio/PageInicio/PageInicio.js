@@ -38,15 +38,9 @@ function enviarFormulario(){
 	
 	var msg = validacionCampos();
 	
-	osm_block_window();
-	
 	if(msg==''){
 		
 		encriptarEnviar();
-		
-	}else{
-		
-		mostrarMensaje('Error de Autorización.', msg);
 		
 	}
 }

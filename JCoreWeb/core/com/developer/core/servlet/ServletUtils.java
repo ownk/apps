@@ -39,7 +39,9 @@ public class ServletUtils {
 			while ((numRead = in.read(buf)) >= 0) {
 				out.write(buf, 0, numRead);
 			}
+			in.close();
 			out.close();
+			
 
 		} catch (Exception e) {
 			SimpleLogger.error("Ha ocurrido un error al copiar FileItem", e);
