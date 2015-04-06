@@ -82,6 +82,24 @@
 							<small>Fundación Social 2015</small>
 						</p>
 					</div>
+					
+					
+				
+					<xsl:choose>
+						<xsl:when test="//MensajeErrorWeb/error='ERROR_AUTH'">
+							<input type="hidden" id="show_popup_error_auth" value="true"/>
+						</xsl:when>
+						
+						<xsl:otherwise>
+							<input type="hidden" id="show_popup_error_auth" value="false"/>
+						</xsl:otherwise>
+					
+					</xsl:choose>
+					
+					<xsl:call-template name="popup_error_auth"></xsl:call-template>
+			
+					
+					
 				</div>
 
 
@@ -96,7 +114,45 @@
 	</xsl:template>
 
 
+	<xsl:template name="popup_error_auth">
+		
+		
+		<div class="">
+			<button type="button" class="ownk_btn_hide" id="btn_popup_error_auth"
+				data-toggle="modal" data-target="#myModal">
 
+			</button>
+		</div>
+		
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog"
+			aria-hidden="false" data-show="true" >
+			<div class="modal-dialog" data-show="true">
+				<div class="modal-content animated bounceInRight">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true"></span>
+							<span class="sr-only">Close</span>
+						</button>
+						<i class="fa fa-laptop modal-icon"></i>
+						<h4 class="modal-title">Error de autenticación</h4>
+						<small class="font-bold">Mensaje importante para tener en cuenta.</small>
+					</div>
+					<div class="modal-body">
+						<p>
+							La información de nombre de usuario o contraseña que has registrado no es correcta. 
+							Ingresa nuevamente la información de acceso y vuelve a intentarlo.
+						</p>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white" data-dismiss="modal">Entendido</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</xsl:template>
+	
 
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 

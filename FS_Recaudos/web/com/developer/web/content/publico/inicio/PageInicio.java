@@ -5,10 +5,13 @@ import javax.servlet.http.HttpServletRequest;
 import org.apache.commons.lang.StringUtils;
 
 import com.developer.core.page.PublicPage;
+import com.developer.core.utils.ObjectToXML;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
+import com.developer.web.general.MensajeErrorWeb;
 
 public class PageInicio extends PublicPage {
 
+	MensajeErrorWeb errorWeb;	
 	@Override
 	public String getNextPage() {
 		// TODO Auto-generated method stub
@@ -31,7 +34,13 @@ public class PageInicio extends PublicPage {
 		if(!StringUtils.isEmpty(error)){
 			//Se establece que la pagina tiene errores
 			xmlPage = new StringBuffer();
-			xmlPage.append("error");
+			
+			
+			errorWeb = new MensajeErrorWeb();
+			errorWeb.setError(MensajeErrorWeb.ERROR_AUTENTICACION);
+		
+			
+			xmlPage.append(ObjectToXML.getInstance().getXML(errorWeb));
 			
 		}
 		

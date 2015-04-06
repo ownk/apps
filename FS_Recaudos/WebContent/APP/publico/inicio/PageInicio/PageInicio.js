@@ -1,4 +1,12 @@
-
+$(document).ready(function() {
+	
+	var showPopupError=$('#show_popup_error_auth').val();
+	
+	if(showPopupError == 'true'){
+		$('#btn_popup_error_auth').click();
+	}
+	
+});
 
 function encriptarEnviar(){
 	

@@ -22,7 +22,7 @@ public class DBManager {
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			
 		} catch (Exception e) {
-			SimpleLogger.error("Error iniciando la configuracion de la base de datos");
+			SimpleLogger.error("Error iniciando la configuracion de la base de datos"+e.getMessage());
 			e.printStackTrace();
 		}
 	}
@@ -32,11 +32,30 @@ public class DBManager {
 	}
 
 	public static SqlSession openSession() {
-		return sqlSessionFactory.openSession();
+		
+		
+		try {
+			return sqlSessionFactory.openSession();
+		} catch (Exception e) {
+			SimpleLogger.error("Error iniciando la session de la base de datos"+e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return null;
+				
 	}
 	
 	public static SqlSession openSessionAutoCommit() {
-		return sqlSessionFactory.openSession(true);
+		
+		try {
+			return sqlSessionFactory.openSession(true);
+		}catch (Exception e) {
+			SimpleLogger.error("Error iniciando la session autocommit de la base de datos"+e.getMessage());
+			e.printStackTrace();
+		}
+		
+		return null;
+				
 	}
 	
 	

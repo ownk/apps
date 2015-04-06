@@ -65,57 +65,12 @@
 
 						<!-- CONTENIDO -->
 						<div class="row">
-									<div class="col-lg-12">
-									<div class="wrapper wrapper-content animated fadeInUp">
-								
-									<div class="">
-										<button type="button" class="ownk_btn_hide" id="btn_popup_msg_obl"
-											data-toggle="modal" data-target="#myModal">
-											
-										</button>
-									</div>
-		                            <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-		                                <div class="modal-dialog">
-		                                	<div class="modal-content animated bounceInRight">
-		                                        <div class="modal-header">
-		                                            <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true"></span><span class="sr-only">Close</span></button>
-		                                            <i class="fa fa-laptop modal-icon"></i>
-		                                            <h4 class="modal-title">Instrucciones</h4>
-		                                            <small class="font-bold">Mensaje importante para tener en cuenta.</small>
-		                                        </div>
-												<div class="modal-body">
-													<p>
-														Selecciona los archivos ZIP que quieres asociar al
-														proceso. Puedes arrastrar tus archivos o dar click sobre
-														el area para eligirlos. Una vez identifiques los archivos
-														da click en botón <b>Registrar Archivos</b>.
-													</p>	
-														<BR/>
-													<p>	
-														Luego de que hayas elegido los archivos, por favor selecciona las
-														<b>fechas de inicio y fin </b> con las cuales quieres crear el proceso de unificación
-														de archivos. Recuerda que las fechas se utilizarán para	generar el archivo consolidado 
-														por cada cuenta.  <b> La fecha de fin no puede ser inferior a la fecha
-														de inicio.</b>
-														
-													</p>
-													
-													<p>	
-														Por último, recuerda dilengiciar todos los campos obligatorios <b>(*)</b> requeridos
-														para la creación del proceso.  
-														
-													</p>
-													
-		                                        </div>
-		                                        <div class="modal-footer">
-		                                            <button type="button" class="btn btn-white" data-dismiss="modal">Entendido</button>
-		                                            
-		                                        </div>
-		                                    </div>
-		                                </div>
-		                            </div>
-									
-									
+							<div class="col-lg-12">
+								<div class="wrapper wrapper-content animated fadeInUp">
+
+
+									<xsl:call-template name="popup_intrucciones"/>
+
 
 									<div class="row">
 										<div class="col-lg-12">
@@ -157,8 +112,9 @@
 														action="{//contextPath}/unificacion/PageUploadFilesProcesoUnificacion.do"
 														method="post" enctype="multipart/form-data">
 														<div class="dropzone-previews"></div>
-														<button disabled="true" type="submit" class="btn btn-primary btn-sm pull-right"
-															id="btn_registrarArchivos">Registrar Archivos</button>
+														<button disabled="true" type="submit"
+															class="btn btn-primary btn-sm pull-right" id="btn_registrarArchivos">Registrar
+															Archivos</button>
 														<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 															value="{//prun_prun}" />
 
@@ -211,7 +167,7 @@
 																<b>fechas de inicio y fin </b>
 																con las cuales quieres crear el proceso de unificación
 																de archivos. Recuerda que las fechas se utilizarán para
-																generar el archivo consolidado por cada cuenta. 
+																generar el archivo consolidado por cada cuenta.
 															</label>
 
 															<div class="hr-line-dashed"></div>
@@ -249,19 +205,24 @@
 
 																	</div>
 																	<label class="font-noraml">
-																		*Existen procesos ya creados para las fecha indicadas. Si
+																		*Existen procesos ya creados para
+																		las fecha indicadas. Si
 																		deseas crear
-																		el proceso es necesario que coloques una observación
-																		de creación del nuevo proceso.
+																		el proceso es
+																		necesario que coloques una observación
+																		de creación del
+																		nuevo proceso.
 																	</label>
 
 																</div>
 															</div>
-															
+
 															<div>
 																<small>
-																Recuerda que los campos marcados con <b>*</b> son requeridos como obligatorios. 
-																
+																	Recuerda que los campos marcados con
+																	<b>*</b>
+																	son requeridos como obligatorios.
+
 																</small>
 															</div>
 
@@ -269,11 +230,11 @@
 
 														<div class="hr-line-dashed"></div>
 														<div class="btn-group">
-															
-																	<button disabled="true" id="btn_unificarArchivos"
-																		onclick="validarEnviar('form_unificar')" class=" btn  btn-primary btn-sm ">Crear
-																		Proceso</button>
-															
+
+															<button disabled="true" id="btn_unificarArchivos"
+																onclick="validarEnviar('form_unificar')" class=" btn  btn-primary btn-sm ">Crear
+																Proceso</button>
+
 
 														</div>
 
@@ -305,6 +266,67 @@
 
 
 		</PAGE>
+
+	</xsl:template>
+
+	<xsl:template name="popup_intrucciones">
+		<div class="">
+			<button type="button" class="ownk_btn_hide" id="btn_popup_msg_obl"
+				data-toggle="modal" data-target="#myModal">
+
+			</button>
+		</div>
+		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog"
+			aria-hidden="true">
+			<div class="modal-dialog">
+				<div class="modal-content animated bounceInRight">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true"></span>
+							<span class="sr-only">Close</span>
+						</button>
+						<i class="fa fa-laptop modal-icon"></i>
+						<h4 class="modal-title">Instrucciones</h4>
+						<small class="font-bold">Mensaje importante para tener en cuenta.</small>
+					</div>
+					<div class="modal-body">
+						<p>
+							Selecciona los archivos ZIP que quieres asociar al
+							proceso. Puedes arrastrar tus archivos o dar click sobre
+							el area para eligirlos. Una vez identifiques los archivos
+							da click en botón
+							<b>Registrar Archivos</b>
+							.
+						</p>
+						<BR />
+						<p>
+							Luego de que hayas elegido los archivos, por favor selecciona las
+							<b>fechas de inicio y fin </b>
+							con las cuales quieres crear el proceso de unificación
+							de archivos. Recuerda que las fechas se utilizarán para generar el
+							archivo consolidado
+							por cada cuenta.
+							<b> La fecha de fin no puede ser inferior a la fecha
+								de inicio.</b>
+
+						</p>
+
+						<p>
+							Por último, recuerda dilengiciar todos los campos obligatorios
+							<b>(*)</b>
+							requeridos
+							para la creación del proceso.
+
+						</p>
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white" data-dismiss="modal">Entendido</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
 
 	</xsl:template>
 

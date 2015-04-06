@@ -17,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.io.FileUtils;
 
 import com.developer.core.config.GeneralConstants;
+import com.developer.core.utils.SimpleLogger;
 
 public class RouterPage {
 	
@@ -293,7 +294,7 @@ public class RouterPage {
 				return;
 			}
 			
-			e.printStackTrace();
+			SimpleLogger.error("Error al ejecutar página ",e);
 			out.println(e.getMessage());
 		}
 	}
