@@ -5,6 +5,9 @@ import java.util.List;
 
 public class PaginatorWeb {
 	
+	public static Long MAX_SIZE = new Long(100);
+	
+	
 	long totalPages;
 	long pageSize;
 	long pageNumber;

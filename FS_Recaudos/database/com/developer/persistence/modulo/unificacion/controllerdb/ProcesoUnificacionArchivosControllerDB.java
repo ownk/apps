@@ -295,8 +295,8 @@ public class ProcesoUnificacionArchivosControllerDB {
 		//Se estable que el identificador unico de la procesoUnificacionArchivos es el mismo numero de que la preprocesoUnificacionArchivos
 		procesoUnificacionArchivos.setPrun_prun(prun_prun);
 		procesoUnificacionArchivos.setPrun_observ(observacion);
-		procesoUnificacionArchivos.setPrun_ffin(prun_fini);
-		procesoUnificacionArchivos.setPrun_fini(prun_ffin);
+		procesoUnificacionArchivos.setPrun_fini(prun_fini);
+		procesoUnificacionArchivos.setPrun_ffin(prun_ffin);
 		procesoUnificacionArchivos.setPrun_eprun(ProcesoUnificacionArchivos.INICIADO);
 		procesoUnificacionArchivos.setPrun_usua(usuario.getUsua_usua());
 		procesoUnificacionArchivos.setPrun_fcrea(currentDate);
