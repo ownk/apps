@@ -83,7 +83,7 @@
 																<div style="text-align:right">
 
 																	
-																		<a class="btn btn-primary btn-sm"
+																		<a class="btn btn-primary btn-sm ownk_btn_shadow"
 																			href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
 																			Registrar Archivos ZIP Recaudo
 																		</a>
@@ -142,7 +142,7 @@
 																	action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
 																	method="post">
 
-																	<button type="submit" class="btn btn-primary btn-sm pull-right">Consultar Proceso</button>
+																	<button type="submit" class="btn btn-primary btn-sm pull-right ownk_btn_shadow">Consultar Proceso</button>
 																	<input type="hidden"
 																		name="ProcesoUnificacionArchivos.prun_prun" value="{//ProcesoUnificacionArchivos/prun_prun}" />
 

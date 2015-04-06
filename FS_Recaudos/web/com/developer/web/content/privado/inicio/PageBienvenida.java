@@ -34,7 +34,7 @@ public class PageBienvenida extends PrivatePage{
 			String pageSizeString = request.getParameter("pageSize");
 			
 			Long pageNumberLong = new Long(1);
-			Long pageSizeLong = new Long(10);
+			Long pageSizeLong = new Long(5);
 			
 			
 			if(pageNumberString!=null){

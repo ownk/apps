@@ -50,7 +50,9 @@
 						<div class="row  border-bottom white-bg dashboard-header">
 
 							<div class="col-lg-10">
-								<h2>Registro de Archivos de Recaudo </h2>
+								<h2>
+								<i class="fa fa-file-archive-o mid-clear-icon "/>
+								Registro de Archivos de Recaudo </h2>
 								<ol class="breadcrumb">
 									<li>
 										<a>Consolidación Archivos</a>
@@ -79,21 +81,14 @@
 
 													<h5>Cargar archivos ZIP</h5>
 													<div class="ibox-tools">
-														<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-															<i class="fa fa-wrench"></i>
+														<a onclick="showInstructions()">
+															<i class="fa fa-info-circle"></i>
 														</a>
-														<ul class="dropdown-menu dropdown-user">
-															<li>
-																<a onclick="showInstructions()">Instrucciones</a>
-															</li>
-															<li>
-																<a href="">Limpiar formulario</a>
-															</li>
-
-														</ul>
-
-													</div>
-													<span class="label label-warning pull-right">Revisar Opciones</span>
+														<a href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
+															<i class="fa fa-undo"></i>
+														</a>
+														</div>
+													
 												</div>
 												<div class="ibox-content">
 
@@ -113,8 +108,10 @@
 														method="post" enctype="multipart/form-data">
 														<div class="dropzone-previews"></div>
 														<button disabled="true" type="submit"
-															class="btn btn-primary btn-sm pull-right" id="btn_registrarArchivos">Registrar
-															Archivos</button>
+															class="btn btn-primary btn-sm pull-right ownk_btn_shadow" id="btn_registrarArchivos">
+																<i class="fa fa-cloud-upload" />
+															
+															Registrar	Archivos</button>
 														<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 															value="{//prun_prun}" />
 
@@ -149,6 +146,12 @@
 											<div class="ibox ">
 												<div class="ibox-title">
 													<h5>Crear proceso</h5>
+													<div class="ibox-tools">
+														<a onclick="showInstructions()">
+															<i class="fa fa-info-circle"></i>
+														</a>
+														
+														</div>
 
 												</div>
 												<div class="ibox-content">
@@ -232,7 +235,11 @@
 														<div class="btn-group">
 
 															<button disabled="true" id="btn_unificarArchivos"
-																onclick="validarEnviar('form_unificar')" class=" btn  btn-primary btn-sm ">Crear
+																onclick="validarEnviar('form_unificar')" class=" btn  btn-primary btn-sm ownk_btn_shadow">
+																
+																
+																<i class="fa fa-save" />
+																Crear
 																Proceso</button>
 
 

@@ -114,7 +114,12 @@ public class UnificadorArchivosPorProcesoServicio {
 			
 			//Si al final del procso no hay errores se hace commt;
 			if(sinErrores){
-				session.commit();
+				
+				sinErrores = sinErrores && procesoUnificacionArchivosServicio.cambiarEstadoProcesoUnificacionArchivos(session, procesoUnificacionArchivos.getPrun_prun(), ProcesoUnificacionArchivos.FINALIZADO, usuario, "Unificación Automática", mensajeErrorOut);
+				
+				if(sinErrores){
+					session.commit();
+				}
 			}
 					
 			

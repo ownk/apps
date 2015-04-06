@@ -16,8 +16,8 @@
                             	 
                             </span>
                            
-                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold"><xsl:value-of select="//Persona/pern_nomb"/></strong>
-                             </span> <span class="text-muted text-xs block"><xsl:value-of select="//Usuario/usua_usua"/> <b class="caret"></b></span> </span> 
+                            <span class="clear"> <span class="block m-t-xs"> 
+                             </span> <span class="text-muted text-xs block"><xsl:value-of select="//Usuario/usua_usua"/> </span> </span> 
                              </div>
                            
                         </div>
@@ -39,7 +39,7 @@
                         </ul>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Validaciones</span><span class="label label-primary pull-right">Próximamente</span></a>
+                        <a href="#"><i class="fa fa-edit"></i> <span class="nav-label">Validaciones</span><span class="label label-success pull-right">Próximamente</span></a>
                         
                     </li>
                     
@@ -51,9 +51,9 @@
 	</xsl:template>
 	
 	<xsl:template name="nav-bar-top">
-		<nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+		<nav class="navbar navbar-static-top ownk_shadow" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
-            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary ownk_btn_shadow" href="#"><i class="fa fa-bars"></i> </a>
             <form role="search" class="navbar-form-custom" method="post" action="search_results.html">
                 <div class="form-group">
                     <input type="text" placeholder="Menú principal" class="form-control" name="top-search" id="top-search"/>

@@ -42,7 +42,12 @@
 						<div class="row  border-bottom white-bg dashboard-header">
 
 							<div class="col-xs-10">
-								<h2>Consulta de Proceso </h2>
+								<h2>
+									<i class="fa fa-gears mid-clear-icon " />
+
+									Consulta de Proceso No.
+									<xsl:value-of select="//prun_prun" />
+								</h2>
 								<ol class="breadcrumb">
 									<li>
 										<a>Consultas</a>
@@ -62,8 +67,10 @@
 							<div class="col-xs-12">
 								<div class="wrapper wrapper-content animated fadeInUp">
 
-									<!-- INFORMACION GENERAL -->
+
 									<div class="row">
+
+										<!-- INFORMACION GENERAL -->
 										<div class="col-md-7">
 											<div class="ibox float-e-margins">
 												<div class="ibox-title">
@@ -73,86 +80,102 @@
 
 												<div class="ibox-content">
 													<div class="row">
-														<div class="col-lg-12">
-															<div class="m-b-md">
-
-																<h2>
-																	Proceso de Unificación No.
-																	<xsl:value-of select="//prun_prun" />
-																</h2>
-															</div>
-															<dl class="dl-horizontal">
-																<dt>Estado:</dt>
-																<dd>
-																	<span class="label label-primary">
-																		<xsl:value-of select="//prun_eprun" />
-																	</span>
-																</dd>
-																<dt></dt>
-																<dd>	
-																	<br/>
-																	<small>
-
-																		<xsl:choose>
-																			<xsl:when test="count(//archivosARUN/ArchivoRecaudoUnificado)>0">
-																				Proceso completado al
-																				<strong>100%</strong>
-																				. Ya es posible descargar los archivos unificados
-																			</xsl:when>
-																			<xsl:otherwise>
-																				Proceso completado al
-																				<strong>40%</strong>
-																				. Se requiere la unificacion de archivos para
-																				finalizar.
-																			</xsl:otherwise>
-																		</xsl:choose>
-											
-											
-																	</small>
-																</dd>
-															</dl>
+														
+														<div class="col-xs-12">
+															En esta sección podrás consultar la
+															<strong>información general
+															del proceso</strong>: histórico de estados,
+															fechas y archivos
+															cargados
+															y generados.
 														</div>
+
 													</div>
-													
 													
 													<div class="row">
-														<div class="col-lg-12">
-															<dl class="dl-horizontal">
+														<div class="ownk_separador_h"/>
+												
+													</div>
+												
+													<div class="row">
+														<div class="col-md-12">
 
-																<dt>Creado por</dt>
-																<dd>
-																	<xsl:value-of select="//prun_usua" />
-																</dd>
+														
 
-																<dt>Fecha de creación</dt>
-																<dd>
-																	<xsl:value-of select="//prun_fcrea" />
-																</dd>
+															<div class="col-md-8">
 
 
-																<dt>Fecha Inicio</dt>
-																<dd>
-																	<xsl:value-of select="//prun_fini" />
-																</dd>
-																<dt>Fecha Fin</dt>
-																<dd>
-																	<xsl:value-of select="//prun_ffin" />
-																</dd>
-																
-																
-																<dt>Observación</dt>
-																<dd>
-																	<xsl:value-of select="//prun_observ" />
-																</dd>
+
+																<div class="row">
+																	<div>
+																		<dl class="dl-horizontal">
+
+																			<dt>Creado por</dt>
+																			<dd>
+																				<xsl:value-of select="//prun_usua" />
+																			</dd>
+
+																			<dt>Fecha de creación</dt>
+																			<dd>
+																				<xsl:value-of select="//prun_fcrea" />
+																			</dd>
+
+
+																			<dt>Fecha Inicio</dt>
+																			<dd>
+																				<xsl:value-of select="//prun_fini" />
+																			</dd>
+																			<dt>Fecha Fin</dt>
+																			<dd>
+																				<xsl:value-of select="//prun_ffin" />
+																			</dd>
+
+
+																			<dt>Observación</dt>
+																			<dd>
+																				<xsl:value-of select="//prun_observ" />
+																			</dd>
+
+
+																		</dl>
+																	</div>
+																</div>
+
+																<div class="row">
+
+																	<dl class="dl-horizontal">
+																		<dt>Estado:</dt>
+																		<dd>
+
+																			<div class="">
+																				<button type="button"
+																					class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_historico"
+																					data-toggle="modal" data-target="#myModalHistorico">
+																					<xsl:value-of select="//prun_eprun" />
+																				</button>
+
+																				<xsl:call-template name="popup_historico" />
+																			</div>
+																		</dd>
+																		
+																	</dl>
+
+																</div>
+
+															</div>
 															
+															<div class="col-xs-4">
+																<i class="fa fa-folder-open big-clear-icon " />
+															</div>
 
-															</dl>
+
+
 														</div>
 													</div>
-													
-													
+
 
 												</div>
+
 
 											</div>
 										</div>
@@ -169,16 +192,20 @@
 															<h5>ZIP</h5>
 														</div>
 														<div class="ibox-content">
+
 															<h1 class="no-margins">
-																<xsl:value-of select="count(//ArchivoZIPProcesoUnificacion)" />
+																<i class="fa fa-file-zip-o modal-icon">
+																</i>
+																<xsl:value-of
+																	select="concat('  ', count(//ArchivoZIPProcesoUnificacion))" />
 															</h1>
-															
+
 															<div class="stat-percent font-bold text-success">
 																100%
 																<i class="fa fa-bolt"></i>
 															</div>
 															<small>Total archivos</small>
-															<br/>
+															<br />
 														</div>
 													</div>
 												</div>
@@ -191,37 +218,47 @@
 														</div>
 														<div class="ibox-content">
 															<h1 class="no-margins">
-																<xsl:value-of select="count(//ArchivoRecaudoPorUnificar )" />
+
+																<i class="fa fa-files-o modal-icon">
+																</i>
+																<xsl:value-of
+																	select="concat('  ',count(//ArchivoRecaudoPorUnificar ))" />
 															</h1>
 															<div class="stat-percent font-bold text-success">
 																100%
 																<i class="fa fa-bolt"></i>
 															</div>
 															<small>Total archivos</small>
-															<br/>
+															<br />
 														</div>
 													</div>
 												</div>
 											</div>
-											
+
 
 											<div class="row">
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
 															<span class="label label-success pull-right">TRAR</span>
-															<h5><small>Asobancaria</small></h5>
+															<h5>
+																<small>Asobancaria</small>
+															</h5>
 														</div>
 														<div class="ibox-content">
 															<h1 class="no-margins">
-																<xsl:value-of select="count(//TransformacionArchivoRecaudo)" />
+																<i class="fa fa-exchange modal-icon">
+																</i>
+
+																<xsl:value-of
+																	select="concat('  ',count(//TransformacionArchivoRecaudo))" />
 															</h1>
 															<div class="stat-percent font-bold text-success">
 																100%
 																<i class="fa fa-bolt"></i>
 															</div>
 															<small>Archivos Creados</small>
-															<br/>
+															<br />
 														</div>
 													</div>
 												</div>
@@ -229,11 +266,16 @@
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
 															<span class="label label-success pull-right">ARUN</span>
-															<h5><small>Unificados</small></h5>
+															<h5>
+																<small>Unificados</small>
+															</h5>
 														</div>
 														<div class="ibox-content">
 															<h1 class="no-margins">
-																<xsl:value-of select="count(//ArchivoRecaudoUnificado)" />
+																<i class="fa fa-file-text modal-icon">
+																</i>
+																<xsl:value-of
+																	select="concat('  ',count(//ArchivoRecaudoUnificado))" />
 															</h1>
 															<div class="stat-percent font-bold text-success">
 
@@ -252,7 +294,7 @@
 																<i class="fa fa-bolt"></i>
 															</div>
 															<small>Total archivos</small>
-															<br/>
+															<br />
 														</div>
 													</div>
 												</div>
@@ -382,7 +424,9 @@
 											</td>
 
 											<td class=" align-center">
-												<span class="label label-default"><xsl:value-of select="azpu_nombre" /></span>
+												<span class="label label-default">
+													<xsl:value-of select="azpu_nombre" />
+												</span>
 											</td>
 
 											<td class=" align-center">
@@ -456,7 +500,9 @@
 											</td>
 
 											<td class=" align-center">
-												<span class="label label-default"><xsl:value-of select="arpu_tpar" /></span>
+												<span class="label label-default">
+													<xsl:value-of select="arpu_tpar" />
+												</span>
 											</td>
 
 											<td class=" align-center">
@@ -527,7 +573,9 @@
 												<xsl:value-of select="position()" />
 											</td>
 											<td class=" align-center">
-												<span class="label label-default"><xsl:value-of select="trar_tpar" /></span>
+												<span class="label label-default">
+													<xsl:value-of select="trar_tpar" />
+												</span>
 											</td>
 
 											<td class=" align-center">
@@ -616,8 +664,10 @@
 											</td>
 
 											<td class=" align-center">
-												<span class="label label-default"><xsl:value-of select="arun_tpar" /></span>
-												
+												<span class="label label-default">
+													<xsl:value-of select="arun_tpar" />
+												</span>
+
 											</td>
 
 											<td class=" align-center">
@@ -637,7 +687,8 @@
 											</td>
 
 											<td class=" align-center">
-												<a class="btn btn-white btn-circle btn-sm" onclick="osm_enviarFormulario('form_arun_{arun_arun}');">
+												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
+													onclick="osm_enviarFormulario('form_arun_{arun_arun}');">
 													<i class="fa fa-download text-navy"></i>
 												</a>
 											</td>
@@ -667,7 +718,7 @@
 					action="{//contextPath}/unificacion/PageUnificarArchivosPorProceso.do"
 					method="post">
 
-					<button type="submit" class="btn btn-primary pull-right">Generar Archivos Unificados</button>
+					<button type="submit" class="btn btn-primary pull-right ownk_btn_shadow">Generar Archivos Unificados</button>
 					<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 						value="{//ProcesoUnificacionArchivos/prun_prun}" />
 
@@ -736,6 +787,90 @@
 
 	</xsl:template>
 
+	<xsl:template name="popup_historico">
+
+
+		<div class="modal inmodal" id="myModalHistorico" tabindex="-1"
+			role="dialog" aria-hidden="false" data-show="true">
+			<div class="modal-dialog" data-show="true">
+				<div class="modal-content animated bounceInRight">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true"></span>
+							<span class="sr-only">Close</span>
+						</button>
+						<i class="fa fa-list-ul modal-icon"></i>
+						<h4 class="modal-title">Histórico</h4>
+						<small class="font-bold">Estados del proceso de unificación de archivos</small>
+					</div>
+					<div class="modal-body">
+						<p>
+							A continuación podrás consultar todos los estados del proceso.
+							Revisar la fecha y hora del modificación y el usuario quien lo
+							realizó.
+						</p>
+
+						<br />
+
+						<div class="row">
+							<div class="col-sm-12 m-b-xs">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>id</th>
+												<th>Estado</th>
+												<th>Fecha</th>
+												<th>Observación</th>
+												<th>Usuario</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<xsl:for-each select="//HistoricoProcesoUnificacionArchivos">
+												<tr>
+													<td class=" align-center">
+														<xsl:value-of select="position()" />
+													</td>
+													<td class=" align-center">
+														<xsl:value-of select="hprun_eprun" />
+													</td>
+
+													<td class=" align-center">
+														<span class="label label-default">
+															<xsl:value-of select="hprun_fasig" />
+														</span>
+
+													</td>
+
+													<td class=" align-center">
+														<xsl:value-of select="hprun_obser" />
+													</td>
+
+													<td class=" align-center">
+														<xsl:value-of select="hprun_usua" />
+													</td>
+												</tr>
+
+											</xsl:for-each>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white ownk_btn_shadow"
+							data-dismiss="modal">Retornar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</xsl:template>
 
 
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->

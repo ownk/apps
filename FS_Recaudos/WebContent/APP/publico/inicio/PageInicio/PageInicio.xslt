@@ -58,7 +58,7 @@
 								<input id="pass" name="pass" type="password" class="form-control"
 									placeholder="Password" required="" />
 							</div>
-							<button class="btn btn-primary block full-width m-b"
+							<button class="btn btn-primary block full-width m-b ownk_btn_shadow"
 								onclick="enviarFormulario();">Login</button>
 
 							<a href="">

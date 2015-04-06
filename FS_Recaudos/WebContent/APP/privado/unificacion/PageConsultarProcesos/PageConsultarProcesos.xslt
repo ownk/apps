@@ -33,7 +33,10 @@
 						<div class="row  border-bottom white-bg dashboard-header">
 
 							<div class="col-lg-10">
-								<h2>Consulta de Procesos de Unificación de Archivos </h2>
+								<h2>
+									<i class="fa fa-list mid-clear-icon "/>
+								
+								Consulta de Procesos de Unificación de Archivos </h2>
 								<ol class="breadcrumb">
 									<li>
 										<a>Consultas</a>
@@ -115,7 +118,7 @@
 																<input type="text" placeholder="Search"
 																	class="input-sm form-control" />
 																<span class="input-group-btn">
-																	<button type="button" class="btn btn-sm btn-primary"> Ir!</button>
+																	<button type="button" class="btn btn-sm btn-primary ownk_btn_shadow"> Ir!</button>
 																</span>
 															</div>
 														</div>
@@ -175,13 +178,32 @@
 																					<xsl:value-of select="prun_ffin" />
 																				</td>
 																				<td class=" align-center">
-																					<xsl:value-of select="prun_eprun" />
+																					
+																					<xsl:choose>
+																						<xsl:when test="prun_eprun = 'FINALIZADO'">
+																							<span class="badge badge-primary"><xsl:value-of select="prun_eprun" /></span>
+																						</xsl:when>
+																						
+																						<xsl:when test="prun_eprun = 'INICIADO'">
+																							<span class="badge badge-warning"><xsl:value-of select="prun_eprun" /></span>
+																						</xsl:when>
+																						
+																						<xsl:otherwise>
+																							<span class="badge badge-default"><xsl:value-of select="prun_eprun" /></span>
+																						</xsl:otherwise>
+																					
+																					</xsl:choose>
+																					
+																					
+																					
+																					
+																					
 																				</td>
 
 																				<td>
 
-																					<a class="btn btn-white btn-circle" onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
-																						<i class="fa fa-check text-navy"></i>
+																					<a class="btn btn-white btn-circle ownk_btn_shadow" onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
+																						<i class="fa fa-search text-navy"></i>
 																					</a>
 
 																				</td>
@@ -264,7 +286,7 @@
 																registrados.
 															</div>
 															<div style="text-align:right">
-																<a class="btn btn-primary btn-sm"
+																<a class="btn btn-primary btn-sm ownk_btn_shadow"
 																	href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
 																	Registrar nuevo proceso
 																</a>

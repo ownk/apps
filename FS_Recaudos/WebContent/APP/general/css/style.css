@@ -970,7 +970,7 @@ button.dim:active:before {
 }
 .label-success,
 .badge-success {
-  background-color: #1c84c6;
+  background-color: #008000;
   color: #FFFFFF;
 }
 .label-warning,
@@ -990,7 +990,7 @@ button.dim:active:before {
 }
 .label-info,
 .badge-info {
-  background-color: #23c6c8;
+  background-color: #1c84c6;
   color: #FFFFFF;
 }
 .label-inverse,
@@ -2880,6 +2880,15 @@ ol.unstyled {
   font-size: 160px;
   color: #e5e6e7;
 }
+.big-clear-icon {
+  font-size: 130px;
+  color: #f0f0f0;
+}
+
+.mid-clear-icon {
+  font-size:30px;
+  color: #606060;
+}
 /* FOOTER */
 .footer {
   background: none repeat scroll 0 0 white;
@@ -3323,10 +3332,10 @@ table.table-mail tr td {
   color: inherit;
 }
 .text-success {
-  color: #1c84c6;
+  color: #008000;
 }
 .text-info {
-  color: #23c6c8;
+  color: #1c84c6;
 }
 .text-warning {
   color: #f8ac59;

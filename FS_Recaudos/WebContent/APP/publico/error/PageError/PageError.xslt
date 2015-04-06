@@ -28,7 +28,7 @@
 			            Lo sentimos,  pero la página que estas buscando no ha sido encontrada. Puedes revisar la URL e identicar algun error. Tambien puedes, si así lo consideras, hacer clic en el botón de INICIO e iniciar de nuevo en nuestra aplicación.
 			            <form class="form-inline m-t" role="form" action="{//contextPath}/inicio/PageInicio.pub">
 			                
-			                <button type="submit" class="btn btn-primary">Inicio</button>
+			                <button type="submit" class="btn btn-primary ownk_btn_shadow">Inicio</button>
 			            </form>
 			        </div>
 			    </div>
