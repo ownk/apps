@@ -12,5 +12,10 @@
 	<!-- UTILS -->
 	<service urn="rsaJSONServicio" class="com.developer.web.content.jsonrpc.services.modulo.utils.RSAEncryptonJSONServicio"/>
 	
+	<!-- UNIFICACION-->
+	<session-service urn="prunJSONServicio" class="com.developer.web.content.jsonrpc.services.modulo.unificacion.ProcesoUnificacionArchivosJSONServicio"/>
+	
+	
+	
 	
 </json-services>

@@ -38,6 +38,7 @@
 			
 			    <!-- Gritter -->
 			    <link href="{$CONTEXTPATH}/general/js/plugins/gritter/jquery.gritter.css" rel="stylesheet"/>
+			    <link href="{$CONTEXTPATH}/general/css/plugins/steps/jquery.steps.css" rel="stylesheet"/>
 			
 			    <link href="{$CONTEXTPATH}/general/css/animate.css" rel="stylesheet"/>
 			    <link href="{$CONTEXTPATH}/general/css/style.css" rel="stylesheet"/>
@@ -92,6 +93,7 @@
 			
 			    <!-- jQuery UI -->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+			 
 			
 			    <!-- GITTER -->
 			    <script src="{$CONTEXTPATH}/general/js/plugins/gritter/jquery.gritter.min.js"></script>

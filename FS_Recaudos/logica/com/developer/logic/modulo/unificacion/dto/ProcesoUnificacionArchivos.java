@@ -12,6 +12,7 @@ public class ProcesoUnificacionArchivos {
 	public static String INICIADO = "INICIADO";
 	public static String UNIFICANDO_ARCHIVOS = "UNIFICANDO_ARCHIVOS";
 	public static String FINALIZADO = "FINALIZADO";
+	public static String ANULADO = "ANULADO";
 
 
 	//Atributos atomicos

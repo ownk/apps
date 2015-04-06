@@ -65,7 +65,7 @@ public class ProcesoUnificacionArchivosServicio {
 			
 			//Se valida la informacion
 			if(observacionDeInicio==null){
-				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado correctamente el titulo, la descripcion y  la observación de inicio del procesoUnificacionArchivos.";
+				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado correctamente el titulo la observación de inicio del procesoUnificacionArchivos.";
 				SimpleLogger.error(error);
 				mensajeErrorOut.append(error);
 				sinErrores = false;
@@ -73,7 +73,7 @@ public class ProcesoUnificacionArchivosServicio {
 			}
 			
 			if(prun_prun==null){
-				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado la procesoUnificacionArchivos que se desea iniciar como procesoUnificacionArchivos.";
+				String error= "Error iniciando procesoUnificacionArchivos. No se ha especificado el proceso que se desea iniciar como procesoUnificacionArchivos.";
 				SimpleLogger.error(error);
 				mensajeErrorOut.append(error);
 				sinErrores = false;
@@ -180,8 +180,26 @@ public class ProcesoUnificacionArchivosServicio {
 						
 					
 						if(sinErrores){
-							session.commit();
-							procesoUnificacionArchivosIniciada = procesoUnificacionArchivos;
+							
+							
+							//Si hay procesos en curso para las mismas fechas se anulan
+							List<ProcesoUnificacionArchivos> listProcesoPorAnular = this.getProcesosPorAnular(procesoUnificacionArchivos.getPrun_fini(), procesoUnificacionArchivos.getPrun_ffin());
+							for (ProcesoUnificacionArchivos procesoUnificacionArchivosAnular : listProcesoPorAnular) {
+								String observacion = "Anulado por proceso No. "+procesoUnificacionArchivos.getPrun_prun();
+								
+								sinErrores = sinErrores && ProcesoUnificacionArchivosControllerDB.getInstance().setEstadoProcesoUnificacionArchivos(session, procesoUnificacionArchivosAnular.getPrun_prun(), ProcesoUnificacionArchivos.ANULADO, observacion, usuario, mensajeErrorOut);
+								mensajeErrorOut.append("Error anulando procesos anteriores. No se ha podido anualar el proceso "+procesoUnificacionArchivosAnular.getPrun_prun());
+							}
+							
+							
+							if(sinErrores){
+								session.commit();
+								procesoUnificacionArchivosIniciada = procesoUnificacionArchivos;
+							}else{
+								session.rollback();
+								SimpleLogger.error("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al procesoUnificacionArchivos de forma correcta");
+								mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al  procesoUnificacionArchivos de forma correcta");
+							}
 							
 							
 							
@@ -318,6 +336,9 @@ public class ProcesoUnificacionArchivosServicio {
 		
 	}
 	
+	
+	
+	
 	public String getRutaTemporalArchivosZIP(Long prun_prun){
 		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
@@ -405,6 +426,28 @@ public class ProcesoUnificacionArchivosServicio {
 		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
 		
 		List<ProcesoUnificacionArchivos> procesos = controllerDB.getProcesosUnificacionArchivosPaginado(pageNumber, pageSize, prun_estados);
+
+		if(procesos!=null){
+			
+			//Se completa la informacion adicional al anteproyecto
+			for (ProcesoUnificacionArchivos proceso : procesos) {
+				completarInformacionAdicionalProcesoUnificacion(proceso);
+			}
+			
+		}
+		
+		return procesos;
+		
+		
+	}
+	
+	public List<ProcesoUnificacionArchivos> getProcesosPorAnular(Date prun_fini, Date prun_ffin){
+		
+		
+		
+		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		
+		List<ProcesoUnificacionArchivos> procesos = controllerDB.getProcesosPorEstadoFechaIniFin(prun_fini, prun_ffin, ProcesoUnificacionArchivos.INICIADO, ProcesoUnificacionArchivos.UNIFICANDO_ARCHIVOS, ProcesoUnificacionArchivos.FINALIZADO);
 
 		if(procesos!=null){
 			

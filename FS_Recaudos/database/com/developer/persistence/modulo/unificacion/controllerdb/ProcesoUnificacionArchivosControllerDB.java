@@ -123,6 +123,44 @@ public class ProcesoUnificacionArchivosControllerDB {
 		
 	}
 	
+	
+	public List<ProcesoUnificacionArchivos> getProcesosPorEstadoFechaIniFin(Date prun_fini, Date prun_ffin, String...prun_estados){
+		
+		SqlSession session = DBManager.openSession();
+
+		try {
+
+			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
+			
+			HashMap<String , Object> hashMap = new HashMap<String, Object>();
+			
+			hashMap.put("prun_fini", prun_fini);
+			hashMap.put("prun_ffin", prun_ffin);
+			
+			
+			if(prun_estados!=null){
+				String estados="";
+				for (String string : prun_estados) {
+					estados = estados+"'"+string+"',";
+				}
+				estados = estados.substring(0, estados.lastIndexOf(','));
+				
+				hashMap.put("prun_estados", estados);
+			}
+			
+			return dao.getProcesosPorEstadoFechaIniFin(hashMap);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getProcesoUnificacionArchivosPorEstados", e);
+			return null;
+
+		} finally {
+			session.close();
+		}
+		
+	}
+	
+	
 	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, String...prun_estados){
 		
 		SqlSession session = DBManager.openSession();
@@ -199,8 +237,8 @@ public class ProcesoUnificacionArchivosControllerDB {
 	 */
 	
 
-	public Boolean setEstadoProcesoUnificacionArchivos(Long prun_prun, String estado){
-		SqlSession session = DBManager.openSession();
+	public Boolean setEstadoProcesoUnificacionArchivos(SqlSession session, Long prun_prun, String estado, String observacion,  Usuario usuario, StringBuffer mensajeError){
+		
 		Boolean respuesta = true;
 		try {
 
@@ -212,17 +250,29 @@ public class ProcesoUnificacionArchivosControllerDB {
 				
 				ProcesoUnificacionArchivosDao procesoUnificacionArchivosDao = session.getMapper(ProcesoUnificacionArchivosDao.class);
 				procesoUnificacionArchivosDao.setEstadoProceso(procesoUnificacionArchivos);
+				
+				
+				//Se crea el historico de la preprocesoUnificacionArchivos
+				HashMap<String, Object> hashMap = new HashMap<String, Object>();
+				hashMap.put("hprun_prun", procesoUnificacionArchivos.getPrun_prun());
+				hashMap.put("hprun_eprun", procesoUnificacionArchivos.getPrun_eprun());
+				hashMap.put("hprun_usua", usuario.getUsua_usua());
+				hashMap.put("hprun_obser", observacion);
+				
+				procesoUnificacionArchivosDao.crearHistoricoProceso(hashMap);
+				
 
 			} catch (Exception e) {
-				respuesta = false;
+				SimpleLogger.error("Error al modificar el estado del proceso", e);
+				mensajeError.append("Error al modificar el estado del proceso. "+e.getMessage());
+				return false;
 			}
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error ", e);
-			return null;
-		} 	finally {
-			session.close();
-		}
+			SimpleLogger.error("Error al modificar el estado del proceso", e);
+			mensajeError.append("Error al modificar el estado del proceso. "+e.getMessage());
+			return false;
+		} 	
 		
 		return respuesta;
 		
@@ -272,7 +322,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 		
 		}catch (Exception e) {
 			SimpleLogger.error("Error iniciarProcesoUnificacionArchivosTransaccional", e);
-			mensajeError.append("Error al crear el registro de procesoUnificacionArchivos");
+			mensajeError.append("Error al modificar el estado del proceso. "+e.getMessage());
 			return null;
 		}
 			

@@ -61,6 +61,17 @@
 		order by prun_fcrea asc
 	</select>
 	
+	<select id="getProcesosPorEstadoFechaIniFin" parameterType="java.util.HashMap" resultType="procesoUnificacionArchivos">
+		select * from un_tprun
+		where prun_eprun is not null
+		and prun_fini = #{prun_fini}
+		and prun_ffin = #{prun_ffin}
+		<if test="prun_estados != null">
+			and prun_eprun in ( ${prun_estados} )
+		</if>
+		order by prun_fcrea asc
+	</select>
+	
 
 	<select id="getHistoricoPorProceso" parameterType="java.lang.Long" resultType="historicoProcesoUnificacionArchivos">
 		select * from un_thprun

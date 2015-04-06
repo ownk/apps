@@ -1,3 +1,20 @@
+.ownk_hide{
+	display:none;
+}
+
+
+.ownk_btn_hide{
+	background: transparent;
+	border-color: transparent;
+	position: absolute;
+	top: -2000px; 
+	z-index: 1;
+}
+
+.ownk_right{
+	text-align: right;
+	
+}
 
 
 .navbar-top-links li a.logo-ownk{

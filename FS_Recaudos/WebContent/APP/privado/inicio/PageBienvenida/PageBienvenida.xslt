@@ -90,7 +90,7 @@
 														<small>Procesados</small>
 													</div>
 												</div>
-												
+
 											</div>
 
 
@@ -125,7 +125,8 @@
 														<strong>Abril</strong>
 													</small>
 													<br />
-													Archivos: <xsl:value-of select="count(//totalSize)"/>
+													Archivos:
+													<xsl:value-of select="count(//totalSize)" />
 												</span>
 												<h3 class="font-bold no-margins">Cantidad de archivos cargados por mes
 												</h3>
@@ -167,11 +168,13 @@
 												<small class="pull-right">
 													<i class="fa fa-clock-o">
 													</i>
-													Update <xsl:value-of select="//dateApp"></xsl:value-of>
+													Update
+													<xsl:value-of select="//dateApp"></xsl:value-of>
 												</small>
 												<small>
 													<strong>Analisis de Archivos</strong>
-													La cantidad de archivos varia con respecto al tiempo, en el ultimo
+													La cantidad de archivos varia con respecto al tiempo, en el
+													ultimo
 													mes se cargaron 60.
 												</small>
 											</div>
@@ -236,193 +239,196 @@
 												</div>
 											</div>
 										</div>
-										
+
 									</div>
 								</div>
 
 							</div>
 							<div class="row">
 
-										<div class="col-lg-12">
-											<div class="ibox float-e-margins">
-												<div class="ibox-title">
-													<h5>Ultimos procesos  </h5>
-													<div class="ibox-tools">
-														<a class="collapse-link">
-															<i class="fa fa-chevron-up"></i>
-														</a>
-														<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-															<i class="fa fa-wrench"></i>
-														</a>
-														<ul class="dropdown-menu dropdown-user">
-															<li>
-																<a href="">Recargar</a>
-															</li>
+								<div class="col-lg-12">
+									<div class="ibox float-e-margins">
+										<div class="ibox-title">
+											<h5>Ultimos procesos  </h5>
+											<div class="ibox-tools">
+												<a class="collapse-link">
+													<i class="fa fa-chevron-up"></i>
+												</a>
+												<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+													<i class="fa fa-wrench"></i>
+												</a>
+												<ul class="dropdown-menu dropdown-user">
+													<li>
+														<a href="">Recargar</a>
+													</li>
 
-														</ul>
+												</ul>
 
-													</div>
+											</div>
 
 
 
+										</div>
+										<div class="ibox-content">
+
+											<div class="row">
+												<div class="col-sm-12 m-b-xs">
+													<label class="font-noraml">En esta sección podrás consultar los
+														ultimos 10 procesos creados. Los procesos listados estan
+														organizados desde el más reciente al más antiguo. Si
+														deseas consultar alguno en particular debes hacer click
+														sobre el registro.</label>
+
+													<div class="hr-line-dashed"></div>
 												</div>
-												<div class="ibox-content">
+											</div>
+											<xsl:choose>
+
+												<xsl:when
+													test="count(//ArrayList/ProcesoUnificacionArchivos)>0 and 1=1">
 
 													<div class="row">
 														<div class="col-sm-12 m-b-xs">
-															<label class="font-noraml">En esta sección podrás consultar los
-																ultimos 10 procesos creados. Los procesos listados estan
-																organizados desde el más reciente al más antiguo. Si
-																deseas consultar alguno en particular debes hacer click
-																sobre el registro.</label>
+															<div class="table-responsive">
+																<table class="table table-striped">
+																	<thead>
+																		<tr>
 
-															<div class="hr-line-dashed"></div>
+																			<th>No.</th>
+																			<th>Fecha de radicación </th>
+																			<th>Usuario </th>
+																			<th>Total ZIP </th>
+																			<th>Fecha Inicio</th>
+																			<th>Fecha FIn</th>
+																			<th>Estado</th>
+																			<th>Action</th>
+																		</tr>
+																	</thead>
+																	<tbody>
+																		<xsl:for-each select="//ArrayList/ProcesoUnificacionArchivos">
+																			<form id="form_prun_{prun_prun}"
+																				action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
+																				method="post">
+																				<input type="hidden"
+																					name="ProcesoUnificacionArchivos.prun_prun" value="{prun_prun}" />
+
+																			</form>
+
+																			<tr onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_prun" />
+																				</td>
+
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_fcrea" />
+																				</td>
+
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_usua" />
+																				</td>
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_archivos" />
+																				</td>
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_fini" />
+																				</td>
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_ffin" />
+																				</td>
+																				
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_eprun" />
+																				</td>
+
+																				<td>
+
+																					<a class="btn btn-white btn-circle"
+																						onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
+																						<i class="fa fa-check text-navy"></i>
+																					</a>
+
+
+																				</td>
+																			</tr>
+
+																		</xsl:for-each>
+																	</tbody>
+																</table>
+															</div>
 														</div>
 													</div>
-													<xsl:choose>
 
-														<xsl:when
-															test="count(//ArrayList/ProcesoUnificacionArchivos)>0 and 1=1">
 
-															<div class="row">
-																<div class="col-sm-12 m-b-xs">
-																	<div class="table-responsive">
-																		<table class="table table-striped">
-																			<thead>
-																				<tr>
-
-																					<th>No.</th>
-																					<th>Fecha de radicación </th>
-																					<th>Usuario </th>
-																					<th>Total ZIP </th>
-																					<th>Fecha Inicio</th>
-																					<th>Fecha FIn</th>
-																					<th>Action</th>
-																				</tr>
-																			</thead>
-																			<tbody>
-																				<xsl:for-each
-																					select="//ArrayList/ProcesoUnificacionArchivos">
-																					<form id="form_prun_{prun_prun}"
-																						action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
-																						method="post">
-																						<input type="hidden"
-																							name="ProcesoUnificacionArchivos.prun_prun"
-																							value="{prun_prun}" />
-
-																					</form>
-
-																					<tr
-																						onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
-																						<td class=" align-center">
-																							<xsl:value-of select="prun_prun" />
-																						</td>
-
-																						<td class=" align-center">
-																							<xsl:value-of select="prun_fcrea" />
-																						</td>
-
-																						<td class=" align-center">
-																							<xsl:value-of select="prun_usua" />
-																						</td>
-																						<td class=" align-center">
-																							<xsl:value-of select="prun_archivos" />
-																						</td>
-																						<td class=" align-center">
-																							<xsl:value-of select="prun_fini" />
-																						</td>
-																						<td class=" align-center">
-																							<xsl:value-of select="prun_ffin" />
-																						</td>
-
-																						<td>
-
-																							<a
-																								onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
-																								<i class="fa fa-check text-navy"></i>
-																							</a>
-
-																						</td>
-																					</tr>
-
-																				</xsl:for-each>
-																			</tbody>
-																		</table>
-																	</div>
+													<div class="row">
+														<div class="col-sm-3">
+															<div class="input-group">
+																<div class="dataTables_info" id="editable_info"
+																	role="status" aria-live="polite">
+																	Mostrando
+																	<xsl:value-of select="//PaginatorWeb/sizeIni" />
+																	de
+																	<xsl:value-of select="//PaginatorWeb/sizeFin" />
+																	de
+																	<xsl:value-of select="//PaginatorWeb/totalSize" />
+																	registros
 																</div>
 															</div>
-
-
-															<div class="row">
-																<div class="col-sm-3">
-																	<div class="input-group">
-																		<div class="dataTables_info" id="editable_info"
-																			role="status" aria-live="polite">
-																			Mostrando
-																			<xsl:value-of select="//PaginatorWeb/sizeIni" />
-																			de
-																			<xsl:value-of select="//PaginatorWeb/sizeFin" />
-																			de
-																			<xsl:value-of select="//PaginatorWeb/totalSize" />
-																			registros
-																		</div>
-																	</div>
+														</div>
+														<div class="col-sm-9 text-right">
+															<div class="btn-group">
+																<div style="">
+																	<a class="btn btn-primary btn-sm"
+																		href="{//contextPath}/unificacion/PageConsultarProcesos.do">
+																		Ver todos
+																	</a>
 																</div>
-																<div class="col-sm-9 text-right">
-																	<div class="btn-group">
-																		<div style="">
-																			<a class="btn btn-primary btn-sm"
-																				href="{//contextPath}/unificacion/PageConsultarProcesos.do">
-																				Ver todos
-																			</a>
-																		</div>
 
 
-																	</div>
-
-																</div>
 															</div>
 
-															<xsl:for-each select="//pages/PagePaginatorWeb">
+														</div>
+													</div>
 
-																<form id="paginatorWeb_{id}"
-																	action="{//contextPath}/unificacion/PageConsultarProcesos.do"
-																	method="post">
-																	<input type="hidden" name="pageNumber" value="{number}" />
-																	<input type="hidden" name="pageSize"
-																		value="{//PaginatorWeb/pageSize}" />
-																</form>
-															</xsl:for-each>
+													<xsl:for-each select="//pages/PagePaginatorWeb">
 
-
-
-
-														</xsl:when>
-
-														<xsl:otherwise>
+														<form id="paginatorWeb_{id}"
+															action="{//contextPath}/unificacion/PageConsultarProcesos.do"
+															method="post">
+															<input type="hidden" name="pageNumber" value="{number}" />
+															<input type="hidden" name="pageSize"
+																value="{//PaginatorWeb/pageSize}" />
+														</form>
+													</xsl:for-each>
 
 
-															<div class="alert alert-warning">
-																No existen procesos en curso aun
-																registrados.
-															</div>
-															<div style="text-align:right">
-																<a class="btn btn-primary btn-sm"
-																	href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
-																	Registrar nuevo proceso
-																</a>
-															</div>
 
 
-														</xsl:otherwise>
+												</xsl:when>
 
-													</xsl:choose>
+												<xsl:otherwise>
 
-												</div>
-											</div>
+
+													<div class="alert alert-warning">
+														No existen procesos en curso aun
+														registrados.
+													</div>
+													<div style="text-align:right">
+														<a class="btn btn-primary btn-sm"
+															href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
+															Registrar nuevo proceso
+														</a>
+													</div>
+
+
+												</xsl:otherwise>
+
+											</xsl:choose>
+
 										</div>
 									</div>
-	
+								</div>
+							</div>
+
 						</div>
 
 

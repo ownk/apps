@@ -139,6 +139,7 @@
 																			<th>ZIP </th>
 																			<th>Fecha Inicio</th>
 																			<th>Fecha FIn</th>
+																			<th>Estado</th>
 																			<th>Action</th>
 																		</tr>
 																	</thead>
@@ -173,10 +174,13 @@
 																				<td class=" align-center">
 																					<xsl:value-of select="prun_ffin" />
 																				</td>
+																				<td class=" align-center">
+																					<xsl:value-of select="prun_eprun" />
+																				</td>
 
 																				<td>
 
-																					<a onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
+																					<a class="btn btn-white btn-circle" onclick="osm_enviarFormulario('form_prun_{prun_prun}');">
 																						<i class="fa fa-check text-navy"></i>
 																					</a>
 

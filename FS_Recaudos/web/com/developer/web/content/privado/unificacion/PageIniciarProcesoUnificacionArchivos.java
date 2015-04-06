@@ -48,6 +48,8 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 					&& procesoUnificacionArchivos.getPrun_prun() != null) {
 
 				
+		
+				
 				
 				ArrayList<File> filesZIP = getFilesZIP(procesoUnificacionArchivos
 						.getPrun_prun());
@@ -56,12 +58,19 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 				if(filesZIP!= null && filesZIP.size()>0){
 				
 					Date currentDate = ServerServicio.getInstance().getSysdate();
+					String observacion = null;
+					
+					if(procesoUnificacionArchivos.getPrun_observ()== null || procesoUnificacionArchivos.getPrun_observ().isEmpty()){
+						observacion = "Inicio Proceso No "+procesoUnificacionArchivos.getPrun_prun();
+					}else{
+						observacion = procesoUnificacionArchivos.getPrun_observ();
+					}
 					
 					ProcesoUnificacionArchivosServicio procesoUnificacionArchivosServicio = new ProcesoUnificacionArchivosServicio();
 					procesoUnificacionArchivos = procesoUnificacionArchivosServicio
 							.iniciarProcesoUnificacionArchivosTransaccional(
 									procesoUnificacionArchivos.getPrun_prun(),
-									"Inicio de proceso ", currentDate, filesZIP, 
+									observacion, currentDate, filesZIP, 
 									procesoUnificacionArchivos.getPrun_fini(), 
 									procesoUnificacionArchivos.getPrun_ffin(),
 									sessionAppUsuario.getUsuario(), mensajeErrorOut);

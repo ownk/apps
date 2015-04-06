@@ -51,7 +51,7 @@ public class PageBienvenida extends PrivatePage{
 			
 			
 			Long totalProcesos = procesosServicio.getTotalProcesos(null);
-			List<ProcesoUnificacionArchivos> procesos = procesosServicio.getProcesosUnificacionArchivosPaginado(pageNumberLong, pageSizeLong, null);
+			List<ProcesoUnificacionArchivos> procesos = procesosServicio.getProcesosUnificacionArchivosPaginado(pageNumberLong, pageSizeLong, ProcesoUnificacionArchivos.INICIADO, ProcesoUnificacionArchivos.FINALIZADO, ProcesoUnificacionArchivos.UNIFICANDO_ARCHIVOS);
 			
 			
 			double totalPages = Math.ceil(totalProcesos.doubleValue()/pageSizeLong.doubleValue());

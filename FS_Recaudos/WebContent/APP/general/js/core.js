@@ -1465,3 +1465,30 @@ function osm_formatoMoneDeci(numero){
 
     return "$"+numero;
 }
+
+function osm_isAllObligatorioValido(cssObligatoria){
+	try {
+
+		var isValido = true;
+		
+		$("."+cssObligatoria).each(function(i){
+			
+			if (this.tagName == "INPUT" || this.tagName == "SELECT" || this.tagName == "TEXTAREA") {
+				if(osm_esVacio(this.value)){
+					isValido = false;
+				}
+				
+			} 
+			
+			
+		});
+		
+		return isValido;
+		
+	} catch (E_) {
+		alert(E_);
+	}
+
+	return null;
+	
+}
