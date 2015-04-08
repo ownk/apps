@@ -17,21 +17,17 @@ import org.apache.commons.io.FilenameUtils;
 
 public class Zipper {
 
-	private Map<String, Integer> mapExtensions;
+	
 	private ArrayList<File> filesUnZip;
 	
 	public Zipper() {
 		
-		mapExtensions = new HashMap<String, Integer>();
+		
 		filesUnZip = new ArrayList<File>();
 		
 	}
 	
 	
-	
-	public Map<String, Integer> getMapExtensions() {
-		return mapExtensions;
-	}
 
 
 
@@ -45,7 +41,7 @@ public class Zipper {
 	{
 		
 		filesUnZip = new ArrayList<File>();
-		mapExtensions = new HashMap<String, Integer>();
+		
 		
 	    System.out.println(fileZIP.getAbsolutePath());
 	    int BUFFER = 2048;
@@ -130,16 +126,7 @@ public class Zipper {
 	            String fileName = fileUnZIP.getName();
 				String fileExtension = FilenameUtils.getExtension(fileName).toUpperCase();
 				   
-				//Contador de archivos por extension
-				if(mapExtensions.containsKey(fileExtension)){
-					   
-					  Integer total = mapExtensions.get(fileExtension);
-					  total++;
-					  mapExtensions.replace(fileExtension, total);
-					   
-				}else{
-					  mapExtensions.put(fileExtension, new Integer(1));
-				}
+				
 				   
 	            
 	            
@@ -182,10 +169,7 @@ public class Zipper {
 			System.out.println("Resumen por extension ");
 			System.out.println("================================== ");
 			
-			for (Map.Entry<String, Integer> entry : zipper.getMapExtensions().entrySet())
-			{
-			    System.out.println(entry.getKey() + "/" + entry.getValue());
-			}
+			
 		
 		
 	}
