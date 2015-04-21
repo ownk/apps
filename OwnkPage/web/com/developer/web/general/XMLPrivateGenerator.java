@@ -8,14 +8,14 @@ import com.developer.core.page.IXMLPageGenerador;
 import com.developer.core.utils.JavaToXML;
 import com.developer.core.utils.ObjectToXML;
 import com.developer.logic.generadorxml.general.GeneradorInfoSessionAppUsuarioXML;
-import com.developer.logic.modulo.autenticacion.AutenticacionServicio;
+import com.developer.logic.modulo.autenticacion.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.SessionAppUsuario;
 
 public class XMLPrivateGenerator implements IXMLPageGenerador{
 	
-	AutenticacionServicio autenticacionController;
+	AutenticadorServicio autenticacionController;
 	
-	public XMLPrivateGenerator(AutenticacionServicio autenticacionController){
+	public XMLPrivateGenerator(AutenticadorServicio autenticacionController){
 		this.autenticacionController = autenticacionController;
 	}
 	
