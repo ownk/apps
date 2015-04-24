@@ -10,6 +10,9 @@ public class ArchivoRecaudoPorUnificarRepetido {
 	Long arpr_prun;
 	Long arpr_arun;
 	Long arpr_arpu;
+	
+	ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar; 
+	
 	public Long getArpr_arpr() {
 		return arpr_arpr;
 	}
@@ -33,6 +36,13 @@ public class ArchivoRecaudoPorUnificarRepetido {
 	}
 	public void setArpr_arpu(Long arpr_arpu) {
 		this.arpr_arpu = arpr_arpu;
+	}
+	public ArchivoRecaudoPorUnificar getArchivoRecaudoPorUnificar() {
+		return archivoRecaudoPorUnificar;
+	}
+	public void setArchivoRecaudoPorUnificar(
+			ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar) {
+		this.archivoRecaudoPorUnificar = archivoRecaudoPorUnificar;
 	}
 	
 

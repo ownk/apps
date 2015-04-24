@@ -51,6 +51,13 @@ public class ArchivoZIPProcesoUnificacionServicio {
 		return archivoZIPProcesoUnificacion;
 	}
 	
+	public ArchivoZIPProcesoUnificacion getArchivoBasico(Long azpu_azpu){
+		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
+		ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion =  controllerDB.getArchivo(azpu_azpu);
+		
+		return archivoZIPProcesoUnificacion;
+	}
+	
 	public List<ArchivoZIPProcesoUnificacion> getArchivosPorProceso(Long prun_prun){
 		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
 		List<ArchivoZIPProcesoUnificacion> list =  controllerDB.getArchivosPorPRUN(prun_prun);

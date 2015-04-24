@@ -7,6 +7,15 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido;
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
+import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
+import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos;
+import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
+import com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo;
+import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoPorUnificarServicio;
+import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoUnificadoServicio;
+import com.developer.logic.modulo.unificacion.modelo.ArchivoZIPProcesoUnificacionServicio;
+import com.developer.logic.modulo.unificacion.modelo.TransformadorArchivoRecaudoServicio;
 import com.developer.mybatis.DBManager;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarDao;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarRepetidoDao;
@@ -62,17 +71,26 @@ public class ArchivoRecaudoPorUnificarRepetidoControllerDB {
 	
 	
 			
-	public List<ArchivoRecaudoPorUnificar> getArchivosPorARUN(Long prun_prun){
+	public List<ArchivoRecaudoPorUnificarRepetido> getArchivosPorARUN(Long arun_arun){
 		SqlSession session = DBManager.openSession();
 		
 		try{
 			
-			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
-			return dao.getArchivosPorPRUN(prun_prun);
+			ArchivoRecaudoPorUnificarRepetidoDao dao = session.getMapper(ArchivoRecaudoPorUnificarRepetidoDao.class);
+			List<ArchivoRecaudoPorUnificarRepetido> list = dao.getArchivosPorARUN(arun_arun);
+			
+			if(list != null){
+				for (ArchivoRecaudoPorUnificarRepetido archivoRecaudoPorUnificarRepetido : list) {
+					completarInformacionAdicionalArchivo(archivoRecaudoPorUnificarRepetido);
+				}
+				
+			}
+			
+			return list; 
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error getArchivosPorPRUN", e);
+			SimpleLogger.error("Error getArchivosPorARUN", e);
 			return null;
 		} 	finally {
 			session.close();
@@ -80,6 +98,27 @@ public class ArchivoRecaudoPorUnificarRepetidoControllerDB {
 		
 	}
 	
+	
+	private void completarInformacionAdicionalArchivo(ArchivoRecaudoPorUnificarRepetido archivoRecaudoPorUnificarRepetido ){
+		try {
+			if(archivoRecaudoPorUnificarRepetido!=null && archivoRecaudoPorUnificarRepetido.getArpr_arpr()!=null){
+				
+				ArchivoRecaudoPorUnificarServicio archivoRecaudoPorUnificarServicio = ArchivoRecaudoPorUnificarServicio.getInstance();
+				ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = archivoRecaudoPorUnificarServicio.getArchivoRecaudo(archivoRecaudoPorUnificarRepetido.getArpr_arpu());
+				
+				archivoRecaudoPorUnificarRepetido.setArchivoRecaudoPorUnificar(archivoRecaudoPorUnificar);
+				
+				
+			}
+			
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+	}
 	
 	 
 

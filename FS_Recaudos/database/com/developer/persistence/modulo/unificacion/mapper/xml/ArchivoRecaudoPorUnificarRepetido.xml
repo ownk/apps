@@ -8,7 +8,7 @@
 		select nextvalue('un_sarpr') from dual
 	</select>
 	
-	<insert id="crearArchivo" parameterType="archivoRecaudoPorUnificar">
+	<insert id="crearArchivo" parameterType="archivoRecaudoPorUnificarRepetido">
 		insert into UN_TARPR
 		(
 			ARPR_ARPR, 	
@@ -29,7 +29,7 @@
 
 	
 	<select id="getArchivosPorARUN" parameterType="java.lang.Long" resultType="archivoRecaudoPorUnificarRepetido" >
-		select * from un_tarpu
+		select * from un_tarpr
 		where arpr_arun = #{arun_arun}
 	</select>
 	

@@ -250,6 +250,10 @@ public class ArchivoRecaudoPorUnificarServicio {
 				List<HistoricoArchivoRecaudoPorUnificar> historicoArchivoRecaudoPorUnificar= ArchivoRecaudoPorUnificarControllerDB.getInstance().getHistoricoArchivo(archivoRecaudoPorUnificar.getArpu_arpu());
 				archivoRecaudoPorUnificar.setHistoricoArchivoRecaudoPorUnificar(historicoArchivoRecaudoPorUnificar);
 				
+				ArchivoZIPProcesoUnificacionServicio servicioAZIP = ArchivoZIPProcesoUnificacionServicio.getInstance();
+				ArchivoZIPProcesoUnificacion archivoZIP = servicioAZIP.getArchivoBasico(archivoRecaudoPorUnificar.getArpu_azpu());
+				archivoRecaudoPorUnificar.setArchivoAZPU(archivoZIP);
+				
 			}
 			
 			

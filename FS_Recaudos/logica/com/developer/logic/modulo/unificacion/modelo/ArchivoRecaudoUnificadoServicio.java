@@ -6,6 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
 import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoUnificadoControllerDB;
 
@@ -44,7 +45,16 @@ public class ArchivoRecaudoUnificadoServicio {
 	
 	public List<ArchivoRecaudoUnificado> getArchivosPorPRUN(Long prun_prun){
 		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
-		return controllerDB.getArchivosPorProcesoUnificacion(prun_prun);
+		List<ArchivoRecaudoUnificado> list = controllerDB.getArchivosPorProcesoUnificacion(prun_prun);
+		
+		for (ArchivoRecaudoUnificado archivoRecaudoUnificado : list) {
+			completarInformacionAdicionalArchivo(archivoRecaudoUnificado);
+			
+		}
+		
+		return list;
+		
+		
 		
 		
 	}
@@ -75,6 +85,26 @@ public class ArchivoRecaudoUnificadoServicio {
 			ArchivoRecaudoUnificado documento) {
 		
 		return ArchivoRecaudoUnificadoControllerDB.getInstance().crearArchivoTransaccional(session, documento);
+		
+	}
+	
+	
+	private void completarInformacionAdicionalArchivo(ArchivoRecaudoUnificado archivoRecaudoUnificado ){
+		try {
+			
+			if(archivoRecaudoUnificado!=null && archivoRecaudoUnificado.getArun_arun()!=null){
+				ArchivoRecaudoPorUnificarRepetidoServicio servicio = ArchivoRecaudoPorUnificarRepetidoServicio.getInstance();
+				List<ArchivoRecaudoPorUnificarRepetido> list = servicio.getArchivosPorARUN(archivoRecaudoUnificado.getArun_arun());
+				
+				archivoRecaudoUnificado.setArchivosPorUnificarRepetidos(list);
+				
+			}
+			
+			
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 		
 	}
 

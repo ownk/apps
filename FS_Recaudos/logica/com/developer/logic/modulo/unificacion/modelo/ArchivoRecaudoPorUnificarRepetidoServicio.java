@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido;
+import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar;
 import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoPorUnificarControllerDB;
 import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoPorUnificarRepetidoControllerDB;
@@ -37,11 +38,11 @@ public class ArchivoRecaudoPorUnificarRepetidoServicio {
 	}
 	
 		
-	public List<ArchivoRecaudoPorUnificar> getArchivosPorARUN(Long prun_prun){
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
-		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosPorPRUN(prun_prun);
+	public List<ArchivoRecaudoPorUnificarRepetido> getArchivosPorARUN(Long arun_arun){
+		ArchivoRecaudoPorUnificarRepetidoControllerDB controllerDB = ArchivoRecaudoPorUnificarRepetidoControllerDB.getInstance();
+		List<ArchivoRecaudoPorUnificarRepetido> list = controllerDB.getArchivosPorARUN(arun_arun);
 		
-		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
+		for (ArchivoRecaudoPorUnificarRepetido archivoRecaudoPorUnificar : list) {
 			completarInformacionAdicionalArchivo(archivoRecaudoPorUnificar);
 		}
 		
@@ -81,13 +82,15 @@ public class ArchivoRecaudoPorUnificarRepetidoServicio {
 	
 	
 
-	private void completarInformacionAdicionalArchivo(ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar){
+	private void completarInformacionAdicionalArchivo(ArchivoRecaudoPorUnificarRepetido archivoRecaudoPorUnificarRepetido){
 		try {
 			
-			if(archivoRecaudoPorUnificar!=null && archivoRecaudoPorUnificar.getArpu_arpu()!=null){
+			if(archivoRecaudoPorUnificarRepetido!=null && archivoRecaudoPorUnificarRepetido.getArpr_arpr()!=null){
 			
-				List<HistoricoArchivoRecaudoPorUnificar> historicoArchivoRecaudoPorUnificar= ArchivoRecaudoPorUnificarControllerDB.getInstance().getHistoricoArchivo(archivoRecaudoPorUnificar.getArpu_arpu());
-				archivoRecaudoPorUnificar.setHistoricoArchivoRecaudoPorUnificar(historicoArchivoRecaudoPorUnificar);
+				ArchivoRecaudoPorUnificarServicio servicioARPU = ArchivoRecaudoPorUnificarServicio.getInstance();
+				ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = servicioARPU.getArchivoRecaudo(archivoRecaudoPorUnificarRepetido.getArpr_arpu());
+				archivoRecaudoPorUnificarRepetido.setArchivoRecaudoPorUnificar(archivoRecaudoPorUnificar);
+				
 				
 			}
 			

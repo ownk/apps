@@ -80,27 +80,29 @@
 
 												<div class="ibox-content">
 													<div class="row">
-														
+
 														<div class="col-xs-12">
 															En esta sección podrás consultar la
 															<strong>información general
-															del proceso</strong>: histórico de estados,
+																del proceso</strong>
+															: histórico de estados,
 															fechas y archivos
 															cargados
-															y generados.
+															y
+															generados.
 														</div>
 
 													</div>
-													
+
 													<div class="row">
-														<div class="ownk_separador_h"/>
-												
+														<div class="ownk_separador_h" />
+
 													</div>
-												
+
 													<div class="row">
 														<div class="col-md-12">
 
-														
+
 
 															<div class="col-md-8">
 
@@ -157,13 +159,13 @@
 																				<xsl:call-template name="popup_historico" />
 																			</div>
 																		</dd>
-																		
+
 																	</dl>
 
 																</div>
 
 															</div>
-															
+
 															<div class="col-xs-4">
 																<i class="fa fa-folder-open big-clear-icon " />
 															</div>
@@ -682,23 +684,35 @@
 											<td class=" align-center">
 												<xsl:value-of select="arun_archivos" />
 											</td>
-											
+
 											<td class=" align-center">
-											
+
 												<xsl:choose>
 													<xsl:when test="arun_archivos_repetidos>0">
-														<span class="label label-danger">
+														<xsl:variable name="idpopup">myModalArchivoRepetido_<xsl:value-of select="arun_arun"/></xsl:variable>
+														
+														<div class="">
+															<button type="button"
+																class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_archivo_repetido"
+																data-toggle="modal" data-target="#{$idpopup}">
 																<xsl:value-of select="arun_archivos_repetidos" />
-														</span>
-													
+															</button>
+
+															<xsl:call-template name="popup_archivo_repetido">
+																<xsl:with-param name="idpopup" select="$idpopup"/>
+															</xsl:call-template>
+															
+															
+														</div>
+
 													</xsl:when>
 													<xsl:otherwise>
-															<xsl:value-of select="arun_archivos_repetidos" />
+														<xsl:value-of select="arun_archivos_repetidos" />
 													</xsl:otherwise>
-													
-												
+
+
 												</xsl:choose>
-											
+
 											</td>
 
 											<td class=" align-center">
@@ -868,6 +882,91 @@
 
 													<td class=" align-center">
 														<xsl:value-of select="hprun_usua" />
+													</td>
+												</tr>
+
+											</xsl:for-each>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white ownk_btn_shadow"
+							data-dismiss="modal">Retornar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</xsl:template>
+	
+	<xsl:template name="popup_archivo_repetido">
+		<xsl:param name="idpopup"/>
+
+
+		<div class="modal inmodal" id="{$idpopup}" tabindex="-1"
+			role="dialog" aria-hidden="false" data-show="true">
+			<div class="modal-dialog" data-show="true">
+				<div class="modal-content animated bounceInRight">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true"></span>
+							<span class="sr-only">Close</span>
+						</button>
+						<i class="fa fa-list-ul modal-icon"></i>
+						<h4 class="modal-title">Archivos Repetidos </h4>
+						<small class="font-bold">Listado de archivos encontrados</small>
+					</div>
+					<div class="modal-body">
+						<p>
+							A continuación podrás consultar los archivos repetidos
+							que se encontraron en la unificacion de archivos
+							para el tipo de archivo <b>.<xsl:value-of select="arun_tpar"/></b>
+						</p>
+
+						<br />
+
+						<div class="row">
+							<div class="col-sm-12 m-b-xs">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>id</th>
+												<th>Nombre Archivo</th>
+												<th>Extension</th>
+												<th>Cantidad Registros</th>
+												<th>Archivo ZIP</th>
+											</tr>
+										</thead>
+										<tbody>
+											<xsl:for-each select="archivosPorUnificarRepetidos/ArchivoRecaudoPorUnificarRepetido">
+												<tr>
+													<td class=" align-center">
+														<xsl:value-of select="position()" />
+													</td>
+													<td class=" align-center">
+														<xsl:value-of select="archivoRecaudoPorUnificar/arpu_nombre" />
+													</td>
+
+													<td class=" align-center">
+														<span class="label label-default">
+															<xsl:value-of select="archivoRecaudoPorUnificar/arpu_extension" />
+														</span>
+
+													</td>
+
+													<td class=" align-center">
+														<xsl:value-of select="archivoRecaudoPorUnificar/arpu_registros" />
+													</td>
+
+													<td class=" align-center">
+														<xsl:value-of select="archivoRecaudoPorUnificar/archivoAZPU/azpu_nombre" />
 													</td>
 												</tr>
 
