@@ -53,6 +53,7 @@
 		<!-- Modulo Unificacion Archivos ==== -->
 		<!-- ================================ -->
 		<typeAlias alias="archivoRecaudoPorUnificar" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar" />
+		<typeAlias alias="archivoRecaudoPorUnificarRepetido" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido" />
 		<typeAlias alias="archivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado" />
 		<typeAlias alias="archivoZIPProcesoUnificacion" type="com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion" />
 		<typeAlias alias="procesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos" />
@@ -110,6 +111,7 @@
 		<!-- Modulo Unificacion Archivos ==== -->
 		<!-- ================================ -->
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoPorUnificar.xml" />
+		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoPorUnificarRepetido.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoUnificado.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoZIPProcesoUnificacion.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />

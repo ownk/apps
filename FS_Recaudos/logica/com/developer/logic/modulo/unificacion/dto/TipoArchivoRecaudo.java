@@ -12,6 +12,7 @@ public class TipoArchivoRecaudo {
 	String tpar_descri;
 	String tpar_usua;
 	Long   tpar_estr;
+	String tpar_nomb_arun;
 	
 	
 	
@@ -39,7 +40,14 @@ public class TipoArchivoRecaudo {
 	}
 	public void setTpar_estr(Long tpar_estr) {
 		this.tpar_estr = tpar_estr;
+	}
+	public String getTpar_nomb_arun() {
+		return tpar_nomb_arun;
+	}
+	public void setTpar_nomb_arun(String tpar_nomb_arun) {
+		this.tpar_nomb_arun = tpar_nomb_arun;
 	} 
+	
 	
 	
 

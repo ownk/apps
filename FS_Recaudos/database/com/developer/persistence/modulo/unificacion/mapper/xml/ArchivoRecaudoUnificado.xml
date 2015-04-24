@@ -24,7 +24,8 @@
 			arun_fcrea, 		
 			arun_extension, 	
 			arun_registros, 	
-			arun_archivos 	
+			arun_archivos,
+			arun_archivos_repetidos	
 		)
 		values
 		(
@@ -41,7 +42,8 @@
 			now(), 	
 			#{arun_extension},
 			#{arun_registros},
-			#{arun_archivos}
+			#{arun_archivos},
+			#{arun_archivos_repetidos}
 		)
 	</insert>
 	

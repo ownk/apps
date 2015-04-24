@@ -5,12 +5,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
@@ -62,7 +64,18 @@ public class UnificadorArchivosPorProcesoServicio {
 				
 				if(archivosARPU!=null){
 					ArchivoRecaudoUnificado archivoRecaudoUnificado;
-					String nombreArchivoUnificado = "arun_"+procesoUnificacionArchivos.getPrun_prun()+"_"+getDateString(currentDate)+"."+tipoArchivoRecaudo.getTpar_tpar().toLowerCase();
+					
+					String nombreArchivoUnificado = null;
+					if(!StringUtils.isEmpty(tipoArchivoRecaudo.getTpar_nomb_arun())){
+						
+						nombreArchivoUnificado = tipoArchivoRecaudo.getTpar_nomb_arun()+"_"+getDateString(procesoUnificacionArchivos.getPrun_ffin(), "ddMM")+"."+tipoArchivoRecaudo.getTpar_tpar().toLowerCase();
+						
+					}else{
+					
+					
+						nombreArchivoUnificado = "arun_"+procesoUnificacionArchivos.getPrun_prun()+"_"+getDateString(currentDate)+"."+tipoArchivoRecaudo.getTpar_tpar().toLowerCase();
+					
+					}
 					
 					if( (tipoArchivoRecaudo.getTpar_estr().equals(TipoArchivoRecaudo.ESTR_ASOBANCARIA)) || ( 
 							tipoArchivoRecaudo.getTpar_estr().equals(TipoArchivoRecaudo.ESTR_FIDUCIARIA))	){
@@ -94,6 +107,23 @@ public class UnificadorArchivosPorProcesoServicio {
 						
 						ArchivoRecaudoUnificadoServicio archivoRecaudoUnificadoServicio = new ArchivoRecaudoUnificadoServicio();
 						sinErrores = sinErrores && archivoRecaudoUnificadoServicio.crearArchivoTransaccional(session, archivoRecaudoUnificado);
+						
+						
+						if(archivoRecaudoUnificado.getArchivosPorUnificarRepetidos().size()>0){
+							
+							for (ArchivoRecaudoPorUnificarRepetido archivo : archivoRecaudoUnificado.getArchivosPorUnificarRepetidos()) {
+								
+								
+								ArchivoRecaudoPorUnificarRepetidoServicio archivoRecaudoPorUnificarRepetidoServicio = ArchivoRecaudoPorUnificarRepetidoServicio.getInstance();
+								
+								archivo.setArpr_arun(archivoRecaudoUnificado.getArun_arun());
+								
+								sinErrores = sinErrores && archivoRecaudoPorUnificarRepetidoServicio.crearDocumentoTransaccional(session, archivo, mensajeErrorOut);
+							
+							}
+							
+						}
+						
 						
 						if(!sinErrores){
 							
@@ -139,14 +169,27 @@ public class UnificadorArchivosPorProcesoServicio {
 		
 	}
 	
+	private String  getDateString(Date date, String format){
+		
+		
+		
+		SimpleDateFormat fechaFormat = new SimpleDateFormat(format);
+		
+	    return ""+fechaFormat.format(date);
+	}
+	
+	
 	private String  getDateString(Date date){
 		
-		SimpleDateFormat fechaFormat = new SimpleDateFormat("ddMMyyyy");
 		
+		
+		SimpleDateFormat fechaFormat = new SimpleDateFormat("ddMMyyyy");
 		SimpleDateFormat horaFormat = new SimpleDateFormat("hhMMss");
 		
 	    return ""+fechaFormat.format(date)+"_"+horaFormat.format(date);
 	}
+	
+	
 	
 	public static void main(String[] args) {
 		Date date = new Date();

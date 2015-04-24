@@ -1,6 +1,7 @@
 package com.developer.logic.modulo.unificacion.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArchivoRecaudoUnificado {
 	
@@ -22,9 +23,17 @@ public class ArchivoRecaudoUnificado {
 	String arun_extension;
 	Long arun_registros;
 	Long arun_archivos;
+	Long arun_archivos_repetidos;
+	
+	List<ArchivoRecaudoPorUnificarRepetido> archivosPorUnificarRepetidos;
 	
 	
-	
+	public Long getArun_archivos_repetidos() {
+		return arun_archivos_repetidos;
+	}
+	public void setArun_archivos_repetidos(Long arun_archivos_repetidos) {
+		this.arun_archivos_repetidos = arun_archivos_repetidos;
+	}
 	public Long getArun_arun() {
 		return arun_arun;
 	}
@@ -109,6 +118,14 @@ public class ArchivoRecaudoUnificado {
 	public void setArun_archivos(Long arun_archivos) {
 		this.arun_archivos = arun_archivos;
 	}
+	public List<ArchivoRecaudoPorUnificarRepetido> getArchivosPorUnificarRepetidos() {
+		return archivosPorUnificarRepetidos;
+	}
+	public void setArchivosPorUnificarRepetidos(
+			List<ArchivoRecaudoPorUnificarRepetido> archivosPorUnificarRepetidos) {
+		this.archivosPorUnificarRepetidos = archivosPorUnificarRepetidos;
+	}
+	
 	
 
 

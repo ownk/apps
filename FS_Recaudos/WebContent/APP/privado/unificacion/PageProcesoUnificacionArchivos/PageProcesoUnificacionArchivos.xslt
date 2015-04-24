@@ -643,6 +643,7 @@
 										<th>Bytes </th>
 										<th>Registros </th>
 										<th>Consolidados</th>
+										<th>Repetidos</th>
 										<th>Fecha de creación</th>
 										<th>Descarga</th>
 
@@ -680,6 +681,24 @@
 
 											<td class=" align-center">
 												<xsl:value-of select="arun_archivos" />
+											</td>
+											
+											<td class=" align-center">
+											
+												<xsl:choose>
+													<xsl:when test="arun_archivos_repetidos>0">
+														<span class="label label-danger">
+																<xsl:value-of select="arun_archivos_repetidos" />
+														</span>
+													
+													</xsl:when>
+													<xsl:otherwise>
+															<xsl:value-of select="arun_archivos_repetidos" />
+													</xsl:otherwise>
+													
+												
+												</xsl:choose>
+											
 											</td>
 
 											<td class=" align-center">
