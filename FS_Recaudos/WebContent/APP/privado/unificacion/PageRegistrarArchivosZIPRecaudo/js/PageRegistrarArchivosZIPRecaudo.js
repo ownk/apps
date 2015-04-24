@@ -70,32 +70,38 @@ function validarEnviar(form) {
 		$('#btn_popup_msg_obl').click();
 		
 		
-	}else if((Date.parse(prun_fini)) > (Date.parse(prun_ffin))){
-		isValido = false;
+	}else if( !osm_esVacio(prun_fini) && !osm_esVacio(prun_ffin) ){
+    
+        var fini = getDate(prun_fini);
+        var ffin = getDate(prun_ffin);
+        
+        if(fini > ffin){
+            isValido = false;
+            
+            $('#btn_popup_msg_obl').click();
+            
+        }else if(jsonrpc.prunJSONServicio != null){
 		
-		$('#btn_popup_msg_obl').click();
-	
-	}else if(jsonrpc.prunJSONServicio != null){
-		
-		var res=jsonrpc.prunJSONServicio.getProcesosPorEstadoFechaIniFin(prun_fini, prun_ffin);
-		
-		if(res.list.length > 0){
-			isObserAnulActive = true;	
-			showObject('div_prun_observ');
-			
-		
-			if(osm_esVacio(prun_observ_anul)){
-				isValido = false;
-				
-				$('#prun_observ_anul').focus();
-			}
-		}else{
-			isObserAnulActive = false;
-			hideObject('div_prun_observ');
-			
-		}
-		
-	}
+            var res=jsonrpc.prunJSONServicio.getProcesosPorEstadoFechaIniFin(prun_fini, prun_ffin);
+            
+            if(res.list.length > 0){
+                isObserAnulActive = true;	
+                showObject('div_prun_observ');
+                
+            
+                if(osm_esVacio(prun_observ_anul)){
+                    isValido = false;
+                    
+                    $('#prun_observ_anul').focus();
+                }
+            }else{
+                isObserAnulActive = false;
+                hideObject('div_prun_observ');
+                
+            }
+            
+        }
+    }
 	
 	//Si todo es exitoso se envia el formulario
 	if(isValido){
@@ -128,4 +134,19 @@ function hideObject(id_Object){
 
 function showInstructions(){
 	$('#btn_popup_msg_obl').click();
+}
+
+function getDate(fechaString){
+	
+	var objDate = new Date();
+	try {
+        
+        anho  =fechaString.substring(6, 10);
+        mes = fechaString.substring(3, 5);
+        dia = fechaString.substring(0, 2);
+		objDate = new Date(Number(anho), Number(mes), Number(dia));
+	} catch (e) {
+	}
+	
+	return objDate;
 }	   
