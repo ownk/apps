@@ -1,0 +1,26 @@
+===================================
+== Control de cambios generales ===
+===================================
+
+
+v 1.0
+-----------------------------------------------------------------------------------------------------
+1. Entrega inicial de la funcionalidad de unificacion de archivos
+
+
+v.1.1
+-----------------------------------------------------------------------------------------------------
+1. Se crea funcionalidad para que al registrar procesos con fechas iguales anule procesos ya creados
+2. Se ajusta compilacion a 1.6
+3. Se ajusta skin, se permite iniciar proceso y unificar archivos en el mismo paso
+4. Se ajusta para que al generar los archivos unificados se coloque la fecha fin del proceso
+5. Se actualiza funcionalidad para que genere nombres de archivo acorde a lo parametrizado. 
+6. Se ajusta funcionalidad de unificacion para que detecte archivos repetidos
+7. Se ajusta para visualizar la cantidad de archivos repetidos encontrados en el proceso de unificacion
+8. Se ajusta la validacion de fechas de inicio y fin del registro de ZIP para unificacion de archivos 
+
+
+v.1.2
+-----------------------------------------------------------------------------------------------------
+1. Se ajusta incidente en el al registrar los archivos por unificar (arpu) no se estaba teniendo en
+   cuenta el primer registro en el total de registro del archivo.
