@@ -148,8 +148,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 					Long size = fileUnZIP.length();
 					Long totalRegistros=new Long(0);
 					
-					
-					 
+										 
 			        //Declarar una variable BufferedReader
 			        BufferedReader bufferedReader = null;
 			        try {
@@ -157,9 +156,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 			           //un objeto FileReader con el nombre del fichero
 			        	bufferedReader = new BufferedReader(new FileReader(fileUnZIP));
 			        	
-			           //Leer la primera línea, guardando en un String
-			           bufferedReader.readLine();
-			           
+			        			        			           
 			           //Repetir mientras no se llegue al final del fichero
 			           while(bufferedReader.ready())
 			           {
