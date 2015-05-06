@@ -2,9 +2,10 @@ package com.developer.logic.modulo.unificacion.modelo;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
 import java.io.FileWriter;
+import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -43,6 +44,8 @@ public class UnificadorArchivosDefault {
 
 			fichero = new FileWriter(rutaArchivosUnificados
 					+ nombreArchivoUnificado);
+			
+		
 			printerWriter = new PrintWriter(fichero);
 
 			for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : archivosARPU) {
@@ -70,7 +73,8 @@ public class UnificadorArchivosDefault {
 								// un objeto FileReader con el nombre del
 								// fichero
 								bufferedReader = new BufferedReader(
-										new FileReader(file));
+										   new InputStreamReader(
+								                      new FileInputStream(file), "ISO-8859-1"));
 
 								// Repetir mientras no se llegue al final del
 								// fichero

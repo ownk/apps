@@ -24,3 +24,4 @@ v.1.2
 -----------------------------------------------------------------------------------------------------
 1. Se ajusta incidente en el al registrar los archivos por unificar (arpu) no se estaba teniendo en
    cuenta el primer registro en el total de registro del archivo.
+2. Se ajusta generador de archivo default para que utilice enconding ISO-8859-1
