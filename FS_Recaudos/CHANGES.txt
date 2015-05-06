@@ -3,12 +3,12 @@
 ===================================
 
 
-v 1.0
+v 1.0.0
 -----------------------------------------------------------------------------------------------------
 1. Entrega inicial de la funcionalidad de unificacion de archivos
 
 
-v.1.1
+v.1.1.0
 -----------------------------------------------------------------------------------------------------
 1. Se crea funcionalidad para que al registrar procesos con fechas iguales anule procesos ya creados
 2. Se ajusta compilacion a 1.6
@@ -20,8 +20,11 @@ v.1.1
 8. Se ajusta la validacion de fechas de inicio y fin del registro de ZIP para unificacion de archivos 
 
 
-v.1.2
+v.1.2.0
 -----------------------------------------------------------------------------------------------------
 1. Se ajusta incidente en el al registrar los archivos por unificar (arpu) no se estaba teniendo en
    cuenta el primer registro en el total de registro del archivo.
-2. Se ajusta generador de archivo default para que utilice enconding ISO-8859-1
+   
+v.1.3.0
+-----------------------------------------------------------------------------------------------------
+1. Se ajusta generador de archivo default para que utilice enconding ISO-8859-1
