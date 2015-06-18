@@ -34,10 +34,7 @@ public class ConvertidorArchivoAsobancaria {
 		leerRegistros(fileAsobancaria);
 	}
 
-	// --------------------------------------
-	// ---- HOMOLOGACION REGISTROS --------
-	// --------------------------------------
-
+	
 	/**
 	 * Revisa si hay registros en el archivo especificado
 	 * 
@@ -94,7 +91,7 @@ public class ConvertidorArchivoAsobancaria {
 		String encabezado = null;
 		List<String> listRegistros = new ArrayList<String>();
 
-		// Si hay cuentas se buscan las cuentas del tercero
+		
 		if (hayRegistros) {
 			
 			

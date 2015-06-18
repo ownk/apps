@@ -1,0 +1,7 @@
+PROMPT INSERTANDO DATOS EN FS_RECAUDOS_US.GE_TCONFIG
+
+Insert into FS_RECAUDOS_US.GE_TCONFIG (CONFIG_CONFIG,CONFIG_DESCRI,CONFIG_TIPO_DATO,CONFIG_VALOR) values (5,'RUTA_GRAL_ARCHIVOS: Ruta general de archivos.',2,'D:\\Proyectos\\Ownk\\Github\\apps\\FS_Recaudos\\99_Uploads');
+
+
+
+commit;

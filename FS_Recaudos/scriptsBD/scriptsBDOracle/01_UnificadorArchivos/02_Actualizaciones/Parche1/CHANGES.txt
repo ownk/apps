@@ -1,0 +1,8 @@
+===================================
+== Control de cambios generales ===
+===================================
+
+1. Se actualiza funcionalidad para que genere nombres de archivo acorde a lo parametrizado. 
+2. Se ajusta funcionalidad de unificacion para que detecte archivos repetidos
+3. Se ajusta para visualizar la cantidad de archivos repetidos encontrados en el proceso de unificacion
+

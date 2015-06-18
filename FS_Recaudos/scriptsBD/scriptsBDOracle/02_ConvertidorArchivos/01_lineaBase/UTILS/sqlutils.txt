@@ -1,0 +1,12 @@
+===================================
+== Eliminar objetos comunes de bd
+===================================
+SELECT * FROM (
+SELECT 'DROP TABLE '||table_name||' CASCADE CONSTRAINTS;' FROM user_tables UNION
+SELECT 'DROP VIEW '||VIEW_NAME||';' FROM user_views UNION
+SELECT 'DROP SEQUENCE '|| SEQUENCE_NAME||';' FROM user_sequences UNION
+SELECT 'DROP SYNONYM ' || SYNONYM_NAME ||';' FROM user_synonyms UNION
+SELECT 'DROP FUNCTION ' || OBJECT_NAME ||';' FROM user_procedures UNION
+SELECT 'PURGE RECYCLEBIN;' FROM dual)
+ORDER BY 1 ASC;
+
