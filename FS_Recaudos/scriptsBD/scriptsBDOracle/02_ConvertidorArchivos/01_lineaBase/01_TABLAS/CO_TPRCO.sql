@@ -20,7 +20,6 @@ CREATE TABLE "FS_RECAUDOS_US"."CO_TPRCO"
 	"PRCO_OBSERV" 	VARCHAR2(2000 BYTE)		constraint NN_CO_TPRCO_OBSERV NOT NULL,
 	"PRCO_FINI" 	DATE					constraint NN_CO_TPRCO_FINI NOT NULL,
 	"PRCO_FFIN" 	DATE					constraint NN_CO_TPRCO_FFIN NOT NULL,
-	"PRCO_ARCHIVOS" NUMBER					constraint NN_CO_TPRCO_ARCHIVOS NOT NULL,
     "PRCO_PRUN"     NUMBER					constraint NN_CO_TPRCO_PRUN NOT NULL
 )  storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -39,8 +38,6 @@ COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPRCO"."PRCO_OBSERV" IS 'Observacion';
 COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPRCO"."PRCO_FINI" IS 'Fecha desde la cual se hara la unificacion ';
 
 COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPRCO"."PRCO_FFIN" IS 'Fecha fin hasta la cual se hara la unificacion';
-
-COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPRCO"."PRCO_ARCHIVOS" IS 'Cantidad de archivos de recaudo a procesar';
 
 COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPRCO"."PRCO_PRUN" IS 'Proceso de unificacion asociado';
 

@@ -64,7 +64,22 @@
 		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo" />
 	
 	
-	
+		<!-- ================================ -->
+		<!-- Modulo Conversion Archivos ==== -->
+		<!-- ================================ -->
+		<typeAlias alias="tipoArchivoRecaudoConvertidor" type="com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudo" />
+		<typeAlias alias="archivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir" />
+		<typeAlias alias="historicoArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.historicoArchivoRecaudoOriginalPorConvertir" />
+		<typeAlias alias="detalleArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir" />
+		<typeAlias alias="archivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI" />
+		<typeAlias alias="historicoArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoGeneradoSIFI" />
+		<typeAlias alias="detalleArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI" />
+		<typeAlias alias="procesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos" />
+		<typeAlias alias="historicoProcesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.HistoricoProcesoConversionArchivos" />
+		
+		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo" />
+		<typeAlias alias="validacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo" />
+
 	
 	
 	</typeAliases>
@@ -117,6 +132,20 @@
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TipoArchivoRecaudo.xml" />
 		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TransformacionArchivoRecaudo.xml" />
+		
+		
+		<!-- ================================ -->
+		<!-- Modulo Conversion Archivos ==== -->
+		<!-- ================================ -->
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TransformacionArchivoRecaudo.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoOriginalPorConvertir.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoGeneradoSIFI.xml.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TransformacionArchivoRecaudo.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ValidacionArchivoRecaudo.xml" />
+		
+		
+		
 		
 		
 		

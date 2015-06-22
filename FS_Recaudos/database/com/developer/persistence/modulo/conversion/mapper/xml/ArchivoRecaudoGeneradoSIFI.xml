@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ArchivoRecaudoGeneradoSIFIDao">
+	
+		
+	<insert id="crearArchivo" parameterType="archivoRecaudoGeneradoSIFI">
+		insert into co_targe
+		(
+			arge_arge, 		
+			arge_usua, 		
+			arge_prco, 		
+			arge_tpar, 		
+			arge_earge, 		
+			arge_url, 		   
+			arge_hash, 		
+			arge_bytes, 		
+			arge_nombre, 		
+			arge_observ, 		
+			arge_fcrea, 		
+			arge_extension, 	
+			arge_registros, 	
+			arge_aror 
+		)
+		values
+		(
+			#{arge_arge}, 		
+			#{arge_usua}, 		
+			#{arge_prco}, 		
+			#{arge_tpar}, 		
+			#{arge_earge}, 		
+			#{arge_url}, 		   
+			#{arge_hash}, 		
+			#{arge_bytes}, 		
+			#{arge_nombre}, 		
+			#{arge_observ}, 		
+			now(), 		
+			#{arge_extension}, 	
+			#{arge_registros}, 	
+			#{arge_aror}  	   
+		)
+	</insert>
+	
+	
+	<select id="getArchivo" parameterType="java.lang.Long" resultType="archivoRecaudoGeneradoSIFI" >
+		select * from co_targe
+		where arge_arge = #{arge_arge}
+	</select>
+	
+	<select id="getArchivosPorPRCO" parameterType="java.lang.Long" resultType="archivoRecaudoGeneradoSIFI" >
+		select * from co_targe
+		where arge_prco = #{prco_prco}
+	</select>
+	
+	
+	<insert id="crearHistorico" parameterType="java.util.HashMap" >
+	
+		insert into co_tharge 
+				(	harge_arge,	harge_earge,
+					harge_fasig,harge_usua,
+					harge_obser)
+		
+		values 	(	#{harge_arge}, #{harge_earge},
+					now(), #{harge_usua},
+					#{harge_obser}	)
+	</insert>
+	
+	<update id="setEstadoProceso" parameterType="archivoRecaudoGeneradoSIFI">
+		update co_targe
+		set arge_earge = #{arge_earge}
+		where arge_arge = #{arge_arge}
+	</update>
+	
+	<select id="getHistoricoArchivo" parameterType="java.lang.Long" resultType="historicoArchivoRecaudoGeneradoSIFI">
+		select * from co_tharge
+		where harge_arge = #{arge_arge}
+		order by harge_fasig asc
+	</select>
+	
+	<insert id="crearDetalleArchivo" parameterType="detalleArchivoRecaudoGeneradoSIFI">
+		insert into co_tdarge
+		(
+			darge_arge, 		   
+			darge_daror_id_reg,   
+			darge_id_reg,         
+			darge_freca, 		   
+			darge_referencia, 	   
+			darge_aportante, 	   
+			darge_ofic, 		   
+			darge_vefe, 		   
+			darge_vche, 		   
+			darge_vtot, 		   
+			darge_cons_bsc_1, 	   
+			darge_tipo_reca, 	   
+			darge_comp, 		   
+			darge_cons_bsc_2,     
+			darge_fcrea		   	
+		)
+		values
+		(
+			#{darge_arge}, 		   
+			#{darge_daror_id_reg},   
+			#{darge_id_reg},         
+			#{darge_freca}, 		   
+			#{darge_referencia}, 	   
+			#{darge_aportante}, 	   
+			#{darge_ofic}, 		   
+			#{darge_vefe}, 		   
+			#{darge_vche}, 		   
+			#{darge_vtot}, 		   
+			#{darge_cons_bsc_1}, 	   
+			#{darge_tipo_reca}, 	   
+			#{darge_comp}, 		   
+			#{darge_cons_bsc_2},     
+			now()	   
+		)
+	</insert>
+	
+
+
+	
+	
+</mapper>

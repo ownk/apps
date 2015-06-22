@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.TipoArchivoRecaudoConvertidorDao">
+	
+	<insert id="crearTipoArchivo" parameterType="tipoArchivoRecaudoConvertidorConvertidor">
+		insert into co_ttpar 
+		(
+			tpar_tpar,	 
+			tpar_descri,		 
+			tpar_plan_generico,
+			tpar_cta_recaudo,	
+			tpar_usua     
+		)
+		values 
+		(
+			#{tpar_tpar},	 
+			#{tpar_descri},		 
+			#{tpar_plan_generico},
+			#{tpar_cta_recaudo},	
+			#{tpar_usua} 
+		)
+	</insert>
+	
+	<select id="getTipoArchivo" parameterType="java.lang.String" resultType="tipoArchivoRecaudoConvertidor">
+		select * from co_ttpar
+		where tpar_tpar = #{tpar_tpar}
+	</select>
+	
+	
+	<select id="getTiposArchivoPorPRUN" parameterType="java.lang.Long" resultType="tipoArchivoRecaudoConvertidor">
+		select tpar.* from co_ttpar tpar, (
+		select arpu_tpar, count(1) from un_tarpu, co_tprco 
+		where arpu_prun = prco_prun
+		and prco_prco = #{prco_prco}
+		group by arpu_tpar) arpu
+		where arpu.arpu_tpar = tpar.tpar_tpar
+	</select>
+	
+	
+</mapper>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ArchivoRecaudoOriginalPorConvertirDao">
+	
+		
+	<insert id="crearArchivo" parameterType="archivoRecaudoOriginalPorConvertir">
+		insert into co_taror
+		(
+			aror_aror, 		
+			aror_usua, 		
+			aror_prco, 		
+			aror_tpar, 		
+			aror_earor, 		
+			aror_url, 		   
+			aror_hash, 		
+			aror_bytes, 		
+			aror_nombre, 		
+			aror_observ, 		
+			aror_fcrea, 		
+			aror_extension, 	
+			aror_registros, 	
+			aror_arun 
+		)
+		values
+		(
+			#{aror_aror}, 		
+			#{aror_usua}, 		
+			#{aror_prco}, 		
+			#{aror_tpar}, 		
+			#{aror_earor}, 		
+			#{aror_url}, 		   
+			#{aror_hash}, 		
+			#{aror_bytes}, 		
+			#{aror_nombre}, 		
+			#{aror_observ}, 		
+			now(), 		
+			#{aror_extension}, 	
+			#{aror_registros}, 	
+			#{aror_arun} 	   
+		)
+	</insert>
+	
+	
+	<select id="getArchivo" parameterType="java.lang.Long" resultType="archivoRecaudoOriginalPorConvertir" >
+		select * from co_taror
+		where aror_aror = #{aror_aror}
+	</select>
+	
+	<select id="getArchivosPorPRCO" parameterType="java.lang.Long" resultType="archivoRecaudoOriginalPorConvertir" >
+		select * from co_taror
+		where aror_prco = #{prco_prco}
+	</select>
+	
+	
+	<insert id="crearHistorico" parameterType="java.util.HashMap" >
+	
+		insert into co_tharor 
+				(	haror_aror,	haror_earor,
+					haror_fasig,haror_usua,
+					haror_obser)
+		
+		values 	(	#{haror_aror}, #{haror_earor},
+					now(), #{haror_usua},
+					#{haror_obser}	)
+	</insert>
+	
+	<update id="setEstadoProceso" parameterType="archivoRecaudoOriginalPorConvertir">
+		update co_taror
+		set aror_earor = #{aror_earor}
+		where aror_aror = #{aror_aror}
+	</update>
+	
+	<select id="getHistoricoArchivo" parameterType="java.lang.Long" resultType="historicoArchivoRecaudoOriginalPorConvertir">
+		select * from co_tharor
+		where haror_aror = #{aror_aror}
+		order by haror_fasig asc
+	</select>
+	
+	<insert id="crearDetalleArchivo" parameterType="detalleArchivoRecaudoOriginalPorConvertir">
+		insert into co_taror
+		(
+			daror_aror, 		
+			daror_id_reg, 	    
+			daror_freca, 		
+			daror_referencia, 	
+			daror_aportante, 	
+			daror_ofic, 		
+			daror_vefe, 		
+			daror_vche, 		
+			daror_vtot, 		
+			daror_cons_bsc_1, 	
+			daror_tipo_reca, 	
+			daror_comp, 		
+			daror_cons_bsc_2,  
+			daror_registro, 	
+			daror_fcrea 		
+		)
+		values
+		(
+			#{daror_aror},		
+			#{daror_id_reg},	    
+			#{daror_freca},		
+			#{daror_referencia},	
+			#{daror_aportante},	
+			#{daror_ofic},		
+			#{daror_vefe},		
+			#{daror_vche},		
+			#{daror_vtot},		
+			#{daror_cons_bsc_1},	
+			#{daror_tipo_reca},	
+			#{daror_comp},		
+			#{daror_cons_bsc_2}, 
+			#{daror_registro},	
+			now()			   
+		)
+	</insert>
+	
+
+
+	
+	
+</mapper>

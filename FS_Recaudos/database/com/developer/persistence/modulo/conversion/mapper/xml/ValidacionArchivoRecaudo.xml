@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ValidacionArchivoRecaudoDao">
+	
+	<insert id="crearValidacion" parameterType="validacionArchivoRecaudo">
+		insert into co_tvlar
+		(
+			vlar_vlar, 		   
+			vlar_tpvl, 		   
+			vlar_aror,            
+			vlar_daror_id_reg,    
+			vlar_valor_descri,    
+			vlar_fcrea 		     
+		)
+		values 
+		(
+			#{vlar_vlar}, 		   
+			#{vlar_tpvl}, 		   
+			#{vlar_aror},            
+			#{vlar_daror_id_reg},    
+			#{vlar_valor_descri},    
+			now() 	
+		)
+	</insert>
+	
+	
+	
+	<select id="getValidacionesPorAROR" parameterType="java.lang.Long" resultType="validacionArchivoRecaudo">
+		
+	</select>
+	
+	
+</mapper>

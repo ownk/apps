@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.TransformacionArchivoRecaudoDao">
+	
+	<insert id="crearTransformacion" parameterType="transformacionArchivoRecaudo">
+		insert into co_ttrar 
+		(
+			trar_trar, 		   
+			trar_tptr, 		   
+			trar_aror,            
+			trar_daror_id_reg,    
+			trar_valor_orig,      
+			trar_valor_modi,      
+			trar_valor_descri,    
+			trar_fcrea 		   
+		)
+		values 
+		(
+			#{trar_trar}, 		   
+			#{trar_tptr},		   
+			#{trar_aror},            
+			#{trar_daror_id_reg},    
+			#{trar_valor_orig},      
+			#{trar_valor_modi},      
+			#{trar_valor_descri},    
+			now() 		   
+		)
+	</insert>
+	
+	
+	
+	<select id="getTransformacionesPorAROR" parameterType="java.lang.Long" resultType="transformacionArchivoRecaudo">
+		
+	</select>
+	
+	
+</mapper>
