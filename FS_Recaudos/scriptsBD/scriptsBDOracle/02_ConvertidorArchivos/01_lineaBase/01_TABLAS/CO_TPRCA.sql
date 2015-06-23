@@ -2,7 +2,7 @@
 	VERSION: 1.0		
 	FECHA:	 10/06/2015	  
 	AUTOR:	 ownk	     
-	FUNCION: Proyectos NO SIFI Activos
+	FUNCION: Proyectos de recaudo cancelados
 ******************************************************************************/
 
 set define '&'
@@ -30,7 +30,7 @@ Prompt
 
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPRCA"."PRCA_PLAN_SIFI"  IS 'Plan o Encargo SIFI al cual se debe realizar el traslado de los recursos ';
    
-   COMMENT ON TABLE "FS_RECAUDOS_US"."CO_TPRCA"  IS 'Proyectos NO SIFI Activos';
+   COMMENT ON TABLE "FS_RECAUDOS_US"."CO_TPRCA"  IS 'Proyectos Recaudo Cancelados';
    
    
    prompt Llave Primaria
