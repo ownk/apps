@@ -1,178 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE configuration
-    PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
-    "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<configuration>
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ValidacionArchivoRecaudoDao">
 	
-	
-	<!-- properties se definen los datos para la conexion -->
-	<!-- como las tenemos en un archivo de propiedades -->	
-	<!-- utilizamos el atributo resource para referenciarlo -->
-	<properties resource="oracle.properties"/>
-	
-	<!-- settings configuracion-->
-	<!-- setting parametro de configuracion es una etiqueta llave valor -->	
-	<!-- name=llave; value=valor -->	
-	
-	<settings>
-		<setting name="cacheEnabled" value="true"/>
-		<setting name="lazyLoadingEnabled" value="true"/>
-		<setting name="multipleResultSetsEnabled" value="true"/>
-		<setting name="useColumnLabel" value="true"/>
-		<setting name="useGeneratedKeys" value="false"/>
-		<setting name="defaultExecutorType" value="SIMPLE"/>
-		<setting name="defaultStatementTimeout" value="25000"/>
-	</settings>
-
-	<typeAliases>
-		<!-- ================================ -->
-		<!-- Modulo general ================= -->
-		<!-- ================================ -->
-		<typeAlias alias="persona" type="com.developer.logic.modulo.general.dto.Persona" />
-		<typeAlias alias="parametroConfiguracionGeneral" type="com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral" />
-		
-		
-		<!-- ================================ -->
-		<!-- Modulo autenticacion =========== -->
-		<!-- ================================ -->
-		<typeAlias alias="usuario" type="com.developer.logic.modulo.autenticacion.dto.Usuario" />
-		<typeAlias alias="servicio" type="com.developer.logic.modulo.autenticacion.dto.Servicio" />
-		<typeAlias alias="usuarioURL" type="com.developer.logic.modulo.autenticacion.dto.UsuarioURL" />
-		<typeAlias alias="modulo" type="com.developer.logic.modulo.autenticacion.dto.Modulo" />
-		
-		
-		
-		<!-- ================================ -->
-		<!-- Modulo notificaciones ========== -->
-		<!-- ================================ -->
-		<typeAlias alias="notificacion" type="com.developer.logic.modulo.notificaciones.dto.Notificacion" />
-	
-	
-		<!-- ================================ -->
-		<!-- Modulo Unificacion Archivos ==== -->
-		<!-- ================================ -->
-		<typeAlias alias="archivoRecaudoPorUnificar" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar" />
-		<typeAlias alias="archivoRecaudoPorUnificarRepetido" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido" />
-		<typeAlias alias="archivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado" />
-		<typeAlias alias="archivoZIPProcesoUnificacion" type="com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion" />
-		<typeAlias alias="procesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos" />
-		<typeAlias alias="historicoArchivoRecaudoPorUnificar" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar" />
-		<typeAlias alias="historicoArchivoRecaudoUnificado" type="com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoUnificado" />
-		<typeAlias alias="historicoProcesoUnificacionArchivos" type="com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos" />
-		<typeAlias alias="tipoArchivoRecaudo" type="com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo" />
-		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo" />
-	
-	
-		<!-- ================================ -->
-		<!-- Modulo Conversion Archivos ==== -->
-		<!-- ================================ -->
-		<typeAlias alias="tipoArchivoRecaudoConvertidor" type="com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudo" />
-		<typeAlias alias="archivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir" />
-		<typeAlias alias="historicoArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.historicoArchivoRecaudoOriginalPorConvertir" />
-		<typeAlias alias="detalleArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir"/>
-		<typeAlias alias="archivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI" />
-		<typeAlias alias="historicoArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoGeneradoSIFI" />
-		<typeAlias alias="detalleArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI" />
-		<typeAlias alias="procesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos" />
-		<typeAlias alias="historicoProcesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.HistoricoProcesoConversionArchivos" />
-		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo" />
-		<typeAlias alias="encargoFiduciarioSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciarioSIFI" />
-		<typeAlias alias="encargoFiduciarioNoSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciarioNoSIFI" />
-		<typeAlias alias="estadoPlanFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion" />
-		<typeAlias alias="distribucionPorFormulaPorcentaje" type="com.developer.logic.modulo.conversion.dto.DistribucionPorFormulaPorcentaje" />
-		<typeAlias alias="oficinaRecaudo" type="com.developer.logic.modulo.conversion.dto.OficinaRecaudo" />
-		<typeAlias alias="parametroGeneralConversion" type="com.developer.logic.modulo.conversion.dto.ParametroGeneralConversion" />
-		<typeAlias alias="proyectoNoSIFIActivo" type="com.developer.logic.modulo.conversion.dto.ProyectoNoSIFIActivo" />
-		<typeAlias alias="proyectoConFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.ProyectoConFormulaDistribucion" />
-		<typeAlias alias="proyectoCancelado" type="com.developer.logic.modulo.conversion.dto.ProyectoCancelado" />
-		
-
-	
-    
-    
-    
-    
-    
-    
-    
-    
-    
-	
-	</typeAliases>
-	
-	<!-- environments default configuracion por defecto-->
-	<!-- aqui se configuran las conexiones a la base de datos -->
-	<!-- environment una configuracion especifica -->
-	<environments default="development"> 
-		<environment id="development"> 
-			<transactionManager type="JDBC"/> 
-			<dataSource type="POOLED"> 
-				<property name="driver" value="${driver}"/> 
-				<property name="url" value="${url}"/> 
-				<property name="username" value="${username}"/> 
-				<property name="password" value="${password}"/> 
-			</dataSource> 
-		</environment> 
-	</environments> 
+	<insert id="crearValidacion" parameterType="validacionArchivoRecaudo">
+		insert into co_tvlar
+		(
+			vlar_vlar, 		   
+			vlar_tpvl, 		   
+			vlar_aror,            
+			vlar_daror_id_reg,    
+			vlar_valor_descri,    
+			vlar_fcrea 		     
+		)
+		values 
+		(
+			#{vlar_vlar}, 		   
+			#{vlar_tpvl}, 		   
+			#{vlar_aror},            
+			#{vlar_daror_id_reg},    
+			#{vlar_valor_descri},    
+			now() 	
+		)
+	</insert>
 	
 	
 	
+	<select id="getValidacionesPorARORxDAROR" parameterType="java.util.HashMap" resultType="validacionArchivoRecaudo">
+		select * from co_tvlar
+		where vlar_aror = #{aror_aror}
+		and vlar_daror_id_reg = #{daror_id_reg}
+		
+	</select>
 	
-	<mappers>
-		<!-- ================================ -->
-		<!-- Modulo general ================= -->
-		<!-- ================================ -->
-		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/PersonaDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/ServerDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/general/mapper/xml/ConfiguracionGeneralDao.xml" />
-		
-		<!-- ================================ -->
-		<!-- Modulo autenticacion =========== -->
-		<!-- ================================ -->
-		<mapper resource="com/developer/persistence/modulo/autenticacion/mapper/xml/ServicioDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/autenticacion/mapper/xml/UsuarioDao.xml" />
 	
-		<!-- ================================ -->
-		<!-- Modulo notificaciones ========== -->
-		<!-- ================================ -->
-		<mapper resource="com/developer/persistence/modulo/notificaciones/mapper/xml/NotificacionInternaDao.xml" />
-		
-		
-		<!-- ================================ -->
-		<!-- Modulo Unificacion Archivos ==== -->
-		<!-- ================================ -->
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoPorUnificar.xml" />
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoPorUnificarRepetido.xml" />
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoRecaudoUnificado.xml" />
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ArchivoZIPProcesoUnificacion.xml" />
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TipoArchivoRecaudo.xml" />
-		<mapper resource="com/developer/persistence/modulo/unificacion/mapper/xml/TransformacionArchivoRecaudo.xml" />
-		
-		
-		<!-- ================================ -->
-		<!-- Modulo Conversion Archivos ==== -->
-		<!-- ================================ -->
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoGeneradoSIFIDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoOriginalPorConvertirDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/EncargoFiduciarioDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/FormulaDistribucionPorcentajeDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/OficinaRecaudoDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ParametroGeneralDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProcesoConversionArchivosDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProyectoRecaudoDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TipoArchivoRecaudoDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TransformacionArchivoRecaudoDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ValidacionArchivoRecaudoDao.xml" />
-		
-		
-		
-		
-		
-		
-		
-	</mappers>
-	
-</configuration>
+</mapper>

@@ -5,6 +5,8 @@ import java.util.Date;
 public class ProcesoConversionArchivos {
 	
 	
+	public static String INICIADO = "INICIADO";
+	
 	Long    prco_prco 	;
 	String  prco_usua 	;
 	String  prco_eprco 	;

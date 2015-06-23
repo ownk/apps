@@ -61,7 +61,10 @@
 	</select>
 	
 	
-	
+	<select id="getProceso" parameterType="java.lang.Long" resultType="procesoConversionArchivos">
+		select * from co_tprco
+		where prco_prco = #{prco_prco}
+	</select>
 	
 	
 </mapper>

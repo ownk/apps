@@ -9,9 +9,9 @@ import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
 
 public interface ValidacionArchivoRecaudoDao {
 
-	public void crearTransformacion(ValidacionArchivoRecaudo validacionArchivoRecaudo);
+	public void crearValidacion(ValidacionArchivoRecaudo validacionArchivoRecaudo);
 	
-	public List<ValidacionArchivoRecaudo> getTransformacionesPorARORxDAROR(HashMap<String, Object> hashMap);
+	public List<ValidacionArchivoRecaudo> getValidacionesPorARORxDAROR(HashMap<String, Object> hashMap);
 	
 	
 	

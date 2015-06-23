@@ -19,6 +19,8 @@ public interface ProcesoConversionArchivosDao {
 	
 	public ProcesoConversionArchivos getProcesoPorPRUN(Long prun_prun);
 	
+	public ProcesoConversionArchivos getProceso(Long prco_prco);
+	
 	
 	
 }
