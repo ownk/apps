@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.FormulaDistribucionPorcentajeDao">
+	
+	<insert id="getEstadosAplicaFormula" parameterType="estadoPlanFormulaDistribucion">
+		select * from co_tepfd
+	</insert>
+	
+	<select id="getDistribucionesPorcentuales" parameterType="java.lang.Long" resultType="distribucionPorFormulaPorcentaje">
+		select * from co_tdpfd	
+	</select>
+	
+	
+</mapper>

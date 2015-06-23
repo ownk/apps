@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.EncargoFiduciarioDao">
+	
+	<select id="getAllEncargosSIFI" resultType="encargoFiduciarioSIFI">
+		select * from co_tplts
+		union
+		select * from co_tplec
+	</select>
+	
+	<select id="getAllEncargosNoSIFI" resultType="encargoFiduciarioNoSIFI">
+		select * from co_tplns
+	</select>
+	
+	
+
+	
+</mapper>

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.TipoArchivoRecaudoConvertidorDao">
 	
-	<insert id="crearTipoArchivo" parameterType="tipoArchivoRecaudoConvertidorConvertidor">
+	<insert id="crearTipoArchivo" parameterType="tipoArchivoRecaudoConvertidor">
 		insert into co_ttpar 
 		(
 			tpar_tpar,	 

@@ -27,7 +27,10 @@
 	
 	
 	
-	<select id="getValidacionesPorAROR" parameterType="java.lang.Long" resultType="validacionArchivoRecaudo">
+	<select id="getValidacionesPorARORxDAROR" parameterType="java.lang.Long" resultType="validacionArchivoRecaudo">
+		select * from co_tvlar
+		where vlar_aror = #{aror_aror}
+		and vlar_daror_id_reg = #{daror_id_reg}
 		
 	</select>
 	
