@@ -17,7 +17,7 @@ import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.GeneradorSessionApp;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.notificaciones.modelo.NotificacionServicio;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.web.content.jsonrpc.JSONServiceManager;
 
 public class InitApp extends HttpServlet implements Servlet {
@@ -42,7 +42,7 @@ public class InitApp extends HttpServlet implements Servlet {
 		
 		//Se inicializa la configuracion del gestor de bases de datos
 		SimpleLogger.info("Inicializando conexion database");
-		DBManager.initConfiguration();
+		DBManagerFSRecaudos.initConfiguration();
 		
 		//Se inicializa el controlador de autenticacion
 		SimpleLogger.info("Inicializando servicio de autenticacion");

@@ -9,7 +9,7 @@ import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificar;
 import com.developer.logic.modulo.unificacion.dto.HistoricoArchivoRecaudoPorUnificar;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarDao;
 
 public class ArchivoRecaudoPorUnificarControllerDB {
@@ -25,7 +25,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	}
 	
 	public Long getSiguienteID(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 			
 			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
@@ -79,7 +79,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	
 	
 	public Boolean setEstado(Long arpu_arpu, String estado, String observacion, Usuario usuario){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		Boolean respuesta = true;
 		try {
 
@@ -133,7 +133,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	
 	
 	public ArchivoRecaudoPorUnificar getDocumento(Long arpu_arpu){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -151,7 +151,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	}
 			
 	public List<ArchivoRecaudoPorUnificar> getArchivosPorPRUN(Long prun_prun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -170,7 +170,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	
 	
 	public List<ArchivoRecaudoPorUnificar> getArchivosPorAZPU(Long azpu_azpu){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -188,7 +188,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	}
 		
 	public List<HistoricoArchivoRecaudoPorUnificar> getHistoricoArchivo(Long arpu_arpu){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -207,7 +207,7 @@ public class ArchivoRecaudoPorUnificarControllerDB {
 	
 	public List<ArchivoRecaudoPorUnificar>  getArchivosTPARxPRUN(Long prun_prun, String tpar_tpar ) {
 
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 

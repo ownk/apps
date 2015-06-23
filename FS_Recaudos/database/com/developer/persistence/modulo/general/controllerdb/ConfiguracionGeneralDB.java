@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.general.mapper.dao.ConfiguracionGeneralDao;
 
 public class ConfiguracionGeneralDB {
@@ -24,7 +24,7 @@ public class ConfiguracionGeneralDB {
 	
 		
 	public List<ParametroConfiguracionGeneral> getConfiguracionGeneral(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 

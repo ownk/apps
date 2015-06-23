@@ -16,7 +16,7 @@ import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepet
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 
 public class UnificadorArchivosPorProcesoServicio {
 	
@@ -54,7 +54,7 @@ public class UnificadorArchivosPorProcesoServicio {
 		}
 		
 				
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try {
 		

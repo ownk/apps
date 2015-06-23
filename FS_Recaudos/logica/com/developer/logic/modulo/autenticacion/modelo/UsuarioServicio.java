@@ -8,7 +8,7 @@ import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Modulo;
 import com.developer.logic.modulo.autenticacion.dto.Servicio;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.autenticacion.controllerdb.UsuarioControllerDB;
 import com.developer.persistence.modulo.autenticacion.mapper.dao.UsuarioDao;
 
@@ -109,7 +109,7 @@ public class UsuarioServicio {
 	
 	
 	public List<String> getRolesPorUsuario(Usuario usuario){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		List<String> roles = null;
 		
 		try {

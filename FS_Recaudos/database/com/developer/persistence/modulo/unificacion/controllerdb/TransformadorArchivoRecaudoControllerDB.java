@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.unificacion.mapper.dao.TransformacionArchivoRecaudoDao;
 
 public class TransformadorArchivoRecaudoControllerDB {
@@ -22,7 +22,7 @@ public class TransformadorArchivoRecaudoControllerDB {
 	}
 	
 	public Long getSiguienteID(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 			
 			TransformacionArchivoRecaudoDao dao = session.getMapper(TransformacionArchivoRecaudoDao.class);
@@ -61,7 +61,7 @@ public class TransformadorArchivoRecaudoControllerDB {
 	
 	
 	public TransformacionArchivoRecaudo getArchivo(Long azpu_azpu){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -79,7 +79,7 @@ public class TransformadorArchivoRecaudoControllerDB {
 	}
 			
 	public List<TransformacionArchivoRecaudo> getTranformacionsPorPRUN(Long prun_prun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			

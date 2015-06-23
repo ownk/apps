@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.developer.core.utils.SimpleLogger;
 
-public class DBManager {
+public class DBManagerFSRecaudos {
 
 	private static SqlSessionFactory sqlSessionFactory;
 
@@ -20,6 +20,8 @@ public class DBManager {
 			String resource = "mybatis-config-oracle.xml";
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
+			
+			
 			
 		} catch (Exception e) {
 			SimpleLogger.error("Error iniciando la configuracion de la base de datos"+e.getMessage());

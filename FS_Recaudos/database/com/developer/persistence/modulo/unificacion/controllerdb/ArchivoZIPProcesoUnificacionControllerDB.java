@@ -6,7 +6,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoZIPProcesoUnificacionDao;
 
 public class ArchivoZIPProcesoUnificacionControllerDB {
@@ -22,7 +22,7 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 	}
 	
 	public Long getSiguienteID(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 			
 			ArchivoZIPProcesoUnificacionDao dao = session.getMapper(ArchivoZIPProcesoUnificacionDao.class);
@@ -61,7 +61,7 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 	
 	
 	public ArchivoZIPProcesoUnificacion getArchivo(Long azpu_azpu){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -79,7 +79,7 @@ public class ArchivoZIPProcesoUnificacionControllerDB {
 	}
 			
 	public List<ArchivoZIPProcesoUnificacion> getArchivosPorPRUN(Long prun_prun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			

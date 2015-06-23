@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.notificaciones.dto.Notificacion;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.mybatis.utils.DataBaseUtils;
 import com.developer.persistence.modulo.notificaciones.mapper.dao.NotificacionInternaDao;
 
@@ -37,7 +37,7 @@ public class NotificacionInternaControllerDB{
 
 	public Boolean crearNotificacion(Notificacion notificacion) {
 
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try {
 			
@@ -68,7 +68,7 @@ public class NotificacionInternaControllerDB{
 	@SuppressWarnings("unchecked")
 	public List<Notificacion>  consultarNotificacionesPorUsuarioPaginada(String usua_usua, String noti_esta, Integer pagina) {
 
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 			
@@ -102,7 +102,7 @@ public class NotificacionInternaControllerDB{
 	 */
 	public List<Notificacion>  consultarNotificacionesPorUsuario(String usua_usua, String...noti_estados ) {
 
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 
@@ -143,7 +143,7 @@ public class NotificacionInternaControllerDB{
 	 */
 	public Boolean cambiarEstadoNotificacion(Long noti_noti, String estado) {
 
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 			

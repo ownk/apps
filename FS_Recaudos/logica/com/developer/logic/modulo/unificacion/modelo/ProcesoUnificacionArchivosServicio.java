@@ -20,7 +20,7 @@ import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.TransformacionArchivoRecaudo;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.general.controllerdb.PersonaControllerDB;
 import com.developer.persistence.modulo.unificacion.controllerdb.ProcesoUnificacionArchivosControllerDB;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacionArchivosDao;
@@ -57,7 +57,7 @@ public class ProcesoUnificacionArchivosServicio {
 	public ProcesoUnificacionArchivos iniciarProcesoUnificacionArchivosTransaccional(Long prun_prun,  String observacionDeInicio, Date currentDate, ArrayList<File> filesZIP,  Date prun_fini, Date prun_ffin, Usuario usuario, StringBuffer mensajeErrorOut){
 		
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		ProcesoUnificacionArchivos procesoUnificacionArchivosIniciada= null;
 		
 		try {

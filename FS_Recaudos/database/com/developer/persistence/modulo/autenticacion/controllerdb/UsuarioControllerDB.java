@@ -10,7 +10,7 @@ import com.developer.logic.modulo.autenticacion.dto.Modulo;
 import com.developer.logic.modulo.autenticacion.dto.Servicio;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.autenticacion.dto.UsuarioURL;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.autenticacion.mapper.dao.UsuarioDao;
 
 public class UsuarioControllerDB {
@@ -36,7 +36,7 @@ public class UsuarioControllerDB {
 		
 		Usuario usuarioAutenticado = null;
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 
@@ -67,7 +67,7 @@ public class UsuarioControllerDB {
 		
 		Servicio servicio = null;
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 			UsuarioDao dao = session.getMapper(UsuarioDao.class);
@@ -91,7 +91,7 @@ public class UsuarioControllerDB {
 		
 		List<Servicio> serviciosPorUsuario = null;
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try {
 
@@ -116,7 +116,7 @@ public class UsuarioControllerDB {
 		
 		List<Servicio> serviciosPorUsuario = null;
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try {
 
@@ -140,7 +140,7 @@ public class UsuarioControllerDB {
 		
 		List<Modulo> modulosPorUsuario = null;
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try {
 
@@ -161,7 +161,7 @@ public class UsuarioControllerDB {
 	}
 	
 	public Usuario getUsuario(String usua_usua){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		Usuario usuario = null;
 		
 		try {
@@ -185,7 +185,7 @@ public class UsuarioControllerDB {
 	
 	
 	private List<String> getRolesPorUsuario(Usuario usuario){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		List<String> roles = null;
 		
 		try {

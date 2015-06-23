@@ -8,7 +8,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoUnificadoDao;
 
 public class ArchivoRecaudoUnificadoControllerDB {
@@ -24,7 +24,7 @@ public class ArchivoRecaudoUnificadoControllerDB {
 	}
 	
 	public Long getSiguienteID(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 			
 			ArchivoRecaudoUnificadoDao dao = session.getMapper(ArchivoRecaudoUnificadoDao.class);
@@ -77,7 +77,7 @@ public class ArchivoRecaudoUnificadoControllerDB {
 	
 	
 	public Boolean setEstado(Long arun_arun, String estado, String observacion, Usuario usuario){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		Boolean respuesta = true;
 		try {
 
@@ -130,7 +130,7 @@ public class ArchivoRecaudoUnificadoControllerDB {
 	
 	
 	public ArchivoRecaudoUnificado getArchivo(Long arun_arun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -148,7 +148,7 @@ public class ArchivoRecaudoUnificadoControllerDB {
 	}
 			
 	public List<ArchivoRecaudoUnificado> getArchivosPorProcesoUnificacion(Long prun_prun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			

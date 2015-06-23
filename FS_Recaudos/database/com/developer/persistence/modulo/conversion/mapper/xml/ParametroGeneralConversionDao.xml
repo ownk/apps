@@ -2,11 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ParametroGeneralDao">
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ParametroGeneralConversionDao">
 	
 	
 	
-	<select id="getParametroGeneral" parameterType="java.lang.String" resultType="parametroGeneral" >
+	<select id="getParametroGeneral" parameterType="java.lang.String" resultType="parametroGeneralConversion" >
 		select * from co_tpara
 		where para_para = #{para_para}
 	</select>

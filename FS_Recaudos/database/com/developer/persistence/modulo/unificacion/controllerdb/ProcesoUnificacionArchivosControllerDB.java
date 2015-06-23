@@ -10,7 +10,7 @@ import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.unificacion.dto.HistoricoProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacionArchivosDao;
 
 public class ProcesoUnificacionArchivosControllerDB {
@@ -32,7 +32,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	 */
 	
 	public Long getSiguienteID(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 			
 			ProcesoUnificacionArchivosDao dao = session.getMapper(ProcesoUnificacionArchivosDao.class);
@@ -52,7 +52,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	
 	
 	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos(Long prun_prun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 
@@ -73,7 +73,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	
 	
 	public List<HistoricoProcesoUnificacionArchivos> getHistoricoPorProcesoUnificacionArchivos(Long prun_prun) {
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
@@ -93,7 +93,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 
 	public List<ProcesoUnificacionArchivos> getProcesoUnificacionArchivosPorEstados(String...prun_estados){
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 
@@ -126,7 +126,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	
 	public List<ProcesoUnificacionArchivos> getProcesosPorEstadoFechaIniFin(Date prun_fini, Date prun_ffin, String...prun_estados){
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 
@@ -163,7 +163,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	
 	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, String...prun_estados){
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 			
@@ -198,7 +198,7 @@ public class ProcesoUnificacionArchivosControllerDB {
 	
 	public Long getTotalProcesos(String...prun_estados){
 		
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 			

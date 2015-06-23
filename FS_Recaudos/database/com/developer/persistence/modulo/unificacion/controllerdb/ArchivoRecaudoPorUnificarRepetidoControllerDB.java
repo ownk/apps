@@ -16,7 +16,7 @@ import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoPorUnificarSe
 import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoUnificadoServicio;
 import com.developer.logic.modulo.unificacion.modelo.ArchivoZIPProcesoUnificacionServicio;
 import com.developer.logic.modulo.unificacion.modelo.TransformadorArchivoRecaudoServicio;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarDao;
 import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPorUnificarRepetidoDao;
 
@@ -33,7 +33,7 @@ public class ArchivoRecaudoPorUnificarRepetidoControllerDB {
 	}
 	
 	public Long getSiguienteID(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 			
 			ArchivoRecaudoPorUnificarDao dao = session.getMapper(ArchivoRecaudoPorUnificarDao.class);
@@ -72,7 +72,7 @@ public class ArchivoRecaudoPorUnificarRepetidoControllerDB {
 	
 			
 	public List<ArchivoRecaudoPorUnificarRepetido> getArchivosPorARUN(Long arun_arun){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			

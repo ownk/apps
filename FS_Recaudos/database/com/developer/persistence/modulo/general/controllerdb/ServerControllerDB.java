@@ -5,7 +5,7 @@ import java.util.Date;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
-import com.developer.mybatis.DBManager;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.general.mapper.dao.ServerDao;
 
 public class ServerControllerDB {
@@ -23,7 +23,7 @@ public class ServerControllerDB {
 	
 		
 	public Date getSysdate(){
-		SqlSession session = DBManager.openSession();
+		SqlSession session = DBManagerFSRecaudos.openSession();
 
 		try {
 
