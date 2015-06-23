@@ -6,7 +6,7 @@
 	
 	
 	
-	<select id="getAllOficinas" parameterType="java.lang.String" resultType="oficinaRecaudo" >
+	<select id="getAllOficinas" resultType="oficinaRecaudo" >
 		select * from co_tofic
 	</select>
 	

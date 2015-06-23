@@ -4,17 +4,17 @@
 
 <mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ProyectoRecaudoDao">
 	
-	<select  id="getProyectosNoSIFIActivos" parameterType="proyectoNoSIFIActivo">
+	<select  id="getAllProyectosNoSIFIActivos" resultType="proyectoNoSIFIActivo">
 		select * from co_tpnsa
 	</select>
 	
-	<select id="getAllProyectosConFormulaDistribucion" parameterType="java.lang.String" resultType="proyectoConFormulaDistribucion">
+	<select id="getAllProyectosConFormulaDistribucion" resultType="proyectoConFormulaDistribucion">
 		select * from co_tpyfd
 		
 	</select>
 	
 	
-	<select id="getProyectosCancelados" parameterType="java.lang.Long" resultType="proyectoCancelado">
+	<select id="getAllProyectosCancelados" resultType="proyectoCancelado">
 		select * from co_tprca
 	</select>
 	

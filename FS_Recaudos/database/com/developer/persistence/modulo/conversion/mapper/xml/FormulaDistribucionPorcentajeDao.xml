@@ -4,11 +4,11 @@
 
 <mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.FormulaDistribucionPorcentajeDao">
 	
-	<insert id="getEstadosAplicaFormula" parameterType="estadoPlanFormulaDistribucion">
+	<select id="getAllEstadosAplicaFormula" resultType="estadoPlanFormulaDistribucion">
 		select * from co_tepfd
-	</insert>
+	</select>
 	
-	<select id="getDistribucionesPorcentuales" parameterType="java.lang.Long" resultType="distribucionPorFormulaPorcentaje">
+	<select id="getAllDistribucionesPorcentuales" resultType="distribucionPorFormulaPorcentaje">
 		select * from co_tdpfd	
 	</select>
 	
