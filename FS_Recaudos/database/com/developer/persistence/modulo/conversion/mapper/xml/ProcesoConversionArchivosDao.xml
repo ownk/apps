@@ -48,55 +48,16 @@
 		where prco_prco = #{prco_prco}
 	</update>
 	
-	<select id="getProcesosPorEstados" parameterType="java.util.HashMap" resultType="procesoConversionArchivos">
-		select * from co_tprco
-		where prco_eprco is not null
-		<if test="prco_estados != null">
-			and prco_eprco in ( ${prco_estados} )
-		</if>
-		order by prco_fcrea asc
-	</select>
 	
-
 	<select id="getHistoricoPorProceso" parameterType="java.lang.Long" resultType="historicoProcesoConversionArchivos">
 		select * from co_thprco
 		where hprco_prco = #{prco_prco}
 		order by hprco_fasig asc
 	</select>
 	
-	<select id="getProceso" parameterType="java.lang.Long" resultType="procesoConversionArchivos">
+	<select id="getProcesoPorPRUN" parameterType="java.lang.Long" resultType="procesoConversionArchivos">
 		select * from co_tprco
-		where prco_prco = #{prco_prco}
-	</select>
-	
-	<select id="getProcesos" parameterType="java.util.HashMap" resultType="procesoConversionArchivos">
-		select p.* from
-		(
-		    select a.prco_prco, rownum prco_rownum
-		    from
-		    (
-		      select p.* from co_tprco p
-		      where prco_prco is not null
-		      <if test="prco_estados != null">
-				and prco_eprco in ( ${prco_estados} )
-			  </if>
-		      order by prco_prco desc, prco_fcrea desc
-		    ) a
-		    where ((#{pagenumber} * #{pagesize}) + 1 ) > rownum
-		)a, co_tprco p
-		where prco_rownum >= (((#{pagenumber}-1) * #{pagesize}) + 1)
-		and a.prco_prco = p.prco_prco
-		order by p.prco_prco desc, p.prco_fcrea desc
-		
-	</select>
-	
-	<select id="getTotalProcesos" parameterType="java.util.HashMap" resultType="java.lang.Long">
-		
-	      select count(1) from co_tprco p
-	      where prco_prco is not null
-	      <if test="prco_estados != null">
-			and prco_eprco in ( ${prco_estados} )
-		  </if>
+		where prco_prun = #{prun_prun}
 	</select>
 	
 	

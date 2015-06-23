@@ -66,7 +66,7 @@
 					#{harge_obser}	)
 	</insert>
 	
-	<update id="setEstadoProceso" parameterType="archivoRecaudoGeneradoSIFI">
+	<update id="setEstado" parameterType="archivoRecaudoGeneradoSIFI">
 		update co_targe
 		set arge_earge = #{arge_earge}
 		where arge_arge = #{arge_arge}
