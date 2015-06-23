@@ -76,9 +76,22 @@
 		<typeAlias alias="detalleArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI" />
 		<typeAlias alias="procesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos" />
 		<typeAlias alias="historicoProcesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.HistoricoProcesoConversionArchivos" />
-		
 		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo" />
 		<typeAlias alias="validacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo" />
+		<typeAlias alias="estadoPlanFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion" />
+		<typeAlias alias="distribucionPorFormulaPorcentaje" type="com.developer.logic.modulo.conversion.dto.DistribucionPorFormulaPorcentaje" />
+		<typeAlias alias="parametroGeneral" type="com.developer.logic.modulo.conversion.dto.ParametroGeneral" />
+		<typeAlias alias="oficinaRecaudo" type="com.developer.logic.modulo.conversion.dto.OficinaRecaudo" />
+		<typeAlias alias="proyectoNoSIFIActivo" type="com.developer.logic.modulo.conversion.dto.ProyectoNoSIFIActivo" />
+		<typeAlias alias="proyectoConFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.ProyectoConFormulaDistribucion" />
+		<typeAlias alias="proyectoCancelado" type="com.developer.logic.modulo.conversion.dto.ProyectoCancelado" />
+		<typeAlias alias="encargoFiduciarioSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciario" />
+		<typeAlias alias="encargoFiduciarioNoSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciario" />
+		
+		
+		
+		
+		
 
 	
 	
@@ -137,17 +150,18 @@
 		<!-- ================================ -->
 		<!-- Modulo Conversion Archivos ==== -->
 		<!-- ================================ -->
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TransformacionArchivoRecaudo.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoOriginalPorConvertir.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoGeneradoSIFI.xml.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProcesoUnificacionArchivosDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TransformacionArchivoRecaudo.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ValidacionArchivoRecaudo.xml" />
 		
-		
-		
-		
-		
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoGeneradoSIFIDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoOriginalPorConvertirDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/EncargoFiduciarioDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/FormulaDistribucionPorcentajeDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/OficinaRecaudoDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ParametroGeneralDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProyectoRecaudoDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProcesoConversionArchivosDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TipoArchivoRecaudoDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TransformacionArchivoRecaudoDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ValidacionArchivoRecaudoDao.xml" />
 		
 	</mappers>
 	
