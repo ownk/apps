@@ -14,6 +14,8 @@ public interface EncargoFiduciarioDao {
 	
 	public List<EncargoFiduciarioNoSIFI> getAllEncargosNoSIFI();
 	
-
+	public void eliminarAllEncargosSIFI();
+	
+	public void crearRegistroEncargoSIFI(EncargoFiduciarioSIFI encargoFiduciarioSIFI);
 	
 }

@@ -24,7 +24,7 @@ public class TransformacionArchivoRecaudoControllerDB {
 	
 	
 	
-	public Boolean crearArchivoTransaccional(SqlSession session, TransformacionArchivoRecaudo transformacionArchivoRecaudo){
+	public Boolean crearTransformacionTransaccional(SqlSession session, TransformacionArchivoRecaudo transformacionArchivoRecaudo){
 		
 		try{
 					
@@ -35,7 +35,7 @@ public class TransformacionArchivoRecaudoControllerDB {
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error crearArchivoTransaccional", e);
+			SimpleLogger.error("Error crearTransformacionTransaccional", e);
 			return false;
 		}
 		

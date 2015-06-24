@@ -2,6 +2,8 @@ package com.developer.logic.modulo.conversion.dto;
 
 import java.util.Date;
 
+import com.developer.logic.modulo.general.dto.Persona;
+
 public class HistoricoProcesoConversionArchivos {
 	
 	Long    hprco_prco 	;
@@ -9,6 +11,10 @@ public class HistoricoProcesoConversionArchivos {
 	Date    hprco_fasig ;	
 	String  hprco_obser ;	
 	String  hprco_usua 	;
+	
+	
+	//Informacion complementario
+	Persona persona;
 	
 	public Long getHprco_prco() {
 		return hprco_prco;
@@ -40,7 +46,14 @@ public class HistoricoProcesoConversionArchivos {
 	public void setHprco_usua(String hprco_usua) {
 		this.hprco_usua = hprco_usua;
 	}
+	public Persona getPersona() {
+		return persona;
+	}
+	public void setPersona(Persona persona) {
+		this.persona = persona;
+	}
 
+	
 	
 	
 }	

@@ -155,13 +155,13 @@ public class ArchivoRecaudoGeneradoSIFIControllerDB {
 		
 	}
 			
-	public List<ArchivoRecaudoGeneradoSIFI> getArchivosPorPRCO(Long prun_prun){
+	public List<ArchivoRecaudoGeneradoSIFI> getArchivosPorPRCO(Long prco_prco){
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{
 			
 			ArchivoRecaudoGeneradoSIFIDao dao = session.getMapper(ArchivoRecaudoGeneradoSIFIDao.class);
-			return dao.getArchivosPorPRCO(prun_prun);
+			return dao.getArchivosPorPRCO(prco_prco);
 			
 			
 		}catch (Exception e) {

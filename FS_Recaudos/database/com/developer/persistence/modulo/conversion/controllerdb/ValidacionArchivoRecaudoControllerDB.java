@@ -24,7 +24,7 @@ public class ValidacionArchivoRecaudoControllerDB {
 	
 	
 	
-	public Boolean crearArchivoTransaccional(SqlSession session, ValidacionArchivoRecaudo validacionArchivoRecaudo){
+	public Boolean crearValidacionTransaccional(SqlSession session, ValidacionArchivoRecaudo validacionArchivoRecaudo){
 		
 		try{
 					
@@ -35,7 +35,7 @@ public class ValidacionArchivoRecaudoControllerDB {
 			
 			
 		}catch (Exception e) {
-			SimpleLogger.error("Error crearArchivoTransaccional", e);
+			SimpleLogger.error("Error crearValidacionTransaccional", e);
 			return false;
 		}
 		
@@ -43,7 +43,7 @@ public class ValidacionArchivoRecaudoControllerDB {
 	
 	
 	
-	public List<ValidacionArchivoRecaudo> getTransformacionesPorARORxDAROR(Long aror_aror, Long daror_id_reg){
+	public List<ValidacionArchivoRecaudo> getValidacionesPorARORxDAROR(Long aror_aror, Long daror_id_reg){
 		
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
@@ -57,7 +57,7 @@ public class ValidacionArchivoRecaudoControllerDB {
 			return dao.getValidacionesPorARORxDAROR(hashMap);
 			
 		} catch (Exception e) {
-			SimpleLogger.error("Error getTransformacionesPorARORxDAROR", e);
+			SimpleLogger.error("Error getValidacionesPorARORxDAROR", e);
 			return null;
 	
 		} finally {

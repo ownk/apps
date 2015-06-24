@@ -127,7 +127,6 @@ public class ProcesoConversionArchivosControllerDB {
 	
 	public ProcesoConversionArchivos iniciarProcesoConversionArchivosTransaccional(	SqlSession session, 
 															Long prco_prun, 
-															Long prco_archivos,
 															String observacion,
 															Date prco_fini,
 															Date prco_ffin,

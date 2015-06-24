@@ -1,6 +1,7 @@
 package com.developer.logic.modulo.conversion.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class ProcesoConversionArchivos {
 	
@@ -15,6 +16,9 @@ public class ProcesoConversionArchivos {
 	Date    prco_fini 	;
 	Date    prco_ffin 	;
 	Long    prco_prun   ;
+	
+	
+	List<HistoricoProcesoConversionArchivos> historicoProcesoConversionArchivos;
 	
 	public Long getPrco_prco() {
 		return prco_prco;
@@ -65,6 +69,15 @@ public class ProcesoConversionArchivos {
 		this.prco_prun = prco_prun;
 	}
 	
+	public List<HistoricoProcesoConversionArchivos> getHistoricoProcesoConversionArchivos() {
+		return historicoProcesoConversionArchivos;
+	}
+	public void setHistoricoProcesoConversionArchivos(
+			List<HistoricoProcesoConversionArchivos> historicoProcesoConversionArchivos) {
+		this.historicoProcesoConversionArchivos = historicoProcesoConversionArchivos;
+	}
+	
+
 	
 
 }

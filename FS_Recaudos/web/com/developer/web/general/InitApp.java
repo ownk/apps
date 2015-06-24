@@ -18,6 +18,8 @@ import com.developer.logic.modulo.autenticacion.modelo.GeneradorSessionApp;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.notificaciones.modelo.NotificacionServicio;
 import com.developer.mybatis.DBManagerFSRecaudos;
+import com.developer.mybatis.DBManagerSIFI29;
+import com.developer.mybatis.DBManagerSIFI43;
 import com.developer.web.content.jsonrpc.JSONServiceManager;
 
 public class InitApp extends HttpServlet implements Servlet {
@@ -41,8 +43,18 @@ public class InitApp extends HttpServlet implements Servlet {
 		JSONServiceManager.geJsonrpcManager().initJsonNonSessionServices();
 		
 		//Se inicializa la configuracion del gestor de bases de datos
-		SimpleLogger.info("Inicializando conexion database");
+		SimpleLogger.info("Inicializando conexion database FSRecaudos");
 		DBManagerFSRecaudos.initConfiguration();
+		
+		//Se inicializa la configuracion del gestor de bases de datos
+		SimpleLogger.info("Inicializando conexion database SIFI29");
+		DBManagerSIFI29.initConfiguration();
+		
+		
+		//Se inicializa la configuracion del gestor de bases de datos
+		SimpleLogger.info("Inicializando conexion database SIFI43");
+		DBManagerSIFI43.initConfiguration();
+				
 		
 		//Se inicializa el controlador de autenticacion
 		SimpleLogger.info("Inicializando servicio de autenticacion");

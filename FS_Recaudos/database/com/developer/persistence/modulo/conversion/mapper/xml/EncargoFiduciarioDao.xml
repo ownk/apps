@@ -15,6 +15,34 @@
 	</select>
 	
 	
+	<insert id="crearRegistroEncargoSIFI" parameterType="encargoFiduciarioSIFI">
+		insert into co_tplts
+		(
+			plts_plan, 		
+			plts_esta, 		
+			plts_fdei, 		
+			plts_fdei_tipo,
+			plts_fcrea, 		
+			plts_freca, 	
+		)
+		values
+		(
+			#{plts_plan}, 		
+			#{plts_esta}, 		
+			#{plts_fdei}, 		
+			#{plts_fdei_tipo},
+			#{plts_fcrea}, 		
+			#{plts_freca} 			   
+		)
+	</insert>
+	
+	
+	<delete id="eliminarAllEncargosSIFI">
+		delete from co_tplts
+	
+	</delete>
+	
+	
 
 	
 </mapper>

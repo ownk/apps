@@ -4,7 +4,8 @@ import java.util.Date;
 
 public class ArchivoRecaudoOriginalPorConvertir {
 	
-	public static String CONVERTIDO0 = "CONVERTIDO";
+	public static String POR_CONVERTIR = "POR_CONVERTIR";
+	public static String CONVERTIDO = "CONVERTIDO";
 	
 	Long   aror_aror 	  ;
 	String aror_usua 	  ;

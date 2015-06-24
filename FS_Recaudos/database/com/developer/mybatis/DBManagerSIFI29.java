@@ -9,7 +9,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.developer.core.utils.SimpleLogger;
 
-public class DBManagerFSRecaudos {
+public class DBManagerSIFI29 {
 
 	private static SqlSessionFactory sqlSessionFactory;
 
@@ -17,7 +17,7 @@ public class DBManagerFSRecaudos {
 	
 	public static void initConfiguration() {
 		try {
-			String resource = "mybatis-config-oracle-fsrecaudos.xml";
+			String resource = "mybatis-config-oracle-sifi29.xml";
 			Reader reader = Resources.getResourceAsReader(resource);
 			sqlSessionFactory = new SqlSessionFactoryBuilder().build(reader);
 			

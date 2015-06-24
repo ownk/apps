@@ -1,5 +1,7 @@
 package com.developer.persistence.modulo.conversion.controllerdb;
 
+import java.util.List;
+
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
@@ -22,7 +24,7 @@ public class ParametroGeneralConversionControllerDB {
 	
 				
 
-	public ParametroGeneralConversion getAllParametros(){
+	public List<ParametroGeneralConversion> getAllParametros(){
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		

@@ -61,6 +61,41 @@ public class EncargoFiduciarioControllerDB {
 	}
 	
 
+	public Boolean eliminarAllEncargosSIFITransaccional(SqlSession session){
+		
+		try{
+			
+			EncargoFiduciarioDao dao = session.getMapper(EncargoFiduciarioDao.class);
+			dao.eliminarAllEncargosSIFI();
+			
+			return true;
+			
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error eliminarAllEncargosSIFITransaccional", e);
+			return false;
+		}
+	}
+	
+	
+	public Boolean crearRegistroEncargoSIFITransaccional(SqlSession session, EncargoFiduciarioSIFI encargoFiduciarioSIFI){
+		try{
+			
+			EncargoFiduciarioDao dao = session.getMapper(EncargoFiduciarioDao.class);
+			dao.crearRegistroEncargoSIFI(encargoFiduciarioSIFI);
+			
+			return true;
+			
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error crearRegistroEncargoSIFITransaccional", e);
+			return false;
+		}
+		
+	}
+	
 	 
 
 }
