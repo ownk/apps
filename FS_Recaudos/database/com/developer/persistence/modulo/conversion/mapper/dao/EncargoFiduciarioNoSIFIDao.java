@@ -7,15 +7,12 @@ import com.developer.logic.modulo.conversion.dto.EncargoFiduciarioSIFI;
 
 
 
-public interface EncargoFiduciarioDao {
+public interface EncargoFiduciarioNoSIFIDao {
 
-	
-	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI();
 	
 	public List<EncargoFiduciarioNoSIFI> getAllEncargosNoSIFI();
 	
-	public void eliminarAllEncargosSIFI();
+	public EncargoFiduciarioNoSIFI getEncargoNoSIFI(EncargoFiduciarioNoSIFI encargoFiduciarioNoSIFI);
 	
-	public void crearRegistroEncargoSIFI(EncargoFiduciarioSIFI encargoFiduciarioSIFI);
 	
 }

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.EncargoFiduciarioNoSIFIDao">
+	
+	<select id="getAllEncargosNoSIFI" resultType="encargoFiduciarioNoSIFI">
+		select * from co_tplns
+	</select>
+	
+	
+	<select id="getEncargoNoSIFI" parameterType="encargoFiduciarioNoSIFI" resultType="encargoFiduciarioNoSIFI">
+		select * from co_tplns
+		where plns_plan = #{plns_plan}
+	</select>
+	
+
+	
+</mapper>

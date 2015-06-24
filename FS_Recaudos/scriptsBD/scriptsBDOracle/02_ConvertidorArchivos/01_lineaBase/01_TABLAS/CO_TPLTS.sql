@@ -13,24 +13,30 @@ Prompt Creando tabla CO_TPLTS
 Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CO_TPLTS" 
-   (	"PLTS_PLAN" 			NUMBER					constraint NN_CO_TPLTS_PLAN         not null,
+   (	
+        "PLTS_FOND" 			NUMBER					constraint NN_CO_TPLTS_FOND         not null,    
+        "PLTS_PLAN" 			NUMBER					constraint NN_CO_TPLTS_PLAN         not null,
 		"PLTS_ESTA" 			VARCHAR2(10 BYTE)	    constraint NN_CO_TPLTS_ESTA         not null, 
         "PLTS_FDEI" 			NUMBER                  constraint NN_CO_TPLTS_FDEI         not null, 
-        "PLTS_FDEI_TIPO" 		VARCHAR2(1)	            constraint NN_CO_TPLTS_FDEI_TIPO    not null, 
+        "PLTS_FDEI_TITU" 		VARCHAR2(1)             constraint NN_CO_TPLTS_FDEI_TITU    not null, 
+        "PLTS_FDEI_TPID" 		VARCHAR2(1)	            constraint NN_CO_TPLTS_FDEI_TPID    not null, 
         "PLTS_FCREA" 			DATE					constraint NN_CO_TPLTS_FCREA        not null,
         "PLTS_FRECA" 			DATE					constraint NN_CO_TPLTS_FRECA        not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
  
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_FOND" IS 'Identificador del fondo';
 
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_PLAN" IS 'Identificador del tipo de formula soportada por el convertidor ';
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_PLAN" IS 'Identificador del plan ';
    
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_ESTA" IS 'Cuenta recaudadora ';
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_ESTA" IS 'Estado del plan ';
    
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_FDEI" IS 'Nro ID Titular del encargo ';
    
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_FDEI_TIPO" IS 'Tipo de titular P.Principal o S.Secundario  ';
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_FDEI_TPID" IS 'Tipo de identificacion  ';
+   
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_FDEI_TITU" IS 'Tipo de titular P.Principal o S.Secundario  ';
  
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TPLTS"."PLTS_FCREA" IS 'Fecha de creacion';
    

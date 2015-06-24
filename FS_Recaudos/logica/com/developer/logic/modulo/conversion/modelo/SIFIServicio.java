@@ -23,31 +23,39 @@ public class SIFIServicio {
 	 * ==========================================
 	 */
 	
-	
-	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI29(){
-		SIFIControllerDB controllerDB = SIFIControllerDB.getInstance();
-		List<EncargoFiduciarioSIFI> list = controllerDB.getAllEncargosSIFI29();
+	public List<EncargoFiduciarioSIFI> getEncargoSIFI (EncargoFiduciarioSIFI encargoFiduciarioSIFI){
 		
-		if(list!=null && list.size()>0){
-			return list;
-		}else{
-			return null;
+		List<EncargoFiduciarioSIFI> list = null;
+		
+		list = getEncargoSIFI29(encargoFiduciarioSIFI);
+		
+		if(list==null){
+			list = getEncargoSIFI43(encargoFiduciarioSIFI);
+			
 		}
 		
+		return list;
 		
+		
+		
+	} 
+
+	
+	private List<EncargoFiduciarioSIFI> getEncargoSIFI29(EncargoFiduciarioSIFI encargoFiduciarioSIFI){
+		SIFIControllerDB controllerDB = SIFIControllerDB.getInstance();
+		List<EncargoFiduciarioSIFI> list =  controllerDB.getEncargoSIFI43(encargoFiduciarioSIFI);
+		
+		return list;
 		
 		
 	}
 	
-	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI43(){
+
+	private List<EncargoFiduciarioSIFI> getEncargoSIFI43(EncargoFiduciarioSIFI encargoFiduciarioSIFI){
 		SIFIControllerDB controllerDB = SIFIControllerDB.getInstance();
-		List<EncargoFiduciarioSIFI> list = controllerDB.getAllEncargosSIFI43();
+		List<EncargoFiduciarioSIFI> list  = controllerDB.getEncargoSIFI43(encargoFiduciarioSIFI);
 		
-		if(list!=null && list.size()>0){
-			return list;
-		}else{
-			return null;
-		}
+		return list;
 		
 		
 	}
