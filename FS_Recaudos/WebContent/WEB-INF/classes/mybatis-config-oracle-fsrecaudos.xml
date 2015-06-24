@@ -67,16 +67,16 @@
 		<!-- ================================ -->
 		<!-- Modulo Conversion Archivos ==== -->
 		<!-- ================================ -->
-		<typeAlias alias="tipoArchivoRecaudoConvertidor" type="com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudo" />
+		<typeAlias alias="tipoArchivoRecaudoConvertidor" type="com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor" />
 		<typeAlias alias="archivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir" />
-		<typeAlias alias="historicoArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.historicoArchivoRecaudoOriginalPorConvertir" />
+		<typeAlias alias="historicoArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir" />
 		<typeAlias alias="detalleArchivoRecaudoOriginalPorConvertir" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir" />
 		<typeAlias alias="archivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI" />
 		<typeAlias alias="historicoArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoGeneradoSIFI" />
 		<typeAlias alias="detalleArchivoRecaudoGeneradoSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI" />
 		<typeAlias alias="procesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos" />
 		<typeAlias alias="historicoProcesoConversionArchivos" type="com.developer.logic.modulo.conversion.dto.HistoricoProcesoConversionArchivos" />
-		<typeAlias alias="transformacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo" />
+		<typeAlias alias="transformacionArchivoRecaudoConvertidor" type="com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo" />
 		<typeAlias alias="validacionArchivoRecaudo" type="com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo" />
 		<typeAlias alias="proyectoCancelado" type="com.developer.logic.modulo.conversion.dto.ProyectoCancelado" />
 		<typeAlias alias="proyectoConFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.ProyectoConFormulaDistribucion" />
@@ -86,7 +86,7 @@
 		<typeAlias alias="distribucionPorFormulaPorcentaje" type="com.developer.logic.modulo.conversion.dto.DistribucionPorFormulaPorcentaje" />
 		<typeAlias alias="estadoPlanFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion" />
 		<typeAlias alias="encargoFiduciarioNoSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciarioNoSIFI" />
-		<typeAlias alias="encargoFiduciarioSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciarioSIFI" />
+		
 		
 
 
@@ -149,10 +149,10 @@
 		<!-- ================================ -->
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoGeneradoSIFIDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoOriginalPorConvertirDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/EncargoFiduciarioDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/EncargoFiduciarioNoSIFI.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/FormulaDistribucionPorcentajeDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/OficinaRecaudoDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ParametroGeneralDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ParametroGeneralConversionDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProcesoConversionArchivosDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ProyectoRecaudoDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/TipoArchivoRecaudoDao.xml" />

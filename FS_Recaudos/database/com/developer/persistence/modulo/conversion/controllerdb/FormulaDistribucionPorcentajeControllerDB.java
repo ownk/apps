@@ -8,7 +8,6 @@ import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.conversion.dto.DistribucionPorFormulaPorcentaje;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion;
 import com.developer.mybatis.DBManagerFSRecaudos;
-import com.developer.persistence.modulo.conversion.mapper.dao.EncargoFiduciarioDao;
 import com.developer.persistence.modulo.conversion.mapper.dao.FormulaDistribucionPorcentajeDao;
 
 public class FormulaDistribucionPorcentajeControllerDB {

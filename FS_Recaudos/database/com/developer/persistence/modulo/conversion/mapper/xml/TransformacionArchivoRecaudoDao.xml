@@ -4,7 +4,7 @@
 
 <mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.TransformacionArchivoRecaudoDao">
 	
-	<insert id="crearTransformacion" parameterType="transformacionArchivoRecaudo">
+	<insert id="crearTransformacion" parameterType="transformacionArchivoRecaudoConvertidor">
 		insert into co_ttrar 
 		(
 			trar_trar, 		   
@@ -31,7 +31,7 @@
 	
 	
 	
-	<select id="getTransformacionesPorARORxDAROR" parameterType="java.util.HashMap" resultType="transformacionArchivoRecaudo">
+	<select id="getTransformacionesPorARORxDAROR" parameterType="java.util.HashMap" resultType="transformacionArchivoRecaudoConvertidor">
 		select * from co_ttrar
 		where trar_aror = #{aror_aror}
 		and trar_daror_id_reg = #{daror_id_reg}

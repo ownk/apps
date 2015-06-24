@@ -5,7 +5,40 @@
 <mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.SIFI29Dao">
 	
 	<select id="getAllEncargosSIFI" resultType="encargoFiduciarioSIFI">
-		select * from sf_tplan
+		select plan_fond PLTS_FOND, 
+				plan_plan PLTS_PLAN, 
+				plan_estact PLTS_ESTA,
+				ptpl_fdei PLTS_FDEI,
+				fdei_tpid PLTS_FDEI_TPID,
+				sysdate PLTS_FCREA,
+				sysdate PLTS_FRECA, 
+				ptpl_clas plts_fdei_titu         
+	    from sf_tplan, sf_tptpl, sf_tfdei
+	    where ptpl_plan = plan_plan
+	    and ptpl_fond = plan_fond
+	    and ptpl_fdei = fdei_fdei
+	    and ptpl_tipo = 'T'
+	    and ptpl_status = 'A'
+	</select>
+	
+	
+		
+	<select id="getEncargoSIFI" parameterType="encargoFiduciarioSIFI" resultType="encargoFiduciarioSIFI">
+		select plan_fond PLTS_FOND, 
+				plan_plan PLTS_PLAN, 
+				plan_estact PLTS_ESTA,
+				ptpl_fdei PLTS_FDEI,
+				fdei_tpid PLTS_FDEI_TPID,
+				sysdate PLTS_FCREA,
+				sysdate PLTS_FRECA, 
+				ptpl_clas plts_fdei_titu         
+	    from sf_tplan, sf_tptpl, sf_tfdei
+	    where ptpl_plan = plan_plan
+	    and ptpl_fond = plan_fond
+	    and ptpl_fdei = fdei_fdei
+	    and ptpl_tipo = 'T'
+	    and ptpl_status = 'A'
+		and plan_plan = #{plts_plan}
 	</select>
 	
 

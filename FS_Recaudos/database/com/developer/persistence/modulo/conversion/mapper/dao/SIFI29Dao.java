@@ -11,5 +11,5 @@ public interface SIFI29Dao {
 	
 	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI();
 	
-
+	public List<EncargoFiduciarioSIFI> getEncargoSIFI(EncargoFiduciarioSIFI encargoFiduciarioSIFI);
 }
