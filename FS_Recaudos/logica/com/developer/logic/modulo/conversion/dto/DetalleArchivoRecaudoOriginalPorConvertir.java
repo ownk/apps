@@ -19,7 +19,7 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 	String  daror_cons_bsc_2;
 	String  daror_registro 	;
 	Date    daror_fcrea 	;
-	
+	String  daror_cta_reca 	;
 	
 	public Long getDaror_aror() {
 		return daror_aror;
@@ -110,6 +110,12 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 	}
 	public void setDaror_fcrea(Date daror_fcrea) {
 		this.daror_fcrea = daror_fcrea;
+	}
+	public String getDaror_cta_reca() {
+		return daror_cta_reca;
+	}
+	public void setDaror_cta_reca(String daror_cta_reca) {
+		this.daror_cta_reca = daror_cta_reca;
 	}
 	
 	

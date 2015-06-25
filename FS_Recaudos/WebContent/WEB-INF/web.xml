@@ -17,7 +17,7 @@
 			<param-value>200</param-value>
 		</init-param>
 	</servlet>
-	<!-- Servlet descarga documentos ANTEPROYECTO -->
+	<!-- Servlet descarga documentos ARUN -->
 	<servlet>
 		<servlet-name>DownloadDocARUNServlet</servlet-name>
 		<servlet-class>com.developer.web.content.servlet.modulo.unificacion.DownloadDocARUNServlet</servlet-class>

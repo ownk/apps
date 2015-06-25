@@ -1,4 +1,4 @@
-package com.developer.logic.modulo.unificacion.modelo;
+package com.developer.logic.modulo.general.modelo;
 
 
 

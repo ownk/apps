@@ -95,6 +95,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 			
 			for (DetalleArchivoRecaudoOriginalPorConvertir detalleArchivoRecaudoOriginalPorConvertir : detallesArchivoRecaudoOriginalPorConvertir) {
 				detalleArchivoRecaudoOriginalPorConvertir.setDaror_aror(archivoRecaudoOriginalPorConvertir.getAror_aror());
+				detalleArchivoRecaudoOriginalPorConvertir.setDaror_fcrea(archivoRecaudoOriginalPorConvertir.getAror_fcrea());
 
 				
 				sinErrores = sinErrores && ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance().crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoOriginalPorConvertir);

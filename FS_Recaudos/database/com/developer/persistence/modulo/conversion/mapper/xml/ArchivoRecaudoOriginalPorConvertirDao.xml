@@ -79,7 +79,7 @@
 	</select>
 	
 	<insert id="crearDetalleArchivo" parameterType="detalleArchivoRecaudoOriginalPorConvertir">
-		insert into co_taror
+		insert into co_tdaror
 		(
 			daror_aror, 		
 			daror_id_reg, 	    
@@ -95,7 +95,8 @@
 			daror_comp, 		
 			daror_cons_bsc_2,  
 			daror_registro, 	
-			daror_fcrea 		
+			daror_fcrea, 
+			daror_cta_reca		
 		)
 		values
 		(
@@ -113,7 +114,8 @@
 			#{daror_comp},		
 			#{daror_cons_bsc_2}, 
 			#{daror_registro},	
-			now()			   
+			now(),	
+			#{daror_cta_reca}		   
 		)
 	</insert>
 	

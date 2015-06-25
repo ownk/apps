@@ -25,9 +25,10 @@ Prompt
 		"DAROR_CONS_BSC_1" 	VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_CONS_BSC_1 not null, 
         "DAROR_TIPO_RECA" 	VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_TIPO_RECA not null, 
         "DAROR_COMP" 		VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_COMP not null, 
-        "DAROR_CONS_BSC_2"   VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_CONS_BSC_2 not null, 
+        "DAROR_CONS_BSC_2"  VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_CONS_BSC_2 not null, 
         "DAROR_REGISTRO" 	VARCHAR2(4000 BYTE)		constraint NN_CO_TDAROR_REGISTRO   not null,
-        "DAROR_FCREA" 		DATE					constraint NN_CO_TDAROR_FCREA not null
+        "DAROR_FCREA" 		DATE					constraint NN_CO_TDAROR_FCREA not null,
+        "DAROR_CTA_RECA"    VARCHAR2(100 BYTE)		constraint NN_CO_TDAROR_CTA_RECA not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -47,6 +48,8 @@ Prompt
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDAROR"."DAROR_CONS_BSC_2"   IS 'Consecutivo 2 BSC';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDAROR"."DAROR_REGISTRO" 	IS 'Copia del registro original';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDAROR"."DAROR_FCREA" 		IS 'Fecha de creacion en el sistema';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDAROR"."DAROR_CTA_RECA" 	IS 'Cuenta recaudadora';
+    
     
     COMMENT ON TABLE "FS_RECAUDOS_US"."CO_TDAROR"  IS 'Tabla que almacena el detalle archivo original por convertir';
    

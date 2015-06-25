@@ -1,6 +1,6 @@
 package com.developer.logic.modulo.conversion.modelo;
 
-import java.util.ArrayList;
+import java.io.File;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -11,6 +11,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.HistoricoProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
@@ -147,6 +148,26 @@ public class ProcesoConversionArchivosServicio {
 						archivo.setAror_usua(usuario.getUsua_usua());
 						
 						sinErrores = sinErrores && archivoRecaudoOriginalPorConvertirServicio.crearDocumentoTransaccional(session, archivo, mensajeErrorOut);
+						
+						//Se crea el detalle del archivo de recaudo
+						
+						if(archivo.getAror_registros()>0){
+							String filename = archivoRecaudoUnificado.getArun_url();
+							File file = new File(filename);
+							
+							LectorArchivoBSC lectorArchivoBSC = new LectorArchivoBSC(file);
+							List<DetalleArchivoRecaudoOriginalPorConvertir> detalles = lectorArchivoBSC.generarDetalleArchivo(mensajeErrorOut);
+							
+							if(detalles!=null && detalles.size()>0){
+								
+								sinErrores = sinErrores&&archivoRecaudoOriginalPorConvertirServicio.crearDetallesTransaccional(session, archivo, detalles, mensajeErrorOut);
+								
+							}else{
+								sinErrores = false;
+							}
+						}	
+							
+						
 					}
 					
 					if(sinErrores){

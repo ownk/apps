@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.general.modelo.LectorArchivoPlanoUtils;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 
 public class ConvertidorArchivoAsobancaria {
