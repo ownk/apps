@@ -192,7 +192,23 @@ public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 		
 	}
 	
-
+	public List<DetalleArchivoRecaudoOriginalPorConvertir> getAllDetallesAROR(Long aror_aror){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ArchivoRecaudoOriginalPorConvertirDao dao = session.getMapper(ArchivoRecaudoOriginalPorConvertirDao.class);
+			return dao.getAllDetallesAROR(aror_aror);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getAllDetallesAROR", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
 	 
 
 }

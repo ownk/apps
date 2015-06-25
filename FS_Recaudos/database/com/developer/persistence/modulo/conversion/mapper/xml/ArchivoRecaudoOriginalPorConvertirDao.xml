@@ -119,8 +119,13 @@
 		)
 	</insert>
 	
-
-
+	<select id="getAllDetallesAROR" parameterType="java.lang.Long" resultType="detalleArchivoRecaudoOriginalPorConvertir" >
+		select * from co_tdaror
+		where daror_aror = #{aror_aror}
+		
+	</select>
+	
+	
 	
 	
 </mapper>

@@ -14,7 +14,7 @@ import com.developer.core.utils.ObjectToXML;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
-import com.developer.logic.modulo.conversion.modelo.ConvertidorArchivosSIFIServicio;
+import com.developer.logic.modulo.conversion.modelo.ConvertidorArchivosSIFIPorProcesoServicio;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
@@ -124,7 +124,7 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 						
 						
 						//Se proces a crear la conversion de archivo de forma automatica
-						ConvertidorArchivosSIFIServicio convertidorArchivosSIFIServicio = new ConvertidorArchivosSIFIServicio();
+						ConvertidorArchivosSIFIPorProcesoServicio convertidorArchivosSIFIServicio = new ConvertidorArchivosSIFIPorProcesoServicio();
 						sinErrores = convertidorArchivosSIFIServicio.generarArchivosSIFIPorProceso(procesoUnificacionArchivos, sessionAppUsuario.getUsuario(), mensajeErrorOut);
 						
 						if(sinErrores){

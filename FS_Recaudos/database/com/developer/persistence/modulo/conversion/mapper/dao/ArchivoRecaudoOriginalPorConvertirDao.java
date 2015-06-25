@@ -25,6 +25,7 @@ public interface ArchivoRecaudoOriginalPorConvertirDao {
 		
 	public void crearDetalleArchivo(DetalleArchivoRecaudoOriginalPorConvertir detalleArchivoRecaudoOriginalPorConvertir);
 	
+	public List<DetalleArchivoRecaudoOriginalPorConvertir> getAllDetallesAROR(Long aror_aror);
 	
 	
 	

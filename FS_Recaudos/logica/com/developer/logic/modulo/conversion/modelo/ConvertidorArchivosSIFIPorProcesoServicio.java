@@ -1,19 +1,25 @@
 package com.developer.logic.modulo.conversion.modelo;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
+import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.unificacion.modelo.ProcesoUnificacionArchivosServicio;
 
-public class ConvertidorArchivosSIFIServicio {
+public class ConvertidorArchivosSIFIPorProcesoServicio {
 	
 	
-	public ConvertidorArchivosSIFIServicio() {
+	public ConvertidorArchivosSIFIPorProcesoServicio() {
 		
 	}
 	
@@ -50,8 +56,51 @@ public class ConvertidorArchivosSIFIServicio {
 			
 			
 			
-			//Si al final del procso no hay errores se hace commt;
+			/**
+			 * Si el proceso se ha creado con exito se debe proceder 
+			 * a generar los archivos por cada tipo de archivo
+			 */
 			if(procesoConversionArchivos!=null){
+				
+				ArchivoRecaudoOriginalPorConvertirServicio archivoRecaudoOriginalPorConvertirServicio = ArchivoRecaudoOriginalPorConvertirServicio.getInstance();
+				List<ArchivoRecaudoOriginalPorConvertir> list = archivoRecaudoOriginalPorConvertirServicio.getArchivosPorPRCO(procesoConversionArchivos.getPrco_prco());
+				
+				
+				//Se crean un pool de hilos para la creacion de archivos SIFI
+				int totalHilos = list.size();
+				ExecutorService executor = (ExecutorService) Executors.newFixedThreadPool(totalHilos);
+			    List<HiloConversionPorTipoArchivo> listaHilos = new ArrayList<HiloConversionPorTipoArchivo>();
+			    
+			    for (ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir : list) {
+					
+			    	//HiloConversionPorTipoArchivo hiloConversion = new HiloConversionPorTipoArchivo(rutaArchivosSIFI, nombreArchivo, procesoUnificacionArchivos, archivoRecaudoOriginalPorConvertir, usua_usua);
+			    	HiloConversionPorTipoArchivo hiloConversion = new HiloConversionPorTipoArchivo("", "", procesoUnificacionArchivos, archivoRecaudoOriginalPorConvertir, usuario.getUsua_usua());
+			    	listaHilos.add(hiloConversion);
+				}
+			    
+			    List<Future<Boolean>> listaResultados = null; 
+			    try {
+			        listaResultados = executor.invokeAll(listaHilos);      
+			    
+			    } catch (Exception e) {
+			    		e.printStackTrace();
+			    }    
+			    
+			    executor.shutdown();
+			    
+			    
+			    //Se evaluan las respuestas de hilos 
+			    for (int i = 0; i < listaResultados.size(); i++) {
+			       Future<Boolean> resultado = listaResultados.get(i);
+			       try {      
+			         System.out.println("El resultado de la tarea "+i+ " es:" + resultado.get());
+			       } catch (Exception e) {
+			         e.printStackTrace();
+			       }
+			    }
+				
+				
+				
 				
 				
 			}else{

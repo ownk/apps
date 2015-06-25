@@ -113,7 +113,14 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 	}
 
 	
-	
+	public List<DetalleArchivoRecaudoOriginalPorConvertir> getAllDetallesAROR(Long aror_aror){
+		
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance();
+		List<DetalleArchivoRecaudoOriginalPorConvertir> list = controllerDB.getAllDetallesAROR(aror_aror);
+		
+		return list;
+		
+	}
 	
 	
 	
