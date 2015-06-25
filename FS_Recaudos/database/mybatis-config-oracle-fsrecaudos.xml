@@ -149,7 +149,7 @@
 		<!-- ================================ -->
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoGeneradoSIFIDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ArchivoRecaudoOriginalPorConvertirDao.xml" />
-		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/EncargoFiduciarioNoSIFI.xml" />
+		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/EncargoFiduciarioNoSIFIDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/FormulaDistribucionPorcentajeDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/OficinaRecaudoDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ParametroGeneralConversionDao.xml" />

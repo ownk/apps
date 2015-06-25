@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
+import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.HistoricoProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
@@ -43,7 +44,7 @@ public class ProcesoConversionArchivosServicio {
 	
 
 		
-	public ProcesoConversionArchivos iniciarProcesoConversionArchivosTransaccional(Long prun_prun,  String observacionDeInicio, Date currentDate, ArrayList<ArchivoRecaudoUnificado> files,  Date prco_fini, Date prco_ffin, Usuario usuario, StringBuffer mensajeErrorOut){
+	public ProcesoConversionArchivos iniciarProcesoConversionArchivosTransaccional(Long prun_prun,  String observacionDeInicio, Date currentDate, List<ArchivoRecaudoUnificado> files,  Date prco_fini, Date prco_ffin, Usuario usuario, StringBuffer mensajeErrorOut){
 		
 		
 		SqlSession session = DBManagerFSRecaudos.openSession();
@@ -111,7 +112,8 @@ public class ProcesoConversionArchivosServicio {
 			
 			//Se verifica que no existan errores para crear el procesoConversionArchivos
 			if(sinErrores){
-				ProcesoConversionArchivos procesoConversionArchivos = ProcesoConversionArchivosControllerDB.getInstance().iniciarProcesoConversionArchivosTransaccional(	session, 
+				ProcesoConversionArchivos procesoConversionArchivos = ProcesoConversionArchivosControllerDB.getInstance().
+																		iniciarProcesoConversionArchivosTransaccional(	session, 
 																														prun_prun,
 																														observacionDeInicio,
 																														prco_fini,
@@ -123,6 +125,38 @@ public class ProcesoConversionArchivosServicio {
 				
 			
 				if(procesoConversionArchivos!= null ){
+					
+					//Se deben crear los archivos a convertir
+					ArchivoRecaudoOriginalPorConvertirServicio archivoRecaudoOriginalPorConvertirServicio = ArchivoRecaudoOriginalPorConvertirServicio.getInstance();
+					
+					for (ArchivoRecaudoUnificado archivoRecaudoUnificado : files) {
+						
+						ArchivoRecaudoOriginalPorConvertir archivo = new ArchivoRecaudoOriginalPorConvertir();
+						archivo.setAror_aror(archivoRecaudoUnificado.getArun_arun());
+						archivo.setAror_arun(archivoRecaudoUnificado.getArun_arun());
+						archivo.setAror_bytes(archivoRecaudoUnificado.getArun_bytes());
+						archivo.setAror_extension(archivoRecaudoUnificado.getArun_extension());
+						archivo.setAror_fcrea(currentDate);
+						archivo.setAror_hash(archivoRecaudoUnificado.getArun_hash());
+						archivo.setAror_nombre(archivoRecaudoUnificado.getArun_nombre());
+						archivo.setAror_observ(archivoRecaudoUnificado.getArun_observ());
+						archivo.setAror_prco(procesoConversionArchivos.getPrco_prco());
+						archivo.setAror_registros(archivoRecaudoUnificado.getArun_registros());
+						archivo.setAror_tpar(archivoRecaudoUnificado.getArun_tpar());
+						archivo.setAror_url(archivoRecaudoUnificado.getArun_url());
+						archivo.setAror_usua(usuario.getUsua_usua());
+						
+						sinErrores = sinErrores && archivoRecaudoOriginalPorConvertirServicio.crearDocumentoTransaccional(session, archivo, mensajeErrorOut);
+					}
+					
+					if(sinErrores){
+						session.commit();
+					}else{
+						session.rollback();
+						SimpleLogger.error("Error creando procesoConversionArchivos. No ha sido posible crear los archivos a procesar");
+						mensajeErrorOut.append("Error creando procesoConversionArchivos. No ha sido posible crear los archivos a procesar");
+						
+					}
 						
 				}
 								

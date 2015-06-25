@@ -14,6 +14,7 @@ import com.developer.core.utils.ObjectToXML;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
+import com.developer.logic.modulo.conversion.modelo.ConvertidorArchivosSIFIServicio;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
@@ -118,6 +119,26 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 											+ " se ha creado con éxito!");
 		
 						}
+						
+						
+						
+						
+						//Se proces a crear la conversion de archivo de forma automatica
+						ConvertidorArchivosSIFIServicio convertidorArchivosSIFIServicio = new ConvertidorArchivosSIFIServicio();
+						sinErrores = convertidorArchivosSIFIServicio.generarArchivosSIFIPorProceso(procesoUnificacionArchivos, sessionAppUsuario.getUsuario(), mensajeErrorOut);
+						
+						if(sinErrores){
+
+							// Se crea un nuevo mensaje de session
+							sessionAppUsuario
+									.notificarEvento("La conversion de Archivos para el proceso No. "
+											+ procesoUnificacionArchivos.getPrun_prun()
+											+ " se ha creado con éxito!");
+		
+						}
+						
+						
+						
 						
 						//Se procede a eliminar archivos temporales
 						try {
