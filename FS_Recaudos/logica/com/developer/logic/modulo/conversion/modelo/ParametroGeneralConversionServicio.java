@@ -9,6 +9,10 @@ public class ParametroGeneralConversionServicio {
 	
 	private static ParametroGeneralConversionServicio instance;
 	
+	public static String TAMANHO_MAX_REFERENCIA = "co.tam_referencia_recaudo";
+	public static String PREFIJO_VOLANTE = "co.pefijo_volante";
+	
+	
 	public static ParametroGeneralConversionServicio getInstance() {
 		if (instance == null) {
 			instance = new ParametroGeneralConversionServicio();
@@ -36,6 +40,8 @@ public class ParametroGeneralConversionServicio {
 	}
 	
 	public ParametroGeneralConversion getParametroGeneral(String para_para){
+		
+		
 		ParametroGeneralConversionControllerDB controllerDB = ParametroGeneralConversionControllerDB.getInstance();
 		return controllerDB.getParametroGeneral(para_para);
 		

@@ -4,6 +4,16 @@ import java.util.Date;
 
 public class EncargoFiduciarioSIFI {
 	
+	public static final String ESTADO_PCA = "PCA";
+	public static final String ESTADO_CAN = "CAN";
+	public static final String ESTADO_ACT = "ACT";
+	public static final String ESTADO_BPC = "BPC";
+	public static final String ESTADO_INA = "INA";
+	
+	
+	
+	
+	
 	Long 	plts_fond			;
 	Long    plts_plan 			;
 	String  plts_esta 			;

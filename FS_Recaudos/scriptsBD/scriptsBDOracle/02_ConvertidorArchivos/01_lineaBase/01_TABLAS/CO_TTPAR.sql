@@ -13,11 +13,13 @@ Prompt Creando tabla CO_TTPAR
 Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CO_TTPAR" 
-   (	"TPAR_TPAR" 		    VARCHAR2(100 BYTE)			constraint NN_CO_TTPAR_TPAR     not null, 
-		"TPAR_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TTPAR_DESCRI   not null,
-        "TPAR_PLAN_GENERICO" 	NUMBER					    constraint NN_CO_TTPAR_PLAN     not null,
-		"TPAR_CTA_RECAUDO" 		VARCHAR2(2000 BYTE)		    constraint NN_CO_TTPAR_CTA      not null, 
-		"TPAR_USUA" 		    VARCHAR2(100 BYTE)			constraint NN_CO_TTPAR_USUA     not null
+   (	"TPAR_TPAR" 		    VARCHAR2(100 BYTE)			constraint NN_CO_TTPAR_TPAR             not null, 
+		"TPAR_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TTPAR_DESCRI           not null,
+        "TPAR_FONDO" 		    NUMBER          			constraint NN_CO_TTPAR_FONDO            not null,
+        "TPAR_PLAN_GENERICO" 	NUMBER					    constraint NN_CO_TTPAR_PLAN             not null,
+		"TPAR_CTA_RECAUDO" 		VARCHAR2(2000 BYTE)		    constraint NN_CO_TTPAR_CTA              not null, 
+        "TPAR_COMP_RF_SN" 	    VARCHAR2(1 BYTE)		    constraint NN_CO_TTPAR_COMP_RF_SN       not null, 
+        "TPAR_USUA" 		    VARCHAR2(100 BYTE)			constraint NN_CO_TTPAR_USUA             not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -28,6 +30,8 @@ Prompt
 
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_USUA" IS 'Usuario que crea el tipo de archivo';
    
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_COMP_RF_SN" IS 'Se debe completar numero de referencia con el numero de fondo cuando el la referencia sea menor al parametro co.tam_referencia_recaudo. Valores S o N';
+
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_PLAN_GENERICO" IS 'Plan generico SIFI asociado al tipo de archivo ';
    
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_CTA_RECAUDO" IS 'Cuenta recaudadora asociada al tipo de archivo ';

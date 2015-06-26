@@ -2,11 +2,20 @@ package com.developer.logic.modulo.conversion.dto;
 
 public class TipoArchivoRecaudoConvertidor {
 	
+	
+	public static final String COMP_RF_SI = "S";
+	public static final String COMP_RF_NO = "N";
+	
 	String  tpar_tpar 		    ;
 	String  tpar_descri 		;
+	Long    tpar_plan_fondo 	;
 	Long    tpar_plan_generico 	;
 	String  tpar_cta_recaudo 	;
 	String  tpar_usua 		    ;
+	String  tpar_comp_rf_sn		;
+	
+	
+	
 	
 	
 	public String getTpar_tpar() {
@@ -39,7 +48,21 @@ public class TipoArchivoRecaudoConvertidor {
 	public void setTpar_usua(String tpar_usua) {
 		this.tpar_usua = tpar_usua;
 	}
+	public Long getTpar_plan_fondo() {
+		return tpar_plan_fondo;
+	}
+	public void setTpar_plan_fondo(Long tpar_plan_fondo) {
+		this.tpar_plan_fondo = tpar_plan_fondo;
+	}
+	public String getTpar_comp_rf_sn() {
+		return tpar_comp_rf_sn;
+	}
+	public void setTpar_comp_rf_sn(String tpar_comp_rf_sn) {
+		this.tpar_comp_rf_sn = tpar_comp_rf_sn;
+	}
+	
 	
 	
 
 }
+
