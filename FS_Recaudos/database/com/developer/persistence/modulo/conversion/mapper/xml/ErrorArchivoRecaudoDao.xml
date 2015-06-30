@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.ErrorArchivoRecaudoDao">
+	
+	<insert id="crearError" parameterType="errorArchivoRecaudo">
+		insert into co_terar
+		(
+			erar_erar, 		   
+			erar_tper, 		   
+			erar_aror,            
+			erar_daror_id_reg,    
+			erar_valor_descri,    
+			erar_fcrea 		     
+		)
+		values 
+		(
+			nextvalue('co_serar'), 		   
+			#{erar_tper}, 		   
+			#{erar_aror},            
+			#{erar_daror_id_reg},    
+			#{erar_valor_descri},    
+			now() 	
+		)
+	</insert>
+	
+	
+	
+	<select id="getErroresPorARORxDAROR" parameterType="java.util.HashMap" resultType="errorArchivoRecaudo">
+		select * from co_terar
+		where erar_aror = #{aror_aror}
+		and erar_daror_id_reg = #{daror_id_reg}
+		
+	</select>
+	
+	
+</mapper>

@@ -16,7 +16,7 @@
 		)
 		values 
 		(
-			#{vlar_vlar}, 		   
+			nextvalue('co_svlar'), 	 		   
 			#{vlar_tpvl}, 		   
 			#{vlar_aror},            
 			#{vlar_daror_id_reg},    

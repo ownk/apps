@@ -19,6 +19,7 @@ Prompt
         "TPAR_PLAN_GENERICO" 	NUMBER					    constraint NN_CO_TTPAR_PLAN             not null,
 		"TPAR_CTA_RECAUDO" 		VARCHAR2(2000 BYTE)		    constraint NN_CO_TTPAR_CTA              not null, 
         "TPAR_COMP_RF_SN" 	    VARCHAR2(1 BYTE)		    constraint NN_CO_TTPAR_COMP_RF_SN       not null, 
+        "TPAR_USA_VOL_SN" 	    VARCHAR2(1 BYTE)		    constraint NN_CO_TTPAR_VOLANTES_SN      not null,
         "TPAR_USUA" 		    VARCHAR2(100 BYTE)			constraint NN_CO_TTPAR_USUA             not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
@@ -31,6 +32,8 @@ Prompt
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_USUA" IS 'Usuario que crea el tipo de archivo';
    
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_COMP_RF_SN" IS 'Se debe completar numero de referencia con el numero de fondo cuando el la referencia sea menor al parametro co.tam_referencia_recaudo. Valores S o N';
+   
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_USA_VOL_SN" IS 'Indica si para el tipo de archivo de recaudo se dejan las referencia de volantes o se deben cambiar por encargo generico. Valores S o N';
 
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPAR"."TPAR_PLAN_GENERICO" IS 'Plan generico SIFI asociado al tipo de archivo ';
    

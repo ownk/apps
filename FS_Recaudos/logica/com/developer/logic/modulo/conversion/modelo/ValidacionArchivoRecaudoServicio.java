@@ -27,11 +27,11 @@ public class ValidacionArchivoRecaudoServicio {
 	
 
 	
-	public Boolean crearValidacionTransaccional(SqlSession session, ValidacionArchivoRecaudo transformacionArchivoRecaudo){
+	public Boolean crearValidacionTransaccional(SqlSession session, ValidacionArchivoRecaudo validacionArchivoRecaudo){
 		
 		Boolean sinErrores = true;
 		ValidacionArchivoRecaudoControllerDB controllerDB = ValidacionArchivoRecaudoControllerDB.getInstance();
-		sinErrores = controllerDB.crearValidacionTransaccional(session, transformacionArchivoRecaudo);
+		sinErrores = controllerDB.crearValidacionTransaccional(session, validacionArchivoRecaudo);
 		
 		return sinErrores;
 		

@@ -35,6 +35,12 @@ public class ProyectoRecaudoServicio {
 		return list;
 	}
 	
+	public ProyectoNoSIFIActivo getProyectoNoSIFIActivo(Long prns_proy){
+		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoNoSIFIActivo noSIFIActivo = controllerDB.getProyectoNoSIFIActivo(prns_proy);
+		
+		return noSIFIActivo;
+	}
 		
 	public List<ProyectoConFormulaDistribucion> getAllProyectosConFormulaDistribucion(){
 		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
@@ -44,11 +50,28 @@ public class ProyectoRecaudoServicio {
 		
 	}
 	
+	public ProyectoConFormulaDistribucion getProyectoConFormulaDistribucion(Long prfd_proy){
+		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoConFormulaDistribucion conFormulaDistribucion = controllerDB.getProyectoConFormulaDistribucion(prfd_proy);
+		
+		return conFormulaDistribucion;
+		
+	}
+	
 	public List<ProyectoCancelado> getAllProyectosCancelados(){
 		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
 		List<ProyectoCancelado> list = controllerDB.getAllProyectosCancelados();
 		
 		return list;
+		
+		
+	}
+	
+	public ProyectoCancelado getProyectoCancelado(Long prca_proy){
+		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoCancelado proyectoCancelado= controllerDB.getProyectoCancelado(prca_proy);
+		
+		return proyectoCancelado;
 		
 		
 	}

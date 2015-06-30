@@ -18,7 +18,7 @@
 		)
 		values 
 		(
-			#{trar_trar}, 		   
+			nextvalue('co_strar'), 	 		   
 			#{trar_tptr},		   
 			#{trar_aror},            
 			#{trar_daror_id_reg},    

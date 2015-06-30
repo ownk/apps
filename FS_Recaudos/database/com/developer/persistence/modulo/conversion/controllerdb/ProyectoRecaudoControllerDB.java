@@ -42,6 +42,23 @@ public class ProyectoRecaudoControllerDB {
 		
 	}
 	
+	public ProyectoNoSIFIActivo getProyectoNoSIFIActivo(Long prns_proy){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ProyectoRecaudoDao dao = session.getMapper(ProyectoRecaudoDao.class);
+			return dao.getProyectoNoSIFIActivo(prns_proy);
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getProyectoNoSIFIActivo", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
 		
 	public List<ProyectoConFormulaDistribucion> getAllProyectosConFormulaDistribucion(){
 		SqlSession session = DBManagerFSRecaudos.openSession();
@@ -60,6 +77,26 @@ public class ProyectoRecaudoControllerDB {
 		
 	}
 	
+	public ProyectoConFormulaDistribucion getProyectoConFormulaDistribucion(Long prfd_proy){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ProyectoRecaudoDao dao = session.getMapper(ProyectoRecaudoDao.class);
+			return dao.getProyectoConFormulaDistribucion(prfd_proy);
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getProyectoConFormulaDistribucion", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
+	
+	
+	
 	public List<ProyectoCancelado> getAllProyectosCancelados(){
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		
@@ -75,6 +112,24 @@ public class ProyectoRecaudoControllerDB {
 			session.close();
 		}
 		
+	}
+
+
+
+	public ProyectoCancelado getProyectoCancelado(Long prca_proy) {
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ProyectoRecaudoDao dao = session.getMapper(ProyectoRecaudoDao.class);
+			return dao.getProyectoCancelado(prca_proy);
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getProyectoCancelado", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
 	}
 	
 

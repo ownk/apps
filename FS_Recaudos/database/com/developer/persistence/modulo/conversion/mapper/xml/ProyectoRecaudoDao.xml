@@ -8,15 +8,30 @@
 		select * from co_tpnsa
 	</select>
 	
+	<select  id="getProyectoNoSIFIActivo" parameterType="java.lang.Long" resultType="proyectoNoSIFIActivo">
+		select * from co_tpnsa
+		where pnsa_proy = #{pnsa_proy}
+	</select>
+	
 	<select id="getAllProyectosConFormulaDistribucion" resultType="proyectoConFormulaDistribucion">
 		select * from co_tpyfd
-		
+	</select>
+	
+	<select id="getProyectoConFormulaDistribucion" parameterType="java.lang.Long" resultType="proyectoConFormulaDistribucion">
+		select * from co_tpyfd
+		where pyfd_proy = #{pyfd_proy}
 	</select>
 	
 	
 	<select id="getAllProyectosCancelados" resultType="proyectoCancelado">
 		select * from co_tprca
 	</select>
+	
+	<select id="getProyectoCancelado" parameterType="java.lang.Long" resultType="proyectoCancelado">
+		select * from co_tprca
+		where prca_proy = #{prca_proy}
+	</select>
+	
 	
 	
 </mapper>

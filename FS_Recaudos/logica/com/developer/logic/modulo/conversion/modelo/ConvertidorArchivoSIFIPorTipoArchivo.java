@@ -1,14 +1,22 @@
 package com.developer.logic.modulo.conversion.modelo;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.EncargoFiduciarioSIFI;
+import com.developer.logic.modulo.conversion.dto.ErrorArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ParametroGeneralConversion;
+import com.developer.logic.modulo.conversion.dto.ProyectoCancelado;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
+import com.developer.logic.modulo.conversion.dto.TipoErrorArchivoRecaudo;
+import com.developer.logic.modulo.conversion.dto.TipoTransformacionArchivoRecaudo;
+import com.developer.logic.modulo.conversion.dto.TipoValidacionArchivoRecaudo;
+import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
+import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 
@@ -38,9 +46,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 		SIFIServicio sifiServicio = SIFIServicio.getInstance();
 		
+		ProyectoRecaudoServicio proyectoRecaudoServicio = ProyectoRecaudoServicio.getInstance();
+		
+		
 		if(parametroTamMax!=null && parametroTamMax.getPara_valor()!=null && parametroPrefVolante!=null && parametroPrefVolante.getPara_valor()!=null){
 			
-			
+			List<TransformacionArchivoRecaudo> 	listTransformaciones = new ArrayList<TransformacionArchivoRecaudo>();
+			List<ValidacionArchivoRecaudo> 		listValidaciones 	 = new ArrayList<ValidacionArchivoRecaudo>();
+			List<ErrorArchivoRecaudo> 			listErrores 		 = new ArrayList<ErrorArchivoRecaudo>();
 			
 			tamMaximoReferencia = Integer.parseInt(parametroTamMax.getPara_valor());
 			
@@ -78,28 +91,24 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 						if(detalleArchivo.getDaror_referencia()!=null){
 							
 							//Se eliminan los espacios y ceros a la izquierda
-							
 							referenciaOriginal = getLong(detalleArchivo.getDaror_referencia());
 							
 							
 							//Completar el tamaño con numero de fondo por tipo de archivo. Crear transformacion y validacion
 							if(referenciaOriginal.toString().length()<tamMaximoReferencia){
 								
-								referenciaOriginal = getNuevaReferenciaPorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
+								referenciaOriginal = completarReferenciaPorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
 								
 								
-								//TODO Crear validacion 
+								//TODO Crear validacion
+								ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+								validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+								validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TAM_REF_MENOR);
 								
-							}else if(referenciaOriginal.toString().length()==tamMaximoReferencia){
+								listValidaciones.add(validacion);
 								
-								/**
-								 * Transfomaciones asignacion encargo generico
-								 * =============================================
-								 */
-								
-								//TODO Crear transformacion y validacion
-								
-							}else{
+							}else if(referenciaOriginal.toString().length()>tamMaximoReferencia){
 								
 								/**
 								 * Transfomaciones asignacion encargo generico
@@ -107,17 +116,44 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								 */
 								
 								//TODO Crear transformacion y validacion y asignar encargo generico asociado al tipo de archivo
+								ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+								validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+								validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TAM_REF_MAYOR);
+								
+								listValidaciones.add(validacion);
+								
+								
+								//Se crea transformacion de referencia final
+								referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+								
+								TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+								transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+								transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TAM_REF_MAX);
+								transformacion.setTrar_valor_orig(""+referenciaOriginal);
+								transformacion.setTrar_valor_modi(""+referenciaFinal);
+								
+																								
+								listTransformaciones.add(transformacion);
 							}
 							
 							
 							
-							//Se verifica si es volante referencia inicia con 90
+							//Se verifica si es volante de referencia 
 							if(referenciaOriginal.toString().startsWith(parametroPrefVolante.getPara_valor())){
 								
 								esEncargo = false;
 								referenciaFinal = referenciaOriginal;
 								
-								//TODO crear validacion
+								//Si la referencia es un volante se debe crear una validacion
+								ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+								validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+								validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_REF_VOLANTE);
+								
+								listValidaciones.add(validacion);
+								
 								
 							}else{
 								esEncargo = true;
@@ -142,17 +178,42 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										
 										//1. Si el encargo no tiene estado. Crear validacion de que no tiene titular contra quien comparar
 										//TODO crear error de que no tiene estado
+										
+										ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+										errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+										errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+										errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_ESTADO_PLAN_VACIO);
+										
+										listErrores.add(errorArchivoRecaudo);
 									}else{
 										
 										//1. Si el estado esta cancelado se debe crear una validacion especifica
 										if(estadoSIFI.equals(EncargoFiduciarioSIFI.ESTADO_CAN)){
+											ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+											validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+											validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+											validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_ESTADO_PLAN_CAN);
+											
+											listValidaciones.add(validacion);
 											
 											
 										}
 										
 										//2. Si el estado esta PCA y el recaudo es RCHE se debe crear validacion especifica
 										if(estadoSIFI.equals(EncargoFiduciarioSIFI.ESTADO_PCA) && formaRecaudo.equals("RCHE")){
+											ValidacionArchivoRecaudo validacionPCA = new ValidacionArchivoRecaudo();
+											validacionPCA.setVlar_aror(detalleArchivo.getDaror_aror());
+											validacionPCA.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+											validacionPCA.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_ESTADO_PLAN_PCA);
 											
+											listValidaciones.add(validacionPCA);
+											
+											ValidacionArchivoRecaudo validacionRCHE = new ValidacionArchivoRecaudo();
+											validacionRCHE.setVlar_aror(detalleArchivo.getDaror_aror());
+											validacionRCHE.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+											validacionRCHE.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TIPO_RECA_RCHE);
+											
+											listValidaciones.add(validacionRCHE);
 											
 										}
 											
@@ -177,11 +238,26 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 												
 												//2. Si tiene estado y no coincide el numero de identificacion del titular se debe crear validacion
 												//TODO crear validacion que no es titular
+												ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+												validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+												validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+												validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_APOR_NO_TITULAR);
+												
+												listValidaciones.add(validacion);
 												
 											}
+											
 										}else{
 											
 											//TODO crear validacion que aportante es vacio
+											ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+											validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+											validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+											validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_APOR_VACIO);
+											
+											listValidaciones.add(validacion);
+											
+											
 										}
 										
 											
@@ -189,9 +265,15 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									}
 								
 								}else{
-									//1. Si el encargo no tiene estado. Crear validacion de que no tiene titular contra quien comparar
+									//1. Si el encargo no tiene titulares. Crear validacion de que no tiene titular contra quien comparar
 									
 									//TODO crear error que el encargo no tiene estado SIFI
+									ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+									errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+									errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_PLAN_SIFI_NULO);
+									
+									listErrores.add(errorArchivoRecaudo);
 								}
 								
 								
@@ -203,21 +285,117 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							
 							//Identificacion del codigo del proyecto posicion 3 de tamaño 4
 							
-							
+							Long proyecto = getProyecto(""+referenciaOriginal);
 							
 							
 							/**
 							 * Transformaciones segun el estado o proyecto
 							 * =============================================
 							 */	
-							//Transformaciones segun el estado o proyecto
 							
-							//Se busca el proyecto en la hoja de cancelados solo si esta cancelado. Si lo encuentra coloca el numero de encargo asignado
-							//En caso de no encontrarlo lo deja vacio.
+							if(estadoSIFI.equals(EncargoFiduciarioSIFI.ESTADO_CAN)){
+								//Se busca el proyecto en los proyectos cancelados solo si esta cancelado. Si lo encuentra coloca el numero de encargo asignado
+								//En caso de no encontrarlo lo deja vacio.
+								
+								ProyectoCancelado proyectoCancelado = proyectoRecaudoServicio.getProyectoCancelado(proyecto);
+								
+								if(proyectoCancelado!=null && proyectoCancelado.getPrca_proy()!=null){
+									
+									
+									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PROY_CAN);
+									
+									listValidaciones.add(validacion);
+									
+									
+									
+									if(proyectoCancelado.getPrca_plan_sifi()!=null){
+										
+										
+										referenciaFinal = proyectoCancelado.getPrca_plan_sifi();
+										
+										TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+										transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+										transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+										transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TAM_REF_MAX);
+										transformacion.setTrar_valor_orig(""+referenciaOriginal);
+										transformacion.setTrar_valor_modi(""+referenciaFinal);
+										
+										listTransformaciones.add(transformacion);
+										
+										
+									}else{
+										
+										ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+										errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+										errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+										errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_PRCA_PLAN_SIFI_NULO);
+										
+										listErrores.add(errorArchivoRecaudo);
+										
+									}
+									
+									
+									
+									
+									
+								}
+								
+								
+								
+							}
 							
 							
-							//Si la referencia es un volante se debe crear una validacion
+							
 							//Si la referencia es un volante pero el tipo de archivo dice que lo reemplace por el generico se debe crear transformacion
+							if(!esEncargo){
+								
+								Long nuevaReferencia = getReferenciaVolantePorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
+								
+								if(!referenciaOriginal.equals(nuevaReferencia)){
+									
+									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_NO);
+									
+									listValidaciones.add(validacion);
+									
+									
+									referenciaFinal = nuevaReferencia;
+									
+									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_TPAR_MANEJA_VOLANTE_NO);
+									transformacion.setTrar_valor_orig(""+referenciaOriginal);
+									transformacion.setTrar_valor_modi(""+referenciaFinal);
+									
+									listTransformaciones.add(transformacion);
+									
+									
+									
+									
+									
+								}else{
+									
+									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_SI);
+									
+									listValidaciones.add(validacion);
+								}
+								
+								
+								
+							}
+							
+							
+							
+							
 							
 							//Se deben consular contra los encargos no sifi
 								//1. Si el encargo es un NO_SIFI_ACT y pertenece a un proyecto No SIFI Activo se debe colocar el numero de encargo que se especifique en el proyecto. Crear Transformacion
@@ -270,11 +448,24 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					
 						}else{
 							//TODO Crear error de que no existe referencia
+							ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+							errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+							errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+							errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_REF_NULO);
+							
+							listErrores.add(errorArchivoRecaudo);
 							
 						}
 					
 					}else{
 						//Crear validacion de que se excluye RNDB
+						
+						ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+						validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+						validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+						validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_RNDB_EXCLUIDO);
+						
+						listValidaciones.add(validacion);
 						
 					}
 					
@@ -352,8 +543,26 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	}
 	
 	
-	private Long getNuevaReferenciaPorTipoArchivo(Long referenciaOriginal, String tpar_tpar){
+	private Long getReferenciaVolantePorTipoArchivo(Long referenciaOriginal, String tpar_tpar){
 	
+		TipoArchivoRecaudoServicio tipoArchivoServicio = TipoArchivoRecaudoServicio.getInstance();
+		TipoArchivoRecaudoConvertidor tipoArchivoRecaudoConvertidor = tipoArchivoServicio.getTipoArchivo(tpar_tpar);
+		Long nuevaReferencia = null;
+		
+		if(tipoArchivoRecaudoConvertidor.getTpar_usa_vol_sn().equals(TipoArchivoRecaudoConvertidor.VOLANTE_NO)){
+			nuevaReferencia= tipoArchivoRecaudoConvertidor.getTpar_plan_generico();
+			
+			
+		}else{
+			nuevaReferencia = referenciaOriginal;
+			
+		}
+		return nuevaReferencia;
+	}
+	
+	
+	private Long completarReferenciaPorTipoArchivo(Long referenciaOriginal, String tpar_tpar){
+		
 		TipoArchivoRecaudoServicio tipoArchivoServicio = TipoArchivoRecaudoServicio.getInstance();
 		TipoArchivoRecaudoConvertidor tipoArchivoRecaudoConvertidor = tipoArchivoServicio.getTipoArchivo(tpar_tpar);
 		Long nuevaReferencia = null;
@@ -364,8 +573,46 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 			String referenciaCompletada = ""+valorFondo+referenciaOriginal;
 			nuevaReferencia = new Long(referenciaCompletada);
 			
+		}else{
+			nuevaReferencia = referenciaOriginal;
+			
 		}
 		return nuevaReferencia;
+	}
+	
+	
+	private Long getEncargoGenericoPorTipoArchivo(String tpar_tpar){
+		
+		TipoArchivoRecaudoServicio tipoArchivoServicio = TipoArchivoRecaudoServicio.getInstance();
+		TipoArchivoRecaudoConvertidor tipoArchivoRecaudoConvertidor = tipoArchivoServicio.getTipoArchivo(tpar_tpar);
+		Long encargoGenerico = tipoArchivoRecaudoConvertidor.getTpar_plan_generico();
+		
+		return encargoGenerico;
+		
+		
+		
+	}
+	
+	
+	private Long getProyecto(String referencia){
+		
+		
+		if(referencia!=null && !referencia.isEmpty()){
+			
+			try {
+				String proyectoString = referencia.substring(2,6);
+				Long proyectoLong = getLong(proyectoString);
+				
+				return proyectoLong;
+			} catch (Exception e) {
+				return null;
+			}
+			
+			
+		}else{
+			return null;
+		}
+		
 	}
 	
 	

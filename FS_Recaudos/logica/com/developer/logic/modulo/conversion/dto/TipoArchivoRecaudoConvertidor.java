@@ -6,6 +6,9 @@ public class TipoArchivoRecaudoConvertidor {
 	public static final String COMP_RF_SI = "S";
 	public static final String COMP_RF_NO = "N";
 	
+	public static final String VOLANTE_SI = "S";
+	public static final String VOLANTE_NO = "N";
+	
 	String  tpar_tpar 		    ;
 	String  tpar_descri 		;
 	Long    tpar_plan_fondo 	;
@@ -13,6 +16,8 @@ public class TipoArchivoRecaudoConvertidor {
 	String  tpar_cta_recaudo 	;
 	String  tpar_usua 		    ;
 	String  tpar_comp_rf_sn		;
+	String  tpar_usa_vol_sn		;
+	
 	
 	
 	
@@ -59,6 +64,12 @@ public class TipoArchivoRecaudoConvertidor {
 	}
 	public void setTpar_comp_rf_sn(String tpar_comp_rf_sn) {
 		this.tpar_comp_rf_sn = tpar_comp_rf_sn;
+	}
+	public String getTpar_usa_vol_sn() {
+		return tpar_usa_vol_sn;
+	}
+	public void setTpar_usa_vol_sn(String tpar_usa_vol_sn) {
+		this.tpar_usa_vol_sn = tpar_usa_vol_sn;
 	}
 	
 	
