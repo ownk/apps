@@ -7,6 +7,8 @@ public class ProyectoConFormulaDistribucion {
 	Long pyfd_proy 		;			
 	Long pyfd_frdp 		;    		
 	Date pyfd_fcrea 	;
+	Long pyfd_frdp_descri; 
+	
 	
 	public Long getPyfd_proy() {
 		return pyfd_proy;
@@ -25,7 +27,15 @@ public class ProyectoConFormulaDistribucion {
 	}
 	public void setPyfd_fcrea(Date pyfd_fcrea) {
 		this.pyfd_fcrea = pyfd_fcrea;
-	}				
+	}
+	public Long getPyfd_frdp_descri() {
+		return pyfd_frdp_descri;
+	}
+	public void setPyfd_frdp_descri(Long pyfd_frdp_descri) {
+		this.pyfd_frdp_descri = pyfd_frdp_descri;
+	}	
+	
+	
 	
 	
 

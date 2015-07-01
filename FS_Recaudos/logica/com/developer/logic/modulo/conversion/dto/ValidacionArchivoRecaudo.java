@@ -49,6 +49,10 @@ public class ValidacionArchivoRecaudo {
 		this.vlar_fcrea = vlar_fcrea;
 	}
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return ""+getVlar_aror()+"."+getVlar_daror_id_reg()+"."+getVlar_tpvl()+""+getVlar_valor_descri();
+	}
 
 }

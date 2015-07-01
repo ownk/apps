@@ -61,6 +61,11 @@ public class TransformacionArchivoRecaudo {
 		this.trar_fcrea = trar_fcrea;
 	}
 	
+	@Override
+	public String toString() {
+		
+		return ""+getTrar_aror()+"."+getTrar_daror_id_reg()+"."+getTrar_tptr()+"."+getTrar_valor_descri()+"."+getTrar_valor_orig()+"."+getTrar_valor_modi();
+	}
 	
 
 }

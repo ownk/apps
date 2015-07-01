@@ -19,5 +19,10 @@
 		where arpu.arpu_tpar = tpar.tpar_tpar
 	</select>
 	
+	<select id="getEstadosAplicaPlanGenericoPorTPAR" parameterType="java.lang.String" resultType="estadoPlanAplicaPlanGenerico">
+		select * from co_tepsg
+		where epsg_tpar = #{tpar_tpar}
+	</select>
+	
 	
 </mapper>

@@ -13,6 +13,8 @@ public interface FormulaDistribucionPorcentajeDao {
 	public List<EstadoPlanFormulaDistribucion> getAllEstadosAplicaFormula();
 	
 	public List<DistribucionPorFormulaPorcentaje> getAllDistribucionesPorcentuales();
+
+	public List<DistribucionPorFormulaPorcentaje> getDistribucionesPorcentualPorFormula(Long frdp_frdp);
 	
 
 	

@@ -2,10 +2,13 @@ package com.developer.logic.modulo.conversion.dto;
 
 public class TipoErrorArchivoRecaudo {
 	
-	public static final Long TPER_ESTADO_PLAN_VACIO = new Long(1);
-	public static final Long TPER_PLAN_SIFI_NULO 	= new Long(2);
-	public static final Long TPER_REF_NULO 			= new Long(3);
-	public static final Long TPER_PRCA_PLAN_SIFI_NULO = new Long(4);
+	public static final Long TPER_PLAN_SIFI_SIN_ESTADO 	= new Long(1);
+	public static final Long TPER_PLAN_SIFI_NULO 		= new Long(2);
+	public static final Long TPER_REF_NULO 				= new Long(3);
+	public static final Long TPER_PRCA_PLAN_SIFI_NULO 	= new Long(4);
+	public static final Long TPER_PLAN_SIN_ESTADO 		= new Long(4);
+	public static final Long TPER_PLAN_FRDP_MULTIPLE 	= new Long(5);
+	public static final Long TPER_PLAN_DPFD_NULO 		= new Long(6);
 		
 	
 	Long    tper_tper 	; 

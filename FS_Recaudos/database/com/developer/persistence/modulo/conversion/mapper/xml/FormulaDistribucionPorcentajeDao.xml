@@ -11,6 +11,10 @@
 	<select id="getAllDistribucionesPorcentuales" resultType="distribucionPorFormulaPorcentaje">
 		select * from co_tdpfd	
 	</select>
-	
+
+	<select id="getDistribucionesPorcentualPorFormula" parameterType="java.lang.Long" resultType="distribucionPorFormulaPorcentaje">
+		select * from co_tdpfd	
+		where dpfd_frdp = #{frdp_frdp}
+	</select>
 	
 </mapper>

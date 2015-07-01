@@ -49,6 +49,11 @@ public class ErrorArchivoRecaudo {
 		this.erar_fcrea = erar_fcrea;
 	}
 	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return ""+getErar_aror()+"."+getErar_daror_id_reg()+"."+getErar_tper()+"."+getErar_error_descri();
+	}
 	
 
 }

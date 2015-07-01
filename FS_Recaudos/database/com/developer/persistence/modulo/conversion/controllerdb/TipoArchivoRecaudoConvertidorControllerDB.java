@@ -5,17 +5,18 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
 import com.developer.mybatis.DBManagerFSRecaudos;
-import com.developer.persistence.modulo.conversion.mapper.dao.TipoArchivoRecaudoDao;
+import com.developer.persistence.modulo.conversion.mapper.dao.TipoArchivoRecaudoConvertidorDao;
 
-public class TipoArchivoRecaudoControllerDB {
+public class TipoArchivoRecaudoConvertidorControllerDB {
 	
-	private static TipoArchivoRecaudoControllerDB instance;
+	private static TipoArchivoRecaudoConvertidorControllerDB instance;
 	
-	public static TipoArchivoRecaudoControllerDB getInstance() {
+	public static TipoArchivoRecaudoConvertidorControllerDB getInstance() {
 		if (instance == null) {
-			instance = new TipoArchivoRecaudoControllerDB();
+			instance = new TipoArchivoRecaudoConvertidorControllerDB();
 		}
 		
 		return instance;
@@ -49,11 +50,28 @@ public class TipoArchivoRecaudoControllerDB {
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		try {
 	
-			TipoArchivoRecaudoDao dao = session.getMapper(TipoArchivoRecaudoDao.class);
+			TipoArchivoRecaudoConvertidorDao dao = session.getMapper(TipoArchivoRecaudoConvertidorDao.class);
 			return dao.getTiposArchivoPorPRCO(prco_prco);
 			
 		} catch (Exception e) {
 			SimpleLogger.error("Error getTiposArchivoPorPRCO", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
+	
+	public List<EstadoPlanAplicaPlanGenerico> getEstadosAplicaPlanGenericoPorTPAR(String tpar_tpar){
+		
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		try {
+	
+			TipoArchivoRecaudoConvertidorDao dao = session.getMapper(TipoArchivoRecaudoConvertidorDao.class);
+			return dao.getEstadosAplicaPlanGenericoPorTPAR(tpar_tpar);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getEstadosAplicaPlanGenericoPorTPAR", e);
 			return null;
 	
 		} finally {

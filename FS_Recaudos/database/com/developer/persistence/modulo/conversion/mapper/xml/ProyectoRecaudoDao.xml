@@ -14,12 +14,14 @@
 	</select>
 	
 	<select id="getAllProyectosConFormulaDistribucion" resultType="proyectoConFormulaDistribucion">
-		select * from co_tpyfd
+		select * from co_tpyfd,co_tfrdp
+		where pyfd_frdp = frdp_frdp 
 	</select>
 	
 	<select id="getProyectoConFormulaDistribucion" parameterType="java.lang.Long" resultType="proyectoConFormulaDistribucion">
-		select * from co_tpyfd
+		select * from co_tpyfd, co_tfrdp
 		where pyfd_proy = #{pyfd_proy}
+		and pyfd_frdp = frdp_frdp 
 	</select>
 	
 	

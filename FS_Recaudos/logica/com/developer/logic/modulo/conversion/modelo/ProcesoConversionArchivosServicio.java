@@ -172,6 +172,7 @@ public class ProcesoConversionArchivosServicio {
 					
 					if(sinErrores){
 						session.commit();
+						procesoConversionArchivosIniciada = procesoConversionArchivos;
 					}else{
 						session.rollback();
 						SimpleLogger.error("Error creando procesoConversionArchivos. No ha sido posible crear los archivos a procesar");

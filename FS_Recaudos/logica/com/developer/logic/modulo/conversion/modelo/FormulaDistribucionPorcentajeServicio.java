@@ -41,6 +41,13 @@ public class FormulaDistribucionPorcentajeServicio {
 		
 	}
 	
+	public List<DistribucionPorFormulaPorcentaje> getDistribucionesPorcentualPorFormula(Long frdp_frdp){
+		FormulaDistribucionPorcentajeControllerDB controllerDB = FormulaDistribucionPorcentajeControllerDB.getInstance();
+		List<DistribucionPorFormulaPorcentaje> list = controllerDB.getAllDistribucionesPorcentuales();
+		
+		return list;
+		
+	}
 
 	
 			

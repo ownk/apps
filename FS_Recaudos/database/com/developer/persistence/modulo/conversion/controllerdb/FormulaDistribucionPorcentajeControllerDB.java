@@ -60,6 +60,26 @@ public class FormulaDistribucionPorcentajeControllerDB {
 		
 	}
 	
+	public List<DistribucionPorFormulaPorcentaje> getDistribucionesPorcentualPorFormula(Long frdp_frdp){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			FormulaDistribucionPorcentajeDao dao = session.getMapper(FormulaDistribucionPorcentajeDao.class);
+			return dao.getDistribucionesPorcentualPorFormula(frdp_frdp);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getDistribucionesPorcentualPorFormula", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
+	
+	
 
 	 
 

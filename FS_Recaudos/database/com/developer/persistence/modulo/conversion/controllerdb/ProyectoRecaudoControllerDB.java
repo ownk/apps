@@ -77,7 +77,7 @@ public class ProyectoRecaudoControllerDB {
 		
 	}
 	
-	public ProyectoConFormulaDistribucion getProyectoConFormulaDistribucion(Long prfd_proy){
+	public List<ProyectoConFormulaDistribucion> getProyectoConFormulaDistribucion(Long prfd_proy){
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		try{

@@ -50,11 +50,11 @@ public class ProyectoRecaudoServicio {
 		
 	}
 	
-	public ProyectoConFormulaDistribucion getProyectoConFormulaDistribucion(Long prfd_proy){
+	public List<ProyectoConFormulaDistribucion> getProyectoConFormulaDistribucion(Long prfd_proy){
 		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
-		ProyectoConFormulaDistribucion conFormulaDistribucion = controllerDB.getProyectoConFormulaDistribucion(prfd_proy);
+		List<ProyectoConFormulaDistribucion> list = controllerDB.getProyectoConFormulaDistribucion(prfd_proy);
 		
-		return conFormulaDistribucion;
+		return list;
 		
 	}
 	

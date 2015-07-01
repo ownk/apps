@@ -4,6 +4,11 @@ import java.util.Date;
 
 public class EncargoFiduciarioNoSIFI {
 	
+	
+	public static final String PLAN_NOSIFI_ACT = "NO_SIFI_ACT";
+	public static final String PLAN_NOSIFI_INACT = "NO_SIFI_INACT";
+
+	
 	Long    plns_plan 	;
 	String  plns_esta 	;
 	Date    plns_fcrea 	;
