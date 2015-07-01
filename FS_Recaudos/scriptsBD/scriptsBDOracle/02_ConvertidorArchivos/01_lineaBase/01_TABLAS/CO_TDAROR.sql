@@ -15,7 +15,7 @@ Prompt
   CREATE TABLE "FS_RECAUDOS_US"."CO_TDAROR" 
    (	"DAROR_AROR" 		NUMBER					constraint NN_CO_TDAROR_AROR not null,
 		"DAROR_ID_REG" 	    NUMBER		            constraint NN_CO_TDAROR_ID_REG not null,
-		"DAROR_FRECA" 		VARCHAR(10 BYTE)		constraint NN_CO_TDAROR_FRECA not null, 			
+		"DAROR_FRECA" 		VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_FRECA not null, 			
 		"DAROR_REFERENCIA" 	VARCHAR2(100 BYTE)		constraint NN_CO_TDAROR_REFERENCIA not null,
         "DAROR_APORTANTE" 	VARCHAR2(100 BYTE)		constraint NN_CO_TDAROR_APORTANTE not null, 
 		"DAROR_OFIC" 		VARCHAR2(10 BYTE)		constraint NN_CO_TDAROR_OFIC not null,

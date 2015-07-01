@@ -22,7 +22,7 @@ public class SIFIServicio {
 	public List<EncargoFiduciarioSIFI> getEncargoSIFI (EncargoFiduciarioSIFI encargoFiduciarioSIFI){
 		
 		
-		/*
+		
 		List<EncargoFiduciarioSIFI> list = null;
 		
 		list = getEncargoSIFI29(encargoFiduciarioSIFI);
@@ -33,8 +33,8 @@ public class SIFIServicio {
 		}
 		
 		return list;
-		*/ 
-		return null;
+		
+	
 		
 		
 	} 

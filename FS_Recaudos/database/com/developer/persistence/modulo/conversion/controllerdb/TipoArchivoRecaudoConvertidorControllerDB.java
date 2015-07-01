@@ -69,6 +69,24 @@ public class TipoArchivoRecaudoConvertidorControllerDB {
 			session.close();
 		}
 	}
+
+
+
+	public List<TipoArchivoRecaudoConvertidor> getAllTiposArchivo() {
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		try {
+	
+			TipoArchivoRecaudoConvertidorDao dao = session.getMapper(TipoArchivoRecaudoConvertidorDao.class);
+			return dao.getAllTiposArchivo();
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getAllTiposArchivo", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
 	
 	
 

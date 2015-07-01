@@ -25,4 +25,8 @@
 	</select>
 	
 	
+	<select id="getAllTiposArchivo" resultType="tipoArchivoRecaudoConvertidor">
+		select * from co_ttpar
+	</select>
+	
 </mapper>

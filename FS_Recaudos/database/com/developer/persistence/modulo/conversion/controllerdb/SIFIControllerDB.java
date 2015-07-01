@@ -21,17 +21,17 @@ public class SIFIControllerDB {
 		
 		if(session!=null){
 		
-		try{
-			
-			SIFI29Dao dao = session.getMapper(SIFI29Dao.class);
-			return dao.getAllEncargosSIFI();
-			
-		}catch (Exception e) {
-			SimpleLogger.error("Error getAllEncargosSIFI29", e);
-			return null;
-		} 	finally {
-			session.close();
-		}
+			try{
+				
+				SIFI29Dao dao = session.getMapper(SIFI29Dao.class);
+				return dao.getAllEncargosSIFI();
+				
+			}catch (Exception e) {
+				SimpleLogger.error("Error getAllEncargosSIFI29", e);
+				return null;
+			} 	finally {
+				session.close();
+			}
 		
 		}else{
 			

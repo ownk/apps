@@ -33,13 +33,16 @@ public class HiloConversionArchivosSIFI implements Runnable{
 		
 			List<ArchivoRecaudoOriginalPorConvertir> archivos = new ArchivoRecaudoOriginalPorConvertirServicio().getArchivosPorPRCO(procesoConversionArchivos.getPrco_prco());
 			
+			System.out.println("iniciando proceso de conversion "+procesoConversionArchivos.getPrco_prco()+" total archivos:"+archivos.size());
 			
 			for (ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir : archivos) {
 				Boolean sinErrores = true;
 				ConvertidorArchivoSIFIPorTipoArchivo convertidorArchivoSIFIPorTipoArchivo = new ConvertidorArchivoSIFIPorTipoArchivo();
 				sinErrores = convertidorArchivoSIFIPorTipoArchivo.createARGE(this.rutaArchivosSIFI, this.nombreArchivo, this.procesoConversionArchivos, archivoRecaudoOriginalPorConvertir, this.usua_usua);
-				
+				System.out.println("archivo procesado "+procesoConversionArchivos.getPrco_prco()+" archivo "+archivoRecaudoOriginalPorConvertir.getAror_aror());
 			}
+			
+			System.out.println("finalizando proceso de conversion "+procesoConversionArchivos.getPrco_prco());
 		
 		} catch (Exception e) {
 			e.printStackTrace();

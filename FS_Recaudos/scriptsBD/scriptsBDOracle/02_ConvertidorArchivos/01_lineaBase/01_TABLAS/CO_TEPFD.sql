@@ -14,7 +14,7 @@ Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CO_TEPFD" 
    (	"EPFD_FRDP" 			NUMBER          		constraint NN_CO_TEPFD_FRDP    not null, 
-        "EPFD_ESTA" 		    VARCHAR(10)				constraint NN_CO_TEPFD_ESTA    not null,
+        "EPFD_ESTA" 		    VARCHAR2(100 BYTE)		constraint NN_CO_TEPFD_ESTA    not null,
         "EPFD_FCREA" 			DATE					constraint NN_CO_TEPFD_FCREA   not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )

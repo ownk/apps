@@ -13,8 +13,8 @@ Prompt Creando tabla CO_TEPSG
 Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CO_TEPSG" 
-   (	"EPSG_TPAR" 			NUMBER          		constraint NN_CO_TEPSG_TPAR    not null, 
-        "EPSG_ESTA" 		    VARCHAR(10)				constraint NN_CO_TEPSG_ESTA    not null,
+   (	"EPSG_TPAR" 			VARCHAR2(100 BYTE)         		constraint NN_CO_TEPSG_TPAR    not null, 
+        "EPSG_ESTA" 		    VARCHAR2(100 BYTE)				constraint NN_CO_TEPSG_ESTA    not null,
         "EPSG_FCREA" 			DATE					constraint NN_CO_TEPSG_FCREA   not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )

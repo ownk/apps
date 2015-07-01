@@ -45,6 +45,15 @@ public class TipoArchivoRecaudoConvertidorServicio {
 		
 		return list;
 	}
+	
+	
+	public List<TipoArchivoRecaudoConvertidor> getAllTiposArchivo(){
+		
+		TipoArchivoRecaudoConvertidorControllerDB controllerDB = this.controllerDB;
+		return controllerDB.getAllTiposArchivo();
+		
+		
+	}
 	 
 
 }

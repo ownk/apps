@@ -65,11 +65,10 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 				try {
 					
 					ExecutorService executor = (ExecutorService) Executors.newSingleThreadExecutor();
-				    
 					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI("", "", procesoConversionArchivos, usuario.getUsua_usua());
 				    executor.execute(hiloConversion);
-					 
 				    executor.shutdown();
+				    
 				} catch (Exception e) {
 					e.printStackTrace();
 				}

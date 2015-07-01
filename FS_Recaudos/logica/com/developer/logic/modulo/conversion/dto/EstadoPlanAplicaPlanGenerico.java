@@ -4,15 +4,15 @@ import java.util.Date;
 
 public class EstadoPlanAplicaPlanGenerico {
 
-	Long epsg_tpar;
+	String epsg_tpar;
 	String epsg_esta;
 	Date epsg_fcrea;
 
-	public Long getEpsg_tpar() {
+	public String getEpsg_tpar() {
 		return epsg_tpar;
 	}
 
-	public void setEpsg_tpar(Long epsg_tpar) {
+	public void setEpsg_tpar(String epsg_tpar) {
 		this.epsg_tpar = epsg_tpar;
 	}
 

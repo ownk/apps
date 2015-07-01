@@ -1,5 +1,7 @@
 package com.developer.logic.modulo.conversion.dto;
 
+import org.apache.bcel.generic.LNEG;
+
 public class TipoValidacionArchivoRecaudo {
 	
 	
@@ -18,9 +20,14 @@ public class TipoValidacionArchivoRecaudo {
 	public static final Long TPVL_PLAN_NOSIFI_ACT 	= 	new Long(13);
 	public static final Long TPVL_PROY_RECA_NOSIFI_ACT = 	new Long(14);
 	public static final Long TPVL_PLAN_NOSIFI_INACT = new Long(15);
-	public static final Long TPER_PLAN_FRDP_ACT 	= new Long(16);
-	public static final Long TPER_PLAN_DPFD_ACT 	= new Long(17);
-	public static final Long TPER_EPSG_ACT 			= new Long(18);
+	public static final Long TPVL_PLAN_FRDP_ACT 	= new Long(16);
+	public static final Long TPVL_PLAN_DPFD_ACT 	= new Long(17);
+	public static final Long TPVL_EPSG_ACT 			= new Long(18);
+	public static final Long TPVL_EPSG_NOEXISTE 	= new Long(19);
+	public static final Long TPVL_PROY_RECA_NOSIFI_ACT_SINPLAN = new Long(20);
+	public static final Long TPVL_PLAN_SIFI_EXISTE = new Long(21);
+	public static final Long TPVL_PLAN_NOSIFI_EXISTE = new Long(22);
+	
 		
 	
 	Long    tpvl_tpvl 	; 

@@ -14,7 +14,7 @@ Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CO_TDPFD" 
    (	"DPFD_FRDP" 			NUMBER          		constraint NN_CO_TDPFD_FRDP    not null, 
-        "DPFD_PORC_RECA" 		NUMBER(1,4)				constraint NN_CO_TDPFD_PORC    not null,
+        "DPFD_PORC_RECA" 		NUMBER(5,4)				constraint NN_CO_TDPFD_PORC    not null,
         "DPFD_PLAN_DEST" 		NUMBER      			constraint NN_CO_TDPFD_PLAN    not null,
 		"DPFD_FCREA" 			DATE					constraint NN_CO_TDPFD_FCREA   not null
    ) 

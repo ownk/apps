@@ -14,7 +14,7 @@ Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CO_TPLNS" 
    (	"PLNS_PLAN" 			NUMBER					constraint NN_CO_TPLNS_PLAN    not null,
-		"PLNS_ESTA" 			VARCHAR2(10 BYTE)	    constraint NN_CO_TPLNS_ESTA     not null, 
+		"PLNS_ESTA" 			VARCHAR2(100 BYTE)	    constraint NN_CO_TPLNS_ESTA     not null, 
 		"PLNS_FCREA" 			DATE					constraint NN_CO_TPLNS_FCREA   not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )

@@ -16,7 +16,7 @@ Prompt
    (	"DARGE_ARGE" 		    NUMBER					constraint NN_CO_TDARGE_ARGE not null,
 		"DARGE_DAROR_ID_REG"    NUMBER		            constraint NN_CO_TDARGE_DAROR_ID_REG not null,
         "DARGE_ID_REG"          NUMBER		            constraint NN_CO_TDARGE_ID_REG not null,
-		"DARGE_FRECA" 		    VARCHAR(10 BYTE)		constraint NN_CO_TDARGE_FRECA not null, 			
+		"DARGE_FRECA" 		    VARCHAR2(10 BYTE)		constraint NN_CO_TDARGE_FRECA not null, 			
 		"DARGE_REFERENCIA" 	    VARCHAR2(100 BYTE)		constraint NN_CO_TDARGE_REFERENCIA not null,
         "DARGE_APORTANTE" 	    VARCHAR2(100 BYTE)		constraint NN_CO_TDARGE_APORTANTE not null, 
 		"DARGE_OFIC" 		    VARCHAR2(10 BYTE)		constraint NN_CO_TDARGE_OFIC not null,
