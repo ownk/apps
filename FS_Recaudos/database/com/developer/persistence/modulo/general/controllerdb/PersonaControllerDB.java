@@ -10,16 +10,6 @@ import com.developer.persistence.modulo.general.mapper.dao.PersonaDao;
 
 public class PersonaControllerDB {
 	
-	private static PersonaControllerDB instance;
-	
-	public static PersonaControllerDB getInstance() {
-		if (instance == null) {
-			instance = new PersonaControllerDB();
-		}
-		
-	
-		return instance;
-	}
 	
 	//TODO deberia recibir el string del usua_usua
 	public Persona getPersonaPorUsuario(Usuario usuario){

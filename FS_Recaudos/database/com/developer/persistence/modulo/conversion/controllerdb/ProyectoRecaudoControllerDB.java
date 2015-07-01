@@ -13,15 +13,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ProyectoRecaudoDao
 
 public class ProyectoRecaudoControllerDB {
 	
-	private static ProyectoRecaudoControllerDB instance;
-	
-	public static ProyectoRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ProyectoRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 				

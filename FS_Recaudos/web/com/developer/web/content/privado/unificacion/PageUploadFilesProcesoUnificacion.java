@@ -23,7 +23,7 @@ public class PageUploadFilesProcesoUnificacion extends PrivatePage {
 	public StringBuffer executeAction(HttpServletRequest request) {
 		
 		StringBuffer xmlPage = new StringBuffer();
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 		
 		Map<String, Object> parameters = getParameters(request, true);
 		ProcesoUnificacionArchivos procesoUnificacionArchivos = (ProcesoUnificacionArchivos) getParameterToObject(
@@ -59,7 +59,7 @@ public class PageUploadFilesProcesoUnificacion extends PrivatePage {
 
 	@Override
 	public boolean isAccesoValido(HttpServletRequest arg0) {
-		return AutenticadorServicio.getInstance().isAccesoPrivadoValido(arg0);
+		return new AutenticadorServicio().isAccesoPrivadoValido(arg0);
 
 	}
 
@@ -67,16 +67,14 @@ public class PageUploadFilesProcesoUnificacion extends PrivatePage {
 
 		try {
 
-			String rutabase = ProcesoUnificacionArchivosServicio.getInstance()
-					.getRutaTemporalArchivosZIP(prun_prun);
+			String rutabase = new ProcesoUnificacionArchivosServicio().getRutaTemporalArchivosZIP(prun_prun);
 
 			for (Object object : files) {
 				FileItem fileItem = (FileItem) object;
 
 				if (fileItem != null) {
 
-					String nombreEnServidor = ArchivoZIPProcesoUnificacionServicio
-							.getInstance().getNombreArchivoEnServidor(fileItem);
+					String nombreEnServidor = new ArchivoZIPProcesoUnificacionServicio().getNombreArchivoEnServidor(fileItem);
 
 					ServletUtils.copyFileItem(rutabase, fileItem,
 							nombreEnServidor);

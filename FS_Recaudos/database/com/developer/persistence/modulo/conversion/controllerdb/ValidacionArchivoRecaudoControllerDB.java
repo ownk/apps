@@ -12,15 +12,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ValidacionArchivoR
 
 public class ValidacionArchivoRecaudoControllerDB {
 	
-	private static ValidacionArchivoRecaudoControllerDB instance;
-	
-	public static ValidacionArchivoRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ValidacionArchivoRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 	

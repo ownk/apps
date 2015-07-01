@@ -10,17 +10,6 @@ import com.developer.persistence.modulo.general.mapper.dao.ServerDao;
 
 public class ServerControllerDB {
 	
-	private static ServerControllerDB instance;
-	
-	public static ServerControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ServerControllerDB();
-		}
-		
-	
-		return instance;
-	}
-	
 		
 	public Date getSysdate(){
 		SqlSession session = DBManagerFSRecaudos.openSession();

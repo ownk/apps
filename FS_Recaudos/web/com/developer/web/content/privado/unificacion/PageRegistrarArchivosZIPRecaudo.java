@@ -18,10 +18,11 @@ public class PageRegistrarArchivosZIPRecaudo extends PrivatePage {
 		
 		
 		StringBuffer xmlPage = new StringBuffer();
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 		
 		//Session de aplicacion 
-		SessionAppUsuario sessionAppUsuario = AutenticadorServicio.getInstance().getSessionAppUsuario(request);
+		AutenticadorServicio autenticadorServicio = new AutenticadorServicio();
+		SessionAppUsuario sessionAppUsuario = autenticadorServicio.getSessionAppUsuario(request);
 		
 		if(sessionAppUsuario!=null){
 						
@@ -32,7 +33,7 @@ public class PageRegistrarArchivosZIPRecaudo extends PrivatePage {
 			Long prun_prun= servicio.getSiguienteID();
 			xmlPage.append("<prun_prun>"+prun_prun+"</prun_prun>");
 				
-			Date currenteDate = ServerServicio.getInstance().getSysdate();
+			Date currenteDate = new ServerServicio().getSysdate();
 			SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 			xmlPage.append("<prun_fini>"+simpleDateFormat.format(currenteDate)+"</prun_fini>");
 		
@@ -55,7 +56,7 @@ public class PageRegistrarArchivosZIPRecaudo extends PrivatePage {
 
 	@Override
 	public boolean isAccesoValido(HttpServletRequest arg0) {
-		return AutenticadorServicio.getInstance().isAccesoPrivadoValido(arg0);
+		return new AutenticadorServicio().isAccesoPrivadoValido(arg0);
 	
 	}
 	

@@ -11,14 +11,9 @@ import com.developer.persistence.modulo.conversion.controllerdb.ArchivoRecaudoGe
 
 public class ArchivoRecaudoGeneradoSIFIServicio {
 	
-	private static ArchivoRecaudoGeneradoSIFIServicio instance;
-	
-	public static ArchivoRecaudoGeneradoSIFIServicio getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoGeneradoSIFIServicio();
-		}
-		
-		return instance;
+	ArchivoRecaudoGeneradoSIFIControllerDB controllerDB;
+	public ArchivoRecaudoGeneradoSIFIServicio() {
+		controllerDB = new ArchivoRecaudoGeneradoSIFIControllerDB();
 	}
 	
 	/**
@@ -30,7 +25,7 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 	
 		
 	public List<ArchivoRecaudoGeneradoSIFI> getArchivosPorPRCO(Long prco_prco){
-		ArchivoRecaudoGeneradoSIFIControllerDB controllerDB = ArchivoRecaudoGeneradoSIFIControllerDB.getInstance();
+		ArchivoRecaudoGeneradoSIFIControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoGeneradoSIFI> list = controllerDB.getArchivosPorPRCO(prco_prco);
 		
 		for (ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI : list) {
@@ -42,7 +37,7 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 	}
 	
 	public ArchivoRecaudoGeneradoSIFI getArchivoRecaudo(Long arge_arge){
-		ArchivoRecaudoGeneradoSIFIControllerDB controllerDB = ArchivoRecaudoGeneradoSIFIControllerDB.getInstance();
+		ArchivoRecaudoGeneradoSIFIControllerDB controllerDB = this.controllerDB;
 		ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI = controllerDB.getDocumento(arge_arge);
 		
 		completarInformacionAdicionalArchivo(archivoRecaudoGeneradoSIFI);
@@ -72,7 +67,7 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 			boolean sinErrores = true;
 			
 			
-			sinErrores = sinErrores && ArchivoRecaudoGeneradoSIFIControllerDB.getInstance().crearArchivoTransaccional(session, archivoRecaudoGeneradoSIFI);
+			sinErrores = sinErrores && this.controllerDB.crearArchivoTransaccional(session, archivoRecaudoGeneradoSIFI);
 			
 			
 			return sinErrores;		
@@ -97,7 +92,7 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 				detalleArchivoRecaudoGeneradoSIFI.setDarge_arge(archivoRecaudoGeneradoSIFI.getArge_arge());
 
 				
-				sinErrores = sinErrores && ArchivoRecaudoGeneradoSIFIControllerDB.getInstance().crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoGeneradoSIFI);
+				sinErrores = sinErrores && this.controllerDB.crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoGeneradoSIFI);
 				
 			}
 		

@@ -7,15 +7,11 @@ import com.developer.persistence.modulo.conversion.controllerdb.EncargoFiduciari
 
 public class EncargoFiduciarioNoSIFIServicio {
 	
-	private static EncargoFiduciarioNoSIFIServicio instance;
-	
-	public static EncargoFiduciarioNoSIFIServicio getInstance() {
-		if (instance == null) {
-			instance = new EncargoFiduciarioNoSIFIServicio();
-		}
-		
-		return instance;
+	EncargoFiduciarioNoSIFIControllerDB controllerDB;
+	public EncargoFiduciarioNoSIFIServicio() {
+		controllerDB = new EncargoFiduciarioNoSIFIControllerDB();
 	}
+	
 	
 	/**
 	 * ==========================================
@@ -24,7 +20,7 @@ public class EncargoFiduciarioNoSIFIServicio {
 	 */
 	
 	public List<EncargoFiduciarioNoSIFI> getAllEncargosNoSIFI(){
-		EncargoFiduciarioNoSIFIControllerDB controllerDB = EncargoFiduciarioNoSIFIControllerDB.getInstance();
+		EncargoFiduciarioNoSIFIControllerDB controllerDB = this.controllerDB;
 		List<EncargoFiduciarioNoSIFI> list = controllerDB.getAllEncargosNoSIFI();
 		return list;
 		
@@ -32,7 +28,7 @@ public class EncargoFiduciarioNoSIFIServicio {
 	
 
 	public EncargoFiduciarioNoSIFI getEncargoNoSIFI(EncargoFiduciarioNoSIFI encargoFiduciarioNoSIFI){
-		EncargoFiduciarioNoSIFIControllerDB controllerDB = EncargoFiduciarioNoSIFIControllerDB.getInstance();
+		EncargoFiduciarioNoSIFIControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getEncargoNoSIFI(encargoFiduciarioNoSIFI);
 		
 		

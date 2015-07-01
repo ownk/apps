@@ -11,15 +11,7 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.TransformacionArc
 
 public class TransformadorArchivoRecaudoControllerDB {
 	
-	private static TransformadorArchivoRecaudoControllerDB instance;
 	
-	public static TransformadorArchivoRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new TransformadorArchivoRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	public Long getSiguienteID(){
 		SqlSession session = DBManagerFSRecaudos.openSession();

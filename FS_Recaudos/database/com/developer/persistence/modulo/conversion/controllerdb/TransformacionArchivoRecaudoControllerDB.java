@@ -12,15 +12,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.TransformacionArch
 
 public class TransformacionArchivoRecaudoControllerDB {
 	
-	private static TransformacionArchivoRecaudoControllerDB instance;
-	
-	public static TransformacionArchivoRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new TransformacionArchivoRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 	

@@ -12,10 +12,8 @@ public class ObjectToXML {
 	XmlFriendlyReplacer replacer;  
 	com.thoughtworks.xstream.XStream xstream;
 	
-	private static ObjectToXML generadorObjectToXML;
 	
-	
-	private ObjectToXML(){
+	public ObjectToXML(){
 		replacer = new XmlFriendlyReplacer("$", "_");  
 		xstream = new XStream(new DomDriver(GeneralConstants.ENCONDING, replacer)){
 			@Override
@@ -27,14 +25,7 @@ public class ObjectToXML {
 		
 	}
 	
-	public static ObjectToXML getInstance() {
-		if(generadorObjectToXML == null){
-			generadorObjectToXML = new ObjectToXML();
-			
-		}
-		
-		return generadorObjectToXML;
-	}
+	
 		
 	public String getXML ( Object object){
 		

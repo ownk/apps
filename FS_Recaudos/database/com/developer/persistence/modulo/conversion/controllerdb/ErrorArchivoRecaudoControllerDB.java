@@ -12,16 +12,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ErrorArchivoRecaud
 
 public class ErrorArchivoRecaudoControllerDB {
 	
-	private static ErrorArchivoRecaudoControllerDB instance;
-	
-	public static ErrorArchivoRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ErrorArchivoRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
-	
 	
 	
 	public Boolean crearErrorTransaccional(SqlSession session, ErrorArchivoRecaudo errorArchivoRecaudo){

@@ -16,17 +16,8 @@ import com.developer.persistence.modulo.autenticacion.mapper.dao.UsuarioDao;
 public class UsuarioControllerDB {
 	
 	
-	private static UsuarioControllerDB instance;
 	
-	public static UsuarioControllerDB getInstance() {
-		if (instance == null) {
-			instance = new UsuarioControllerDB();
-		}
-		
-		return instance;
-	}
-	
-	
+
 		
 	public Usuario isUsuarioValido(String login, String claveEncriptada){
 		

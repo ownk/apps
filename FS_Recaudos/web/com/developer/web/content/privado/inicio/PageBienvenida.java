@@ -21,11 +21,11 @@ public class PageBienvenida extends PrivatePage{
 	
 		
 		StringBuffer xmlPage = new StringBuffer();
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 		MensajeErrorWeb errorWeb = new MensajeErrorWeb();
 		// Session de aplicacion
-		SessionAppUsuario sessionAppUsuario = AutenticadorServicio
-				.getInstance().getSessionAppUsuario(request);
+		AutenticadorServicio autenticadorServicio = new AutenticadorServicio();
+		SessionAppUsuario sessionAppUsuario = autenticadorServicio.getSessionAppUsuario(request);
 
 		
 		if (sessionAppUsuario != null) {
@@ -95,7 +95,7 @@ public class PageBienvenida extends PrivatePage{
 
 	@Override
 	public boolean isAccesoValido(HttpServletRequest arg0) {
-		return AutenticadorServicio.getInstance().isAccesoPrivadoValido(arg0);
+		return new AutenticadorServicio().isAccesoPrivadoValido(arg0);
 	}
 	
 

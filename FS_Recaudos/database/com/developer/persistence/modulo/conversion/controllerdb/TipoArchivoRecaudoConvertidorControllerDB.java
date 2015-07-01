@@ -12,15 +12,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.TipoArchivoRecaudo
 
 public class TipoArchivoRecaudoConvertidorControllerDB {
 	
-	private static TipoArchivoRecaudoConvertidorControllerDB instance;
-	
-	public static TipoArchivoRecaudoConvertidorControllerDB getInstance() {
-		if (instance == null) {
-			instance = new TipoArchivoRecaudoConvertidorControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 	

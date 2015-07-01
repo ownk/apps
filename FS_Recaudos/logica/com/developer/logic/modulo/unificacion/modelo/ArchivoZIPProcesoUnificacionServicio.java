@@ -18,14 +18,10 @@ import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoZIPProce
 
 public class ArchivoZIPProcesoUnificacionServicio {
 	
-	private static ArchivoZIPProcesoUnificacionServicio instance;
 	
-	public static ArchivoZIPProcesoUnificacionServicio getInstance() {
-		if (instance == null) {
-			instance = new ArchivoZIPProcesoUnificacionServicio();
-		}
-		
-		return instance;
+	ArchivoZIPProcesoUnificacionControllerDB controllerDB;
+	public ArchivoZIPProcesoUnificacionServicio() {
+		controllerDB = new ArchivoZIPProcesoUnificacionControllerDB();
 	}
 	
 	/**
@@ -36,14 +32,14 @@ public class ArchivoZIPProcesoUnificacionServicio {
 	
 	public Long getSiguienteID(){
 		
-		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
+		ArchivoZIPProcesoUnificacionControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
 		
 	}
 	
 	
 	public ArchivoZIPProcesoUnificacion getArchivo(Long azpu_azpu){
-		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
+		ArchivoZIPProcesoUnificacionControllerDB controllerDB = this.controllerDB;
 		ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion =  controllerDB.getArchivo(azpu_azpu);
 		
 		completarInformacionAdicionalArhivo(archivoZIPProcesoUnificacion);
@@ -52,14 +48,14 @@ public class ArchivoZIPProcesoUnificacionServicio {
 	}
 	
 	public ArchivoZIPProcesoUnificacion getArchivoBasico(Long azpu_azpu){
-		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
+		ArchivoZIPProcesoUnificacionControllerDB controllerDB = this.controllerDB;
 		ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion =  controllerDB.getArchivo(azpu_azpu);
 		
 		return archivoZIPProcesoUnificacion;
 	}
 	
 	public List<ArchivoZIPProcesoUnificacion> getArchivosPorProceso(Long prun_prun){
-		ArchivoZIPProcesoUnificacionControllerDB controllerDB = ArchivoZIPProcesoUnificacionControllerDB.getInstance();
+		ArchivoZIPProcesoUnificacionControllerDB controllerDB = this.controllerDB;
 		List<ArchivoZIPProcesoUnificacion> list =  controllerDB.getArchivosPorPRUN(prun_prun);
 		
 		for (ArchivoZIPProcesoUnificacion archivoZIPProcesoUnificacion : list) {
@@ -141,7 +137,7 @@ public class ArchivoZIPProcesoUnificacionServicio {
 					archivoZIPProcesoUnificacion.setAzpu_archivos(new Long(totalFiles));
 				
 					
-					sinErrores = sinErrores && ArchivoZIPProcesoUnificacionControllerDB.getInstance().crearArchivoTransaccional(session, archivoZIPProcesoUnificacion);
+					sinErrores = sinErrores && this.controllerDB.crearArchivoTransaccional(session, archivoZIPProcesoUnificacion);
 					
 					if(sinErrores){
 						archivoZIPProcesoUnificacion.setProcesoUnificacionArchivos(procesoUnificacionArchivos);

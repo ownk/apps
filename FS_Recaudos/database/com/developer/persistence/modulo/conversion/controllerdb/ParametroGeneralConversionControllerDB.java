@@ -11,15 +11,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ParametroGeneralCo
 
 public class ParametroGeneralConversionControllerDB {
 	
-	private static ParametroGeneralConversionControllerDB instance;
-	
-	public static ParametroGeneralConversionControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ParametroGeneralConversionControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 				

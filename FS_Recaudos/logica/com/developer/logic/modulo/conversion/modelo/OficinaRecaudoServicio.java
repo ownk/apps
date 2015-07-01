@@ -7,15 +7,7 @@ import com.developer.persistence.modulo.conversion.controllerdb.OficinaRecaudoCo
 
 public class OficinaRecaudoServicio {
 	
-	private static OficinaRecaudoServicio instance;
-	
-	public static OficinaRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new OficinaRecaudoServicio();
-		}
-		
-		return instance;
-	}
+
 	
 	/**
 	 * ==========================================
@@ -25,7 +17,7 @@ public class OficinaRecaudoServicio {
 	
 	
 	public List<OficinaRecaudo> getAllOficinas(){
-		OficinaRecaudoControllerDB controllerDB = OficinaRecaudoControllerDB.getInstance();
+		OficinaRecaudoControllerDB controllerDB = new OficinaRecaudoControllerDB();
 		List<OficinaRecaudo> list = controllerDB.getAllOficinas();
 		return list;
 	}

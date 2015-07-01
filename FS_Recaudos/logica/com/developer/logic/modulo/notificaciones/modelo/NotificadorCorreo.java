@@ -8,6 +8,7 @@ import org.apache.commons.lang.StringUtils;
 import com.developer.core.mail.Mail;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
+import com.developer.logic.modulo.autenticacion.modelo.UsuarioServicio;
 import com.developer.logic.modulo.general.dto.Persona;
 import com.developer.logic.modulo.notificaciones.dto.Notificacion;
 import com.developer.persistence.modulo.autenticacion.controllerdb.UsuarioControllerDB;
@@ -30,11 +31,11 @@ public class NotificadorCorreo implements Observer {
 			
 			if(notificacion.getNoti_usua_receptor()!=null){
 			
-				Usuario receptor = UsuarioControllerDB.getInstance().getUsuario(notificacion.getNoti_usua_receptor());
+				Usuario receptor = new UsuarioServicio().getUsuario(notificacion.getNoti_usua_receptor());
 				
 				if(receptor!= null && !StringUtils.isEmpty(receptor.getUsua_mail())){
 					
-					Persona persona = PersonaControllerDB.getInstance().getPersonaPorUsuario(receptor);
+					Persona persona = new PersonaControllerDB().getPersonaPorUsuario(receptor);
 					
 					String nombreCompleto = persona.getPern_nomb()+" "+persona.getPern_papell()+" "+persona.getPern_sapell();
 					

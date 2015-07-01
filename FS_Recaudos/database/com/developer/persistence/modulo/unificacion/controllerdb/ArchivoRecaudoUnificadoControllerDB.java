@@ -13,15 +13,6 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoUni
 
 public class ArchivoRecaudoUnificadoControllerDB {
 	
-	private static ArchivoRecaudoUnificadoControllerDB instance;
-	
-	public static ArchivoRecaudoUnificadoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoUnificadoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	public Long getSiguienteID(){
 		SqlSession session = DBManagerFSRecaudos.openSession();

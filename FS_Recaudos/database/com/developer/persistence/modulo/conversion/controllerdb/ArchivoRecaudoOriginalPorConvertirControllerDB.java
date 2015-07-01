@@ -15,15 +15,7 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ArchivoRecaudoOrig
 
 public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 	
-	private static ArchivoRecaudoOriginalPorConvertirControllerDB instance;
 	
-	public static ArchivoRecaudoOriginalPorConvertirControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoOriginalPorConvertirControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	public Boolean crearArchivoTransaccional(SqlSession session, ArchivoRecaudoOriginalPorConvertir ArchivoRecaudoOriginalPorConvertir){
 		

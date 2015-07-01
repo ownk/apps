@@ -30,11 +30,11 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 	public StringBuffer executeAction(HttpServletRequest request) {
 
 		StringBuffer xmlPage = new StringBuffer();
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 
 		// Session de aplicacion
-		SessionAppUsuario sessionAppUsuario = AutenticadorServicio
-				.getInstance().getSessionAppUsuario(request);
+		AutenticadorServicio autenticadorServicio = new AutenticadorServicio();
+		SessionAppUsuario sessionAppUsuario = autenticadorServicio.getSessionAppUsuario(request);
 
 		StringBuffer mensajeErrorOut = new StringBuffer();
 		
@@ -59,7 +59,7 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 				
 				if(filesZIP!= null && filesZIP.size()>0){
 				
-					Date currentDate = ServerServicio.getInstance().getSysdate();
+					Date currentDate = new ServerServicio().getSysdate();
 					String observacion = null;
 					
 					if(procesoUnificacionArchivos.getPrun_observ()== null || procesoUnificacionArchivos.getPrun_observ().isEmpty()){
@@ -124,6 +124,7 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 						
 						
 						//Se proces a crear la conversion de archivo de forma automatica
+						
 						ConvertidorArchivosSIFIPorProcesoServicio convertidorArchivosSIFIServicio = new ConvertidorArchivosSIFIPorProcesoServicio();
 						sinErrores = convertidorArchivosSIFIServicio.generarArchivosSIFIPorProceso(procesoUnificacionArchivos, sessionAppUsuario.getUsuario(), mensajeErrorOut);
 						
@@ -206,15 +207,14 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 
 	@Override
 	public boolean isAccesoValido(HttpServletRequest arg0) {
-		return AutenticadorServicio.getInstance().isAccesoPrivadoValido(arg0);
+		return new AutenticadorServicio().isAccesoPrivadoValido(arg0);
 
 	}
 
 	private ArrayList<File> getFilesZIP(Long prun_prun) {
 
 		ArrayList<File> filesZIP = new ArrayList<File>();
-		String rutaTempArchivos = ProcesoUnificacionArchivosServicio
-				.getInstance().getRutaTemporalArchivosZIP(prun_prun);
+		String rutaTempArchivos = new ProcesoUnificacionArchivosServicio().getRutaTemporalArchivosZIP(prun_prun);
 
 		File folder = new File(rutaTempArchivos);
 		File[] listOfFiles = folder.listFiles();

@@ -12,14 +12,10 @@ import com.developer.persistence.modulo.unificacion.controllerdb.TransformadorAr
 
 public class TransformadorArchivoRecaudoServicio {
 
-	private static TransformadorArchivoRecaudoServicio instance;
 
-	public static TransformadorArchivoRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new TransformadorArchivoRecaudoServicio();
-		}
-
-		return instance;
+	TransformadorArchivoRecaudoControllerDB controllerDB;
+	public TransformadorArchivoRecaudoServicio() {
+		controllerDB = new TransformadorArchivoRecaudoControllerDB();
 	}
 
 	/**
@@ -30,8 +26,7 @@ public class TransformadorArchivoRecaudoServicio {
 
 	public Long getSiguienteID() {
 
-		TransformadorArchivoRecaudoControllerDB controllerDB = TransformadorArchivoRecaudoControllerDB
-				.getInstance();
+		TransformadorArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
 
 	}
@@ -39,8 +34,7 @@ public class TransformadorArchivoRecaudoServicio {
 
 	public List<TransformacionArchivoRecaudo> getTranformacionsPorPRUN(
 			Long prun_prun) {
-		TransformadorArchivoRecaudoControllerDB controllerDB = TransformadorArchivoRecaudoControllerDB
-				.getInstance();
+		TransformadorArchivoRecaudoControllerDB controllerDB = new TransformadorArchivoRecaudoControllerDB();
 		List<TransformacionArchivoRecaudo> list = controllerDB
 				.getTranformacionsPorPRUN(prun_prun);
 
@@ -131,8 +125,7 @@ public class TransformadorArchivoRecaudoServicio {
 			transformacionArchivoRecaudo.setTrar_usua(usua_usua);
 
 			sinErrores = sinErrores
-					&& TransformadorArchivoRecaudoControllerDB.getInstance()
-							.crearArchivoTransaccional(session,
+					&& new TransformadorArchivoRecaudoControllerDB().crearArchivoTransaccional(session,
 									transformacionArchivoRecaudo);
 
 			if (sinErrores) {

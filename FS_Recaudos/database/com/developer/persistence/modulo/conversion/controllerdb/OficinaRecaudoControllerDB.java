@@ -11,15 +11,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.OficinaRecaudoDao;
 
 public class OficinaRecaudoControllerDB {
 	
-	private static OficinaRecaudoControllerDB instance;
-	
-	public static OficinaRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new OficinaRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 				

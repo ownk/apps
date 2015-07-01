@@ -16,6 +16,7 @@ import com.developer.logic.modulo.conversion.dto.ErrorArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion;
 import com.developer.logic.modulo.conversion.dto.ParametroGeneralConversion;
+import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.dto.ProyectoCancelado;
 import com.developer.logic.modulo.conversion.dto.ProyectoConFormulaDistribucion;
 import com.developer.logic.modulo.conversion.dto.ProyectoNoSIFIActivo;
@@ -25,7 +26,6 @@ import com.developer.logic.modulo.conversion.dto.TipoTransformacionArchivoRecaud
 import com.developer.logic.modulo.conversion.dto.TipoValidacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
-import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 
 public class ConvertidorArchivoSIFIPorTipoArchivo {
@@ -38,13 +38,13 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 	public Boolean createARGE(	String rutaArchivosSIFI,
 								String nombreArchivo,
-								ProcesoUnificacionArchivos procesoUnificacionArchivos,
+								ProcesoConversionArchivos procesoConversionArchivos,
 								ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir, 
 								String usua_usua){
 		
 		
-		
-		ArchivoRecaudoOriginalPorConvertirServicio archivoServicio = ArchivoRecaudoOriginalPorConvertirServicio.getInstance();
+		System.out.println("iniciando ..."+archivoRecaudoOriginalPorConvertir.getAror_nombre());
+		ArchivoRecaudoOriginalPorConvertirServicio archivoServicio = new ArchivoRecaudoOriginalPorConvertirServicio();
 		List<DetalleArchivoRecaudoOriginalPorConvertir>	listDetallesArchivoOriginal = archivoServicio.getAllDetallesAROR(archivoRecaudoOriginalPorConvertir.getAror_aror());
 		List<DetalleArchivoRecaudoGeneradoSIFI> listDetallesArchivoGenerado = new ArrayList<DetalleArchivoRecaudoGeneradoSIFI>();
 		
@@ -53,15 +53,16 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		Double totalEfectivo = new Double(0);
 		Double totalArchivo = new Double(0);
 		
-		ParametroGeneralConversion parametroTamMax =  ParametroGeneralConversionServicio.getInstance().getParametroGeneral(ParametroGeneralConversionServicio.TAMANHO_MAX_REFERENCIA);
-		ParametroGeneralConversion parametroPrefVolante =  ParametroGeneralConversionServicio.getInstance().getParametroGeneral(ParametroGeneralConversionServicio.PREFIJO_VOLANTE);
+		ParametroGeneralConversionServicio parametroGeneralConversionServicio = new ParametroGeneralConversionServicio();
+		ParametroGeneralConversion parametroTamMax =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.TAMANHO_MAX_REFERENCIA);
+		ParametroGeneralConversion parametroPrefVolante =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.PREFIJO_VOLANTE);
 		
 		
-		SIFIServicio sifiServicio = SIFIServicio.getInstance();
-		EncargoFiduciarioNoSIFIServicio noSIFIServicio = EncargoFiduciarioNoSIFIServicio.getInstance();
-		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = TipoArchivoRecaudoConvertidorServicio.getInstance();
-		ProyectoRecaudoServicio proyectoRecaudoServicio = ProyectoRecaudoServicio.getInstance();
-		FormulaDistribucionPorcentajeServicio formulaDistribucionPorcentajeServicio = FormulaDistribucionPorcentajeServicio.getInstance();
+		SIFIServicio sifiServicio = new SIFIServicio();
+		EncargoFiduciarioNoSIFIServicio noSIFIServicio = new EncargoFiduciarioNoSIFIServicio();
+		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
+		ProyectoRecaudoServicio proyectoRecaudoServicio = new ProyectoRecaudoServicio();
+		FormulaDistribucionPorcentajeServicio formulaDistribucionPorcentajeServicio = new FormulaDistribucionPorcentajeServicio();
 		
 		estadosPlanFormulaDistribucion = formulaDistribucionPorcentajeServicio.getAllEstadosAplicaFormula();
 		estadosPlanAplicaPlanGenerico = tipoArchivoServicio.getEstadosAplicaPlanGenericoPorTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar());
@@ -100,7 +101,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					
 					formaRecaudo = detalleArchivo.getDaror_tipo_reca();
 					aportante = getLong(detalleArchivo.getDaror_aportante());
-					proyecto = getProyecto(""+referenciaOriginal);
+					
 					
 					//Tipo de recaudo -Excluir por forma de recaudo. Crear validacion
 					if(!formaRecaudo.equals("RNDB")){
@@ -112,7 +113,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							
 							//Se eliminan los espacios y ceros a la izquierda
 							referenciaOriginal = getLong(detalleArchivo.getDaror_referencia());
-							
+							proyecto = getProyecto(""+referenciaOriginal);
 							
 							//Completar el tamaño con numero de fondo por tipo de archivo. Crear transformacion y validacion
 							if(referenciaOriginal.toString().length()<tamMaximoReferencia){
@@ -198,9 +199,18 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							}
 							
 							
-							//Determinar estado en encargo SIFI
+							
+							/**
+							 * ==========================
+							 * 	REFERENCIA ES UN ENCARGO
+							 * ==========================
+							 * 
+							 */
+							
 							if(esEncargo){
 								
+								
+								//Determinar estado en encargo SIFI
 								EncargoFiduciarioSIFI encargoFiduciarioSIFI = new EncargoFiduciarioSIFI();
 								encargoFiduciarioSIFI.setPlts_plan(referenciaOriginal);
 								
@@ -225,14 +235,73 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										listErrores.add(errorArchivoRecaudo);
 									}else{
 										
-										//1. Si el estado esta cancelado se debe crear una validacion especifica
+										
+										
+										
+										/**
+										 * Transformaciones segun el estado o proyecto
+										 * =============================================
+										 */	
+										
 										if(estadoSIFI.equals(EncargoFiduciarioSIFI.ESTADO_CAN)){
-											ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
-											validacion.setVlar_aror(detalleArchivo.getDaror_aror());
-											validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-											validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_CAN);
+											//Se busca el proyecto en los proyectos cancelados solo si esta cancelado. Si lo encuentra coloca el numero de encargo asignado
+											//En caso de no encontrarlo lo deja vacio.
 											
-											listValidaciones.add(validacion);
+											//1. Si el estado esta cancelado se debe crear una validacion especifica
+											ValidacionArchivoRecaudo validacionCAN = new ValidacionArchivoRecaudo();
+											validacionCAN.setVlar_aror(detalleArchivo.getDaror_aror());
+											validacionCAN.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+											validacionCAN.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_CAN);
+											
+											listValidaciones.add(validacionCAN);
+											
+											
+											ProyectoCancelado proyectoCancelado = proyectoRecaudoServicio.getProyectoCancelado(proyecto);
+											
+											if(proyectoCancelado!=null && proyectoCancelado.getPrca_proy()!=null){
+												
+												
+												ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+												validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+												validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+												validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PROY_CAN);
+												
+												listValidaciones.add(validacion);
+												
+												
+												
+												if(proyectoCancelado.getPrca_plan_sifi()!=null){
+													
+													
+													referenciaFinal = proyectoCancelado.getPrca_plan_sifi();
+													
+													TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+													transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+													transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+													transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TAM_REF_MAX);
+													transformacion.setTrar_valor_orig(""+referenciaOriginal);
+													transformacion.setTrar_valor_modi(""+referenciaFinal);
+													
+													listTransformaciones.add(transformacion);
+													
+													
+												}else{
+													
+													ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+													errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+													errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+													errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_PRCA_PLAN_SIFI_NULO);
+													
+													listErrores.add(errorArchivoRecaudo);
+													
+												}
+												
+												
+												
+												
+												
+											}
+											
 											
 											
 										}
@@ -254,6 +323,8 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											listValidaciones.add(validacionRCHE);
 											
 										}
+										
+										
 											
 										//Validar Identificacion de aportante con los titulares del encargo
 										Boolean esTitular = false;
@@ -302,141 +373,10 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										
 									}
 								
-								}else{
-									//1. Si el encargo no tiene titulares. Crear validacion de que no tiene titular contra quien comparar
-									
-									//TODO crear error que el encargo no tiene estado SIFI
-									ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
-									errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
-									errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_PLAN_SIFI_NULO);
-									
-									listErrores.add(errorArchivoRecaudo);
 								}
 								
 								
 								
-							
-							
-							}
-							
-							
-							
-							
-							
-							/**
-							 * Transformaciones segun el estado o proyecto
-							 * =============================================
-							 */	
-							
-							if(estadoSIFI.equals(EncargoFiduciarioSIFI.ESTADO_CAN)){
-								//Se busca el proyecto en los proyectos cancelados solo si esta cancelado. Si lo encuentra coloca el numero de encargo asignado
-								//En caso de no encontrarlo lo deja vacio.
-								
-								ProyectoCancelado proyectoCancelado = proyectoRecaudoServicio.getProyectoCancelado(proyecto);
-								
-								if(proyectoCancelado!=null && proyectoCancelado.getPrca_proy()!=null){
-									
-									
-									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
-									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
-									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PROY_CAN);
-									
-									listValidaciones.add(validacion);
-									
-									
-									
-									if(proyectoCancelado.getPrca_plan_sifi()!=null){
-										
-										
-										referenciaFinal = proyectoCancelado.getPrca_plan_sifi();
-										
-										TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-										transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-										transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-										transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TAM_REF_MAX);
-										transformacion.setTrar_valor_orig(""+referenciaOriginal);
-										transformacion.setTrar_valor_modi(""+referenciaFinal);
-										
-										listTransformaciones.add(transformacion);
-										
-										
-									}else{
-										
-										ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
-										errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
-										errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-										errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_PRCA_PLAN_SIFI_NULO);
-										
-										listErrores.add(errorArchivoRecaudo);
-										
-									}
-									
-									
-									
-									
-									
-								}
-								
-								
-								
-							}
-							
-							
-							
-							//Si la referencia es un volante pero el tipo de archivo dice que lo reemplace por el generico se debe crear transformacion
-							if(!esEncargo){
-								
-								/**
-								 * La referencia corresponde a un VOLANTE 	
-								 */
-								
-								Long nuevaReferencia = getReferenciaVolantePorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
-								
-								if(!referenciaOriginal.equals(nuevaReferencia)){
-									
-									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
-									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
-									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_NO);
-									
-									listValidaciones.add(validacion);
-									
-									
-									referenciaFinal = nuevaReferencia;
-									
-									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TPAR_VOL_NO);
-									transformacion.setTrar_valor_orig(""+referenciaOriginal);
-									transformacion.setTrar_valor_modi(""+referenciaFinal);
-									
-									listTransformaciones.add(transformacion);
-									
-									
-									
-									
-									
-								}else{
-									
-									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
-									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
-									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_SI);
-									
-									listValidaciones.add(validacion);
-								}
-								
-								
-							
-							}else{
-								/**
-								 * La referencia corresponde a un ENCARGO 	
-								 */
-								
-							
 								//Se deben consular contra los encargos no sifi
 								EncargoFiduciarioNoSIFI encargoFiduciarioNoSIFI = new EncargoFiduciarioNoSIFI();
 								encargoFiduciarioNoSIFI.setPlns_plan(referenciaOriginal);
@@ -538,7 +478,8 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 									
 								}
-									
+								
+								
 								
 								/**
 								 * Transfomaciones por formula de distribucion
@@ -766,25 +707,88 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								
 								
 								
-								/**
-								 * Transfomaciones default encargo generico
-								 * =============================================
-								 */
-								if ((estadoSIFI == null && estadoNOSIFI == null && referenciaFinal==null) || (estadoSIFI == EncargoFiduciarioSIFI.ESTADO_CAN && estadoNOSIFI==null && referenciaFinal==null ) || (formaRecaudo == "RCHE" && estadoSIFI==EncargoFiduciarioSIFI.ESTADO_PCA) ){
-									//1.if Estado_SIFI = "___" And Estado_NO_SIFI = "" And Range("G" & Registro).Value = "") Then 'Nov 5 2014: FAB Se incluye esta línea para que si no encuentra estado no cambie el número del encargo al genérico en Rentafácil
-										//Crear validacion de que es volante
-									
-									//2.else En otro caso se valida que no por cuenta que no es universitas y coloca el generico especifico
 								
 								
-									//3 if si el tipo de archivo es de universitas asignar el encargo generico 
-								
-								}	
-								
-								
-								
-							}		
 							
+							
+							}
+							
+							
+							
+							
+							
+							
+							/**
+							 * ==========================
+							 * 	REFERENCIA ES UN VOLANTE
+							 * ==========================
+							 * 
+							 */
+							
+							
+							//Si la referencia es un volante pero el tipo de archivo dice que lo reemplace por el generico se debe crear transformacion
+							if(!esEncargo){
+								
+								/**
+								 * La referencia corresponde a un VOLANTE 	
+								 */
+								
+								Long nuevaReferencia = getReferenciaVolantePorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
+								
+								if(!referenciaOriginal.equals(nuevaReferencia)){
+									
+									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_NO);
+									
+									listValidaciones.add(validacion);
+									
+									
+									referenciaFinal = nuevaReferencia;
+									
+									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TPAR_VOL_NO);
+									transformacion.setTrar_valor_orig(""+referenciaOriginal);
+									transformacion.setTrar_valor_modi(""+referenciaFinal);
+									
+									listTransformaciones.add(transformacion);
+									
+									
+									
+									
+									
+								}else{
+									
+									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_SI);
+									
+									listValidaciones.add(validacion);
+								}
+								
+								
+							
+							}
+							
+							
+							/**
+							 * Transfomaciones default encargo generico
+							 * =============================================
+							 */
+							if ((estadoSIFI == null && estadoNOSIFI == null && referenciaFinal==null) || (estadoSIFI == EncargoFiduciarioSIFI.ESTADO_CAN && estadoNOSIFI==null && referenciaFinal==null ) || (formaRecaudo == "RCHE" && estadoSIFI==EncargoFiduciarioSIFI.ESTADO_PCA) ){
+								//1.if Estado_SIFI = "___" And Estado_NO_SIFI = "" And Range("G" & Registro).Value = "") Then 'Nov 5 2014: FAB Se incluye esta línea para que si no encuentra estado no cambie el número del encargo al genérico en Rentafácil
+									//Crear validacion de que es volante
+								
+								//2.else En otro caso se valida que no por cuenta que no es universitas y coloca el generico especifico
+							
+							
+								//3 if si el tipo de archivo es de universitas asignar el encargo generico 
+							
+							}
 							
 							
 							//Si al final no tiene encargo asignado se debe generar mensaje de error
@@ -819,6 +823,9 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					
 				
 				} catch (Exception e) {
+					e.printStackTrace();
+					
+					System.out.println("finalizando "+archivoRecaudoOriginalPorConvertir.getAror_nombre());
 					return false;
 					
 				}
@@ -842,10 +849,12 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 			}
 			
 			
-			
+			System.out.println("finalizando "+archivoRecaudoOriginalPorConvertir.getAror_nombre());
 			return true;
 		
 		}else{
+			
+			System.out.println("finalizando "+archivoRecaudoOriginalPorConvertir.getAror_nombre());
 			
 			return false;
 		}
@@ -920,7 +929,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 	private Long getReferenciaVolantePorTipoArchivo(Long referenciaOriginal, String tpar_tpar){
 	
-		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = TipoArchivoRecaudoConvertidorServicio.getInstance();
+		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
 		TipoArchivoRecaudoConvertidor tipoArchivoRecaudoConvertidor = tipoArchivoServicio.getTipoArchivo(tpar_tpar);
 		Long nuevaReferencia = null;
 		
@@ -938,7 +947,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 	private Long completarReferenciaPorTipoArchivo(Long referenciaOriginal, String tpar_tpar){
 		
-		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = TipoArchivoRecaudoConvertidorServicio.getInstance();
+		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
 		TipoArchivoRecaudoConvertidor tipoArchivoRecaudoConvertidor = tipoArchivoServicio.getTipoArchivo(tpar_tpar);
 		Long nuevaReferencia = null;
 		
@@ -958,7 +967,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 	private Long getEncargoGenericoPorTipoArchivo(String tpar_tpar){
 		
-		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = TipoArchivoRecaudoConvertidorServicio.getInstance();
+		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
 		TipoArchivoRecaudoConvertidor tipoArchivoRecaudoConvertidor = tipoArchivoServicio.getTipoArchivo(tpar_tpar);
 		Long encargoGenerico = tipoArchivoRecaudoConvertidor.getTpar_plan_generico();
 		

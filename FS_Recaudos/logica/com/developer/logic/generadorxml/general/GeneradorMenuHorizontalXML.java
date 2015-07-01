@@ -21,8 +21,9 @@ public class GeneradorMenuHorizontalXML {
 	public StringBuffer getMenuHorizontalPorUsuario(Usuario usuario){
 		
 		StringBuffer serviciosXML = null;
-		List<Servicio> servicios = UsuarioControllerDB.getInstance().getMenuHorizontalPorUsuario(usuario);
-		List<Modulo> modulos = UsuarioControllerDB.getInstance().getModulosPorUsuario(usuario);
+		UsuarioControllerDB usuarioControllerDB = new UsuarioControllerDB();
+		List<Servicio> servicios = usuarioControllerDB.getMenuHorizontalPorUsuario(usuario);
+		List<Modulo> modulos = usuarioControllerDB.getModulosPorUsuario(usuario);
 		
 		if(servicios!=null && servicios.size()>0 && modulos!=null && modulos.size()>0){
 			

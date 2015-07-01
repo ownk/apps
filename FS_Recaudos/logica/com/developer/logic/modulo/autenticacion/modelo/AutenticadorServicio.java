@@ -7,22 +7,19 @@ import org.apache.commons.lang.StringUtils;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Servicio;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.persistence.modulo.autenticacion.controllerdb.UsuarioControllerDB;
 
 public class AutenticadorServicio {
 	
 	//Colaboradores
 	GeneradorSessionApp generadorSession;
+	UsuarioServicio usuarioServicio;
 	
-	private static AutenticadorServicio instance;
-	
-	public static AutenticadorServicio getInstance() {
-		if (instance == null) {
-			instance = new AutenticadorServicio();
-		}
-		
-		return instance;
+	public AutenticadorServicio() {
+		setGeneradorSession(new GeneradorSessionApp());
+		usuarioServicio = new UsuarioServicio();
 	}
+	
+	
 	
 	public void setGeneradorSession(GeneradorSessionApp generadorSession){
 		this.generadorSession = generadorSession;
@@ -32,7 +29,7 @@ public class AutenticadorServicio {
 	public Usuario isUsuarioValido(String login, String clave){
 		
 		String claveEncriptada = com.developer.core.utils.StringUtils.MD5(login+clave);
-		Usuario usuarioAutenticado = UsuarioControllerDB.getInstance().isUsuarioValido(login, claveEncriptada);
+		Usuario usuarioAutenticado = usuarioServicio.isUsuarioValido(login, claveEncriptada);
 						
 		return usuarioAutenticado;
 	}
@@ -44,7 +41,7 @@ public class AutenticadorServicio {
 		Boolean isURLValida = false;
 		
 		//Se valida si existe algun servicio asociado a la url, para el usuario especificado
-		Servicio servicio = UsuarioServicio.getInstance().getServicioUsuarioPorURL(usuario, url);
+		Servicio servicio = usuarioServicio.getServicioUsuarioPorURL(usuario, url);
 		
 		if(servicio != null){
 			isURLValida = true;

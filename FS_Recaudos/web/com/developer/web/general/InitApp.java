@@ -57,8 +57,7 @@ public class InitApp extends HttpServlet implements Servlet {
 				
 		
 		//Se inicializa el controlador de autenticacion
-		SimpleLogger.info("Inicializando servicio de autenticacion");
-		AutenticadorServicio.getInstance().setGeneradorSession(new GeneradorSessionApp());
+		
 		
 		//Configuracion del correo
 		SimpleLogger.info("Inicializando servicio correo");
@@ -69,7 +68,7 @@ public class InitApp extends HttpServlet implements Servlet {
 		NotificacionServicio.initService();
 		
 		SimpleLogger.info("Inicializando generadores contenido xml");
-		this.privatePageGenerator = new XMLPrivateGenerator(AutenticadorServicio.getInstance());
+		this.privatePageGenerator = new XMLPrivateGenerator(new AutenticadorServicio());
 		this.publicPageGenerator = new XMLPublicGenerator();
 		
 		
@@ -98,7 +97,7 @@ public class InitApp extends HttpServlet implements Servlet {
 			routerPage.routePage(this, request, response);
 			
 			//Se inicializan servicios json si aun no se han inicializado
-			SessionAppUsuario sessionAppUsuario = AutenticadorServicio.getInstance().getSessionAppUsuario(request);
+			SessionAppUsuario sessionAppUsuario = new AutenticadorServicio().getSessionAppUsuario(request);
 			
 			if(sessionAppUsuario!=null){
 				JSONServiceManager.geJsonrpcManager().initJSonSessionServices(sessionAppUsuario);

@@ -12,15 +12,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.FormulaDistribucio
 
 public class FormulaDistribucionPorcentajeControllerDB {
 	
-	private static FormulaDistribucionPorcentajeControllerDB instance;
-	
-	public static FormulaDistribucionPorcentajeControllerDB getInstance() {
-		if (instance == null) {
-			instance = new FormulaDistribucionPorcentajeControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 				

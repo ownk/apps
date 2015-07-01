@@ -11,14 +11,9 @@ import com.developer.persistence.modulo.conversion.controllerdb.ArchivoRecaudoOr
 
 public class ArchivoRecaudoOriginalPorConvertirServicio {
 	
-	private static ArchivoRecaudoOriginalPorConvertirServicio instance;
-	
-	public static ArchivoRecaudoOriginalPorConvertirServicio getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoOriginalPorConvertirServicio();
-		}
-		
-		return instance;
+	ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB;
+	public ArchivoRecaudoOriginalPorConvertirServicio() {
+		controllerDB = new ArchivoRecaudoOriginalPorConvertirControllerDB();
 	}
 	
 	/**
@@ -30,7 +25,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 	
 		
 	public List<ArchivoRecaudoOriginalPorConvertir> getArchivosPorPRCO(Long prco_prco){
-		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance();
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoOriginalPorConvertir> list = controllerDB.getArchivosPorPRCO(prco_prco);
 		
 		for (ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir : list) {
@@ -42,7 +37,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 	}
 	
 	public ArchivoRecaudoOriginalPorConvertir getArchivoRecaudo(Long aror_aror){
-		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance();
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
 		ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir = controllerDB.getDocumento(aror_aror);
 		
 		completarInformacionAdicionalArchivo(archivoRecaudoOriginalPorConvertir);
@@ -72,7 +67,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 			boolean sinErrores = true;
 			
 			
-			sinErrores = sinErrores && ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance().crearArchivoTransaccional(session, archivoRecaudoOriginalPorConvertir);
+			sinErrores = sinErrores && this.controllerDB.crearArchivoTransaccional(session, archivoRecaudoOriginalPorConvertir);
 			
 			
 			return sinErrores;		
@@ -98,7 +93,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 				detalleArchivoRecaudoOriginalPorConvertir.setDaror_fcrea(archivoRecaudoOriginalPorConvertir.getAror_fcrea());
 
 				
-				sinErrores = sinErrores && ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance().crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoOriginalPorConvertir);
+				sinErrores = sinErrores && this.controllerDB.crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoOriginalPorConvertir);
 				
 			}
 		
@@ -115,7 +110,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 	
 	public List<DetalleArchivoRecaudoOriginalPorConvertir> getAllDetallesAROR(Long aror_aror){
 		
-		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = ArchivoRecaudoOriginalPorConvertirControllerDB.getInstance();
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
 		List<DetalleArchivoRecaudoOriginalPorConvertir> list = controllerDB.getAllDetallesAROR(aror_aror);
 		
 		return list;

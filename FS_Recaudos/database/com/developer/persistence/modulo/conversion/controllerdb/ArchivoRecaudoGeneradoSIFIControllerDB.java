@@ -15,15 +15,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ArchivoRecaudoGene
 
 public class ArchivoRecaudoGeneradoSIFIControllerDB {
 	
-	private static ArchivoRecaudoGeneradoSIFIControllerDB instance;
-	
-	public static ArchivoRecaudoGeneradoSIFIControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoGeneradoSIFIControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	public Boolean crearArchivoTransaccional(SqlSession session, ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI){
 		

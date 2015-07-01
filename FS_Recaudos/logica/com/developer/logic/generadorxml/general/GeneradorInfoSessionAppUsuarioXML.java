@@ -24,7 +24,7 @@ public class GeneradorInfoSessionAppUsuarioXML {
 		StringBuffer infoSessionAppUsuarioXML = null;
 		
 	
-		Date sysdate = ServerControllerDB.getInstance().getSysdate();
+		Date sysdate = new ServerControllerDB().getSysdate();
 		
 		if(sessionAppUsuario != null && sysdate!=null){
 			

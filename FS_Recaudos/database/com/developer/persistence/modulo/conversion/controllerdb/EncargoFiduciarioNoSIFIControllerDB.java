@@ -12,15 +12,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.EncargoFiduciarioN
 
 public class EncargoFiduciarioNoSIFIControllerDB {
 	
-	private static EncargoFiduciarioNoSIFIControllerDB instance;
-	
-	public static EncargoFiduciarioNoSIFIControllerDB getInstance() {
-		if (instance == null) {
-			instance = new EncargoFiduciarioNoSIFIControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 

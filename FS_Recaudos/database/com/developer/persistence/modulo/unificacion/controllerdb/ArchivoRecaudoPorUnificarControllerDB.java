@@ -14,15 +14,7 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPor
 
 public class ArchivoRecaudoPorUnificarControllerDB {
 	
-	private static ArchivoRecaudoPorUnificarControllerDB instance;
 	
-	public static ArchivoRecaudoPorUnificarControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoPorUnificarControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	public Long getSiguienteID(){
 		SqlSession session = DBManagerFSRecaudos.openSession();

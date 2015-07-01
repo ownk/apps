@@ -27,14 +27,10 @@ import com.developer.persistence.modulo.general.controllerdb.PersonaControllerDB
 public class ProcesoConversionArchivosServicio {
 	
 	
-	private static ProcesoConversionArchivosServicio instance;
+	ProcesoConversionArchivosControllerDB controllerDB;
 	
-	public static ProcesoConversionArchivosServicio getInstance() {
-		if (instance == null) {
-			instance = new ProcesoConversionArchivosServicio();
-		}
-		
-		return instance;
+	public ProcesoConversionArchivosServicio() {
+		controllerDB = new ProcesoConversionArchivosControllerDB();
 	}
 	
 	/**
@@ -113,7 +109,7 @@ public class ProcesoConversionArchivosServicio {
 			
 			//Se verifica que no existan errores para crear el procesoConversionArchivos
 			if(sinErrores){
-				ProcesoConversionArchivos procesoConversionArchivos = ProcesoConversionArchivosControllerDB.getInstance().
+				ProcesoConversionArchivos procesoConversionArchivos = this.controllerDB.
 																		iniciarProcesoConversionArchivosTransaccional(	session, 
 																														prun_prun,
 																														observacionDeInicio,
@@ -128,7 +124,7 @@ public class ProcesoConversionArchivosServicio {
 				if(procesoConversionArchivos!= null ){
 					
 					//Se deben crear los archivos a convertir
-					ArchivoRecaudoOriginalPorConvertirServicio archivoRecaudoOriginalPorConvertirServicio = ArchivoRecaudoOriginalPorConvertirServicio.getInstance();
+					ArchivoRecaudoOriginalPorConvertirServicio archivoRecaudoOriginalPorConvertirServicio = new ArchivoRecaudoOriginalPorConvertirServicio();
 					
 					for (ArchivoRecaudoUnificado archivoRecaudoUnificado : files) {
 						
@@ -265,7 +261,7 @@ public class ProcesoConversionArchivosServicio {
 	
 	public List<HistoricoProcesoConversionArchivos> getHistoricoPorProcesoConversionArchivos(Long prco_prco){
 		
-		List<HistoricoProcesoConversionArchivos> listaHistorico = ProcesoConversionArchivosControllerDB.getInstance().getHistoricoPorProcesoConversionArchivos(prco_prco);
+		List<HistoricoProcesoConversionArchivos> listaHistorico = this.controllerDB.getHistoricoPorProcesoConversionArchivos(prco_prco);
 		
 		Usuario usuario = new Usuario();
 		
@@ -274,7 +270,7 @@ public class ProcesoConversionArchivosServicio {
 			for (HistoricoProcesoConversionArchivos historico: listaHistorico) {
 				
 				usuario.setUsua_usua(historico.getHprco_usua()); 
-				Persona persona = PersonaControllerDB.getInstance().getPersonaPorUsuario(usuario);
+				Persona persona = new PersonaControllerDB().getPersonaPorUsuario(usuario);
 				historico.setPersona(persona);
 					
 			}
@@ -289,7 +285,7 @@ public class ProcesoConversionArchivosServicio {
 	
 	public ProcesoConversionArchivos getProcesoConversionArchivos(Long prco_prco){
 		
-		ProcesoConversionArchivosControllerDB controllerDB = ProcesoConversionArchivosControllerDB.getInstance();
+		ProcesoConversionArchivosControllerDB controllerDB = this.controllerDB;
 		ProcesoConversionArchivos procesoConversionArchivos = controllerDB.getProcesoConversionArchivos(prco_prco);
 		
 		completarInformacionAdicionalProcesoUnificacion(procesoConversionArchivos);

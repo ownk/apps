@@ -22,15 +22,7 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoRecaudoPor
 
 public class ArchivoRecaudoPorUnificarRepetidoControllerDB {
 	
-	private static ArchivoRecaudoPorUnificarRepetidoControllerDB instance;
-	
-	public static ArchivoRecaudoPorUnificarRepetidoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoPorUnificarRepetidoControllerDB();
-		}
-		
-		return instance;
-	}
+
 	
 	public Long getSiguienteID(){
 		SqlSession session = DBManagerFSRecaudos.openSession();
@@ -103,7 +95,7 @@ public class ArchivoRecaudoPorUnificarRepetidoControllerDB {
 		try {
 			if(archivoRecaudoPorUnificarRepetido!=null && archivoRecaudoPorUnificarRepetido.getArpr_arpr()!=null){
 				
-				ArchivoRecaudoPorUnificarServicio archivoRecaudoPorUnificarServicio = ArchivoRecaudoPorUnificarServicio.getInstance();
+				ArchivoRecaudoPorUnificarServicio archivoRecaudoPorUnificarServicio = new ArchivoRecaudoPorUnificarServicio();
 				ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = archivoRecaudoPorUnificarServicio.getArchivoRecaudo(archivoRecaudoPorUnificarRepetido.getArpr_arpu());
 				
 				archivoRecaudoPorUnificarRepetido.setArchivoRecaudoPorUnificar(archivoRecaudoPorUnificar);

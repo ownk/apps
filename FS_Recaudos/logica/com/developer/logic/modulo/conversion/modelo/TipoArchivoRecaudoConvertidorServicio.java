@@ -8,14 +8,10 @@ import com.developer.persistence.modulo.conversion.controllerdb.TipoArchivoRecau
 
 public class TipoArchivoRecaudoConvertidorServicio {
 	
-	private static TipoArchivoRecaudoConvertidorServicio instance;
 	
-	public static TipoArchivoRecaudoConvertidorServicio getInstance() {
-		if (instance == null) {
-			instance = new TipoArchivoRecaudoConvertidorServicio();
-		}
-		
-		return instance;
+	TipoArchivoRecaudoConvertidorControllerDB controllerDB;
+	public TipoArchivoRecaudoConvertidorServicio() {
+		controllerDB = new TipoArchivoRecaudoConvertidorControllerDB();
 	}
 	
 	/**
@@ -26,7 +22,7 @@ public class TipoArchivoRecaudoConvertidorServicio {
 	
 	public TipoArchivoRecaudoConvertidor getTipoArchivo(String tpar_tpar){
 		
-		TipoArchivoRecaudoConvertidorControllerDB controllerDB = TipoArchivoRecaudoConvertidorControllerDB.getInstance();
+		TipoArchivoRecaudoConvertidorControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getTipoArchivo(tpar_tpar);
 		
 		
@@ -36,7 +32,7 @@ public class TipoArchivoRecaudoConvertidorServicio {
 	
 	public List<TipoArchivoRecaudoConvertidor> getTiposArchivoPorPRCO(Long prco_prco){
 		
-		TipoArchivoRecaudoConvertidorControllerDB controllerDB = TipoArchivoRecaudoConvertidorControllerDB.getInstance();
+		TipoArchivoRecaudoConvertidorControllerDB controllerDB = this.controllerDB;
 		List<TipoArchivoRecaudoConvertidor> list = controllerDB.getTiposArchivoPorPRCO(prco_prco);
 		
 		return list;
@@ -44,7 +40,7 @@ public class TipoArchivoRecaudoConvertidorServicio {
 	
 	public List<EstadoPlanAplicaPlanGenerico> getEstadosAplicaPlanGenericoPorTPAR(String tpar_tpar){
 			
-		TipoArchivoRecaudoConvertidorControllerDB controllerDB = TipoArchivoRecaudoConvertidorControllerDB.getInstance();
+		TipoArchivoRecaudoConvertidorControllerDB controllerDB = this.controllerDB;
 		List<EstadoPlanAplicaPlanGenerico> list = controllerDB.getEstadosAplicaPlanGenericoPorTPAR(tpar_tpar);
 		
 		return list;

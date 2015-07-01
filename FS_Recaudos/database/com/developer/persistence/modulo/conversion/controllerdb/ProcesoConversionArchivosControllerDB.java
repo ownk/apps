@@ -15,15 +15,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.ProcesoConversionA
 
 public class ProcesoConversionArchivosControllerDB {
 	
-	private static ProcesoConversionArchivosControllerDB instance;
-	
-	public static ProcesoConversionArchivosControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ProcesoConversionArchivosControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	/**
 	 *===================================================

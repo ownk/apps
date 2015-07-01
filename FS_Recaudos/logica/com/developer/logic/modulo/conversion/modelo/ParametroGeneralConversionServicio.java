@@ -7,19 +7,18 @@ import com.developer.persistence.modulo.conversion.controllerdb.ParametroGeneral
 
 public class ParametroGeneralConversionServicio {
 	
-	private static ParametroGeneralConversionServicio instance;
+
 	
 	public static String TAMANHO_MAX_REFERENCIA = "co.tam_referencia_recaudo";
 	public static String PREFIJO_VOLANTE = "co.pefijo_volante";
 	
 	
-	public static ParametroGeneralConversionServicio getInstance() {
-		if (instance == null) {
-			instance = new ParametroGeneralConversionServicio();
-		}
-		
-		return instance;
+	ParametroGeneralConversionControllerDB controllerDB;
+	
+	public ParametroGeneralConversionServicio() {
+		controllerDB = new ParametroGeneralConversionControllerDB();
 	}
+	
 	
 	/**
 	 * ==========================================
@@ -33,7 +32,7 @@ public class ParametroGeneralConversionServicio {
 
 
 	public List<ParametroGeneralConversion> getAllParametros(){
-		ParametroGeneralConversionControllerDB controllerDB = ParametroGeneralConversionControllerDB.getInstance();
+		ParametroGeneralConversionControllerDB controllerDB = this.controllerDB;
 		List<ParametroGeneralConversion> list = controllerDB.getAllParametros();
 		return list;
 		
@@ -42,7 +41,7 @@ public class ParametroGeneralConversionServicio {
 	public ParametroGeneralConversion getParametroGeneral(String para_para){
 		
 		
-		ParametroGeneralConversionControllerDB controllerDB = ParametroGeneralConversionControllerDB.getInstance();
+		ParametroGeneralConversionControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getParametroGeneral(para_para);
 		
 		

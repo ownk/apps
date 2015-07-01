@@ -27,7 +27,7 @@ public class GeneradorSessionApp {
 		SimpleLogger.info("Validando usuario: "+login);
 		
 		//Se valida que el login y password sean correctos
-		Usuario  usuario = AutenticadorServicio.getInstance().isUsuarioValido(login, pass);
+		Usuario  usuario = new AutenticadorServicio().isUsuarioValido(login, pass);
 				
 		if(usuario != null){
 			HttpSession session = null;
@@ -76,7 +76,7 @@ public class GeneradorSessionApp {
 		session.setAttribute(SESSION_USUARIO, usuario);
 		
 		//Se consulta la persona asociada al usuario
-		Persona persona = PersonaControllerDB.getInstance().getPersonaPorUsuario(usuario);
+		Persona persona = new PersonaControllerDB().getPersonaPorUsuario(usuario);
 		if(persona!= null){
 			session.setAttribute(SESSION_PERSONA, persona);
 			sessionUsuario = new SessionAppUsuario(session, usuario, persona );

@@ -35,7 +35,7 @@ public class DownloadDocARUNServlet extends HttpServlet {
 
 		Long arun_arun = Long.parseLong(request.getParameter("darun"));
 
-		ArchivoRecaudoUnificado arun = ArchivoRecaudoUnificadoServicio.getInstance().getArchivo(arun_arun);
+		ArchivoRecaudoUnificado arun = new ArchivoRecaudoUnificadoServicio().getArchivo(arun_arun);
 		
 		String original_filename = arun.getArun_nombre()+"."+arun.getArun_extension();
 		

@@ -25,7 +25,7 @@ public class PageLogin extends PrivatePage{
 		
 		StringBuffer mensajeError = new StringBuffer();
 		
-		SessionAppUsuario sessionAppUsuario= AutenticadorServicio.getInstance().iniciarSessionUsuario(request, loginDecrypt, passDecrypt, mensajeError);
+		SessionAppUsuario sessionAppUsuario= new AutenticadorServicio().iniciarSessionUsuario(request, loginDecrypt, passDecrypt, mensajeError);
 		
 		if(sessionAppUsuario!=null){
 			this.nextPage = "inicio/PageBienvenida.do";

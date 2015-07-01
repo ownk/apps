@@ -114,7 +114,7 @@ public class UnificadorArchivosPorProcesoServicio {
 							for (ArchivoRecaudoPorUnificarRepetido archivo : archivoRecaudoUnificado.getArchivosPorUnificarRepetidos()) {
 								
 								
-								ArchivoRecaudoPorUnificarRepetidoServicio archivoRecaudoPorUnificarRepetidoServicio = ArchivoRecaudoPorUnificarRepetidoServicio.getInstance();
+								ArchivoRecaudoPorUnificarRepetidoServicio archivoRecaudoPorUnificarRepetidoServicio = new ArchivoRecaudoPorUnificarRepetidoServicio();
 								
 								archivo.setArpr_arun(archivoRecaudoUnificado.getArun_arun());
 								

@@ -2,6 +2,7 @@ package com.developer.logic.modulo.conversion.modelo;
 
 import java.util.List;
 
+import org.apache.bcel.generic.NEW;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
@@ -9,14 +10,9 @@ import com.developer.persistence.modulo.conversion.controllerdb.ValidacionArchiv
 
 public class ValidacionArchivoRecaudoServicio {
 	
-	private static ValidacionArchivoRecaudoServicio instance;
-	
-	public static ValidacionArchivoRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new ValidacionArchivoRecaudoServicio();
-		}
-		
-		return instance;
+	ValidacionArchivoRecaudoControllerDB controllerDB;
+	public ValidacionArchivoRecaudoServicio() {
+		controllerDB = new ValidacionArchivoRecaudoControllerDB();
 	}
 	
 	/**
@@ -30,7 +26,7 @@ public class ValidacionArchivoRecaudoServicio {
 	public Boolean crearValidacionTransaccional(SqlSession session, ValidacionArchivoRecaudo validacionArchivoRecaudo){
 		
 		Boolean sinErrores = true;
-		ValidacionArchivoRecaudoControllerDB controllerDB = ValidacionArchivoRecaudoControllerDB.getInstance();
+		ValidacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		sinErrores = controllerDB.crearValidacionTransaccional(session, validacionArchivoRecaudo);
 		
 		return sinErrores;
@@ -41,7 +37,7 @@ public class ValidacionArchivoRecaudoServicio {
 	
 	public List<ValidacionArchivoRecaudo> getValidacionesPorARORxDAROR(Long aror_aror, Long daror_id_reg){
 		
-		ValidacionArchivoRecaudoControllerDB controllerDB = ValidacionArchivoRecaudoControllerDB.getInstance();
+		ValidacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<ValidacionArchivoRecaudo> list = controllerDB.getValidacionesPorARORxDAROR(aror_aror, daror_id_reg);
 		
 		return list;

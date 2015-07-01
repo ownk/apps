@@ -14,14 +14,10 @@ import com.developer.persistence.modulo.autenticacion.mapper.dao.UsuarioDao;
 
 public class UsuarioServicio {
 	
-	private static UsuarioServicio instance;
+	UsuarioControllerDB controllerDB;
 	
-	public static UsuarioServicio getInstance() {
-		if (instance == null) {
-			instance = new UsuarioServicio();
-		}
-		
-		return instance;
+	public UsuarioServicio() {
+		controllerDB = new UsuarioControllerDB();
 	}
 	
 	public Usuario crearUsuarioTransaccional(SqlSession session, Usuario usuario, Usuario usuarioCreador, StringBuffer mensajeError){
@@ -32,7 +28,7 @@ public class UsuarioServicio {
 			String claveValida = generarClaveValida(usuario.getUsua_usua(), usuario.getUsua_clave());
 			
 			usuario.setUsua_clave(claveValida);
-			nuevoUsuario = UsuarioControllerDB.getInstance().crearUsuarioTransaccional(session, usuario, usuarioCreador, mensajeError);
+			nuevoUsuario = controllerDB.crearUsuarioTransaccional(session, usuario, usuarioCreador, mensajeError);
 			
 			return nuevoUsuario;
 			
@@ -52,7 +48,7 @@ public class UsuarioServicio {
 	public Boolean asignarRolPorUsuarioTransaccional(SqlSession session, String usua_usua, String rol_rol, StringBuffer mensajeError){
 		
 		
-		Boolean respuesta = UsuarioControllerDB.getInstance().asignarRolPorUsuarioTransaccional(session, usua_usua, rol_rol, mensajeError);
+		Boolean respuesta = controllerDB.asignarRolPorUsuarioTransaccional(session, usua_usua, rol_rol, mensajeError);
 		return respuesta;
 	}
 	
@@ -60,7 +56,7 @@ public class UsuarioServicio {
 	public Usuario isUsuarioValido(String login, String clave){
 		
 		String claveEncriptada = generarClaveValida(login, clave);
-		Usuario usuarioAutenticado = UsuarioControllerDB.getInstance().isUsuarioValido(login, claveEncriptada);
+		Usuario usuarioAutenticado = controllerDB.isUsuarioValido(login, claveEncriptada);
 		
 		return usuarioAutenticado;
 	}
@@ -72,7 +68,7 @@ public class UsuarioServicio {
 		
 		Servicio servicio = null;
 		
-		servicio= UsuarioControllerDB.getInstance().getServicioUsuarioPorURL(usuario, url);
+		servicio= controllerDB.getServicioUsuarioPorURL(usuario, url);
 		
 		return servicio;
 		
@@ -81,7 +77,7 @@ public class UsuarioServicio {
 	
 	public List<Servicio> getMenuHorizontalPorUsuario(Usuario usuario){
 		
-		List<Servicio> servicios = UsuarioControllerDB.getInstance().getMenuHorizontalPorUsuario(usuario);
+		List<Servicio> servicios = controllerDB.getMenuHorizontalPorUsuario(usuario);
 		
 		return servicios;
 	}
@@ -89,20 +85,20 @@ public class UsuarioServicio {
 	
 	public List<Servicio> getServiciosTipoListadoPorUsuario(Usuario usuario){
 		
-		List<Servicio> servicios = UsuarioControllerDB.getInstance().getServiciosTipoListadoPorUsuario(usuario);
+		List<Servicio> servicios = controllerDB.getServiciosTipoListadoPorUsuario(usuario);
 		
 		return servicios;
 	}
 	
 	public List<Modulo> getModulosPorUsuario(Usuario usuario){
 		
-		List<Modulo> modulos = UsuarioControllerDB.getInstance().getModulosPorUsuario(usuario);
+		List<Modulo> modulos = controllerDB.getModulosPorUsuario(usuario);
 		return modulos;
 		
 	}
 	
 	public Usuario getUsuario(String usua_usua){
-		Usuario usuario = UsuarioControllerDB.getInstance().getUsuario(usua_usua);
+		Usuario usuario = controllerDB.getUsuario(usua_usua);
 		
 		return usuario;
 	}
@@ -129,9 +125,9 @@ public class UsuarioServicio {
 	}
 	
 	public String  generarClaveValida(String login, String password){
-		String claveEncriptada = com.developer.core.utils.StringUtils.MD5(password);
+		//String claveEncriptada = com.developer.core.utils.StringUtils.MD5(password);
 		
-		return claveEncriptada;
+		return password;
 		
 	}
 	

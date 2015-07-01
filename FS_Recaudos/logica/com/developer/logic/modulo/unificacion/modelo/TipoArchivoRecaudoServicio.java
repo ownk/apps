@@ -9,14 +9,10 @@ import com.developer.persistence.modulo.unificacion.controllerdb.TipoArchivoReca
 
 public class TipoArchivoRecaudoServicio {
 	
-	private static TipoArchivoRecaudoServicio instance;
 	
-	public static TipoArchivoRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new TipoArchivoRecaudoServicio();
-		}
-		
-		return instance;
+	TipoArchivoRecaudoControllerDB controllerDB;
+	public TipoArchivoRecaudoServicio() {
+		controllerDB = new TipoArchivoRecaudoControllerDB();
 	}
 	
 	/**
@@ -27,7 +23,7 @@ public class TipoArchivoRecaudoServicio {
 	
 
 	public TipoArchivoRecaudo getTipoArchivoRecaudo(String tpar_tpar){
-		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
+		TipoArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getTipoArchivo(tpar_tpar.toUpperCase());
 		
 		
@@ -43,12 +39,12 @@ public class TipoArchivoRecaudoServicio {
 		
 		tipoArchivo.setTpar_tpar(tipoArchivo.getTpar_tpar().toUpperCase());
 		
-		return TipoArchivoRecaudoControllerDB.getInstance().crearTipoArchivoTransaccional(session, tipoArchivo);
+		return this.controllerDB.crearTipoArchivoTransaccional(session, tipoArchivo);
 		
 	}
 
 	public TipoArchivoRecaudo getTipoArchivoRecaudoTransaccional(SqlSession session, String tpar_tpar){
-		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
+		TipoArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getTipoArchivoTransaccional(session, tpar_tpar.toUpperCase());
 		
 		
@@ -56,7 +52,7 @@ public class TipoArchivoRecaudoServicio {
 	
 			
 	public List<TipoArchivoRecaudo> getTipoArchivosRecaudoPorPRUN( Long prun_prun){
-		TipoArchivoRecaudoControllerDB controllerDB = TipoArchivoRecaudoControllerDB.getInstance();
+		TipoArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getTiposArchivoPorPRUN(prun_prun);
 		
 		

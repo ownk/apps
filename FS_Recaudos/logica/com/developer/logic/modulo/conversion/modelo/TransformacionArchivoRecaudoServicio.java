@@ -14,16 +14,11 @@ import com.developer.persistence.modulo.conversion.mapper.dao.TransformacionArch
 
 public class TransformacionArchivoRecaudoServicio {
 	
-	private static TransformacionArchivoRecaudoServicio instance;
 	
-	public static TransformacionArchivoRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new TransformacionArchivoRecaudoServicio();
-		}
-		
-		return instance;
+	TransformacionArchivoRecaudoControllerDB controllerDB;
+	public TransformacionArchivoRecaudoServicio() {
+		controllerDB = new TransformacionArchivoRecaudoControllerDB();
 	}
-	
 	/**
 	 * ==========================================
 	 * CONSULTAS ================================
@@ -35,7 +30,7 @@ public class TransformacionArchivoRecaudoServicio {
 	public Boolean crearArchivoTransaccional(SqlSession session, TransformacionArchivoRecaudo transformacionArchivoRecaudo){
 		
 		Boolean sinErrores = true;
-		TransformacionArchivoRecaudoControllerDB controllerDB = TransformacionArchivoRecaudoControllerDB.getInstance();
+		TransformacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		sinErrores = controllerDB.crearTransformacionTransaccional(session, transformacionArchivoRecaudo);
 		
 		return sinErrores;
@@ -46,7 +41,7 @@ public class TransformacionArchivoRecaudoServicio {
 	
 	public List<TransformacionArchivoRecaudo> getTransformacionesPorARORxDAROR(Long aror_aror, Long daror_id_reg){
 		
-		TransformacionArchivoRecaudoControllerDB controllerDB = TransformacionArchivoRecaudoControllerDB.getInstance();
+		TransformacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<TransformacionArchivoRecaudo> list = controllerDB.getTransformacionesPorARORxDAROR(aror_aror, daror_id_reg);
 		
 		return list;

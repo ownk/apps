@@ -13,15 +13,6 @@ import com.developer.persistence.modulo.conversion.mapper.dao.SIFI43Dao;
 
 public class SIFIControllerDB {
 	
-	private static SIFIControllerDB instance;
-	
-	public static SIFIControllerDB getInstance() {
-		if (instance == null) {
-			instance = new SIFIControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 				

@@ -8,16 +8,12 @@ import com.developer.persistence.modulo.conversion.controllerdb.FormulaDistribuc
 
 public class FormulaDistribucionPorcentajeServicio {
 	
-	private static FormulaDistribucionPorcentajeServicio instance;
 	
-	public static FormulaDistribucionPorcentajeServicio getInstance() {
-		if (instance == null) {
-			instance = new FormulaDistribucionPorcentajeServicio();
-		}
-		
-		return instance;
+	FormulaDistribucionPorcentajeControllerDB controllerDB;
+	
+	public FormulaDistribucionPorcentajeServicio() {
+		controllerDB = new FormulaDistribucionPorcentajeControllerDB();
 	}
-	
 	/**
 	 * ==========================================
 	 * CONSULTAS ================================
@@ -26,7 +22,7 @@ public class FormulaDistribucionPorcentajeServicio {
 	
 	
 	public List<EstadoPlanFormulaDistribucion> getAllEstadosAplicaFormula(){
-		FormulaDistribucionPorcentajeControllerDB controllerDB = FormulaDistribucionPorcentajeControllerDB.getInstance();
+		FormulaDistribucionPorcentajeControllerDB controllerDB = this.controllerDB;
 		List<EstadoPlanFormulaDistribucion> list = controllerDB.getAllEstadosAplicaFormula();
 		
 		return list;
@@ -34,7 +30,7 @@ public class FormulaDistribucionPorcentajeServicio {
 	
 		
 	public List<DistribucionPorFormulaPorcentaje> getAllDistribucionesPorcentuales(){
-		FormulaDistribucionPorcentajeControllerDB controllerDB = FormulaDistribucionPorcentajeControllerDB.getInstance();
+		FormulaDistribucionPorcentajeControllerDB controllerDB = this.controllerDB;
 		List<DistribucionPorFormulaPorcentaje> list = controllerDB.getAllDistribucionesPorcentuales();
 		
 		return list;
@@ -42,7 +38,7 @@ public class FormulaDistribucionPorcentajeServicio {
 	}
 	
 	public List<DistribucionPorFormulaPorcentaje> getDistribucionesPorcentualPorFormula(Long frdp_frdp){
-		FormulaDistribucionPorcentajeControllerDB controllerDB = FormulaDistribucionPorcentajeControllerDB.getInstance();
+		FormulaDistribucionPorcentajeControllerDB controllerDB = this.controllerDB;
 		List<DistribucionPorFormulaPorcentaje> list = controllerDB.getAllDistribucionesPorcentuales();
 		
 		return list;

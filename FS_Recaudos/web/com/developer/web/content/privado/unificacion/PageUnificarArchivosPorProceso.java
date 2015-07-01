@@ -21,11 +21,11 @@ public class PageUnificarArchivosPorProceso extends PrivatePage {
 	public StringBuffer executeAction(HttpServletRequest request) {
 
 		StringBuffer xmlPage = new StringBuffer();
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 
 		// Session de aplicacion
-		SessionAppUsuario sessionAppUsuario = AutenticadorServicio
-				.getInstance().getSessionAppUsuario(request);
+		AutenticadorServicio autenticadorServicio = new AutenticadorServicio();
+		SessionAppUsuario sessionAppUsuario = autenticadorServicio.getSessionAppUsuario(request);
 
 		StringBuffer mensajeErrorOut = new StringBuffer();
 
@@ -116,7 +116,7 @@ public class PageUnificarArchivosPorProceso extends PrivatePage {
 
 	@Override
 	public boolean isAccesoValido(HttpServletRequest arg0) {
-		return AutenticadorServicio.getInstance().isAccesoPrivadoValido(arg0);
+		return new AutenticadorServicio().isAccesoPrivadoValido(arg0);
 
 	}
 

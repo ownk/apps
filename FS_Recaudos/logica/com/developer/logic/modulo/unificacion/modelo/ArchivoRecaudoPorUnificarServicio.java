@@ -20,17 +20,10 @@ import com.developer.logic.modulo.unificacion.dto.TipoArchivoRecaudo;
 import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoPorUnificarControllerDB;
 
 public class ArchivoRecaudoPorUnificarServicio {
-	
-	private static ArchivoRecaudoPorUnificarServicio instance;
-	
-	public static ArchivoRecaudoPorUnificarServicio getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoPorUnificarServicio();
-		}
-		
-		return instance;
+	ArchivoRecaudoPorUnificarControllerDB controllerDB;
+	public ArchivoRecaudoPorUnificarServicio() {
+		controllerDB = new ArchivoRecaudoPorUnificarControllerDB();
 	}
-	
 	/**
 	 * ==========================================
 	 * CONSULTAS ================================
@@ -39,14 +32,14 @@ public class ArchivoRecaudoPorUnificarServicio {
 	
 	public Long getSiguienteID(){
 		
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
 		
 	}
 	
 	
 	public ArchivoRecaudoPorUnificar getArchivoRecaudo(Long arpu_arpu){
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = this.controllerDB;
 		ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = controllerDB.getDocumento(arpu_arpu);
 		
 		completarInformacionAdicionalArchivo(archivoRecaudoPorUnificar);
@@ -56,7 +49,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 	}
 	
 	public List<ArchivoRecaudoPorUnificar> getArchivosPorPRUN(Long prun_prun){
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosPorPRUN(prun_prun);
 		
 		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
@@ -68,7 +61,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 	}
 	
 	public List<ArchivoRecaudoPorUnificar> getArchivosPorAZPU(Long azpu_azpu){
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosPorAZPU(azpu_azpu);
 		
 		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
@@ -80,7 +73,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 	}
 	
 	public String getRutaBaseDeArchivos(){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		
@@ -90,7 +83,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 	
 	
 	public List<ArchivoRecaudoPorUnificar> getArchivosTPARxPRUN(Long prun_prun, String tpar_tpar){
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoPorUnificar> list = controllerDB.getArchivosTPARxPRUN(prun_prun, tpar_tpar);
 		
 		for (ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar : list) {
@@ -119,9 +112,9 @@ public class ArchivoRecaudoPorUnificarServicio {
 			
 			
 			
-			
+			TipoArchivoRecaudoServicio tipoArchivoRecaudoServicio = new TipoArchivoRecaudoServicio();
 			String tpar_tpar =FilenameUtils.getExtension(fileUnZIP.getName());
-	        TipoArchivoRecaudo tipoArchivoRecaudo = TipoArchivoRecaudoServicio.getInstance().getTipoArchivoRecaudoTransaccional(session, tpar_tpar);
+	        TipoArchivoRecaudo tipoArchivoRecaudo = tipoArchivoRecaudoServicio.getTipoArchivoRecaudoTransaccional(session, tpar_tpar);
 	        
 	        if(tipoArchivoRecaudo==null){
 	        	
@@ -132,12 +125,12 @@ public class ArchivoRecaudoPorUnificarServicio {
 	    		tipoArchivoRecaudo.setTpar_estr(TipoArchivoRecaudo.ESTR_FIDUCIARIA);
 	        	
 	        	
-	    		sinErrores = sinErrores && TipoArchivoRecaudoServicio.getInstance().crearTipoArchivoTransaccional(session, tipoArchivoRecaudo);
+	    		sinErrores = sinErrores && tipoArchivoRecaudoServicio.crearTipoArchivoTransaccional(session, tipoArchivoRecaudo);
 	        }
 	        
 	        
 	        
-	        fileUnZIP = TransformadorArchivoRecaudoServicio.getInstance().hacerTransformacionPorTipoArchivoTransaccional(session, tipoArchivoRecaudo, archivoZIPProcesoUnificacion.getAzpu_prun(), fileUnZIP, rutaUnZip, archivoZIPProcesoUnificacion.getAzpu_usua(), mensajeErrorOut);
+	        fileUnZIP = new TransformadorArchivoRecaudoServicio().hacerTransformacionPorTipoArchivoTransaccional(session, tipoArchivoRecaudo, archivoZIPProcesoUnificacion.getAzpu_prun(), fileUnZIP, rutaUnZip, archivoZIPProcesoUnificacion.getAzpu_usua(), mensajeErrorOut);
 	        
 			
 			
@@ -212,7 +205,7 @@ public class ArchivoRecaudoPorUnificarServicio {
 						archivoRecaudoPorUnificar.setArpu_registros(totalRegistros);
 						
 						
-						sinErrores = sinErrores &&ArchivoRecaudoPorUnificarControllerDB.getInstance().crearDocumentoTransaccional(session, archivoRecaudoPorUnificar);
+						sinErrores = sinErrores &&this.controllerDB.crearDocumentoTransaccional(session, archivoRecaudoPorUnificar);
 						
 						
 						if(sinErrores){
@@ -244,10 +237,10 @@ public class ArchivoRecaudoPorUnificarServicio {
 			
 			if(archivoRecaudoPorUnificar!=null && archivoRecaudoPorUnificar.getArpu_arpu()!=null){
 			
-				List<HistoricoArchivoRecaudoPorUnificar> historicoArchivoRecaudoPorUnificar= ArchivoRecaudoPorUnificarControllerDB.getInstance().getHistoricoArchivo(archivoRecaudoPorUnificar.getArpu_arpu());
+				List<HistoricoArchivoRecaudoPorUnificar> historicoArchivoRecaudoPorUnificar= this.controllerDB.getHistoricoArchivo(archivoRecaudoPorUnificar.getArpu_arpu());
 				archivoRecaudoPorUnificar.setHistoricoArchivoRecaudoPorUnificar(historicoArchivoRecaudoPorUnificar);
 				
-				ArchivoZIPProcesoUnificacionServicio servicioAZIP = ArchivoZIPProcesoUnificacionServicio.getInstance();
+				ArchivoZIPProcesoUnificacionServicio servicioAZIP = new ArchivoZIPProcesoUnificacionServicio();
 				ArchivoZIPProcesoUnificacion archivoZIP = servicioAZIP.getArchivoBasico(archivoRecaudoPorUnificar.getArpu_azpu());
 				archivoRecaudoPorUnificar.setArchivoAZPU(archivoZIP);
 				

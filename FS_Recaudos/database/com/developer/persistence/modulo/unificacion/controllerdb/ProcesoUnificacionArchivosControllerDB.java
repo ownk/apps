@@ -15,15 +15,6 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacio
 
 public class ProcesoUnificacionArchivosControllerDB {
 	
-	private static ProcesoUnificacionArchivosControllerDB instance;
-	
-	public static ProcesoUnificacionArchivosControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ProcesoUnificacionArchivosControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	/**
 	 *===================================================

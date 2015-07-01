@@ -35,7 +35,7 @@ public class XMLPublicGenerator implements IXMLPageGenerador {
 		StringBuffer xmlRequesAttributes = new StringBuffer();
 		for (Enumeration<String> e = request.getAttributeNames(); e.hasMoreElements();) {
 			String attrname = e.nextElement();
-			xmlRequesAttributes.append(ObjectToXML.getInstance().getXML(request.getAttribute(attrname)));
+			xmlRequesAttributes.append(new ObjectToXML().getXML(request.getAttribute(attrname)));
 		}
 		
 		return xmlRequesAttributes;
@@ -48,7 +48,7 @@ public class XMLPublicGenerator implements IXMLPageGenerador {
 		
 		for (Enumeration<String> e = request.getParameterNames(); e.hasMoreElements();) {
 			String attrname = e.nextElement();
-			xmlRequesParameters.append(ObjectToXML.getInstance().getXML(request.getParameter(attrname)));
+			xmlRequesParameters.append(new ObjectToXML().getXML(request.getParameter(attrname)));
 		}
 		
 		return xmlRequesParameters;

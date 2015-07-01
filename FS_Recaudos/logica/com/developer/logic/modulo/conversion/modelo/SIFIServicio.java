@@ -7,14 +7,10 @@ import com.developer.persistence.modulo.conversion.controllerdb.SIFIControllerDB
 
 public class SIFIServicio {
 	
-	private static SIFIServicio instance;
+	SIFIControllerDB controllerDB;
 	
-	public static SIFIServicio getInstance() {
-		if (instance == null) {
-			instance = new SIFIServicio();
-		}
-		
-		return instance;
+	public SIFIServicio() {
+		controllerDB = new SIFIControllerDB();
 	}
 	
 	/**
@@ -25,6 +21,8 @@ public class SIFIServicio {
 	
 	public List<EncargoFiduciarioSIFI> getEncargoSIFI (EncargoFiduciarioSIFI encargoFiduciarioSIFI){
 		
+		
+		/*
 		List<EncargoFiduciarioSIFI> list = null;
 		
 		list = getEncargoSIFI29(encargoFiduciarioSIFI);
@@ -35,14 +33,15 @@ public class SIFIServicio {
 		}
 		
 		return list;
-		
+		*/ 
+		return null;
 		
 		
 	} 
 
 	
 	private List<EncargoFiduciarioSIFI> getEncargoSIFI29(EncargoFiduciarioSIFI encargoFiduciarioSIFI){
-		SIFIControllerDB controllerDB = SIFIControllerDB.getInstance();
+		SIFIControllerDB controllerDB = this.controllerDB;
 		List<EncargoFiduciarioSIFI> list =  controllerDB.getEncargoSIFI43(encargoFiduciarioSIFI);
 		
 		return list;
@@ -52,7 +51,7 @@ public class SIFIServicio {
 	
 
 	private List<EncargoFiduciarioSIFI> getEncargoSIFI43(EncargoFiduciarioSIFI encargoFiduciarioSIFI){
-		SIFIControllerDB controllerDB = SIFIControllerDB.getInstance();
+		SIFIControllerDB controllerDB = this.controllerDB;
 		List<EncargoFiduciarioSIFI> list  = controllerDB.getEncargoSIFI43(encargoFiduciarioSIFI);
 		
 		return list;

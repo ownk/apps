@@ -11,15 +11,6 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.TipoArchivoRecaud
 
 public class TipoArchivoRecaudoControllerDB {
 	
-	private static TipoArchivoRecaudoControllerDB instance;
-	
-	public static TipoArchivoRecaudoControllerDB getInstance() {
-		if (instance == null) {
-			instance = new TipoArchivoRecaudoControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	
 	public Boolean crearTipoArchivoTransaccional(SqlSession session, TipoArchivoRecaudo tipoArchivo ){

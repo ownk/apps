@@ -11,15 +11,7 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ArchivoZIPProceso
 
 public class ArchivoZIPProcesoUnificacionControllerDB {
 	
-	private static ArchivoZIPProcesoUnificacionControllerDB instance;
 	
-	public static ArchivoZIPProcesoUnificacionControllerDB getInstance() {
-		if (instance == null) {
-			instance = new ArchivoZIPProcesoUnificacionControllerDB();
-		}
-		
-		return instance;
-	}
 	
 	public Long getSiguienteID(){
 		SqlSession session = DBManagerFSRecaudos.openSession();

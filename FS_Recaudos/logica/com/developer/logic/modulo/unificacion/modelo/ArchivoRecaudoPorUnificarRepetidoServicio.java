@@ -14,14 +14,10 @@ import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoP
 
 public class ArchivoRecaudoPorUnificarRepetidoServicio {
 	
-	private static ArchivoRecaudoPorUnificarRepetidoServicio instance;
+	ArchivoRecaudoPorUnificarControllerDB controllerDB;
 	
-	public static ArchivoRecaudoPorUnificarRepetidoServicio getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoPorUnificarRepetidoServicio();
-		}
-		
-		return instance;
+	public ArchivoRecaudoPorUnificarRepetidoServicio() {
+		controllerDB = new ArchivoRecaudoPorUnificarControllerDB();
 	}
 	
 	/**
@@ -32,14 +28,14 @@ public class ArchivoRecaudoPorUnificarRepetidoServicio {
 	
 	public Long getSiguienteID(){
 		
-		ArchivoRecaudoPorUnificarControllerDB controllerDB = ArchivoRecaudoPorUnificarControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
 		
 	}
 	
 		
 	public List<ArchivoRecaudoPorUnificarRepetido> getArchivosPorARUN(Long arun_arun){
-		ArchivoRecaudoPorUnificarRepetidoControllerDB controllerDB = ArchivoRecaudoPorUnificarRepetidoControllerDB.getInstance();
+		ArchivoRecaudoPorUnificarRepetidoControllerDB controllerDB = new ArchivoRecaudoPorUnificarRepetidoControllerDB();
 		List<ArchivoRecaudoPorUnificarRepetido> list = controllerDB.getArchivosPorARUN(arun_arun);
 		
 		for (ArchivoRecaudoPorUnificarRepetido archivoRecaudoPorUnificar : list) {
@@ -68,7 +64,7 @@ public class ArchivoRecaudoPorUnificarRepetidoServicio {
 			boolean sinErrores = true;
 			
 			
-			sinErrores = sinErrores &&ArchivoRecaudoPorUnificarRepetidoControllerDB.getInstance().crearDocumentoTransaccional(session, archivoRecaudoPorUnificarRepetido);
+			sinErrores = sinErrores && new ArchivoRecaudoPorUnificarRepetidoControllerDB().crearDocumentoTransaccional(session, archivoRecaudoPorUnificarRepetido);
 			
 			
 			return sinErrores;		
@@ -87,7 +83,7 @@ public class ArchivoRecaudoPorUnificarRepetidoServicio {
 			
 			if(archivoRecaudoPorUnificarRepetido!=null && archivoRecaudoPorUnificarRepetido.getArpr_arpr()!=null){
 			
-				ArchivoRecaudoPorUnificarServicio servicioARPU = ArchivoRecaudoPorUnificarServicio.getInstance();
+				ArchivoRecaudoPorUnificarServicio servicioARPU = new ArchivoRecaudoPorUnificarServicio();
 				ArchivoRecaudoPorUnificar archivoRecaudoPorUnificar = servicioARPU.getArchivoRecaudo(archivoRecaudoPorUnificarRepetido.getArpr_arpu());
 				archivoRecaudoPorUnificarRepetido.setArchivoRecaudoPorUnificar(archivoRecaudoPorUnificar);
 				

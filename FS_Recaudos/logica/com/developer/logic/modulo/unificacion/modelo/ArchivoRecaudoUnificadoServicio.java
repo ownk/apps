@@ -12,14 +12,9 @@ import com.developer.persistence.modulo.unificacion.controllerdb.ArchivoRecaudoU
 
 public class ArchivoRecaudoUnificadoServicio {
 	
-	private static ArchivoRecaudoUnificadoServicio instance;
-	
-	public static ArchivoRecaudoUnificadoServicio getInstance() {
-		if (instance == null) {
-			instance = new ArchivoRecaudoUnificadoServicio();
-		}
-		
-		return instance;
+	ArchivoRecaudoUnificadoControllerDB controllerDB;
+	public ArchivoRecaudoUnificadoServicio() {
+		controllerDB = new ArchivoRecaudoUnificadoControllerDB();
 	}
 	
 	/**
@@ -30,21 +25,21 @@ public class ArchivoRecaudoUnificadoServicio {
 	
 	public Long getSiguienteID(){
 		
-		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
+		ArchivoRecaudoUnificadoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
 		
 	}
 	
 	
 	public ArchivoRecaudoUnificado getArchivo(Long arun_arun){
-		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
+		ArchivoRecaudoUnificadoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getArchivo(arun_arun);
 		
 		
 	}
 	
 	public List<ArchivoRecaudoUnificado> getArchivosPorPRUN(Long prun_prun){
-		ArchivoRecaudoUnificadoControllerDB controllerDB = ArchivoRecaudoUnificadoControllerDB.getInstance();
+		ArchivoRecaudoUnificadoControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoUnificado> list = controllerDB.getArchivosPorProcesoUnificacion(prun_prun);
 		
 		for (ArchivoRecaudoUnificado archivoRecaudoUnificado : list) {
@@ -60,7 +55,7 @@ public class ArchivoRecaudoUnificadoServicio {
 	}
 	
 	public String getRutaBaseDeArchivos(){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		
@@ -84,7 +79,7 @@ public class ArchivoRecaudoUnificadoServicio {
 	public boolean crearArchivoTransaccional(SqlSession session,
 			ArchivoRecaudoUnificado documento) {
 		
-		return ArchivoRecaudoUnificadoControllerDB.getInstance().crearArchivoTransaccional(session, documento);
+		return this.controllerDB.crearArchivoTransaccional(session, documento);
 		
 	}
 	
@@ -93,7 +88,7 @@ public class ArchivoRecaudoUnificadoServicio {
 		try {
 			
 			if(archivoRecaudoUnificado!=null && archivoRecaudoUnificado.getArun_arun()!=null){
-				ArchivoRecaudoPorUnificarRepetidoServicio servicio = ArchivoRecaudoPorUnificarRepetidoServicio.getInstance();
+				ArchivoRecaudoPorUnificarRepetidoServicio servicio = new ArchivoRecaudoPorUnificarRepetidoServicio();
 				List<ArchivoRecaudoPorUnificarRepetido> list = servicio.getArchivosPorARUN(archivoRecaudoUnificado.getArun_arun());
 				
 				archivoRecaudoUnificado.setArchivosPorUnificarRepetidos(list);

@@ -9,16 +9,11 @@ import com.developer.persistence.modulo.conversion.controllerdb.ProyectoRecaudoC
 
 public class ProyectoRecaudoServicio {
 	
-	private static ProyectoRecaudoServicio instance;
-	
-	public static ProyectoRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new ProyectoRecaudoServicio();
-		}
-		
-		return instance;
+
+	ProyectoRecaudoControllerDB controllerDB;
+	public ProyectoRecaudoServicio() {
+		controllerDB = new ProyectoRecaudoControllerDB();
 	}
-	
 	/**
 	 * ==========================================
 	 * CONSULTAS ================================
@@ -29,21 +24,21 @@ public class ProyectoRecaudoServicio {
 	
 
 	public List<ProyectoNoSIFIActivo> getAllProyectosNoSIFIActivos(){
-		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<ProyectoNoSIFIActivo> list = controllerDB.getAllProyectosNoSIFIActivos();
 		
 		return list;
 	}
 	
 	public ProyectoNoSIFIActivo getProyectoNoSIFIActivo(Long prns_proy){
-		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoRecaudoControllerDB controllerDB = this.controllerDB;
 		ProyectoNoSIFIActivo noSIFIActivo = controllerDB.getProyectoNoSIFIActivo(prns_proy);
 		
 		return noSIFIActivo;
 	}
 		
 	public List<ProyectoConFormulaDistribucion> getAllProyectosConFormulaDistribucion(){
-		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<ProyectoConFormulaDistribucion> list = controllerDB.getAllProyectosConFormulaDistribucion();
 		
 		return list;
@@ -51,7 +46,7 @@ public class ProyectoRecaudoServicio {
 	}
 	
 	public List<ProyectoConFormulaDistribucion> getProyectoConFormulaDistribucion(Long prfd_proy){
-		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<ProyectoConFormulaDistribucion> list = controllerDB.getProyectoConFormulaDistribucion(prfd_proy);
 		
 		return list;
@@ -59,7 +54,7 @@ public class ProyectoRecaudoServicio {
 	}
 	
 	public List<ProyectoCancelado> getAllProyectosCancelados(){
-		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<ProyectoCancelado> list = controllerDB.getAllProyectosCancelados();
 		
 		return list;
@@ -68,7 +63,7 @@ public class ProyectoRecaudoServicio {
 	}
 	
 	public ProyectoCancelado getProyectoCancelado(Long prca_proy){
-		ProyectoRecaudoControllerDB controllerDB = ProyectoRecaudoControllerDB.getInstance();
+		ProyectoRecaudoControllerDB controllerDB = this.controllerDB;
 		ProyectoCancelado proyectoCancelado= controllerDB.getProyectoCancelado(prca_proy);
 		
 		return proyectoCancelado;

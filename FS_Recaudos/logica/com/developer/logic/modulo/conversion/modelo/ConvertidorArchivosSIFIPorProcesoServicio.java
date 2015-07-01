@@ -43,7 +43,7 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 		try {
 		
 			
-			ProcesoConversionArchivosServicio procesoConversionArchivosServicio = ProcesoConversionArchivosServicio.getInstance();
+			ProcesoConversionArchivosServicio procesoConversionArchivosServicio = new ProcesoConversionArchivosServicio();
 			ProcesoConversionArchivos procesoConversionArchivos = procesoConversionArchivosServicio.iniciarProcesoConversionArchivosTransaccional(procesoUnificacionArchivos.getPrun_prun(), 
 																							procesoUnificacionArchivos.getPrun_observ(), 
 																							currentDate, 
@@ -62,45 +62,17 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 			 */
 			if(procesoConversionArchivos!=null){
 				
-				ArchivoRecaudoOriginalPorConvertirServicio archivoRecaudoOriginalPorConvertirServicio = ArchivoRecaudoOriginalPorConvertirServicio.getInstance();
-				List<ArchivoRecaudoOriginalPorConvertir> list = archivoRecaudoOriginalPorConvertirServicio.getArchivosPorPRCO(procesoConversionArchivos.getPrco_prco());
-				
-				
-				//Se crean un pool de hilos para la creacion de archivos SIFI
-				int totalHilos = list.size();
-				ExecutorService executor = (ExecutorService) Executors.newFixedThreadPool(totalHilos);
-			    List<HiloConversionPorTipoArchivo> listaHilos = new ArrayList<HiloConversionPorTipoArchivo>();
-			    
-			    for (ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir : list) {
+				try {
 					
-			    	//HiloConversionPorTipoArchivo hiloConversion = new HiloConversionPorTipoArchivo(rutaArchivosSIFI, nombreArchivo, procesoUnificacionArchivos, archivoRecaudoOriginalPorConvertir, usua_usua);
-			    	HiloConversionPorTipoArchivo hiloConversion = new HiloConversionPorTipoArchivo("", "", procesoUnificacionArchivos, archivoRecaudoOriginalPorConvertir, usuario.getUsua_usua());
-			    	listaHilos.add(hiloConversion);
+					ExecutorService executor = (ExecutorService) Executors.newSingleThreadExecutor();
+				    
+					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI("", "", procesoConversionArchivos, usuario.getUsua_usua());
+				    executor.execute(hiloConversion);
+					 
+				    executor.shutdown();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
-			    
-			    List<Future<Boolean>> listaResultados = null; 
-			    try {
-			        listaResultados = executor.invokeAll(listaHilos);      
-			    
-			    } catch (Exception e) {
-			    	e.printStackTrace();
-			    }    
-			    
-			    executor.shutdown();
-			    
-			    
-			    //Se evaluan las respuestas de hilos 
-			    for (int i = 0; i < listaResultados.size(); i++) {
-			       Future<Boolean> resultado = listaResultados.get(i);
-			       try {      
-			         System.out.println("El resultado de la tarea "+i+ " es:" + resultado.get());
-			       } catch (Exception e) {
-			         e.printStackTrace();
-			       }
-			    }
-				
-				
-				
 				
 				
 			}else{
@@ -120,27 +92,6 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 		
 		
 	}
-	
-	private String  getDateString(Date date, String format){
-		
-		
-		
-		SimpleDateFormat fechaFormat = new SimpleDateFormat(format);
-		
-	    return ""+fechaFormat.format(date);
-	}
-	
-	
-	private String  getDateString(Date date){
-		
-		
-		
-		SimpleDateFormat fechaFormat = new SimpleDateFormat("ddMMyyyy");
-		SimpleDateFormat horaFormat = new SimpleDateFormat("hhMMss");
-		
-	    return ""+fechaFormat.format(date)+"_"+horaFormat.format(date);
-	}
-	
 	
 	
 	public static void main(String[] args) {

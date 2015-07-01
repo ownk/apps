@@ -173,8 +173,7 @@ public class UnificadorArchivosFiduciaria {
 				if (fileUnificado.exists()) {
 
 					Long hash = FileUtils.checksumCRC32(fileUnificado);
-					Long arun_arun = ArchivoRecaudoUnificadoServicio
-							.getInstance().getSiguienteID();
+					Long arun_arun = new ArchivoRecaudoUnificadoServicio().getSiguienteID();
 					Long size = fileUnificado.length();
 
 					archivoRecaudoUnificado = new ArchivoRecaudoUnificado();

@@ -9,14 +9,10 @@ import com.developer.persistence.modulo.conversion.controllerdb.ErrorArchivoReca
 
 public class ErrorArchivoRecaudoServicio {
 	
-	private static ErrorArchivoRecaudoServicio instance;
+	ErrorArchivoRecaudoControllerDB controllerDB;
 	
-	public static ErrorArchivoRecaudoServicio getInstance() {
-		if (instance == null) {
-			instance = new ErrorArchivoRecaudoServicio();
-		}
-		
-		return instance;
+	public ErrorArchivoRecaudoServicio() {
+		controllerDB = new ErrorArchivoRecaudoControllerDB();
 	}
 	
 	/**
@@ -30,7 +26,7 @@ public class ErrorArchivoRecaudoServicio {
 	public Boolean crearErrorTransaccional(SqlSession session, ErrorArchivoRecaudo errorArchivoRecaudo){
 		
 		Boolean sinErrores = true;
-		ErrorArchivoRecaudoControllerDB controllerDB = ErrorArchivoRecaudoControllerDB.getInstance();
+		ErrorArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		sinErrores = controllerDB.crearErrorTransaccional(session, errorArchivoRecaudo);
 		
 		return sinErrores;
@@ -41,7 +37,7 @@ public class ErrorArchivoRecaudoServicio {
 	
 	public List<ErrorArchivoRecaudo> getErroresPorARORxDAROR(Long aror_aror, Long daror_id_reg){
 		
-		ErrorArchivoRecaudoControllerDB controllerDB = ErrorArchivoRecaudoControllerDB.getInstance();
+		ErrorArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		List<ErrorArchivoRecaudo> list = controllerDB.getErroresPorARORxDAROR(aror_aror, daror_id_reg);
 		
 		return list;

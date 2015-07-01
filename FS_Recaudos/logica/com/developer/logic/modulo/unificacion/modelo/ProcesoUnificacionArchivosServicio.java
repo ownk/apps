@@ -29,15 +29,16 @@ import com.developer.persistence.modulo.unificacion.mapper.dao.ProcesoUnificacio
 public class ProcesoUnificacionArchivosServicio {
 	
 	
-	private static ProcesoUnificacionArchivosServicio instance;
 	
-	public static ProcesoUnificacionArchivosServicio getInstance() {
-		if (instance == null) {
-			instance = new ProcesoUnificacionArchivosServicio();
-		}
-		
-		return instance;
+	private ProcesoUnificacionArchivosControllerDB controllerDB;
+	
+	
+	public ProcesoUnificacionArchivosServicio() {
+		controllerDB = new ProcesoUnificacionArchivosControllerDB();
 	}
+	
+	
+
 	
 	/**
 	 * ======================================
@@ -48,7 +49,7 @@ public class ProcesoUnificacionArchivosServicio {
 
 	public Long getSiguienteID(){
 		
-		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		ProcesoUnificacionArchivosControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
 		
 	}
@@ -122,7 +123,7 @@ public class ProcesoUnificacionArchivosServicio {
 			
 			//Se verifica que no existan errores para crear el procesoUnificacionArchivos
 			if(sinErrores){
-				ProcesoUnificacionArchivos procesoUnificacionArchivos = ProcesoUnificacionArchivosControllerDB.getInstance().iniciarProcesoUnificacionArchivosTransaccional(	session, 
+				ProcesoUnificacionArchivos procesoUnificacionArchivos = this.controllerDB.iniciarProcesoUnificacionArchivosTransaccional(	session, 
 																														prun_prun,
 																														new Long(filesZIP.size()),
 																														observacionDeInicio,
@@ -187,7 +188,7 @@ public class ProcesoUnificacionArchivosServicio {
 							for (ProcesoUnificacionArchivos procesoUnificacionArchivosAnular : listProcesoPorAnular) {
 								String observacion = "Anulado por proceso No. "+procesoUnificacionArchivos.getPrun_prun();
 								
-								sinErrores = sinErrores && ProcesoUnificacionArchivosControllerDB.getInstance().setEstadoProcesoUnificacionArchivos(session, procesoUnificacionArchivosAnular.getPrun_prun(), ProcesoUnificacionArchivos.ANULADO, observacion, usuario, mensajeErrorOut);
+								sinErrores = sinErrores && this.controllerDB.setEstadoProcesoUnificacionArchivos(session, procesoUnificacionArchivosAnular.getPrun_prun(), ProcesoUnificacionArchivos.ANULADO, observacion, usuario, mensajeErrorOut);
 								mensajeErrorOut.append("Error anulando procesos anteriores. No se ha podido anualar el proceso "+procesoUnificacionArchivosAnular.getPrun_prun());
 							}
 							
@@ -303,7 +304,7 @@ public class ProcesoUnificacionArchivosServicio {
 	
 	public List<HistoricoProcesoUnificacionArchivos> getHistoricoPorProcesoUnificacionArchivos(Long prun_prun){
 		
-		List<HistoricoProcesoUnificacionArchivos> listaHistorico = ProcesoUnificacionArchivosControllerDB.getInstance().getHistoricoPorProcesoUnificacionArchivos(prun_prun);
+		List<HistoricoProcesoUnificacionArchivos> listaHistorico = this.controllerDB.getHistoricoPorProcesoUnificacionArchivos(prun_prun);
 		
 		Usuario usuario = new Usuario();
 		
@@ -312,7 +313,7 @@ public class ProcesoUnificacionArchivosServicio {
 			for (HistoricoProcesoUnificacionArchivos historico: listaHistorico) {
 				
 				usuario.setUsua_usua(historico.getHprun_usua()); 
-				Persona persona = PersonaControllerDB.getInstance().getPersonaPorUsuario(usuario);
+				Persona persona = new PersonaControllerDB().getPersonaPorUsuario(usuario);
 				historico.setPersona(persona);
 					
 			}
@@ -327,7 +328,7 @@ public class ProcesoUnificacionArchivosServicio {
 	
 	public ProcesoUnificacionArchivos getProcesoUnificacionArchivos(Long prun_prun){
 		
-		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		ProcesoUnificacionArchivosControllerDB controllerDB = this.controllerDB;;
 		ProcesoUnificacionArchivos procesoUnificacionArchivos = controllerDB.getProcesoUnificacionArchivos(prun_prun);
 		
 		completarInformacionAdicionalProcesoUnificacion(procesoUnificacionArchivos);
@@ -340,7 +341,7 @@ public class ProcesoUnificacionArchivosServicio {
 	
 	
 	public String getRutaTemporalArchivosZIP(Long prun_prun){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		return rutaGeneral+ "/temp/prun/"+prun_prun+"/zip/";
@@ -348,7 +349,7 @@ public class ProcesoUnificacionArchivosServicio {
 	}
 	
 	public String getRutaTemporalPorProceso(Long prun_prun){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		return rutaGeneral+ "/temp/prun/"+prun_prun+"/";
@@ -356,7 +357,7 @@ public class ProcesoUnificacionArchivosServicio {
 	}
 
 	public String getRutaFinalArchivosZIP(ProcesoUnificacionArchivos procesoUnificacionArchivos){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		Calendar cal = Calendar.getInstance();
@@ -370,7 +371,7 @@ public class ProcesoUnificacionArchivosServicio {
 	}
 	
 	public String getRutaFinalArchivosUnZIP(ProcesoUnificacionArchivos procesoUnificacionArchivos){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		Calendar cal = Calendar.getInstance();
@@ -384,7 +385,7 @@ public class ProcesoUnificacionArchivosServicio {
 	}
 	
 	public String getRutaFinalArchivosUnificados(ProcesoUnificacionArchivos procesoUnificacionArchivos){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
 		
 		Calendar cal = Calendar.getInstance();
@@ -431,7 +432,7 @@ public class ProcesoUnificacionArchivosServicio {
 	
 	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, String...prun_estados){
 		
-		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		ProcesoUnificacionArchivosControllerDB controllerDB = this.controllerDB;
 		
 		List<ProcesoUnificacionArchivos> procesos = controllerDB.getProcesosUnificacionArchivosPaginado(pageNumber, pageSize, prun_estados);
 
@@ -453,7 +454,7 @@ public class ProcesoUnificacionArchivosServicio {
 		
 		
 		
-		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		ProcesoUnificacionArchivosControllerDB controllerDB = this.controllerDB;
 		
 		List<ProcesoUnificacionArchivos> procesos = controllerDB.getProcesosPorEstadoFechaIniFin(prun_fini, prun_ffin, ProcesoUnificacionArchivos.INICIADO, ProcesoUnificacionArchivos.UNIFICANDO_ARCHIVOS, ProcesoUnificacionArchivos.FINALIZADO);
 
@@ -473,7 +474,7 @@ public class ProcesoUnificacionArchivosServicio {
 	
 	public Long getTotalProcesos(String...prun_estados){
 		
-		ProcesoUnificacionArchivosControllerDB controllerDB = ProcesoUnificacionArchivosControllerDB.getInstance();
+		ProcesoUnificacionArchivosControllerDB controllerDB = this.controllerDB;
 		
 		Long total = controllerDB.getTotalProcesos( prun_estados);
 

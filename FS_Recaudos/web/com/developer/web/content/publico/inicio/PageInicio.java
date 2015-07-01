@@ -26,7 +26,7 @@ public class PageInicio extends PublicPage {
 		
 		
 		//Se cierra la session si existe
-		AutenticadorServicio.getInstance().cerrarSession(request);
+		new AutenticadorServicio().cerrarSession(request);
 		
 				
 		//Se verifica si existen errores
@@ -40,7 +40,7 @@ public class PageInicio extends PublicPage {
 			errorWeb.setError(MensajeErrorWeb.ERROR_AUTENTICACION);
 		
 			
-			xmlPage.append(ObjectToXML.getInstance().getXML(errorWeb));
+			xmlPage.append(new ObjectToXML().getXML(errorWeb));
 			
 		}
 		

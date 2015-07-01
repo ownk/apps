@@ -15,11 +15,11 @@ public class PageProcesoUnificacionArchivos extends PrivatePage{
 	@Override
 	public StringBuffer executeAction(HttpServletRequest request) {
 		StringBuffer xmlPage = new StringBuffer();
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 		MensajeErrorWeb errorWeb = new MensajeErrorWeb();
 		// Session de aplicacion
-		SessionAppUsuario sessionAppUsuario = AutenticadorServicio
-				.getInstance().getSessionAppUsuario(request);
+		AutenticadorServicio autenticadorServicio = new AutenticadorServicio();
+		SessionAppUsuario sessionAppUsuario = autenticadorServicio.getSessionAppUsuario(request);
 
 		
 		if (sessionAppUsuario != null) {
@@ -63,7 +63,7 @@ public class PageProcesoUnificacionArchivos extends PrivatePage{
 	@Override
 	public boolean isAccesoValido(HttpServletRequest request) {
 		// TODO Auto-generated method stub
-		return AutenticadorServicio.getInstance().isAccesoPrivadoValido(request);
+		return new AutenticadorServicio().isAccesoPrivadoValido(request);
 	}
 
 	@Override
