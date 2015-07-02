@@ -298,17 +298,6 @@ public class ProcesoConversionArchivosServicio {
 	
 
 	
-	public String getRutaTemporalPorProceso(Long prco_prco){
-		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
-		String rutaGeneral = parametroRutas.getConfig_valor();
-		
-		return rutaGeneral+ "/temp/prco/"+prco_prco+"/";
-		
-	}
-
-
-	
-	
 	public String getRutaFinalArchivosConvertidos(ProcesoConversionArchivos procesoConversionArchivos){
 		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
 		String rutaGeneral = parametroRutas.getConfig_valor();
@@ -319,8 +308,7 @@ public class ProcesoConversionArchivosServicio {
 	    int month = cal.get(Calendar.MONTH)+1;
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 		
-
-		return rutaGeneral+ "/prco/"+year+"/"+month+"/"+day+"/prco_"+procesoConversionArchivos.getPrco_prco()+"/01_arge/";
+	    return rutaGeneral+ "/prco/"+year+"/"+month+"/"+day+"/prco_"+procesoConversionArchivos.getPrco_prco()+"/01_arge/";
 		
 	}
 	

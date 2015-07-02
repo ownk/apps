@@ -71,13 +71,13 @@ public class LectorArchivoBSC {
 			 * 8.		Fecha de recaudo
 			 * 5.		Oficina de recaudo
 			 * 24.		Referencia (Encargo o Volante)
-			 * 25.		Aportante
+			 * 30.		Aportante
 			 * 16.		Valor efectivo
 			 * 16.		Valor cheque	
 			 * 16.		Valor total del recaudo
 			 * 3.		Cons BSC 1
 			 * 4.		Forma de recaudo
-			 * 8.		Comprobante
+			 * 10.		Comprobante
 			 * 11.		Cons BSC 2
 			 */
 			
@@ -86,8 +86,8 @@ public class LectorArchivoBSC {
 			
 			
 			if (fileBSC != null) {
-				Integer[] longitudes = new Integer[] { 1, 8,5, 24, 30, 16, 16, 16,
-						3, 4, 7, 3 };
+				Integer[] longitudes = new Integer[] { 1, 8, 5, 24, 30, 16, 16, 16,
+						3, 4, 10, 9 };
 				
 				registrosDetalle = LectorArchivoPlanoUtils.leerArchivo(
 						fileBSC.getAbsolutePath(), longitudes);

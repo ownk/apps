@@ -1,5 +1,8 @@
 package com.developer.logic.modulo.conversion.modelo;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -30,6 +33,7 @@ import com.developer.logic.modulo.conversion.dto.TipoTransformacionArchivoRecaud
 import com.developer.logic.modulo.conversion.dto.TipoValidacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
+import com.developer.logic.modulo.general.modelo.LectorArchivoPlanoUtils;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 import com.developer.mybatis.DBManagerFSRecaudos;
 
@@ -650,13 +654,13 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														listTransformaciones.add(transformacionPlan);
 														
 														
-														BigDecimal valorCheque = getMoneda2Decimals(detalleArchivo.getDaror_vche());
+														BigDecimal valorCheque = getValorMoneda(detalleArchivo.getDaror_vche());
 														double nuevoValorCheque = getRound2Decimals(valorCheque.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
 														
-														BigDecimal valorEfectivo = getMoneda2Decimals(detalleArchivo.getDaror_vefe());
+														BigDecimal valorEfectivo = getValorMoneda(detalleArchivo.getDaror_vefe());
 														double nuevoValorEfectivo = getRound2Decimals(valorEfectivo.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
 														
-														BigDecimal valorTotal = getMoneda2Decimals(detalleArchivo.getDaror_vtot());
+														BigDecimal valorTotal = getValorMoneda(detalleArchivo.getDaror_vtot());
 														double nuevoValorTotal = getRound2Decimals(valorTotal.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
 														
 														valorTotalDistribuido = valorTotalDistribuido+nuevoValorTotal;
@@ -1174,7 +1178,25 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					
 					
 					if(sinErrores){
-						session.commit();
+						
+						File fileSIFI = generarArchivoSIFI(
+								rutaArchivosSIFI,
+								procesoConversionArchivos,
+								archivoRecaudoOriginalPorConvertir,
+								archivoRecaudoGeneradoSIFI,
+								listDetallesArchivoGenerado,
+								mensajeErrorOut);
+						
+						
+						if(fileSIFI!=null){
+							session.commit();
+							
+						}else{
+							session.rollback();
+							SimpleLogger.error("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
+							
+							
+						}	
 						
 					}else{
 						session.rollback();
@@ -1226,6 +1248,150 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	}
 	
 
+	
+	private File generarArchivoSIFI(String rutaArchivosSIFI,
+									ProcesoConversionArchivos procesoConversionArchivos,
+									ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginal,
+									ArchivoRecaudoGeneradoSIFI archivoRecaudoSIFI,
+									List<DetalleArchivoRecaudoGeneradoSIFI> detallesSIFI,
+									StringBuffer mensajeErrorOut) {
+
+		/***************************************************************************
+		 * Informacion del archivo
+		 * 
+		 * -Primera linea corresponde al encabezado 
+		 * -Lineas itermedias corresponden a detalles de recaudo
+		 ***************************************************************************/
+		File fileSIFI = null;
+		
+		
+		String filename = archivoRecaudoOriginal.getAror_url();
+		File fileBSC = new File(filename);
+		String[][] registroEncabezado = null;
+		
+		Boolean hayRegistros = false;
+		if (fileBSC != null) {
+			Integer[] longitudes = new Integer[] { 81, 13, 18, 5, 8};
+			registroEncabezado = LectorArchivoPlanoUtils.leerArchivo(
+					fileBSC.getAbsolutePath(), longitudes);
+			
+			if (registroEncabezado == null || registroEncabezado.length < 1) {
+				hayRegistros = false;
+			
+			}else {
+				hayRegistros = true;
+			}
+			
+		}
+		
+		
+		String fechaArchivo;
+		String cuentaBancaria;
+		String titulo;
+		int totalRegistros =0;
+		double valorTotal =0;
+
+		String encabezado = null;
+		List<String> listRegistros = new ArrayList<String>();
+		
+				
+		if (hayRegistros) {
+			
+			titulo = registroEncabezado[0][0];
+			cuentaBancaria = registroEncabezado[0][1];
+			fechaArchivo = registroEncabezado[0][4];
+			
+			//Con base en los detallesSIFI se calcula el valor total de recaudo y la cantidad
+			for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : detallesSIFI) {
+				
+				totalRegistros++;
+				
+				BigDecimal valor = getValorMoneda(detalleSIFI.getDarge_vtot());
+				double valorRecaudo = getRound2Decimals(valor.doubleValue());
+				
+				valorTotal = valorTotal+valorRecaudo;
+				
+				String registro = "2"+
+								  String.format("%8s",detalleSIFI.getDarge_freca())+
+								  String.format("%05d",Integer.parseInt(detalleSIFI.getDarge_ofic()))+
+								  String.format("%-24s",detalleSIFI.getDarge_referencia())+
+								  String.format("%-30s",detalleSIFI.getDarge_aportante())+
+								  String.format("%16s",detalleSIFI.getDarge_vefe())+
+								  String.format("%16s",detalleSIFI.getDarge_vche())+
+								  String.format("%16s",detalleSIFI.getDarge_vtot())+
+								  String.format("%3s",detalleSIFI.getDarge_cons_bsc_1())+
+								  String.format("%4s",detalleSIFI.getDarge_tipo_reca())+
+								  String.format("%-10s",detalleSIFI.getDarge_comp())+
+								  String.format("%9s",detalleSIFI.getDarge_cons_bsc_2());
+				listRegistros.add(registro);
+				
+			}
+			
+			
+			//Se construye el encabezado
+			encabezado = 	String.format("%-81s",titulo)+
+							String.format("%13s",cuentaBancaria)+
+							String.format("%018.2f", valorTotal).replace(',', '.')+
+							String.format("%05d",totalRegistros)+
+							String.format("%8s",fechaArchivo);
+							
+			
+			//Se crea la carpeta general donde se colocaron los archivo
+		    File folder = new File(rutaArchivosSIFI);
+			if(!folder.exists()){
+		    	folder.mkdirs();
+			}
+			
+			
+			FileWriter fichero = null;
+	        PrintWriter printerWriter = null;
+	        try
+	        {
+	           fichero = new FileWriter(archivoRecaudoSIFI.getArge_url());
+	           printerWriter = new PrintWriter(fichero);
+	           
+	           printerWriter.println(encabezado);
+	           for (String string : listRegistros) {
+	        	   printerWriter.println(string);
+	           }
+	           
+	        } catch (Exception e) {
+
+	        	mensajeErrorOut.append("No se puede generar archivo:"+archivoRecaudoSIFI.getArge_nombre()+". "+e.getMessage());
+	            e.printStackTrace();
+	        } finally {
+	           try {
+		          
+		           if ( fichero != null){
+		              fichero.close();
+		           }
+		           
+	           } catch (Exception e2) {
+	        	   
+	        	   
+
+	        	  mensajeErrorOut.append("No se puede generar archivo:"+archivoRecaudoSIFI.getArge_nombre()+". "+e2.getMessage());
+	              e2.printStackTrace();
+	           }
+	        }
+			
+	        //Se verifica si el archivo existe
+	        File file = new File(archivoRecaudoSIFI.getArge_url());
+	        
+	        if(file.exists()){
+	     	   fileSIFI =  file;
+	        }				
+							
+							
+		}	
+		
+		return fileSIFI;
+				
+	}
+	
+	
+	
+	
 	private Long getLong(String valor) {
 
 		try {
@@ -1260,7 +1426,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		}
 	}
 
-	private BigDecimal getMoneda2Decimals(String valor) {
+	private BigDecimal getValorMoneda(String valor) {
 
 		BigDecimal resultado = getBigDecimal(valor);
 		return resultado;

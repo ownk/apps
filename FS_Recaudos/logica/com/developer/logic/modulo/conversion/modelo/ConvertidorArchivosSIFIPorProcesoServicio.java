@@ -62,12 +62,6 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 					
 					String rutaArchivosConvertidos = procesoConversionArchivosServicio.getRutaFinalArchivosConvertidos(procesoConversionArchivos);
 					
-					//Se crea la carpeta general donde se colocaron los archivo
-				    File folder = new File(rutaArchivosConvertidos);
-					if(!folder.exists()){
-				    		folder.mkdir();
-					}
-					
 					ExecutorService executor = (ExecutorService) Executors.newSingleThreadExecutor();
 					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI(rutaArchivosConvertidos, procesoConversionArchivos, usuario.getUsua_usua());
 				    executor.execute(hiloConversion);

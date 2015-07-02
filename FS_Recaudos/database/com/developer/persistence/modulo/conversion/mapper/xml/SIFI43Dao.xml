@@ -21,7 +21,7 @@
 	    and ptpl_status = 'A'
 	</select>
 	
-	
+	<!-- 
 	<select id="getEncargoSIFI" parameterType="encargoFiduciarioSIFI" resultType="encargoFiduciarioSIFI">
 		select plan_fond PLTS_FOND, 
 				plan_plan PLTS_PLAN, 
@@ -39,7 +39,21 @@
 	    and ptpl_status = 'A'
 		and plan_plan = #{plts_plan}
 	</select>
-	
+	 -->
+	 
+	<!-- Query temporal contra la misma base de datos FS_RECAUDOS app  -->
+	<select id="getEncargoSIFI" parameterType="encargoFiduciarioSIFI" resultType="encargoFiduciarioSIFI">
+		select PLTS_FOND, 
+				 PLTS_PLAN, 
+				 PLTS_ESTA,
+				 PLTS_FDEI,
+				 PLTS_FDEI_TPID,
+				 PLTS_FCREA,
+				 PLTS_FRECA, 
+				 plts_fdei_titu         
+	    from co_tplts
+	    where plts_plan = #{plts_plan}
+	</select>
 
 	
 </mapper>
