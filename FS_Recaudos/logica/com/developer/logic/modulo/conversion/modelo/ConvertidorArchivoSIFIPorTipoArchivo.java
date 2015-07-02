@@ -5,7 +5,10 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
+
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
@@ -28,6 +31,7 @@ import com.developer.logic.modulo.conversion.dto.TipoValidacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
+import com.developer.mybatis.DBManagerFSRecaudos;
 
 public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
@@ -158,7 +162,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-										detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+										
 										detallesPorRegistro.add(detalleArchivoSIFI);
 										
 										detallesCreados=true;
@@ -206,7 +210,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									
 									detallesPorRegistro.add(detalleArchivoSIFI);
 									
 									detallesCreados=true;
@@ -334,7 +338,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 
 														DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 														detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-														detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+														
 														detallesPorRegistro.add(detalleArchivoSIFI);
 														
 														detallesCreados=true;
@@ -506,7 +510,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 
 												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-												detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+												
 												detallesPorRegistro.add(detalleArchivoSIFI);
 												
 												detallesCreados=true;
@@ -556,7 +560,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 
 											DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 											detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-											detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+											
 											detallesPorRegistro.add(detalleArchivoSIFI);
 											
 											detallesCreados=true;
@@ -652,7 +656,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														BigDecimal valorEfectivo = getMoneda2Decimals(detalleArchivo.getDaror_vefe());
 														double nuevoValorEfectivo = getRound2Decimals(valorEfectivo.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
 														
-														BigDecimal valorTotal = getMoneda2Decimals(detalleArchivo.getDaror_vefe());
+														BigDecimal valorTotal = getMoneda2Decimals(detalleArchivo.getDaror_vtot());
 														double nuevoValorTotal = getRound2Decimals(valorTotal.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
 														
 														valorTotalDistribuido = valorTotalDistribuido+nuevoValorTotal;
@@ -710,10 +714,10 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														if(!detallesCreados){
 															DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 															detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-															detalleArchivoSIFI.setDarge_vche(""+nuevoValorCheque);
-															detalleArchivoSIFI.setDarge_vefe(""+nuevoValorEfectivo);
-															detalleArchivoSIFI.setDarge_vtot(""+nuevoValorTotal);
-															detalleArchivoSIFI.setDarge_id_reg(new Long(totalDistribuciones));
+															detalleArchivoSIFI.setDarge_vche(String.format("%016.2f", nuevoValorCheque ).replace(',', '.'));
+															detalleArchivoSIFI.setDarge_vefe(String.format("%016.2f", nuevoValorEfectivo ).replace(',', '.'));
+															detalleArchivoSIFI.setDarge_vtot(String.format("%016.2f", nuevoValorTotal ).replace(',', '.'));
+															
 															detallesPorRegistro.add(detalleArchivoSIFI);
 															
 														}
@@ -793,7 +797,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											if(!detallesCreados){
 												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-												detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+												
 												detallesPorRegistro.add(detalleArchivoSIFI);
 												
 												detallesCreados =true;
@@ -811,6 +815,15 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											listValidaciones.add(validacion);
 											
 											referenciaFinal = referenciaOriginal;
+											
+											if(!detallesCreados){
+												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+												
+												detallesPorRegistro.add(detalleArchivoSIFI);
+												
+												detallesCreados =true;
+											}
 										}
 										
 										
@@ -878,7 +891,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									if(!detallesCreados){
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-										detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									
 										detallesPorRegistro.add(detalleArchivoSIFI);
 										
 										detallesCreados =true;
@@ -901,7 +914,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									if(!detallesCreados){
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-										detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+										
 										detallesPorRegistro.add(detalleArchivoSIFI);
 										
 										detallesCreados =true;
@@ -935,7 +948,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								if(!detallesCreados){
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									
 									detallesPorRegistro.add(detalleArchivoSIFI);
 									
 									detallesCreados =true;
@@ -963,7 +976,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								if(!detallesCreados){
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									
 									detallesPorRegistro.add(detalleArchivoSIFI);
 									
 									detallesCreados =true;
@@ -990,7 +1003,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								if(!detallesCreados){
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
-									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									
 									detallesPorRegistro.add(detalleArchivoSIFI);
 									
 									detallesCreados =true;
@@ -1076,7 +1089,9 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					//Por cada detalle se debe complear la informacion faltante
 					for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : detallesPorRegistro) {
 						
-						detalleSIFI.setDarge_aportante(""+aportante);
+						
+						detalleSIFI.setDarge_arge(archivoRecaudoOriginalPorConvertir.getAror_aror());
+						detalleSIFI.setDarge_aportante(detalleArchivo.getDaror_aportante());
 						detalleSIFI.setDarge_comp(detalleArchivo.getDaror_comp());
 						detalleSIFI.setDarge_cons_bsc_1(detalleArchivo.getDaror_cons_bsc_1());
 						detalleSIFI.setDarge_cons_bsc_2(detalleArchivo.getDaror_cons_bsc_2());
@@ -1084,17 +1099,23 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 						detalleSIFI.setDarge_freca(detalleArchivo.getDaror_freca());
 						detalleSIFI.setDarge_ofic(oficinaFinal);
 						detalleSIFI.setDarge_tipo_reca(detalleArchivo.getDaror_tipo_reca());
-						
 						if(detalleSIFI.getDarge_vche()==null){
-							detalleSIFI.setDarge_vche(""+detalleArchivo.getDaror_vche());
+							
+							detalleSIFI.setDarge_vche(detalleArchivo.getDaror_vche());
 						}
 						
 						if(detalleSIFI.getDarge_vefe()==null){
-							detalleSIFI.setDarge_vefe(""+detalleArchivo.getDaror_vefe());
+							
+							
+							
+							detalleSIFI.setDarge_vefe(detalleArchivo.getDaror_vefe());
 						}
 						
 						if(detalleSIFI.getDarge_vtot()==null){
-							detalleSIFI.setDarge_vtot(""+detalleArchivo.getDaror_vtot());
+							
+							
+							
+							detalleSIFI.setDarge_vtot(detalleArchivo.getDaror_vtot());
 						}
 						
 						listDetallesArchivoGenerado.add(detalleSIFI);
@@ -1115,9 +1136,65 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				
 			}
 			
+			/**
+			 * ======================================================
+			 * Se registrar erorres, validaciones y transformaciones
+			 * Si no hay errores se crea el archivo de recaudo
+			 * ======================================================
+			 */
 			
-			for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : listDetallesArchivoGenerado) {
-				System.out.println("DetalleSIFI: "+detalleSIFI.toString());
+			SqlSession session = DBManagerFSRecaudos.openSession();
+			Boolean sinErrores = true;
+			
+			if(listErrores.size()==0){
+				
+				StringBuffer mensajeErrorOut = new StringBuffer();
+				try {
+					ArchivoRecaudoGeneradoSIFIServicio archivoRecaudoGeneradoSIFIServicio = new ArchivoRecaudoGeneradoSIFIServicio();
+					ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI = new ArchivoRecaudoGeneradoSIFI();
+					archivoRecaudoGeneradoSIFI.setArge_arge(archivoRecaudoOriginalPorConvertir.getAror_aror());
+					archivoRecaudoGeneradoSIFI.setArge_aror(archivoRecaudoOriginalPorConvertir.getAror_aror());
+					archivoRecaudoGeneradoSIFI.setArge_bytes(""+listDetallesArchivoGenerado.size());
+					archivoRecaudoGeneradoSIFI.setArge_extension(archivoRecaudoOriginalPorConvertir.getAror_extension());
+					archivoRecaudoGeneradoSIFI.setArge_nombre(archivoRecaudoOriginalPorConvertir.getAror_nombre());
+					archivoRecaudoGeneradoSIFI.setArge_observ("-");
+					archivoRecaudoGeneradoSIFI.setArge_prco(procesoConversionArchivos.getPrco_prco());
+					archivoRecaudoGeneradoSIFI.setArge_tpar(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+					archivoRecaudoGeneradoSIFI.setArge_registros(new Long(listDetallesArchivoGenerado.size()+1));
+					archivoRecaudoGeneradoSIFI.setArge_url(rutaArchivosSIFI	+ nombreArchivo);
+					archivoRecaudoGeneradoSIFI.setArge_usua(usua_usua);
+					archivoRecaudoGeneradoSIFI.setArge_hash(""+listDetallesArchivoGenerado.size());
+					archivoRecaudoGeneradoSIFI.setArge_earge(ArchivoRecaudoGeneradoSIFI.GENERADO);
+					
+					
+					
+					sinErrores = archivoRecaudoGeneradoSIFIServicio.crearDocumentoTransaccional(session, archivoRecaudoGeneradoSIFI, mensajeErrorOut);
+					
+					sinErrores = sinErrores&&archivoRecaudoGeneradoSIFIServicio.crearDetallesTransaccional(session, archivoRecaudoGeneradoSIFI, listDetallesArchivoGenerado, mensajeErrorOut);
+					
+					
+					if(sinErrores){
+						session.commit();
+						
+					}else{
+						session.rollback();
+						SimpleLogger.error("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
+						mensajeErrorOut.append("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
+						
+					}
+					
+				} catch (Exception e) {
+					SimpleLogger.error("Error ", e);
+					session.rollback();
+					mensajeErrorOut.append("Error creandoArchivoSIFI. No ha crear registros en base de datos.");
+					
+					sinErrores=false;
+					
+					
+				} 	finally {
+					session.close();
+				}
+				
 			}
 			
 			for (ErrorArchivoRecaudo errorArchivoRecaudo : listErrores) {
@@ -1148,7 +1225,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 	}
 	
-	// -----------
 
 	private Long getLong(String valor) {
 
@@ -1167,8 +1243,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		}
 	}
 
-	// -----------
-
 	private BigDecimal getBigDecimal(String valor) {
 
 		try {
@@ -1186,15 +1260,12 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		}
 	}
 
-	
-
 	private BigDecimal getMoneda2Decimals(String valor) {
 
 		BigDecimal resultado = getBigDecimal(valor);
 		return resultado;
 		
 	}
-	
 	
 	private double getRound2Decimals(double valor) {
 
@@ -1229,7 +1300,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 		return nuevaReferencia;
 	}
-	
 	
 	private Long completarReferenciaPorTipoArchivo(Long referenciaOriginal, String tpar_tpar){
 		
@@ -1308,9 +1378,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 	}
 	
-	
-	
-	
 	private Boolean isEstadoPlanFormulaDistribucion(String estadoPlan){
 		
 		Boolean isEstadoPlanFormulaDistribucion = false;
@@ -1328,7 +1395,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		return isEstadoPlanFormulaDistribucion;
 		
 	}
-	
 	
 	private Boolean isEstadoPlanAplicaPlanGenerico(String estadoPlan){
 		
@@ -1348,9 +1414,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 	}
 	
-	
-	
-	
 	public static void main(String[] args) {
 		
 		String numero = "001245678945612   ";
@@ -1363,8 +1426,9 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	    
 	    System.out.println(double1);
 		
+	    BigDecimal bigDecimal = new BigDecimal("0000022000000.00");
 		
-		
+	    System.out.println(String.format("%016.2f", valor ).replace(',', '.'));
 	}
 	
 	

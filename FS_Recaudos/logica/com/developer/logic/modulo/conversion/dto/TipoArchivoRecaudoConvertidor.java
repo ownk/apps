@@ -17,6 +17,10 @@ public class TipoArchivoRecaudoConvertidor {
 	String  tpar_usua 		    ;
 	String  tpar_comp_rf_sn		;
 	String  tpar_usa_vol_sn		;
+	String  tpar_nomb_arge		;
+	
+	
+	
 	
 	
 	
@@ -70,6 +74,12 @@ public class TipoArchivoRecaudoConvertidor {
 	}
 	public void setTpar_usa_vol_sn(String tpar_usa_vol_sn) {
 		this.tpar_usa_vol_sn = tpar_usa_vol_sn;
+	}
+	public String getTpar_nomb_arge() {
+		return tpar_nomb_arge;
+	}
+	public void setTpar_nomb_arge(String tpar_nomb_arge) {
+		this.tpar_nomb_arge = tpar_nomb_arge;
 	}
 	
 	

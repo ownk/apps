@@ -1,16 +1,13 @@
 package com.developer.logic.modulo.conversion.modelo;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.Future;
 
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
-import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
@@ -37,8 +34,6 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 		
 		procesoUnificacionArchivos= procesoUnificacionArchivosServicio.getProcesoUnificacionArchivos(procesoUnificacionArchivos.getPrun_prun());
 		
-				
-		
 		
 		try {
 		
@@ -64,8 +59,17 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 				
 				try {
 					
+					
+					String rutaArchivosConvertidos = procesoConversionArchivosServicio.getRutaFinalArchivosConvertidos(procesoConversionArchivos);
+					
+					//Se crea la carpeta general donde se colocaron los archivo
+				    File folder = new File(rutaArchivosConvertidos);
+					if(!folder.exists()){
+				    		folder.mkdir();
+					}
+					
 					ExecutorService executor = (ExecutorService) Executors.newSingleThreadExecutor();
-					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI("", "", procesoConversionArchivos, usuario.getUsua_usua());
+					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI(rutaArchivosConvertidos, procesoConversionArchivos, usuario.getUsua_usua());
 				    executor.execute(hiloConversion);
 				    executor.shutdown();
 				    

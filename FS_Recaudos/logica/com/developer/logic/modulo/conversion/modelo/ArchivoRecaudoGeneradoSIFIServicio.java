@@ -88,10 +88,13 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 		
 		try {
 			
+			//Se contabiliza a partir del registro 2 ya que el encabezado sera el registro 1
+			int numRegistro=2;
 			for (DetalleArchivoRecaudoGeneradoSIFI detalleArchivoRecaudoGeneradoSIFI : detallesArchivoRecaudoGeneradoSIFI) {
-				detalleArchivoRecaudoGeneradoSIFI.setDarge_arge(archivoRecaudoGeneradoSIFI.getArge_arge());
-
 				
+				detalleArchivoRecaudoGeneradoSIFI.setDarge_arge(archivoRecaudoGeneradoSIFI.getArge_arge());
+				detalleArchivoRecaudoGeneradoSIFI.setDarge_id_reg(new Long(numRegistro));
+				numRegistro++;
 				sinErrores = sinErrores && this.controllerDB.crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoGeneradoSIFI);
 				
 			}
