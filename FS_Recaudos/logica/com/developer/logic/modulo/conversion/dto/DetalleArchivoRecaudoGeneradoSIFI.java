@@ -113,7 +113,25 @@ public class DetalleArchivoRecaudoGeneradoSIFI {
 	}
 	
 	
-	
+	@Override
+	public String toString() {
+		// TODO Auto-generated method stub
+		return  "darge_arge:"+darge_arge 		
+				+"darge_daror_id_reg:"+darge_daror_id_reg
+				+"darge_id_reg:"+darge_id_reg      
+				+"darge_freca:"+darge_freca 	  
+				+"darge_referencia:"+darge_referencia  
+				+"darge_aportante:"+darge_aportante   
+				+"darge_ofic:"+darge_ofic 		
+				+"darge_vefe:"+darge_vefe 		
+				+"darge_vche:"+darge_vche 		
+				+"darge_vtot:"+darge_vtot 		
+				+"darge_cons_bsc_1:"+darge_cons_bsc_1  
+				+"darge_tipo_reca:"+darge_tipo_reca   
+				+"darge_comp:"+darge_comp 		
+				+"darge_cons_bsc_2:"+darge_cons_bsc_2  
+				+"darge_fcrea_"+darge_fcrea;
+	}
 	
 
 }

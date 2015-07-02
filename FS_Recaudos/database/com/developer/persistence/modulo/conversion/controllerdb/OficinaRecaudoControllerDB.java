@@ -33,6 +33,24 @@ public class OficinaRecaudoControllerDB {
 		}
 		
 	}
+
+	public OficinaRecaudo getOficinaSIFI(String ofic_bsc) {
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		
+		try{
+			
+			OficinaRecaudoDao dao = session.getMapper(OficinaRecaudoDao.class);
+			return dao.getOficinaSIFI(ofic_bsc);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getOficinasSIFI", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+	}
 	
 
 	 

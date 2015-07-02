@@ -11,6 +11,10 @@
 	</select>
 	
 	
+	<select id="getOficinaSIFI" parameterType="java.lang.String" resultType="oficinaRecaudo" >
+		select * from co_tofic
+		where ofic_bsc = #{ofic_bsc}
+	</select>
 	
 	
 </mapper>

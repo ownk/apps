@@ -16,6 +16,7 @@ public class TipoTransformacionArchivoRecaudo {
 	public static final Long TPTR_PLAN_GENERICO_REF_NE = new Long(12);
 	public static final Long TPTR_PLAN_GENERICO_PLAN_PCA_RCHE = new Long(13);
 	public static final Long TPTR_PLAN_PROY_CAN = new Long(14);
+	public static final Long TPTR_OFIC_SIFI_EXISTE = new Long(15);
 	
 		
 	

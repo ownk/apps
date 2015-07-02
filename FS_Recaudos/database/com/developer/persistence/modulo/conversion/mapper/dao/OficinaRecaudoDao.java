@@ -10,6 +10,8 @@ public interface OficinaRecaudoDao {
 
 	
 	public List<OficinaRecaudo> getAllOficinas();
+
+	public OficinaRecaudo getOficinaSIFI(String ofic_bsc);
 	
 	
 	

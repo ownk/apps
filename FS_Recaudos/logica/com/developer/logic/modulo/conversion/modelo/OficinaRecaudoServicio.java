@@ -24,7 +24,11 @@ public class OficinaRecaudoServicio {
 
 
 	
-			
+	public OficinaRecaudo getOficinaSIFI(String ofic_bsc){
+		OficinaRecaudoControllerDB controllerDB = new OficinaRecaudoControllerDB();
+		OficinaRecaudo list = controllerDB.getOficinaSIFI(ofic_bsc);
+		return list;
+	}		
 	
 	 
 

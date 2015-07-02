@@ -15,6 +15,7 @@ import com.developer.logic.modulo.conversion.dto.EncargoFiduciarioSIFI;
 import com.developer.logic.modulo.conversion.dto.ErrorArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion;
+import com.developer.logic.modulo.conversion.dto.OficinaRecaudo;
 import com.developer.logic.modulo.conversion.dto.ParametroGeneralConversion;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.dto.ProyectoCancelado;
@@ -35,6 +36,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	List<EstadoPlanFormulaDistribucion> estadosPlanFormulaDistribucion;
 	List<EstadoPlanAplicaPlanGenerico> estadosPlanAplicaPlanGenerico;
 	List<TipoArchivoRecaudoConvertidor> tiposArchivoRecaudo;
+	
 	
 	
 	public Boolean createARGE(	String rutaArchivosSIFI,
@@ -64,6 +66,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
 		ProyectoRecaudoServicio proyectoRecaudoServicio = new ProyectoRecaudoServicio();
 		FormulaDistribucionPorcentajeServicio formulaDistribucionPorcentajeServicio = new FormulaDistribucionPorcentajeServicio();
+		OficinaRecaudoServicio oficinaRecaudoServicio = new OficinaRecaudoServicio();
 		
 		estadosPlanFormulaDistribucion = formulaDistribucionPorcentajeServicio.getAllEstadosAplicaFormula();
 		estadosPlanAplicaPlanGenerico = tipoArchivoServicio.getEstadosAplicaPlanGenericoPorTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar());
@@ -80,16 +83,20 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 			
 			for (DetalleArchivoRecaudoOriginalPorConvertir detalleArchivo : listDetallesArchivoOriginal) {
 				
+				List<DetalleArchivoRecaudoGeneradoSIFI> detallesPorRegistro = new ArrayList<DetalleArchivoRecaudoGeneradoSIFI>();
 				
-				
-				String estadoSIFI = null;
-				String estadoNOSIFI = null;
-				String formaRecaudo = null;
+				String estadoSIFI 		= null;
+				String estadoNOSIFI 	= null;
+				String formaRecaudo 	= null;
+				String oficinaOriginal 	= null;
+				String oficinaFinal 	= null;
 				
 				Long   	referenciaOriginal = null;
 				Long   	referenciaFinal = null;;
 				Long 	aportante = null;
 				Long 	proyecto = null;
+				
+				
 				
 				Boolean esEncargo = true;
 				Boolean esProyectoCancelado = null;
@@ -98,7 +105,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				Boolean isEstadoPlanAplicaPlanGenerico = null;
 				Boolean tieneFormulaDistribucion = null;
 				
-				
+				Boolean detallesCreados = false;
 				/**
 				 * Validaciones generales
 				 * =============================================
@@ -107,12 +114,10 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					
 					formaRecaudo = detalleArchivo.getDaror_tipo_reca();
 					aportante = getLong(detalleArchivo.getDaror_aportante());
-					
+					oficinaOriginal = detalleArchivo.getDaror_ofic();
 					
 					//Tipo de recaudo -Excluir por forma de recaudo. Crear validacion
 					if(!formaRecaudo.equals("RNDB")){
-						
-						
 						
 						//Validar el tamaño del numero de referencia. Crear validacion
 						if(detalleArchivo.getDaror_referencia()!=null){
@@ -148,6 +153,19 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 																									
 									listTransformaciones.add(transformacion);
+									
+									if(!detallesCreados){
+
+										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+										detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+										detallesPorRegistro.add(detalleArchivoSIFI);
+										
+										detallesCreados=true;
+									}
+									
+									
+									
 								}
 								//Para busquedas se convierte la referencia final como la referencia original 
 								referenciaOriginal = referenciaFinal;
@@ -183,6 +201,18 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								
 																								
 								listTransformaciones.add(transformacion);
+								
+								if(!detallesCreados){
+
+									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									detallesPorRegistro.add(detalleArchivoSIFI);
+									
+									detallesCreados=true;
+								}
+								
+								
 							}
 							
 							
@@ -299,6 +329,17 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 													transformacion.setTrar_valor_modi(""+referenciaFinal);
 													
 													listTransformaciones.add(transformacion);
+													
+													if(!detallesCreados){
+
+														DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+														detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+														detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+														detallesPorRegistro.add(detalleArchivoSIFI);
+														
+														detallesCreados=true;
+													}
+													
 													
 													
 												}else{
@@ -461,6 +502,15 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											
 											listTransformaciones.add(transformacion);
 											
+											if(!detallesCreados){
+
+												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+												detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+												detallesPorRegistro.add(detalleArchivoSIFI);
+												
+												detallesCreados=true;
+											}
 											
 											
 											
@@ -502,6 +552,15 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										
 										listTransformaciones.add(transformacion);
 										
+										if(!detallesCreados){
+
+											DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+											detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+											detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+											detallesPorRegistro.add(detalleArchivoSIFI);
+											
+											detallesCreados=true;
+										}
 										
 										
 									}
@@ -562,6 +621,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 													
 													int totalDistribuciones = 0;
 													double valorTotalDistribuido = 0;
+													
 												
 													for (DistribucionPorFormulaPorcentaje distribucionPorFormulaPorcentaje : distribuciones) {
 														
@@ -646,9 +706,25 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														transformacionValorTotal.setTrar_valor_modi(""+nuevoValorTotal);
 														listTransformaciones.add(transformacionValorTotal);
 														
+														
+														if(!detallesCreados){
+															DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+															detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+															detalleArchivoSIFI.setDarge_vche(""+nuevoValorCheque);
+															detalleArchivoSIFI.setDarge_vefe(""+nuevoValorEfectivo);
+															detalleArchivoSIFI.setDarge_vtot(""+nuevoValorTotal);
+															detalleArchivoSIFI.setDarge_id_reg(new Long(totalDistribuciones));
+															detallesPorRegistro.add(detalleArchivoSIFI);
+															
+														}
+														
 													}
 												
-												
+													
+													if(!detallesCreados){
+														detallesCreados=true;
+													}
+													
 												
 												
 												
@@ -714,6 +790,15 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											transformacionPlan.setTrar_valor_modi(""+referenciaFinal);
 											listTransformaciones.add(transformacionPlan);
 											
+											if(!detallesCreados){
+												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+												detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+												detallesPorRegistro.add(detalleArchivoSIFI);
+												
+												detallesCreados =true;
+											}
+											
 											
 										}else{
 											
@@ -745,13 +830,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 									listErrores.add(errorArchivoRecaudo);
 								}
-								
-								
-								
-								
-								
-							
-							
 							}
 							
 							
@@ -797,6 +875,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 									listTransformaciones.add(transformacion);
 									
+									if(!detallesCreados){
+										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+										detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+										detallesPorRegistro.add(detalleArchivoSIFI);
+										
+										detallesCreados =true;
+									}
 									
 									
 									
@@ -811,6 +897,16 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TPAR_MANEJA_VOLANTE_SI);
 									validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; TipoArchivo:"+archivoRecaudoOriginalPorConvertir.getAror_tpar()+" Usa_Volantes_SN: S");
 									listValidaciones.add(validacion);
+									
+									if(!detallesCreados){
+										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+										detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+										detallesPorRegistro.add(detalleArchivoSIFI);
+										
+										detallesCreados =true;
+									}
+									
 								}
 								
 								
@@ -835,6 +931,16 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								transformacion.setTrar_valor_modi(""+referenciaFinal);
 								
 								listTransformaciones.add(transformacion);
+								
+								if(!detallesCreados){
+									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									detallesPorRegistro.add(detalleArchivoSIFI);
+									
+									detallesCreados =true;
+								}
+								
 							
 							}
 							
@@ -854,6 +960,16 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								listTransformaciones.add(transformacion);
 								
 								
+								if(!detallesCreados){
+									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									detallesPorRegistro.add(detalleArchivoSIFI);
+									
+									detallesCreados =true;
+								}
+								
+								
 								
 							}
 							
@@ -870,6 +986,16 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								transformacion.setTrar_valor_modi(""+referenciaFinal);
 								
 								listTransformaciones.add(transformacion);
+								
+								if(!detallesCreados){
+									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+									detalleArchivoSIFI.setDarge_id_reg(new Long(1));
+									detallesPorRegistro.add(detalleArchivoSIFI);
+									
+									detallesCreados =true;
+								}
+								
 								
 							}
 							
@@ -914,7 +1040,69 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 						
 					}
 					
-					System.out.println("Referencia final:"+referenciaFinal);
+				
+					/**
+					 * Se complementa los detallesSIFI por registro
+					 */
+					OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(oficinaOriginal);
+					
+					if(oficinaRecaudoSIFI!=null && oficinaRecaudoSIFI.getOfic_sifi()!=null){
+						
+						oficinaFinal = oficinaRecaudoSIFI.getOfic_sifi();
+						TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+						transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+						transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+						transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_OFIC_SIFI_EXISTE);
+						transformacion.setTrar_valor_orig(""+oficinaOriginal);
+						transformacion.setTrar_valor_modi(""+oficinaFinal);
+						
+						listTransformaciones.add(transformacion);
+						
+					}else{
+						
+						oficinaFinal = oficinaOriginal;
+						
+						ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+						errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+						errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+						errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_OFIC_SIFI_NOEXISTE);
+						errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal+" Ofic_BSC:"+oficinaOriginal);
+						
+						listErrores.add(errorArchivoRecaudo);
+						
+						
+					}
+					
+					//Por cada detalle se debe complear la informacion faltante
+					for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : detallesPorRegistro) {
+						
+						detalleSIFI.setDarge_aportante(""+aportante);
+						detalleSIFI.setDarge_comp(detalleArchivo.getDaror_comp());
+						detalleSIFI.setDarge_cons_bsc_1(detalleArchivo.getDaror_cons_bsc_1());
+						detalleSIFI.setDarge_cons_bsc_2(detalleArchivo.getDaror_cons_bsc_2());
+						detalleSIFI.setDarge_daror_id_reg(detalleArchivo.getDaror_id_reg());
+						detalleSIFI.setDarge_freca(detalleArchivo.getDaror_freca());
+						detalleSIFI.setDarge_ofic(oficinaFinal);
+						detalleSIFI.setDarge_tipo_reca(detalleArchivo.getDaror_tipo_reca());
+						
+						if(detalleSIFI.getDarge_vche()==null){
+							detalleSIFI.setDarge_vche(""+detalleArchivo.getDaror_vche());
+						}
+						
+						if(detalleSIFI.getDarge_vefe()==null){
+							detalleSIFI.setDarge_vefe(""+detalleArchivo.getDaror_vefe());
+						}
+						
+						if(detalleSIFI.getDarge_vtot()==null){
+							detalleSIFI.setDarge_vtot(""+detalleArchivo.getDaror_vtot());
+						}
+						
+						listDetallesArchivoGenerado.add(detalleSIFI);
+						
+					}
+					
+					
+					
 				
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -928,7 +1116,9 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 			}
 			
 			
-			
+			for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : listDetallesArchivoGenerado) {
+				System.out.println("DetalleSIFI: "+detalleSIFI.toString());
+			}
 			
 			for (ErrorArchivoRecaudo errorArchivoRecaudo : listErrores) {
 				System.out.println("Error: "+errorArchivoRecaudo.toString());
