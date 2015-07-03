@@ -10,8 +10,22 @@ public class ErrorArchivoRecaudo {
 	Long    erar_daror_id_reg   ;   
 	String  erar_error_descri   ;	
 	Date    erar_fcrea 		    ;
+	String  tper_descri			;
+	String  tper_color		;
 	
 	
+	public String getTper_color() {
+		return tper_color;
+	}
+	public void setTper_color(String tper_color) {
+		this.tper_color = tper_color;
+	}
+	public String getTper_descri() {
+		return tper_descri;
+	}
+	public void setTper_descri(String tper_descri) {
+		this.tper_descri = tper_descri;
+	}
 	public Long getErar_erar() {
 		return erar_erar;
 	}

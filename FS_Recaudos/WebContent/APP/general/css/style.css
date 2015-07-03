@@ -1003,6 +1003,12 @@ button.dim:active:before {
   background-color: #FFFFFF;
   color: #5E5E5E;
 }
+
+.label-ninguno {
+  background-color: #FFFFFF;
+  color: #5E5E5E;
+}
+
 .label-white,
 .badge-disable {
   background-color: #2A2E36;

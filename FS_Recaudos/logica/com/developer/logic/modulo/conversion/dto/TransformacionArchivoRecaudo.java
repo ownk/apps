@@ -12,6 +12,25 @@ public class TransformacionArchivoRecaudo {
 	String  trar_valor_modi     ;
 	String  trar_valor_descri   ;
 	Date    trar_fcrea 		    ;
+	
+	String  tptr_descri			;
+	String  tptr_color			;
+	
+	
+	
+	
+	public String getTptr_color() {
+		return tptr_color;
+	}
+	public void setTptr_color(String tptr_color) {
+		this.tptr_color = tptr_color;
+	}
+	public String getTptr_descri() {
+		return tptr_descri;
+	}
+	public void setTptr_descri(String tptr_descri) {
+		this.tptr_descri = tptr_descri;
+	}
 	public Long getTrar_trar() {
 		return trar_trar;
 	}

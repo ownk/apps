@@ -22,6 +22,15 @@
 		<servlet-name>DownloadDocARUNServlet</servlet-name>
 		<servlet-class>com.developer.web.content.servlet.modulo.unificacion.DownloadDocARUNServlet</servlet-class>
 	</servlet>
+	<!-- Servlet descarga documentos ARGE -->
+	<servlet>
+		<servlet-name>DownloadDocARGEServlet</servlet-name>
+		<servlet-class>com.developer.web.content.servlet.modulo.conversion.DownloadDocARGEServlet</servlet-class>
+	</servlet>
+	
+	
+	
+	
 	<servlet-mapping>
 		<servlet-name>InitApp</servlet-name>
 		<url-pattern>/</url-pattern>
@@ -36,6 +45,12 @@
 		<servlet-name>DownloadDocARUNServlet</servlet-name>
 		<url-pattern>*.darun</url-pattern>
 	</servlet-mapping>
+	<!-- Descarga de archivos unificados ARGE -->
+	<servlet-mapping>
+		<servlet-name>DownloadDocARGEServlet</servlet-name>
+		<url-pattern>*.darge</url-pattern>
+	</servlet-mapping>
+	
 
 	<!-- ******************************************************** -->
 	<!-- ********************** TIMEOUT ************************* -->

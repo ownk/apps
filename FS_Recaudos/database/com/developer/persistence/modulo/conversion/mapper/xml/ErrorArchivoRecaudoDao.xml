@@ -28,11 +28,18 @@
 	
 	
 	<select id="getErroresPorARORxDAROR" parameterType="java.util.HashMap" resultType="errorArchivoRecaudo">
-		select * from co_terar
+		select * from co_terar, co_ttper
 		where erar_aror = #{aror_aror}
 		and erar_daror_id_reg = #{daror_id_reg}
+		and erar_tper = tper_tper
 		
 	</select>
 	
+	
+	<select id="getErroresPorAROR" parameterType="java.lang.Long" resultType="errorArchivoRecaudo">
+		select * from co_terar, co_ttper
+		where erar_aror = #{aror_aror}
+		and erar_tper = tper_tper
+	</select>
 	
 </mapper>

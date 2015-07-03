@@ -146,7 +146,7 @@
 																<div class="row">
 
 																	<dl class="dl-horizontal">
-																		<dt>Estado Proceso Unificación:</dt>
+																		<dt>Unificación:</dt>
 																		<dd>
 
 																			<div class="">
@@ -161,7 +161,7 @@
 																		</dd>
 																		
 																		<xsl:if test="count(//ProcesoConversionArchivos)>0">
-																			<dt>Estado Proceso Conversión:</dt>
+																			<dt>Conversión:</dt>
 																			<dd>
 	
 																				<div class="">
@@ -895,7 +895,7 @@
 											<td class=" align-center">
 											
 												
-												<form id="form_aror_{aror_aror}" action="{//contextPath}/conversion/"
+												<form id="form_aror_{aror_aror}" action="{//contextPath}/conversion/PageArchivoRecaudoOriginalPorConvertir.do"
 													method="post">
 													<input type="hidden" name="aror_aror" value="{aror_aror}" />
 		

@@ -11,7 +11,23 @@ public class ValidacionArchivoRecaudo {
 	String  vlar_valor_descri   ;	
 	Date    vlar_fcrea 		    ;
 	
+	String 	tpvl_descri			;
+	String 	tpvl_color;
 	
+	
+	
+	public String getTpvl_color() {
+		return tpvl_color;
+	}
+	public void setTpvl_color(String tpvl_color) {
+		this.tpvl_color = tpvl_color;
+	}
+	public String getTpvl_descri() {
+		return tpvl_descri;
+	}
+	public void setTpvl_descri(String tpvl_descri) {
+		this.tpvl_descri = tpvl_descri;
+	}
 	public Long getVlar_vlar() {
 		return vlar_vlar;
 	}

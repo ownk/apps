@@ -1,16 +1,11 @@
 package com.developer.logic.modulo.conversion.modelo;
 
-import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.developer.core.utils.SimpleLogger;
-import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
-import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.conversion.controllerdb.TransformacionArchivoRecaudoControllerDB;
-import com.developer.persistence.modulo.conversion.mapper.dao.TransformacionArchivoRecaudoDao;
 
 public class TransformacionArchivoRecaudoServicio {
 	
@@ -48,7 +43,13 @@ public class TransformacionArchivoRecaudoServicio {
 	}
 	
 	
-			
+	public List<TransformacionArchivoRecaudo> getTransformacionesPorAROR(Long aror_aror){
+		
+		TransformacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
+		List<TransformacionArchivoRecaudo> list = controllerDB.getTransformacionesPorAROR(aror_aror);
+		
+		return list;
+	}		
 	
 	 
 

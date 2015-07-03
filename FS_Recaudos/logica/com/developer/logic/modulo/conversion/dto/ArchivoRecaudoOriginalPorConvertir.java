@@ -26,11 +26,18 @@ public class ArchivoRecaudoOriginalPorConvertir {
 	
 	ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI;
 	List<DetalleArchivoRecaudoOriginalPorConvertir> detalles;
+	List<HistoricoArchivoRecaudoOriginalPorConvertir> historico;
 	
 	
 	
 	
-	
+	public List<HistoricoArchivoRecaudoOriginalPorConvertir> getHistorico() {
+		return historico;
+	}
+	public void setHistorico(
+			List<HistoricoArchivoRecaudoOriginalPorConvertir> historico) {
+		this.historico = historico;
+	}
 	public List<DetalleArchivoRecaudoOriginalPorConvertir> getDetalles() {
 		return detalles;
 	}

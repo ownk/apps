@@ -43,6 +43,13 @@ public class ErrorArchivoRecaudoServicio {
 		return list;
 	}
 	
+	public List<ErrorArchivoRecaudo> getErroresPorAROR(Long aror_aror){
+		
+		ErrorArchivoRecaudoControllerDB controllerDB = this.controllerDB;
+		List<ErrorArchivoRecaudo> list = controllerDB.getErroresPorAROR(aror_aror);
+		
+		return list;
+	}
 	
 			
 	

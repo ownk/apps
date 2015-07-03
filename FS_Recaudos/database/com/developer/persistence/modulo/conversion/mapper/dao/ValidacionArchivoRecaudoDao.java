@@ -12,6 +12,8 @@ public interface ValidacionArchivoRecaudoDao {
 	public void crearValidacion(ValidacionArchivoRecaudo validacionArchivoRecaudo);
 	
 	public List<ValidacionArchivoRecaudo> getValidacionesPorARORxDAROR(HashMap<String, Object> hashMap);
+
+	public List<ValidacionArchivoRecaudo> getValidacionesPorAROR(Long aror_aror);
 	
 	
 	

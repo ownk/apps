@@ -32,9 +32,17 @@
 	
 	
 	<select id="getTransformacionesPorARORxDAROR" parameterType="java.util.HashMap" resultType="transformacionArchivoRecaudoConvertidor">
-		select * from co_ttrar
+		select * from co_ttrar, co_ttptr
 		where trar_aror = #{aror_aror}
 		and trar_daror_id_reg = #{daror_id_reg}
+		and trar_tptr = tptr_tptr
+	</select>
+	
+	
+	<select id="getTransformacionesPorAROR" parameterType="java.lang.Long" resultType="transformacionArchivoRecaudoConvertidor">
+		select * from co_ttrar, co_ttptr
+		where trar_aror = #{aror_aror}
+		and trar_tptr = tptr_tptr
 	</select>
 	
 	

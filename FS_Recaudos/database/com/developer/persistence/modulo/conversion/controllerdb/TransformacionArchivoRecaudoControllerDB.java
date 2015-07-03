@@ -57,6 +57,24 @@ public class TransformacionArchivoRecaudoControllerDB {
 			session.close();
 		}
 	}
+
+
+
+	public List<TransformacionArchivoRecaudo> getTransformacionesPorAROR(Long aror_aror) {
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		try {
+	
+			TransformacionArchivoRecaudoDao dao = session.getMapper(TransformacionArchivoRecaudoDao.class);
+			return dao.getTransformacionesPorAROR(aror_aror);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getTransformacionesPorAROR", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
 	
 	
 

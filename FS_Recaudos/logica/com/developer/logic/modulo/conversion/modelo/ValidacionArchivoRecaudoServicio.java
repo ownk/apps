@@ -44,6 +44,14 @@ public class ValidacionArchivoRecaudoServicio {
 	}
 	
 	
+	public List<ValidacionArchivoRecaudo> getValidacionesPorAROR(Long aror_aror){
+		
+		ValidacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
+		List<ValidacionArchivoRecaudo> list = controllerDB.getValidacionesPorAROR(aror_aror);
+		
+		return list;
+	}
+	
 			
 	
 	 

@@ -14,4 +14,7 @@ Insert into FS_RECAUDOS_US.AUT_TSURL (SURL_URL,SURL_SERVICIO,SURL_TIPO) values (
 Insert into FS_RECAUDOS_US.AUT_TSURL (SURL_URL,SURL_SERVICIO,SURL_TIPO) values ('unificacion/PageUnificarArchivosPorProceso.do',3,'S');
 Insert into FS_RECAUDOS_US.AUT_TSURL (SURL_URL,SURL_SERVICIO,SURL_TIPO) values ('unificacion/PageConsultarProcesos.do',3,'P');
 
+PROMPT SERVICIOS CONVERSION ARCHIVOS
+Insert into FS_RECAUDOS_US.AUT_TSURL (SURL_URL,SURL_SERVICIO,SURL_TIPO) values ('conversion/PageArchivoRecaudoOriginalPorConvertir.do',4,'P');
+
 commit;

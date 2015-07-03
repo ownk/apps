@@ -11,6 +11,9 @@ PROMPT SERVICIOS UNIFICACION ARCHIVOS
 
 PROMPT PROCESAR ARCHIVO
 Insert into FS_RECAUDOS_US.AUT_TSERVICIO (SERVICIO_TIPO,SERVICIO_SERVICIO,SERVICIO_MODULO,SERVICIO_DESCRI,SERVICIO_NOMB,SERVICIO_ORDEN) values ('O',3,'UN','Unificar Archivos Recaudo','Unificar Archivos Recaudo',1);
+
+PROMPT SERVICIOS CONVERSION ARCHIVOS
+Insert into FS_RECAUDOS_US.AUT_TSERVICIO (SERVICIO_TIPO,SERVICIO_SERVICIO,SERVICIO_MODULO,SERVICIO_DESCRI,SERVICIO_NOMB,SERVICIO_ORDEN) values ('O',4,'CO','Conversion Archivos Recaudo','Conversion Archivos Recaudo',1);
                                                                                                                            
 
 commit;

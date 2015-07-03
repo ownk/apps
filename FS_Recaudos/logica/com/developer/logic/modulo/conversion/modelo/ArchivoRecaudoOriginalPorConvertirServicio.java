@@ -9,6 +9,7 @@ import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.conversion.controllerdb.ArchivoRecaudoOriginalPorConvertirControllerDB;
 
@@ -173,6 +174,10 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 			
 				List<DetalleArchivoRecaudoOriginalPorConvertir> detalles = controllerDB.getAllDetallesAROR(archivoRecaudoOriginalPorConvertir.getAror_aror());
 				archivoRecaudoOriginalPorConvertir.setDetalles(detalles);
+				
+				List<HistoricoArchivoRecaudoOriginalPorConvertir> historico = controllerDB.getHistoricoArchivo(archivoRecaudoOriginalPorConvertir.getAror_aror());
+				archivoRecaudoOriginalPorConvertir.setHistorico(historico);
+				
 				
 			}
 			

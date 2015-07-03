@@ -12,6 +12,8 @@ public interface ErrorArchivoRecaudoDao {
 	public void crearError(ErrorArchivoRecaudo errorArchivoRecaudo);
 	
 	public List<ErrorArchivoRecaudo> getErroresPorARORxDAROR(HashMap<String, Object> hashMap);
+
+	public List<ErrorArchivoRecaudo> getErroresPorAROR(Long aror_aror);
 	
 	
 	

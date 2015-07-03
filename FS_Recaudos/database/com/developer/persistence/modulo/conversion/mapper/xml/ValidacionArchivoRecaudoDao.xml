@@ -28,9 +28,19 @@
 	
 	
 	<select id="getValidacionesPorARORxDAROR" parameterType="java.util.HashMap" resultType="validacionArchivoRecaudo">
-		select * from co_tvlar
+		select * from co_tvlar, co_ttpvl
 		where vlar_aror = #{aror_aror}
 		and vlar_daror_id_reg = #{daror_id_reg}
+		and vlar_tpvl = tpvl_tpvl
+		
+	</select>
+	
+	
+	<select id="getValidacionesPorAROR" parameterType="java.lang.Long" resultType="validacionArchivoRecaudo">
+		select * from co_tvlar, co_ttpvl
+		where vlar_aror = #{aror_aror}
+		and vlar_tpvl = tpvl_tpvl
+		
 		
 	</select>
 	

@@ -54,6 +54,25 @@ public class ErrorArchivoRecaudoControllerDB {
 			session.close();
 		}
 	}
+
+
+
+	public List<ErrorArchivoRecaudo> getErroresPorAROR(Long aror_aror) {
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		try {
+	
+			
+			ErrorArchivoRecaudoDao dao = session.getMapper(ErrorArchivoRecaudoDao.class);
+			return dao.getErroresPorAROR(aror_aror);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getErroresPorAROR", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
 	
 	
 

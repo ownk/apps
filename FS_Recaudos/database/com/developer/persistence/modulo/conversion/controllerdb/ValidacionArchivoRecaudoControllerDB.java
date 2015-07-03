@@ -55,6 +55,25 @@ public class ValidacionArchivoRecaudoControllerDB {
 			session.close();
 		}
 	}
+
+
+
+	public List<ValidacionArchivoRecaudo> getValidacionesPorAROR(Long aror_aror) {
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		try {
+	
+		
+			ValidacionArchivoRecaudoDao dao = session.getMapper(ValidacionArchivoRecaudoDao.class);
+			return dao.getValidacionesPorAROR(aror_aror);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getValidacionesPorAROR", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
 	
 	
 
