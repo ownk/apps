@@ -14,6 +14,7 @@ import com.developer.core.utils.ObjectToXML;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
+import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.modelo.ConvertidorArchivosSIFIPorProcesoServicio;
 import com.developer.logic.modulo.general.modelo.ServerServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoZIPProcesoUnificacion;
@@ -25,7 +26,8 @@ import com.developer.web.general.MensajeErrorWeb;
 public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 
 	String nextPage = null;
-	MensajeErrorWeb errorWeb = new MensajeErrorWeb();
+	MensajeErrorWeb errorWebUnificacion = new MensajeErrorWeb();
+	MensajeErrorWeb errorWebConversion = new MensajeErrorWeb();
 
 	public StringBuffer executeAction(HttpServletRequest request) {
 
@@ -84,15 +86,15 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 						
 						
 						
-					sessionAppUsuario
+						sessionAppUsuario
 								.notificarEvento("Error iniciando proceso de unificacion de archivos: "
 										+ mensajeErrorOut.toString());
 						
 						
-						errorWeb.setError("1");
-						errorWeb.setMensajeError(mensajeErrorOut.toString());
+						errorWebUnificacion.setError("1");
+						errorWebUnificacion.setMensajeError(mensajeErrorOut.toString());
 						
-						xmlPage.append(objectToXML.getXML(errorWeb));
+						xmlPage.append(objectToXML.getXML(errorWebUnificacion));
 						
 					} else {
 	
@@ -117,25 +119,34 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 									.notificarEvento("La unificacion de Archivos No. "
 											+ procesoUnificacionArchivos.getPrun_prun()
 											+ " se ha creado con éxito!");
+							
+							
 		
 						}
 						
 						
 						
 						
-						//Se proces a crear la conversion de archivo de forma automatica
-						
+						//Se procede a crear la conversion de archivo de forma automatica
+						StringBuffer mensajeErrorOutConversion = new StringBuffer();
 						ConvertidorArchivosSIFIPorProcesoServicio convertidorArchivosSIFIServicio = new ConvertidorArchivosSIFIPorProcesoServicio();
-						sinErrores = convertidorArchivosSIFIServicio.generarArchivosSIFIPorProceso(procesoUnificacionArchivos, sessionAppUsuario.getUsuario(), mensajeErrorOut);
+						ProcesoConversionArchivos procesoConversionArchivos = convertidorArchivosSIFIServicio.generarArchivosSIFIPorProceso(procesoUnificacionArchivos, sessionAppUsuario.getUsuario(), mensajeErrorOutConversion);
 						
-						if(sinErrores){
+						if(procesoConversionArchivos!=null){
 
 							// Se crea un nuevo mensaje de session
 							sessionAppUsuario
 									.notificarEvento("La conversion de Archivos para el proceso No. "
 											+ procesoUnificacionArchivos.getPrun_prun()
 											+ " se ha creado con éxito!");
+							
+							xmlPage.append(objectToXML.getXML(procesoConversionArchivos));
 		
+						}else{
+							
+							errorWebConversion.setError("2");
+							errorWebConversion.setMensajeError(mensajeErrorOutConversion.toString());
+							
 						}
 						
 						
@@ -161,10 +172,10 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 							.notificarEvento("Error iniciando proceso de unificacion de archivos: "
 									+ mensajeErrorOut.toString());
 					
-					errorWeb.setError("2");
-					errorWeb.setMensajeError(mensajeErrorOut.toString());
+					errorWebUnificacion.setError("2");
+					errorWebUnificacion.setMensajeError(mensajeErrorOut.toString());
 					
-					xmlPage.append(objectToXML.getXML(errorWeb));
+					xmlPage.append(objectToXML.getXML(errorWebUnificacion));
 					
 				}
 			}else{
@@ -175,10 +186,10 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 						.notificarEvento("Error iniciando proceso de unificacion de archivos: "
 								+ mensajeErrorOut.toString());
 				
-				errorWeb.setError("3");
-				errorWeb.setMensajeError(mensajeErrorOut.toString());
+				errorWebUnificacion.setError("3");
+				errorWebUnificacion.setMensajeError(mensajeErrorOut.toString());
 				
-				xmlPage.append(objectToXML.getXML(errorWeb));
+				xmlPage.append(objectToXML.getXML(errorWebUnificacion));
 				
 			}
 
@@ -187,9 +198,9 @@ public class PageIniciarProcesoUnificacionArchivos extends PrivatePage {
 			mensajeErrorOut.append("Usuario no se ha autenticado correctamente ");
 
 
-			errorWeb.setError(MensajeErrorWeb.ERROR_AUTENTICACION);
-			errorWeb.setMensajeError(mensajeErrorOut.toString());;
-			xmlPage.append(objectToXML.getXML(errorWeb));
+			errorWebUnificacion.setError(MensajeErrorWeb.ERROR_AUTENTICACION);
+			errorWebUnificacion.setMensajeError(mensajeErrorOut.toString());;
+			xmlPage.append(objectToXML.getXML(errorWebUnificacion));
 						
 
 			

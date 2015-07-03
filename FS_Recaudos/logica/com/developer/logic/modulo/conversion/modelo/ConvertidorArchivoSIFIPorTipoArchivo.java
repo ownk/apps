@@ -1281,7 +1281,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 			}
 			
 			
-			
 			/**
 			 * ======================================================
 			 * Se registrar erorres, validaciones y transformaciones

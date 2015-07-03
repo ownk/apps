@@ -146,19 +146,35 @@
 																<div class="row">
 
 																	<dl class="dl-horizontal">
-																		<dt>Estado:</dt>
+																		<dt>Estado Proceso Unificación:</dt>
 																		<dd>
 
 																			<div class="">
 																				<button type="button"
 																					class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_historico"
-																					data-toggle="modal" data-target="#myModalHistorico">
+																					data-toggle="modal" data-target="#myModalHistoricoPrun">
 																					<xsl:value-of select="//prun_eprun" />
 																				</button>
 
-																				<xsl:call-template name="popup_historico" />
+																				<xsl:call-template name="popup_historico_prun" />
 																			</div>
 																		</dd>
+																		
+																		<xsl:if test="count(//ProcesoConversionArchivos)>0">
+																			<dt>Estado Proceso Conversión:</dt>
+																			<dd>
+	
+																				<div class="">
+																					<button type="button"
+																						class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_historico_prco"
+																						data-toggle="modal" data-target="#myModalHistoricoPrco">
+																						<xsl:value-of select="//prco_eprco" />
+																					</button>
+	
+																					<xsl:call-template name="popup_historico_prco" />
+																				</div>
+																			</dd>
+																		</xsl:if>	
 
 																	</dl>
 
@@ -824,13 +840,20 @@
 											
 												<xsl:choose>
 													<xsl:when test="aror_earor='CONVERTIDO'">
-														<span class="label label-success">
+														<span class="badge badge-success">
+															
+															<xsl:value-of select="aror_earor" />
+														</span>
+													</xsl:when>
+													
+													<xsl:when test="aror_earor='CON_ERRORES'">
+														<span class="badge badge-danger">
 															
 															<xsl:value-of select="aror_earor" />
 														</span>
 													</xsl:when>
 													<xsl:otherwise>
-														<span class="label label-default">
+														<span class="badge badge-warning">
 														
 															<xsl:value-of select="aror_earor" />
 														</span>
@@ -972,10 +995,10 @@
 
 	</xsl:template>
 
-	<xsl:template name="popup_historico">
+	<xsl:template name="popup_historico_prun">
 
 
-		<div class="modal inmodal" id="myModalHistorico" tabindex="-1"
+		<div class="modal inmodal" id="myModalHistoricoPrun" tabindex="-1"
 			role="dialog" aria-hidden="false" data-show="true">
 			<div class="modal-dialog" data-show="true">
 				<div class="modal-content animated bounceInRight">
@@ -1034,6 +1057,91 @@
 
 													<td class=" align-center">
 														<xsl:value-of select="hprun_usua" />
+													</td>
+												</tr>
+
+											</xsl:for-each>
+										</tbody>
+									</table>
+								</div>
+							</div>
+						</div>
+
+
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white ownk_btn_shadow"
+							data-dismiss="modal">Retornar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</xsl:template>
+	
+	<xsl:template name="popup_historico_prco">
+
+
+		<div class="modal inmodal" id="myModalHistoricoPrco" tabindex="-1"
+			role="dialog" aria-hidden="false" data-show="true">
+			<div class="modal-dialog" data-show="true">
+				<div class="modal-content animated bounceInRight">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true"></span>
+							<span class="sr-only">Close</span>
+						</button>
+						<i class="fa fa-list-ul modal-icon"></i>
+						<h4 class="modal-title">Histórico</h4>
+						<small class="font-bold">Estados del proceso de conversión de archivos</small>
+					</div>
+					<div class="modal-body">
+						<p>
+							A continuación podrás consultar todos los estados del proceso.
+							Revisar la fecha y hora del modificación y el usuario quien lo
+							realizó.
+						</p>
+
+						<br />
+
+						<div class="row">
+							<div class="col-sm-12 m-b-xs">
+								<div class="table-responsive">
+									<table class="table table-striped">
+										<thead>
+											<tr>
+												<th>id</th>
+												<th>Estado</th>
+												<th>Fecha</th>
+												<th>Observación</th>
+												<th>Usuario</th>
+
+											</tr>
+										</thead>
+										<tbody>
+											<xsl:for-each select="//HistoricoProcesoConversionArchivos">
+												<tr>
+													<td class=" align-center">
+														<xsl:value-of select="position()" />
+													</td>
+													<td class=" align-center">
+														<xsl:value-of select="hprco_eprco" />
+													</td>
+
+													<td class=" align-center">
+														<span class="label label-default">
+															<xsl:value-of select="hprco_fasig" />
+														</span>
+
+													</td>
+
+													<td class=" align-center">
+														<xsl:value-of select="hprco_obser" />
+													</td>
+
+													<td class=" align-center">
+														<xsl:value-of select="hprco_usua" />
 													</td>
 												</tr>
 

@@ -1,6 +1,5 @@
 package com.developer.logic.modulo.conversion.modelo;
 
-import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.concurrent.ExecutorService;
@@ -21,9 +20,9 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 	}
 	
 	
-	public Boolean generarArchivosSIFIPorProceso(ProcesoUnificacionArchivos procesoUnificacionArchivos, Usuario usuario, StringBuffer mensajeErrorOut){
+	public ProcesoConversionArchivos generarArchivosSIFIPorProceso(ProcesoUnificacionArchivos procesoUnificacionArchivos, Usuario usuario, StringBuffer mensajeErrorOut){
 		
-		Boolean sinErrores =true; 
+		ProcesoConversionArchivos procesoConversionArchivos = null;
 		
 		ProcesoUnificacionArchivosServicio procesoUnificacionArchivosServicio = new ProcesoUnificacionArchivosServicio();
 		
@@ -39,7 +38,7 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 		
 			
 			ProcesoConversionArchivosServicio procesoConversionArchivosServicio = new ProcesoConversionArchivosServicio();
-			ProcesoConversionArchivos procesoConversionArchivos = procesoConversionArchivosServicio.iniciarProcesoConversionArchivosTransaccional(procesoUnificacionArchivos.getPrun_prun(), 
+			procesoConversionArchivos = procesoConversionArchivosServicio.iniciarProcesoConversionArchivosTransaccional(procesoUnificacionArchivos.getPrun_prun(), 
 																							procesoUnificacionArchivos.getPrun_observ(), 
 																							currentDate, 
 																							procesoUnificacionArchivos.getArchivosARUN(), 
@@ -84,7 +83,7 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 			
 		} 	
 		
-		return sinErrores;
+		return procesoConversionArchivos;
 		
 		
 		

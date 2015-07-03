@@ -1,6 +1,7 @@
 package com.developer.logic.modulo.conversion.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class ArchivoRecaudoOriginalPorConvertir {
 	
@@ -24,9 +25,18 @@ public class ArchivoRecaudoOriginalPorConvertir {
 	Long   aror_arun 	  ;
 	
 	ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI;
+	List<DetalleArchivoRecaudoOriginalPorConvertir> detalles;
 	
 	
 	
+	
+	
+	public List<DetalleArchivoRecaudoOriginalPorConvertir> getDetalles() {
+		return detalles;
+	}
+	public void setDetalles(List<DetalleArchivoRecaudoOriginalPorConvertir> detalles) {
+		this.detalles = detalles;
+	}
 	public ArchivoRecaudoGeneradoSIFI getArchivoRecaudoGeneradoSIFI() {
 		return archivoRecaudoGeneradoSIFI;
 	}

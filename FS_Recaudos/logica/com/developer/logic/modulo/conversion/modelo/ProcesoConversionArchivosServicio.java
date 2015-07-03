@@ -202,8 +202,40 @@ public class ProcesoConversionArchivosServicio {
 		
 	}	
 	
+	public Boolean setEstado(Long prco_prco,  String prco_eprco, Usuario usuario, String observacion, StringBuffer mensajeErrorOut ){
+
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		Boolean sinErrores = false;
+		try {
+			
+			
+			sinErrores = setEstadoTransaccional(session,  prco_prco,   prco_eprco,  usuario,  observacion,  mensajeErrorOut);
+			
+			if(sinErrores){
+				session.commit();
+				
+			}else{
+				session.rollback();
+			}
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error ", e);
+			session.rollback();
+			mensajeErrorOut.append("Error setEstado. No se ha podido finalizar correctamente.");
+			
+			sinErrores = false;
+			
+		} 	finally {
+			session.close();
+		}
+		
+		return sinErrores;
+		
+	}
+		
 	
-	public Boolean cambiarEstadoProcesoConversionArchivos(SqlSession session, Long prco_prco,  String prco_eprco, Usuario usuario, String observacion, StringBuffer mensajeErrorOut ){
+	
+	public Boolean setEstadoTransaccional(SqlSession session, Long prco_prco,  String prco_eprco, Usuario usuario, String observacion, StringBuffer mensajeErrorOut ){
 		
 		Boolean respuesta = true;
 		try {
@@ -230,14 +262,14 @@ public class ProcesoConversionArchivosServicio {
 				
 
 			} catch (Exception e) {
-				mensajeErrorOut.append("Error cambiarEstadoProcesoConversionArchivos");
-				SimpleLogger.error("Error cambiarEstadoProcesoConversionArchivos",e );	
+				mensajeErrorOut.append("Error setEstadoTransaccional");
+				SimpleLogger.error("Error setEstadoTransaccional",e );	
 				respuesta = false;
 			}
 			
 		}catch (Exception e) {
 			SimpleLogger.error("Error ", e);
-			mensajeErrorOut.append("Error cambiarEstadoProcesoConversionArchivos");
+			mensajeErrorOut.append("Error setEstadoTransaccional");
 			respuesta = false;
 		} 	
 		

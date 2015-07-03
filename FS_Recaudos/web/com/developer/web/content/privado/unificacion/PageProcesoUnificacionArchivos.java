@@ -54,6 +54,8 @@ public class PageProcesoUnificacionArchivos extends PrivatePage{
 					
 					if(procesoConversionArchivos!=null && procesoConversionArchivos.getPrco_prco()!=null){
 						
+						
+						xmlPage.append(objectToXML.getXML(procesoConversionArchivos));
 						List<ArchivoRecaudoOriginalPorConvertir> archivos = getArchivosProcesoConversion(procesoConversionArchivos);
 						xmlPage.append(objectToXML.getXML(archivos));
 						

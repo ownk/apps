@@ -7,6 +7,8 @@ public class ProcesoConversionArchivos {
 	
 	
 	public static String INICIADO = "INICIADO";
+	public static String EN_PROCESO = "EN_PROCESO";
+	public static String FINALIZADO = "FINALIZADO";
 	
 	Long    prco_prco 	;
 	String  prco_usua 	;

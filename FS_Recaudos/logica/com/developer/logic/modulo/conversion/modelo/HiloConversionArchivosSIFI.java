@@ -30,15 +30,15 @@ public class HiloConversionArchivosSIFI implements Runnable{
 	public void run()  {
 		
 		try {
-			
+			ProcesoConversionArchivosServicio procesoConversionArchivosServicio = new ProcesoConversionArchivosServicio();
 		
 			List<ArchivoRecaudoOriginalPorConvertir> archivos = new ArchivoRecaudoOriginalPorConvertirServicio().getArchivosPorPRCO(procesoConversionArchivos.getPrco_prco());
 			
-			System.out.println("iniciando proceso de conversion "+procesoConversionArchivos.getPrco_prco()+" total archivos:"+archivos.size());
+			System.out.println("iniciando proceso de conversion "+procesoConversionArchivos.getPrco_prco()+" total archivos: "+archivos.size());
+			StringBuffer mensajeErrorOut = new StringBuffer();
+			procesoConversionArchivosServicio.setEstado(procesoConversionArchivos.getPrco_prco(), ProcesoConversionArchivos.EN_PROCESO, usuario, "Inicia a procesar cantidad de archivos: "+archivos.size(), mensajeErrorOut);
 			
 			for (ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir : archivos) {
-				
-				
 				
 				String nombreArchivo = null;
 				
@@ -50,7 +50,9 @@ public class HiloConversionArchivosSIFI implements Runnable{
 				System.out.println("archivo procesado "+procesoConversionArchivos.getPrco_prco()+" archivo "+archivoRecaudoOriginalPorConvertir.getAror_aror());
 			}
 			
+			procesoConversionArchivosServicio.setEstado(procesoConversionArchivos.getPrco_prco(), ProcesoConversionArchivos.FINALIZADO, usuario, "finalizado. revisar en detalle cada uno de los archivos", mensajeErrorOut);
 			System.out.println("finalizando proceso de conversion "+procesoConversionArchivos.getPrco_prco());
+			
 		
 		} catch (Exception e) {
 			e.printStackTrace();

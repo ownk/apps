@@ -7,7 +7,9 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.conversion.controllerdb.ArchivoRecaudoOriginalPorConvertirControllerDB;
 
 public class ArchivoRecaudoOriginalPorConvertirServicio {
@@ -132,9 +134,31 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 	
 	public Boolean setEstado(Long aror_aror, String estado, String observacion, Usuario usuario){
 		
-		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
-		return controllerDB.setEstado(aror_aror, estado, observacion, usuario);
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		Boolean sinErrores = false;
+		try {
+			
+			
+			sinErrores = setEstadoTransaccional(session, aror_aror, estado, observacion, usuario);
+			
+			if(sinErrores){
+				session.commit();
+				
+			}else{
+				session.rollback();
+			}
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error ", e);
+			session.rollback();
+			
+			sinErrores = false;
+			
+		} 	finally {
+			session.close();
+		}
 		
+		return sinErrores;
 		
 		
 	}
@@ -147,10 +171,8 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 			
 			if(archivoRecaudoOriginalPorConvertir!=null && archivoRecaudoOriginalPorConvertir.getAror_aror()!=null){
 			
-				/*TODO 
-				 * Se debe consultar las validaciones y las transformaciones
-				 * Se debe consultar el detalle del archivo
-				 */
+				List<DetalleArchivoRecaudoOriginalPorConvertir> detalles = controllerDB.getAllDetallesAROR(archivoRecaudoOriginalPorConvertir.getAror_aror());
+				archivoRecaudoOriginalPorConvertir.setDetalles(detalles);
 				
 			}
 			
