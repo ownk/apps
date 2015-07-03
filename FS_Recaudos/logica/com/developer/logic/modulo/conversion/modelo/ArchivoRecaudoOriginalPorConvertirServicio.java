@@ -5,6 +5,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
 import com.developer.persistence.modulo.conversion.controllerdb.ArchivoRecaudoOriginalPorConvertirControllerDB;
@@ -63,7 +64,7 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 		try {
 			
 			archivoRecaudoOriginalPorConvertir.setAror_aror(archivoRecaudoOriginalPorConvertir.getAror_aror());
-			archivoRecaudoOriginalPorConvertir.setAror_earor(ArchivoRecaudoOriginalPorConvertir.POR_CONVERTIR);
+			archivoRecaudoOriginalPorConvertir.setAror_earor(ArchivoRecaudoOriginalPorConvertir.EN_PROCESO);
 			boolean sinErrores = true;
 			
 			
@@ -114,6 +115,27 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 		List<DetalleArchivoRecaudoOriginalPorConvertir> list = controllerDB.getAllDetallesAROR(aror_aror);
 		
 		return list;
+		
+	}
+	
+	
+	
+	
+	public Boolean setEstadoTransaccional(SqlSession session, Long aror_aror, String estado, String observacion, Usuario usuario){
+		
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
+		return controllerDB.setEstadoTransaccional(session, aror_aror, estado, observacion, usuario);
+		
+		
+		
+	}
+	
+	public Boolean setEstado(Long aror_aror, String estado, String observacion, Usuario usuario){
+		
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
+		return controllerDB.setEstado(aror_aror, estado, observacion, usuario);
+		
+		
 		
 	}
 	

@@ -4,8 +4,9 @@ import java.util.Date;
 
 public class ArchivoRecaudoOriginalPorConvertir {
 	
-	public static String POR_CONVERTIR = "POR_CONVERTIR";
+	public static String EN_PROCESO = "EN_PROCESO";
 	public static String CONVERTIDO = "CONVERTIDO";
+	public static String CON_ERRORES = "CON_ERRORES";
 	
 	Long   aror_aror 	  ;
 	String aror_usua 	  ;
@@ -22,6 +23,17 @@ public class ArchivoRecaudoOriginalPorConvertir {
 	Long   aror_registros ;
 	Long   aror_arun 	  ;
 	
+	ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI;
+	
+	
+	
+	public ArchivoRecaudoGeneradoSIFI getArchivoRecaudoGeneradoSIFI() {
+		return archivoRecaudoGeneradoSIFI;
+	}
+	public void setArchivoRecaudoGeneradoSIFI(
+			ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI) {
+		this.archivoRecaudoGeneradoSIFI = archivoRecaudoGeneradoSIFI;
+	}
 	public Long getAror_aror() {
 		return aror_aror;
 	}

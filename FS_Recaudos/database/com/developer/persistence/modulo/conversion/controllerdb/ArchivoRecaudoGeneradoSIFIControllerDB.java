@@ -183,6 +183,23 @@ public class ArchivoRecaudoGeneradoSIFIControllerDB {
 		
 	}
 	
+	
+	public List<DetalleArchivoRecaudoGeneradoSIFI> getAllDetallesARGE(Long arge_arge){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ArchivoRecaudoGeneradoSIFIDao dao = session.getMapper(ArchivoRecaudoGeneradoSIFIDao.class);
+			return dao.getAllDetallesARGE(arge_arge);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getAllDetallesARGE", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+	}
 
 	 
 

@@ -66,7 +66,7 @@
 					#{haror_obser}	)
 	</insert>
 	
-	<update id="setEstadoProceso" parameterType="archivoRecaudoOriginalPorConvertir">
+	<update id="setEstado" parameterType="archivoRecaudoOriginalPorConvertir">
 		update co_taror
 		set aror_earor = #{aror_earor}
 		where aror_aror = #{aror_aror}

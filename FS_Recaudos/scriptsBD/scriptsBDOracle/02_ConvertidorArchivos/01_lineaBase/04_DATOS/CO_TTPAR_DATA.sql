@@ -1,7 +1,7 @@
 PROMPT INSERTANDO DATOS EN FS_RECAUDOS_US.FS_RECAUDOS_US.CO_TTPAR
 
 insert into FS_RECAUDOS_US.CO_TTPAR(TPAR_TPAR, TPAR_DESCRI, TPAR_USUA, TPAR_PLAN_GENERICO, TPAR_FONDO, TPAR_COMP_RF_SN, TPAR_USA_VOL_SN, TPAR_CTA_RECAUDO, TPAR_NOMB_ARGE)
-values ('D42', 'Nuevo tipo de archivo creado por proceso 80', 'operador', 1, 12, 'N', 'S', '01', 'Cta_2242');
+values ('D42', 'Nuevo tipo de archivo creado por proceso 80', 'operador', 1213990902999, 12, 'N', 'S','0021000212242', 'Cta_2242');
 
 insert into FS_RECAUDOS_US.CO_TTPAR(TPAR_TPAR, TPAR_DESCRI, TPAR_USUA, TPAR_PLAN_GENERICO, TPAR_FONDO, TPAR_COMP_RF_SN, TPAR_USA_VOL_SN, TPAR_CTA_RECAUDO, TPAR_NOMB_ARGE)
 values ('D45', 'Nuevo tipo de archivo creado por proceso 80', 'operador', 1213990902996, 12, 'N', 'S','0024503468745', 'Cta_8745');

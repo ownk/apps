@@ -18,7 +18,9 @@ public class TransformacionArchivoRecaudoControllerDB {
 	public Boolean crearTransformacionTransaccional(SqlSession session, TransformacionArchivoRecaudo transformacionArchivoRecaudo){
 		
 		try{
-					
+			if(transformacionArchivoRecaudo.getTrar_valor_descri()==null){
+				transformacionArchivoRecaudo.setTrar_valor_descri("Sin valor");
+			}		
 			TransformacionArchivoRecaudoDao dao = session.getMapper(TransformacionArchivoRecaudoDao.class);
 			dao.crearTransformacion(transformacionArchivoRecaudo);
 			

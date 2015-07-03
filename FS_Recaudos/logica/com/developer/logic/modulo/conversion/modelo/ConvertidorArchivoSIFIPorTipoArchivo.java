@@ -8,9 +8,11 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI;
@@ -34,6 +36,7 @@ import com.developer.logic.modulo.conversion.dto.TipoValidacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
 import com.developer.logic.modulo.general.modelo.LectorArchivoPlanoUtils;
+import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoUnificadoServicio;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 import com.developer.mybatis.DBManagerFSRecaudos;
 
@@ -51,7 +54,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								String nombreArchivo,
 								ProcesoConversionArchivos procesoConversionArchivos,
 								ArchivoRecaudoOriginalPorConvertir archivoRecaudoOriginalPorConvertir, 
-								String usua_usua){
+								Usuario usuario){
 		
 		
 		System.out.println("iniciando ... proceso:"+procesoConversionArchivos.getPrco_prco()+" archivo:"+archivoRecaudoOriginalPorConvertir.getAror_nombre());
@@ -172,11 +175,16 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										detallesCreados=true;
 									}
 									
+									//Para busquedas se convierte la referencia final como la referencia original 
+									referenciaOriginal = referenciaFinal;
 									
 									
+									
+								}else{
+									referenciaFinal=null;
 								}
-								//Para busquedas se convierte la referencia final como la referencia original 
-								referenciaOriginal = referenciaFinal;
+								
+								
 								
 								
 								
@@ -223,7 +231,11 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								
 							}
 							
-							
+							/**
+							 * ==========================================
+							 * Se verifica si la referencia es un VOLANTE
+							 * ==========================================
+							 */
 							
 							//Se verifica si es volante de referencia 
 							if(referenciaOriginal.toString().startsWith(parametroPrefVolante.getPara_valor())){
@@ -247,16 +259,20 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							
 							
 							/**
-							 * ==========================
-							 * 	REFERENCIA ES UN ENCARGO
-							 * ==========================
+							 * ==========================================
+							 * 	 Procesamiento la refencia es ENCARGO
+							 * ==========================================
 							 * 
 							 */
 							
 							if(esEncargo){
 								
 								
-								//Determinar estado en encargo SIFI
+								/**
+								 * ==========================================
+								 * 	 Consultan con encargos SIFI
+								 * ==========================================
+								 */
 								EncargoFiduciarioSIFI encargoFiduciarioSIFI = new EncargoFiduciarioSIFI();
 								encargoFiduciarioSIFI.setPlts_plan(referenciaOriginal);
 								
@@ -289,10 +305,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										validacionSIFI.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_SIFI_EXISTE);
 										validacionSIFI.setVlar_valor_descri("REF:"+referenciaOriginal+"; EstadoSIFI:"+estadoSIFI);
 										listValidaciones.add(validacionSIFI);
+										
 										/**
-										 * Transformaciones segun el estado o proyecto
-										 * =============================================
-										 */	
+										 * ==========================================
+										 * 	Transformaciones segun estado o proyecto
+										 * ==========================================
+										 * 
+										 */
+										
 										
 										if(estadoSIFI.equals(EncargoFiduciarioSIFI.ESTADO_CAN)){
 											//Se busca el proyecto en los proyectos cancelados solo si esta cancelado. Si lo encuentra coloca el numero de encargo asignado
@@ -376,18 +396,10 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											ValidacionArchivoRecaudo validacionPCA = new ValidacionArchivoRecaudo();
 											validacionPCA.setVlar_aror(detalleArchivo.getDaror_aror());
 											validacionPCA.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-											validacionPCA.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_PCA);
+											validacionPCA.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_PCA_RECA_RCHE);
 											validacionPCA.setVlar_valor_descri("REF: "+referenciaOriginal+"; EstadoSIFI:"+estadoSIFI);
 											
 											listValidaciones.add(validacionPCA);
-											
-											ValidacionArchivoRecaudo validacionRCHE = new ValidacionArchivoRecaudo();
-											validacionRCHE.setVlar_aror(detalleArchivo.getDaror_aror());
-											validacionRCHE.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-											validacionRCHE.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_TIPO_RECA_RCHE);
-											validacionPCA.setVlar_valor_descri("REF: "+referenciaOriginal+"; TipoRecaudo:"+formaRecaudo);
-											
-											listValidaciones.add(validacionRCHE);
 											
 										}
 										
@@ -448,8 +460,12 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								}
 								
 								
-								
-								//Se deben consular contra los encargos NOSIFI
+								/**
+								 * ==========================================
+								 * 	 Consulta de encargos catalogados NO SIFI
+								 * ==========================================
+								 * 
+								 */
 								EncargoFiduciarioNoSIFI encargoFiduciarioNoSIFI = new EncargoFiduciarioNoSIFI();
 								encargoFiduciarioNoSIFI.setPlns_plan(referenciaOriginal);
 								encargoFiduciarioNoSIFI = noSIFIServicio.getEncargoNoSIFI(encargoFiduciarioNoSIFI);
@@ -580,7 +596,8 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								
 								
 								/**
-								 * Transfomaciones por formula de distribucion
+								 * =============================================
+								 * Transfomaciones por FORMULA DE DISTRIBUCION
 								 * =============================================
 								 */
 								
@@ -648,7 +665,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														TransformacionArchivoRecaudo transformacionPlan = new TransformacionArchivoRecaudo();
 														transformacionPlan.setTrar_aror(detalleArchivo.getDaror_aror());
 														transformacionPlan.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionPlan.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPER_PLAN_DPFD_ACT);
+														transformacionPlan.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_DPFD_ACT);
 														transformacionPlan.setTrar_valor_orig(""+referenciaOriginal);
 														transformacionPlan.setTrar_valor_modi(""+referenciaFinal);
 														listTransformaciones.add(transformacionPlan);
@@ -693,7 +710,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														TransformacionArchivoRecaudo transformacionValorCheque = new TransformacionArchivoRecaudo();
 														transformacionValorCheque.setTrar_aror(detalleArchivo.getDaror_aror());
 														transformacionValorCheque.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionValorCheque.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPER_VCHE_DPFD_ACT);
+														transformacionValorCheque.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VCHE_DPFD_ACT);
 														transformacionValorCheque.setTrar_valor_orig(""+valorCheque.doubleValue());
 														transformacionValorCheque.setTrar_valor_modi(""+nuevoValorCheque);
 														listTransformaciones.add(transformacionValorCheque);
@@ -701,7 +718,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														TransformacionArchivoRecaudo transformacionValorEfectivo = new TransformacionArchivoRecaudo();
 														transformacionValorEfectivo.setTrar_aror(detalleArchivo.getDaror_aror());
 														transformacionValorEfectivo.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionValorEfectivo.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPER_VEFE_DPFD_ACT);
+														transformacionValorEfectivo.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VEFE_DPFD_ACT);
 														transformacionValorEfectivo.setTrar_valor_orig(""+valorEfectivo.doubleValue());
 														transformacionValorEfectivo.setTrar_valor_modi(""+nuevoValorEfectivo);
 														listTransformaciones.add(transformacionValorEfectivo);
@@ -709,7 +726,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 														TransformacionArchivoRecaudo transformacionValorTotal = new TransformacionArchivoRecaudo();
 														transformacionValorTotal.setTrar_aror(detalleArchivo.getDaror_aror());
 														transformacionValorTotal.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionValorTotal.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPER_VTOT_DPFD_ACT);
+														transformacionValorTotal.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VTOT_DPFD_ACT);
 														transformacionValorTotal.setTrar_valor_orig(""+valorTotal.doubleValue());
 														transformacionValorTotal.setTrar_valor_modi(""+nuevoValorTotal);
 														listTransformaciones.add(transformacionValorTotal);
@@ -767,6 +784,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									}else{
 										
 										/**
+										 * =============================================
 										 * Transfomaciones por tipo de archivo de recaudo
 										 * =============================================
 										 */
@@ -838,14 +856,30 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 								}else{
 									
-									//TODO crear error porque no tiene ningun estado y es un encargo
-									ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
-									errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
-									errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_PLAN_SIN_ESTADO);
-									errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal+", Estado:"+estadoPlan);
 									
-									listErrores.add(errorArchivoRecaudo);
+									referenciaFinal = referenciaOriginal;
+									
+									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_SIN_ESTADO);
+									validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; EstadoSIFI"+estadoSIFI+ "; EstadoNOSIFI:"+"; Proyecto:"+proyecto+
+											"; esProyectoCancelado: "+esProyectoCancelado+"; esProyectoNOSIFI_Activo:"+esProyectoNOSIFI_ACTIVO+
+											"; tieneFormulaDistribucion:"+tieneFormulaDistribucion+"; isEstadoPlanFormulaDistribucion"+isEstadoPlanFormulaDistribucion);
+									listValidaciones.add(validacion);
+									
+									if(!detallesCreados){
+										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+										
+										detallesPorRegistro.add(detalleArchivoSIFI);
+										
+										detallesCreados =true;
+									}
+									
+									
+									
+									
 								}
 							}
 							
@@ -855,13 +889,11 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							
 							
 							/**
-							 * ==========================
-							 * 	REFERENCIA ES UN VOLANTE
-							 * ==========================
+							 * ==========================================
+							 * 	 processamiento la refencia NO  Encargo
+							 * ==========================================
 							 * 
 							 */
-							
-							
 							//Si la referencia es un volante pero el tipo de archivo dice que lo reemplace por el generico se debe crear transformacion
 							if(!esEncargo){
 								
@@ -1017,19 +1049,35 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							}
 							
 							
-							//Si al final no tiene encargo asignado se debe generar mensaje de error
+							/**
+							 * ==========================================
+							 * Referencia final igual a refencia original
+							 * ==========================================
+							 */
 							if(referenciaFinal==null){
 								
-								//TODO Crear error de que no existe referencia
-								ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
-								errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
-								errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-								errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_REGLA_NOEXISTE);
-								errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal+"; EstadoSIFI"+estadoSIFI+ "; EstadoNOSIFI:"+"; Proyecto:"+proyecto+
-																		"; esProyectoCancelado: "+esProyectoCancelado+"; esProyectoNOSIFI_Activo:"+esProyectoNOSIFI_ACTIVO+
-																		"; tieneFormulaDistribucion:"+tieneFormulaDistribucion+"; isEstadoPlanFormulaDistribucion"+isEstadoPlanFormulaDistribucion);
 								
-								listErrores.add(errorArchivoRecaudo);
+								referenciaFinal = referenciaOriginal;
+								
+								ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+								validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+								validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_REGLA_NOEXISTE);
+								validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; EstadoSIFI"+estadoSIFI+ "; EstadoNOSIFI:"+"; Proyecto:"+proyecto+
+										"; esProyectoCancelado: "+esProyectoCancelado+"; esProyectoNOSIFI_Activo:"+esProyectoNOSIFI_ACTIVO+
+										"; tieneFormulaDistribucion:"+tieneFormulaDistribucion+"; isEstadoPlanFormulaDistribucion"+isEstadoPlanFormulaDistribucion);
+								listValidaciones.add(validacion);
+								
+								if(!detallesCreados){
+									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
+									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
+									
+									detallesPorRegistro.add(detalleArchivoSIFI);
+									
+									detallesCreados =true;
+								}
+								
+								
 							}
 							
 					
@@ -1060,6 +1108,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				
 					/**
 					 * Se complementa los detallesSIFI por registro
+					 * ============================================
 					 */
 					OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(oficinaOriginal);
 					
@@ -1140,75 +1189,84 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				
 			}
 			
+			
+			
+			
+			StringBuffer mensajeErrorOut = new StringBuffer();
+			
+			
 			/**
 			 * ======================================================
-			 * Se registrar erorres, validaciones y transformaciones
-			 * Si no hay errores se crea el archivo de recaudo
+			 * Si no existen errores se crea el archivo SIFI en BD
 			 * ======================================================
 			 */
 			
-			SqlSession session = DBManagerFSRecaudos.openSession();
-			Boolean sinErrores = true;
-			
 			if(listErrores.size()==0){
-				
-				StringBuffer mensajeErrorOut = new StringBuffer();
+				SqlSession session = DBManagerFSRecaudos.openSession();
+				Boolean sinErrores = true;
 				try {
 					ArchivoRecaudoGeneradoSIFIServicio archivoRecaudoGeneradoSIFIServicio = new ArchivoRecaudoGeneradoSIFIServicio();
 					ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI = new ArchivoRecaudoGeneradoSIFI();
 					archivoRecaudoGeneradoSIFI.setArge_arge(archivoRecaudoOriginalPorConvertir.getAror_aror());
 					archivoRecaudoGeneradoSIFI.setArge_aror(archivoRecaudoOriginalPorConvertir.getAror_aror());
-					archivoRecaudoGeneradoSIFI.setArge_bytes(""+listDetallesArchivoGenerado.size());
+					archivoRecaudoGeneradoSIFI.setArge_bytes("");
 					archivoRecaudoGeneradoSIFI.setArge_extension(archivoRecaudoOriginalPorConvertir.getAror_extension());
-					archivoRecaudoGeneradoSIFI.setArge_nombre(archivoRecaudoOriginalPorConvertir.getAror_nombre());
+					archivoRecaudoGeneradoSIFI.setArge_nombre(nombreArchivo);
 					archivoRecaudoGeneradoSIFI.setArge_observ("-");
 					archivoRecaudoGeneradoSIFI.setArge_prco(procesoConversionArchivos.getPrco_prco());
 					archivoRecaudoGeneradoSIFI.setArge_tpar(archivoRecaudoOriginalPorConvertir.getAror_tpar());
-					archivoRecaudoGeneradoSIFI.setArge_registros(new Long(listDetallesArchivoGenerado.size()+1));
+					archivoRecaudoGeneradoSIFI.setArge_registros(new Long(listDetallesArchivoGenerado.size()));
 					archivoRecaudoGeneradoSIFI.setArge_url(rutaArchivosSIFI	+ nombreArchivo);
-					archivoRecaudoGeneradoSIFI.setArge_usua(usua_usua);
-					archivoRecaudoGeneradoSIFI.setArge_hash(""+listDetallesArchivoGenerado.size());
+					archivoRecaudoGeneradoSIFI.setArge_usua(usuario.getUsua_usua());
+					archivoRecaudoGeneradoSIFI.setArge_hash("");
 					archivoRecaudoGeneradoSIFI.setArge_earge(ArchivoRecaudoGeneradoSIFI.GENERADO);
 					
 					
 					
-					sinErrores = archivoRecaudoGeneradoSIFIServicio.crearDocumentoTransaccional(session, archivoRecaudoGeneradoSIFI, mensajeErrorOut);
+					File fileSIFI = generarArchivoSIFI(
+							rutaArchivosSIFI,
+							procesoConversionArchivos,
+							archivoRecaudoOriginalPorConvertir,
+							archivoRecaudoGeneradoSIFI,
+							listDetallesArchivoGenerado,
+							mensajeErrorOut);
 					
-					sinErrores = sinErrores&&archivoRecaudoGeneradoSIFIServicio.crearDetallesTransaccional(session, archivoRecaudoGeneradoSIFI, listDetallesArchivoGenerado, mensajeErrorOut);
-					
-					
-					if(sinErrores){
+					if(fileSIFI!=null){
 						
-						File fileSIFI = generarArchivoSIFI(
-								rutaArchivosSIFI,
-								procesoConversionArchivos,
-								archivoRecaudoOriginalPorConvertir,
-								archivoRecaudoGeneradoSIFI,
-								listDetallesArchivoGenerado,
-								mensajeErrorOut);
+						Long hash = FileUtils.checksumCRC32(fileSIFI);
+						Long size = fileSIFI.length();
 						
+						archivoRecaudoGeneradoSIFI.setArge_bytes(size.toString());
+						archivoRecaudoGeneradoSIFI.setArge_hash(hash.toString());
 						
-						if(fileSIFI!=null){
+						sinErrores = archivoRecaudoGeneradoSIFIServicio.crearDocumentoTransaccional(session, archivoRecaudoGeneradoSIFI, mensajeErrorOut);
+						
+						sinErrores = sinErrores&&archivoRecaudoGeneradoSIFIServicio.crearDetallesTransaccional(session, archivoRecaudoGeneradoSIFI, listDetallesArchivoGenerado, mensajeErrorOut);
+						
+						sinErrores = sinErrores&&archivoServicio.setEstadoTransaccional(session, archivoRecaudoOriginalPorConvertir.getAror_aror(), ArchivoRecaudoOriginalPorConvertir.CONVERTIDO, "Finalizado correctamente", usuario);
+						
+						if(sinErrores){
+							SimpleLogger.info("Archivo SIFI generado +"+fileSIFI.getName());
 							session.commit();
 							
 						}else{
 							session.rollback();
 							SimpleLogger.error("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
+							mensajeErrorOut.append("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
 							
-							
-						}	
+						}
 						
 					}else{
 						session.rollback();
 						SimpleLogger.error("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
-						mensajeErrorOut.append("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
 						
-					}
+						
+					}	
 					
 				} catch (Exception e) {
 					SimpleLogger.error("Error ", e);
 					session.rollback();
-					mensajeErrorOut.append("Error creandoArchivoSIFI. No ha crear registros en base de datos.");
+					mensajeErrorOut.append("Error creandoArchivoSIFI. No ha crear registros de archivo SIFI en en base de datos.");
 					
 					sinErrores=false;
 					
@@ -1217,20 +1275,67 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					session.close();
 				}
 				
+			}else{
+				
+				archivoServicio.setEstado(archivoRecaudoOriginalPorConvertir.getAror_aror(), ArchivoRecaudoOriginalPorConvertir.CON_ERRORES, "Con errores "+listErrores.size(), usuario);
 			}
 			
-			for (ErrorArchivoRecaudo errorArchivoRecaudo : listErrores) {
-				System.out.println("Error: "+errorArchivoRecaudo.toString());
-			}
 			
-			for (ValidacionArchivoRecaudo validacion : listValidaciones) {
-				System.out.println("Validacion: "+validacion.toString());
-			}
 			
-			for (TransformacionArchivoRecaudo transformacion : listTransformaciones) {
-				System.out.println("Transformacion:"+transformacion.toString());
-			}
+			/**
+			 * ======================================================
+			 * Se registrar erorres, validaciones y transformaciones
+			 * Si no hay errores se crea el archivo de recaudo
+			 * ======================================================
+			 */
 			
+			System.out.println("Errores: "+listErrores.size());
+			
+			System.out.println("Validaciones: "+listValidaciones.size());
+			
+			System.out.println("Transformaciones:"+listTransformaciones.size());
+			
+			
+			SqlSession session = DBManagerFSRecaudos.openSession();
+			try{
+				Boolean sinErrores = true;
+				ErrorArchivoRecaudoServicio errorArchivoRecaudoServicio = new ErrorArchivoRecaudoServicio();
+				ValidacionArchivoRecaudoServicio validacionArchivoRecaudoServicio = new ValidacionArchivoRecaudoServicio();
+				TransformacionArchivoRecaudoServicio transformacionArchivoRecaudoServicio = new TransformacionArchivoRecaudoServicio();
+				
+				
+				for (ErrorArchivoRecaudo errorArchivoRecaudo : listErrores) {
+					
+					sinErrores = sinErrores&&errorArchivoRecaudoServicio.crearErrorTransaccional(session, errorArchivoRecaudo);
+				}
+				
+				for (ValidacionArchivoRecaudo validacion : listValidaciones) {
+					sinErrores = sinErrores&&validacionArchivoRecaudoServicio.crearValidacionTransaccional(session, validacion);
+					
+				}
+				
+				for (TransformacionArchivoRecaudo transformacion : listTransformaciones) {
+					sinErrores = sinErrores&&transformacionArchivoRecaudoServicio.crearArchivoTransaccional(session, transformacion);
+					
+				}
+				
+				if(sinErrores){
+					SimpleLogger.info("Informacion procesada archivo: +"+archivoRecaudoOriginalPorConvertir.getAror_aror());
+					session.commit();
+				}else{
+					
+				}
+				
+				
+				
+			} catch (Exception e) {
+				SimpleLogger.error("Error ", e);
+				session.rollback();
+				mensajeErrorOut.append("Error creandoArchivoSIFI. No ha crear registros erorres, validaciones y transformaciones en base de datos.");
+				
+			} 	finally {
+				session.close();
+			}
 			
 			
 			System.out.println("finalizando 1 proceso:"+procesoConversionArchivos.getPrco_prco()+archivoRecaudoOriginalPorConvertir.getAror_nombre());
@@ -1334,62 +1439,63 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							String.format("%018.2f", valorTotal).replace(',', '.')+
 							String.format("%05d",totalRegistros)+
 							String.format("%8s",fechaArchivo);
-							
 			
-			//Se crea la carpeta general donde se colocaron los archivo
-		    File folder = new File(rutaArchivosSIFI);
-			if(!folder.exists()){
-		    	folder.mkdirs();
-			}
+			//Se actualiza la cantidad de registros
+			archivoRecaudoSIFI.setArge_registros(new Long(totalRegistros+1));
+			
+		}else{
+			archivoRecaudoSIFI.setArge_registros(new Long(0));
+		}
+			
+		//Se crea la carpeta general donde se colocaron los archivo
+		File folder = new File(rutaArchivosSIFI);
+		if(!folder.exists()){
+		   	folder.mkdirs();
+		}
 			
 			
-			FileWriter fichero = null;
-	        PrintWriter printerWriter = null;
-	        try
-	        {
-	           fichero = new FileWriter(archivoRecaudoSIFI.getArge_url());
-	           printerWriter = new PrintWriter(fichero);
-	           
+		FileWriter fichero = null;
+	    PrintWriter printerWriter = null;
+	    try{
+           fichero = new FileWriter(archivoRecaudoSIFI.getArge_url());
+           printerWriter = new PrintWriter(fichero);
+           
+           if(hayRegistros){
 	           printerWriter.println(encabezado);
 	           for (String string : listRegistros) {
 	        	   printerWriter.println(string);
 	           }
-	           
-	        } catch (Exception e) {
-
-	        	mensajeErrorOut.append("No se puede generar archivo:"+archivoRecaudoSIFI.getArge_nombre()+". "+e.getMessage());
-	            e.printStackTrace();
-	        } finally {
-	           try {
-		          
-		           if ( fichero != null){
-		              fichero.close();
-		           }
-		           
-	           } catch (Exception e2) {
-	        	   
-	        	   
-
-	        	  mensajeErrorOut.append("No se puede generar archivo:"+archivoRecaudoSIFI.getArge_nombre()+". "+e2.getMessage());
-	              e2.printStackTrace();
+           }
+           
+        } catch (Exception e) {
+        	mensajeErrorOut.append("No se puede generar archivo:"+archivoRecaudoSIFI.getArge_nombre()+". "+e.getMessage());
+            e.printStackTrace();
+        } finally {
+           try {
+	          
+	           if ( fichero != null){
+	              fichero.close();
 	           }
-	        }
-			
-	        //Se verifica si el archivo existe
-	        File file = new File(archivoRecaudoSIFI.getArge_url());
-	        
-	        if(file.exists()){
-	     	   fileSIFI =  file;
-	        }				
+	           
+           } catch (Exception e2) {
+        	   
+        	  mensajeErrorOut.append("No se puede generar archivo:"+archivoRecaudoSIFI.getArge_nombre()+". "+e2.getMessage());
+              e2.printStackTrace();
+           }
+        }
+		
+        //Se verifica si el archivo existe
+        File file = new File(archivoRecaudoSIFI.getArge_url());
+        
+        if(file.exists()){
+     	   fileSIFI =  file;
+        }				
 							
-							
-		}	
+		
 		
 		return fileSIFI;
 				
 	}
-	
-	
 	
 	
 	private Long getLong(String valor) {

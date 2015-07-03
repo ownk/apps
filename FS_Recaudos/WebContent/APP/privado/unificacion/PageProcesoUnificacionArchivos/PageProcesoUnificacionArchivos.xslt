@@ -333,8 +333,12 @@
 																				<a href="#tab-3" data-toggle="tab">Archivos
 																					Transformados</a>
 																			</li>
-																			<li class="active">
+																			<li class="">
 																				<a href="#tab-4" data-toggle="tab">Archivos Unificados</a>
+																			</li>
+																			
+																			<li class="active">
+																				<a href="#tab-5" data-toggle="tab">Archivos SIFI</a>
 																			</li>
 																		</ul>
 																	</div>
@@ -361,8 +365,14 @@
 
 																		</div>
 
-																		<div class="tab-pane active" id="tab-4">
+																		<div class="tab-pane" id="tab-4">
 																			<xsl:call-template name="archivosARUN" />
+
+
+																		</div>
+																		
+																		<div class="tab-pane active" id="tab-5">
+																			<xsl:call-template name="archivosSIFI" />
 
 
 																		</div>
@@ -757,6 +767,148 @@
 
 
 				</form>
+
+
+			</xsl:otherwise>
+
+		</xsl:choose>
+
+
+	</xsl:template>
+
+	<xsl:template name="archivosSIFI">
+		<xsl:choose>
+
+			<xsl:when test="count(//ArchivoRecaudoOriginalPorConvertir)>0 and 1=1">
+
+				<div class="row">
+					<div class="col-sm-12 m-b-xs">
+						<div class="table-responsive">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Id</th>
+										<th>Tipo Archivo</th>
+										<th>Nombre Archivo Unificado</th>
+										<th>Registros</th>
+										<th>Estado</th>
+										<th>Nombre Archivo SIFI</th>
+										<th>Registros</th>
+
+									</tr>
+								</thead>
+								<tbody>
+									<xsl:for-each select="//ArchivoRecaudoOriginalPorConvertir">
+										
+										<tr>
+											<td class=" align-center">
+												<xsl:value-of select="position()" />
+											</td>
+											
+											<td class=" align-center">
+												<span class="label label-default">
+													<xsl:value-of select="aror_tpar" />
+												</span>
+
+											</td>
+											
+											<td class=" align-center">
+												<xsl:value-of select="aror_nombre" />
+											</td>
+
+											<td class=" align-center">
+												<xsl:value-of select="aror_registros" />
+											</td>
+
+											<td class=" align-center">
+											
+												<xsl:choose>
+													<xsl:when test="aror_earor='CONVERTIDO'">
+														<span class="label label-success">
+															
+															<xsl:value-of select="aror_earor" />
+														</span>
+													</xsl:when>
+													<xsl:otherwise>
+														<span class="label label-default">
+														
+															<xsl:value-of select="aror_earor" />
+														</span>
+													</xsl:otherwise>
+												
+												</xsl:choose>
+												
+											</td>
+											
+											
+											<td class=" align-center">
+												<xsl:choose>
+													<xsl:when test="count(archivoRecaudoGeneradoSIFI)>0">
+														<xsl:value-of select="archivoRecaudoGeneradoSIFI/arge_nombre" />
+													</xsl:when>
+													<xsl:otherwise>
+														-
+													</xsl:otherwise>
+												
+												</xsl:choose>
+												
+											</td>
+
+											<td class=" align-center">
+												<xsl:choose>
+													<xsl:when test="count(archivoRecaudoGeneradoSIFI)>0">
+														<xsl:value-of select="archivoRecaudoGeneradoSIFI/arge_registros" />
+													</xsl:when>
+													<xsl:otherwise>
+														-
+													</xsl:otherwise>
+												
+												</xsl:choose>
+												
+											</td>
+											
+											
+											
+											<td class=" align-center">
+											
+												
+												<form id="form_aror_{aror_aror}" action="{//contextPath}/conversion/"
+													method="post">
+													<input type="hidden" name="aror_aror" value="{aror_aror}" />
+		
+												</form>
+											
+												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
+													onclick="osm_enviarFormulario('form_aror_{aror_aror}');">
+													<i class="fa fa-search text-navy"></i>
+												</a>
+												
+												
+												
+											</td>
+										</tr>
+
+									</xsl:for-each>
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+
+
+
+			</xsl:when>
+
+			<xsl:otherwise>
+
+
+				<div class="alert alert-warning">
+					No existen archivos SIFI aun generados. Por favor
+					consulta luego de unos minutos. Estamos procesando
+					los archivos.
+				</div>
+
+				
 
 
 			</xsl:otherwise>

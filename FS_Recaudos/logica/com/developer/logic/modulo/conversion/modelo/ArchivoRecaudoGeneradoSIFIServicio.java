@@ -120,9 +120,8 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 			
 			if(archivoRecaudoGeneradoSIFI!=null && archivoRecaudoGeneradoSIFI.getArge_arge()!=null){
 			
-				/*TODO 
-				 * Se debe consultar el detalle del archivo
-				 */
+				List<DetalleArchivoRecaudoGeneradoSIFI> detalles = controllerDB.getAllDetallesARGE(archivoRecaudoGeneradoSIFI.getArge_arge());
+				archivoRecaudoGeneradoSIFI.setDetalles(detalles);
 				
 			}
 			

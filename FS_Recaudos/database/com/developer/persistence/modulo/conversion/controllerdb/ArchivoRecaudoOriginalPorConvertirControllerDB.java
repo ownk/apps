@@ -52,9 +52,26 @@ public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 	
 	
 	public Boolean setEstado(Long aror_aror, String estado, String observacion, Usuario usuario){
-		
-		
 		SqlSession session = DBManagerFSRecaudos.openSession();
+		Boolean respuesta = true;
+		try {
+	
+			respuesta = setEstadoTransaccional(session, aror_aror, estado, observacion, usuario);
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error ", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+		return respuesta;
+		
+	}
+	
+	
+	public Boolean setEstadoTransaccional(SqlSession session, Long aror_aror, String estado, String observacion, Usuario usuario){
+		
 		Boolean respuesta = true;
 		try {
 	
@@ -66,8 +83,8 @@ public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 			
 			try {
 				
-				ArchivoRecaudoOriginalPorConvertirDao procesoUnificacionArchivosDao = session.getMapper(ArchivoRecaudoOriginalPorConvertirDao.class);
-				procesoUnificacionArchivosDao.setEstado(ArchivoRecaudoOriginalPorConvertir);
+				ArchivoRecaudoOriginalPorConvertirDao archivoDao = session.getMapper(ArchivoRecaudoOriginalPorConvertirDao.class);
+				archivoDao.setEstado(ArchivoRecaudoOriginalPorConvertir);
 				
 				
 				try{
@@ -80,7 +97,7 @@ public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 					hashMap.put("haror_usua", usuario.getUsua_usua());
 					hashMap.put("haror_obser", observacion);
 					
-					
+					archivoDao.crearHistorico(hashMap);
 					
 				} catch (Exception e) {
 					respuesta = false;
@@ -95,15 +112,10 @@ public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 			
 		}catch (Exception e) {
 			SimpleLogger.error("Error ", e);
-			return null;
-		} 	finally {
-			session.close();
-		}
+			respuesta = false;
+		} 	
 		
 		return respuesta;
-		
-		
-		
 		
 	}
 	

@@ -15,7 +15,8 @@ Prompt
   CREATE TABLE "FS_RECAUDOS_US"."CO_TTPER" 
    (	"TPER_TPER" 		    NUMBER          			constraint NN_CO_TTPER_TPER     not null, 
 		"TPER_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TTPER_DESCRI   not null,
-        "TPER_COLOR" 	        VARCHAR2(10)			    constraint NN_CO_TTPER_PLAN     not null
+        "TPER_CODIGO" 	        VARCHAR2(100  BYTE)			constraint NN_CO_TTPER_CODIGO   not null,
+        "TPER_COLOR" 	        VARCHAR2(10   BYTE)			constraint NN_CO_TTPER_PLAN     not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -23,6 +24,8 @@ Prompt
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPER"."TPER_TPER" IS 'Identificador unico de tipo de error';
  
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPER"."TPER_DESCRI" IS 'Descripcion del tipo de error';
+   
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPER"."TPER_CODIGO" IS 'Codigo interno asignado por la aplicacion';
 
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TTPER"."TPER_COLOR" IS 'Color para demarcar el tipo de error utilizada';
    

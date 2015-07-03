@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
@@ -13,16 +14,16 @@ public class HiloConversionArchivosSIFI implements Runnable{
 	
 	String rutaArchivosSIFI;
 	ProcesoConversionArchivos procesoConversionArchivos;
-	String usua_usua;
+	Usuario usuario;
 	List<TipoArchivoRecaudoConvertidor> listTiposArhivo;
 	
 	public HiloConversionArchivosSIFI(	String rutaArchivosSIFI,
 										ProcesoConversionArchivos procesoConversionArchivos,
-										String usua_usua) {
+										Usuario usuario) {
 		
 		this.rutaArchivosSIFI = rutaArchivosSIFI;
 		this.procesoConversionArchivos = procesoConversionArchivos;
-		this.usua_usua = usua_usua;
+		this.usuario = usuario;
 		this.listTiposArhivo = new TipoArchivoRecaudoConvertidorServicio().getAllTiposArchivo();
 	}
 	
@@ -41,11 +42,11 @@ public class HiloConversionArchivosSIFI implements Runnable{
 				
 				String nombreArchivo = null;
 				
-				nombreArchivo= getPrefijoNombreTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar())+""+getDateString(procesoConversionArchivos.getPrco_ffin(), "yyyy")+"."+archivoRecaudoOriginalPorConvertir.getAror_tpar().toLowerCase();
+				nombreArchivo= getPrefijoNombreTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar())+"_"+getDateString(procesoConversionArchivos.getPrco_ffin(), "ddMMyyyy");
 				
 				Boolean sinErrores = true;
 				ConvertidorArchivoSIFIPorTipoArchivo convertidorArchivoSIFIPorTipoArchivo = new ConvertidorArchivoSIFIPorTipoArchivo();
-				sinErrores = convertidorArchivoSIFIPorTipoArchivo.createARGE(this.rutaArchivosSIFI, nombreArchivo, this.procesoConversionArchivos, archivoRecaudoOriginalPorConvertir, this.usua_usua);
+				sinErrores = convertidorArchivoSIFIPorTipoArchivo.createARGE(this.rutaArchivosSIFI, nombreArchivo, this.procesoConversionArchivos, archivoRecaudoOriginalPorConvertir, this.usuario);
 				System.out.println("archivo procesado "+procesoConversionArchivos.getPrco_prco()+" archivo "+archivoRecaudoOriginalPorConvertir.getAror_aror());
 			}
 			

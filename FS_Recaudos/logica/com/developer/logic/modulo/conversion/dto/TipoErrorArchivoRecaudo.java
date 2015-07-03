@@ -9,7 +9,6 @@ public class TipoErrorArchivoRecaudo {
 	public static final Long TPER_PLAN_SIN_ESTADO 		= new Long(5);
 	public static final Long TPER_PLAN_FRDP_MULTIPLE 	= new Long(6);
 	public static final Long TPER_PLAN_DPFD_NULO 		= new Long(7);
-	public static final Long TPER_REGLA_NOEXISTE 		= new Long(8);
 	public static final Long TPER_OFIC_SIFI_NOEXISTE 	= new Long(9);
 		
 	

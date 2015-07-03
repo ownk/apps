@@ -117,7 +117,11 @@
 		)
 	</insert>
 	
-
+	<select id="getAllDetallesARGE" parameterType="java.lang.Long" resultType="detalleArchivoRecaudoGeneradoSIFI" >
+		select * from co_tdarge
+		where darge_arge = #{arge_arge}
+		
+	</select>
 
 	
 	

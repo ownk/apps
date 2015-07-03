@@ -25,6 +25,8 @@ public interface ArchivoRecaudoGeneradoSIFIDao {
 		
 	public void crearDetalleArchivo(DetalleArchivoRecaudoGeneradoSIFI detalleArchivoRecaudoGeneradoSIFI);
 	
+	public List<DetalleArchivoRecaudoGeneradoSIFI> getAllDetallesARGE(Long arge_arge);
+	
 	
 	
 	

@@ -63,7 +63,7 @@ public class ConvertidorArchivosSIFIPorProcesoServicio {
 					String rutaArchivosConvertidos = procesoConversionArchivosServicio.getRutaFinalArchivosConvertidos(procesoConversionArchivos);
 					
 					ExecutorService executor = (ExecutorService) Executors.newSingleThreadExecutor();
-					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI(rutaArchivosConvertidos, procesoConversionArchivos, usuario.getUsua_usua());
+					HiloConversionArchivosSIFI hiloConversion = new HiloConversionArchivosSIFI(rutaArchivosConvertidos, procesoConversionArchivos, usuario);
 				    executor.execute(hiloConversion);
 				    executor.shutdown();
 				    
