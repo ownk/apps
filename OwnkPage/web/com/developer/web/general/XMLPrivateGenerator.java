@@ -22,7 +22,7 @@ public class XMLPrivateGenerator implements IXMLPageGenerador{
 	@Override
 	public StringBuffer getAccessInfoXML(HttpServletRequest request, StringBuffer outputExecutionPage) {
 		StringBuffer xmlAccessInfo = null;
-		ObjectToXML objectToXML = ObjectToXML.getInstance();
+		ObjectToXML objectToXML = new ObjectToXML();
 		SessionAppUsuario sessionAppUsuario = autenticacionController.getSessionAppUsuario(request);
 		
 		if(sessionAppUsuario!= null){
