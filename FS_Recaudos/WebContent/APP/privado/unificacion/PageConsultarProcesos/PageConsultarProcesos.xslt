@@ -181,15 +181,21 @@
 																					
 																					<xsl:choose>
 																						<xsl:when test="prun_eprun = 'FINALIZADO'">
-																							<span class="badge badge-primary"><xsl:value-of select="prun_eprun" /></span>
+																							<span class="badge badge-success">
+																								<xsl:value-of select="prun_eprun" />
+																							</span>
 																						</xsl:when>
-																						
+
 																						<xsl:when test="prun_eprun = 'INICIADO'">
-																							<span class="badge badge-warning"><xsl:value-of select="prun_eprun" /></span>
+																							<span class="badge badge-warning">
+																								<xsl:value-of select="prun_eprun" />
+																							</span>
 																						</xsl:when>
-																						
+
 																						<xsl:otherwise>
-																							<span class="badge badge-default"><xsl:value-of select="prun_eprun" /></span>
+																							<span class="badge badge-default">
+																								<xsl:value-of select="prun_eprun" />
+																							</span>
 																						</xsl:otherwise>
 																					
 																					</xsl:choose>

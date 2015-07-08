@@ -85,15 +85,13 @@ $(document).ready(function () {
         .popover();
 		
 	//Top navbar
+    /*
 	$(".navbar-static-top").removeClass('navbar-static-top').addClass('navbar-fixed-top');
 	$("body").removeClass('boxed-layout');
 	$("body").addClass('fixed-nav');
 	$('#boxedlayout').prop('checked', false);
-	
-	/*
-    $("body").addClass('mini-navbar');
-            SmoothlyMenu();
 	*/
+	
 });
 
 

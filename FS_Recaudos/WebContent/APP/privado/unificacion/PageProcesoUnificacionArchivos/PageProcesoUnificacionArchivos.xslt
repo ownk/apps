@@ -206,7 +206,7 @@
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
-															<span class="label label-success pull-right">AZPU</span>
+															<span class="label label-info pull-right">AZPU</span>
 															<h5>ZIP</h5>
 														</div>
 														<div class="ibox-content">
@@ -231,7 +231,7 @@
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
-															<span class="label label-success pull-right">ARPU</span>
+															<span class="label label-info pull-right">ARPU</span>
 															<h5>Planos</h5>
 														</div>
 														<div class="ibox-content">
@@ -258,7 +258,7 @@
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
-															<span class="label label-success pull-right">TRAR</span>
+															<span class="label label-info pull-right">TRAR</span>
 															<h5>
 																<small>Asobancaria</small>
 															</h5>
@@ -283,7 +283,7 @@
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
-															<span class="label label-success pull-right">ARUN</span>
+															<span class="label label-info pull-right">ARUN</span>
 															<h5>
 																<small>Unificados</small>
 															</h5>
