@@ -24,13 +24,13 @@
 
 
 					</li>
-					<li class="active">
+					<li class="active ownk-menu-lateral">
 						<a href="{//contextPath}/inicio/PageBienvenida.do">
 							<i class="fa fa-star"></i>
 							<span class="nav-label">Inicio </span>
 						</a>
 					</li>
-					<li>
+					<li class="ownk-menu-lateral">
 						<a href="#">
 							<i class="fa fa-files-o"></i>
 							<span class="nav-label">Operativo</span>
@@ -43,7 +43,7 @@
 							</li>
 						</ul>
 					</li>
-					<li>
+					<li class="ownk-menu-lateral">
 						<a href="#">
 							<i class="fa fa-bar-chart-o"></i>
 							<span class="nav-label">Consultas</span>
@@ -55,7 +55,7 @@
 							</li>
 						</ul>
 					</li>
-					<li>
+					<li class="ownk-menu-lateral">
 						<a href="#">
 							<i class="fa fa-bar-chart-o"></i>
 							<span class="nav-label">Administrativo</span>
@@ -86,7 +86,7 @@
 				<form role="search" class="navbar-form-custom" method="post"
 					action="search_results.html">
 					<div class="form-group">
-						<input type="text" placeholder="Menú principal" class="form-control"
+						<input type="text" placeholder="Convertidor SIFI" class="form-control"
 							name="top-search" id="top-search" />
 					</div>
 				</form>
@@ -95,10 +95,10 @@
 				<li>
 					<span class="m-r-sm text-muted welcome-message">
 						Bienvenido:
-						<xsl:value-of select="//Persona/pern_nomb" />
+						<b><xsl:value-of select="//Persona/pern_nomb" /></b>
 					</span>
 				</li>
-				<li class="dropdown">
+				<!-- <li class="dropdown">
 					<a class="dropdown-toggle count-info" data-toggle="dropdown"
 						href="#">
 						<i class="fa fa-envelope"></i>
@@ -113,7 +113,7 @@
 						<span class="label label-primary">8</span>
 					</a>
 
-				</li>
+				</li> -->
 
 
 				<li>

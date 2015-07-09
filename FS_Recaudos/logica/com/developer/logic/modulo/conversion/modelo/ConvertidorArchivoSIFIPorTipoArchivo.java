@@ -31,12 +31,12 @@ import com.developer.logic.modulo.conversion.dto.ProyectoConFormulaDistribucion;
 import com.developer.logic.modulo.conversion.dto.ProyectoNoSIFIActivo;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
 import com.developer.logic.modulo.conversion.dto.TipoErrorArchivoRecaudo;
+import com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir;
 import com.developer.logic.modulo.conversion.dto.TipoTransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.TipoValidacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
 import com.developer.logic.modulo.general.modelo.LectorArchivoPlanoUtils;
-import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoUnificadoServicio;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 import com.developer.mybatis.DBManagerFSRecaudos;
 
@@ -45,10 +45,12 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 	
 	int tamMaximoReferencia;
+	int tamMinimoReferencia;
 	List<EstadoPlanFormulaDistribucion> estadosPlanFormulaDistribucion;
 	List<EstadoPlanAplicaPlanGenerico> estadosPlanAplicaPlanGenerico;
 	List<TipoArchivoRecaudoConvertidor> tiposArchivoRecaudo;
 	List<String> estadosReferenciaDetalleSIFI;
+	List<TipoRecaudoExcluir> tiposRecaudoExcluir;
 	
 	
 	
@@ -66,6 +68,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 		ParametroGeneralConversionServicio parametroGeneralConversionServicio = new ParametroGeneralConversionServicio();
 		ParametroGeneralConversion parametroTamMax =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.TAMANHO_MAX_REFERENCIA);
+		ParametroGeneralConversion parametroTamMin =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.TAMANHO_MIN_REFERENCIA);
 		ParametroGeneralConversion parametroPrefVolante =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.PREFIJO_VOLANTE);
 		
 		
@@ -83,6 +86,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		estadosPlanAplicaPlanGenerico = tipoArchivoServicio.getEstadosAplicaPlanGenericoPorTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 		tiposArchivoRecaudo = tipoArchivoServicio.getAllTiposArchivo();
 		estadosReferenciaDetalleSIFI =  archivoSIFIServicio.getAllERDS();
+		tiposRecaudoExcluir = tipoArchivoServicio.getTipoRecaudoExcluirPorTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 		
 		if(parametroTamMax!=null && parametroTamMax.getPara_valor()!=null && parametroPrefVolante!=null && parametroPrefVolante.getPara_valor()!=null){
 			
@@ -91,7 +95,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 			List<ErrorArchivoRecaudo> 			listErrores 		 = new ArrayList<ErrorArchivoRecaudo>();
 			
 			tamMaximoReferencia = Integer.parseInt(parametroTamMax.getPara_valor());
-			
+			tamMinimoReferencia = Integer.parseInt(parametroTamMin.getPara_valor());
 			
 			for (DetalleArchivoRecaudoOriginalPorConvertir detalleArchivo : listDetallesArchivoOriginal) {
 				
@@ -138,15 +142,13 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 						referenciaOriginal = getLong(detalleArchivo.getDaror_referencia());
 						
 						//Tipo de recaudo -Excluir por forma de recaudo. Crear validacion
-						if(!formaRecaudo.equals("RNDB")){
-								
-								
+						if(!isTipoRecaudoParaExlcuir(formaRecaudo)){
 							
 							
 							proyecto = getProyecto(""+referenciaOriginal);
 							
 							//Completar el tamaño con numero de fondo por tipo de archivo. Crear transformacion y validacion
-							if(referenciaOriginal.toString().length()<tamMaximoReferencia){
+							if(referenciaOriginal.toString().length()==tamMinimoReferencia){
 								
 								referenciaFinal = completarReferenciaPorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
 								
@@ -1148,7 +1150,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							 * Se complementa los detallesSIFI por registro
 							 * ============================================
 							 */
-							OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(oficinaOriginal);
+							OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(oficinaOriginal, getFondoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar()) );
 							
 							if(oficinaRecaudoSIFI!=null && oficinaRecaudoSIFI.getOfic_sifi()!=null){
 								
@@ -1684,7 +1686,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				
 				if(tipoArchivo.getTpar_tpar().equals(tpar_tpar)){
 					if(tipoArchivo.getTpar_comp_rf_sn().equals(TipoArchivoRecaudoConvertidor.COMP_RF_SI)){
-						Long  valorFondo= tipoArchivo.getTpar_plan_fondo();
+						Long  valorFondo= tipoArchivo.getTpar_fondo();
 						
 						String referenciaCompletada = ""+valorFondo+referenciaOriginal;
 						nuevaReferencia = new Long(referenciaCompletada);
@@ -1751,6 +1753,31 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 	}
 	
+	private Long getFondoPorTipoArchivo(String tpar_tpar){
+		
+		Long fondo = null;
+		
+		if(tiposArchivoRecaudo!=null && tiposArchivoRecaudo.size()>0){
+			
+			for (TipoArchivoRecaudoConvertidor tipoArchivo : tiposArchivoRecaudo) {
+				if(tipoArchivo.getTpar_tpar().equals(tpar_tpar)){
+					
+					fondo = tipoArchivo.getTpar_fondo();
+					break;
+					
+				}
+				
+			}
+			
+		}
+		
+		
+		return fondo;
+		
+		
+		
+	}
+	
 	private Boolean isEstadoPlanFormulaDistribucion(String estadoReferencia){
 		
 		Boolean isEstadoPlanFormulaDistribucion = false;
@@ -1766,6 +1793,27 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		}
 		
 		return isEstadoPlanFormulaDistribucion;
+		
+	}
+	
+	
+	private Boolean isTipoRecaudoParaExlcuir(String tipoRecadudo){
+		Boolean isTipoRecaudoParaExlcuir = false;
+		
+		if(tiposRecaudoExcluir!=null && tiposRecaudoExcluir.size()>0 ){
+			
+			for (TipoRecaudoExcluir tipoRecaudoExcluir : tiposRecaudoExcluir) {
+				if(tipoRecaudoExcluir.getTrex_trex().equals(tipoRecadudo)){
+					isTipoRecaudoParaExlcuir=true;
+					break;
+				}
+			}
+		}
+		
+		return isTipoRecaudoParaExlcuir;
+		
+		
+		
 		
 	}
 	

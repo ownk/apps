@@ -16,7 +16,7 @@ public class SIFIControllerDB {
 	
 	
 				
-	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI29(){
+	public Long getTotalEncargosSIFI29(){
 		SqlSession session = DBManagerSIFI29.openSession();
 		
 		if(session!=null){
@@ -24,10 +24,10 @@ public class SIFIControllerDB {
 			try{
 				
 				SIFI29Dao dao = session.getMapper(SIFI29Dao.class);
-				return dao.getAllEncargosSIFI();
+				return dao.getTotalEncargosSIFI();
 				
 			}catch (Exception e) {
-				SimpleLogger.error("Error getAllEncargosSIFI29", e);
+				SimpleLogger.error("Error getTotalEncargosSIFI29", e);
 				return null;
 			} 	finally {
 				session.close();
@@ -64,7 +64,7 @@ public class SIFIControllerDB {
 		
 	}
 	
-	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI43(){
+	public Long getTotalEncargosSIFI43(){
 		SqlSession session = DBManagerSIFI43.openSession();
 		
 		if(session!=null){
@@ -72,10 +72,10 @@ public class SIFIControllerDB {
 			try{
 				
 				SIFI43Dao dao = session.getMapper(SIFI43Dao.class);
-				return dao.getAllEncargosSIFI();
+				return dao.getTotalEncargosSIFI();
 				
 			}catch (Exception e) {
-				SimpleLogger.error("Error getAllEncargosSIFI43", e);
+				SimpleLogger.error("Error getTotalEncargosSIFI43", e);
 				return null;
 			} 	finally {
 				session.close();

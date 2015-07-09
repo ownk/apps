@@ -11,7 +11,7 @@ public class TipoArchivoRecaudoConvertidor {
 	
 	String  tpar_tpar 		    ;
 	String  tpar_descri 		;
-	Long    tpar_plan_fondo 	;
+	Long    tpar_fondo 	;
 	Long    tpar_plan_generico 	;
 	String  tpar_cta_recaudo 	;
 	String  tpar_usua 		    ;
@@ -57,11 +57,11 @@ public class TipoArchivoRecaudoConvertidor {
 	public void setTpar_usua(String tpar_usua) {
 		this.tpar_usua = tpar_usua;
 	}
-	public Long getTpar_plan_fondo() {
-		return tpar_plan_fondo;
+	public Long getTpar_fondo() {
+		return tpar_fondo;
 	}
-	public void setTpar_plan_fondo(Long tpar_plan_fondo) {
-		this.tpar_plan_fondo = tpar_plan_fondo;
+	public void setTpar_fondo(Long tpar_fondo) {
+		this.tpar_fondo = tpar_fondo;
 	}
 	public String getTpar_comp_rf_sn() {
 		return tpar_comp_rf_sn;

@@ -16,7 +16,7 @@ Prompt
    (	"TPTR_TPTR" 		    NUMBER          			constraint NN_CO_TTPTR_TPTR     not null, 
 		"TPTR_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TTPTR_DESCRI   not null,
         "TPTR_CODIGO" 	        VARCHAR2(100  BYTE)			constraint NN_CO_TTPTR_CODIGO   not null,
-        "TPTR_COLOR" 	        VARCHAR2(10   BYTE) 	    constraint NN_CO_TTPTR_PLAN     not null
+        "TPTR_COLOR" 	        VARCHAR2(100   BYTE) 	    constraint NN_CO_TTPTR_PLAN     not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  

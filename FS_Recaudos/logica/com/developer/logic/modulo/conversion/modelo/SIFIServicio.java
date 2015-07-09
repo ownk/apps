@@ -59,6 +59,33 @@ public class SIFIServicio {
 		
 	}
 	
+	
+	public Long getTotalEncargosSIFI29 (){
+		
+		SIFIControllerDB controllerDB = this.controllerDB;
+		return controllerDB.getTotalEncargosSIFI29();
+		
+		
+		
+		
+		
+	
+		
+		
+	} 
+	
+	public Long getTotalEncargosSIFI43 (){
+		
+		
+		SIFIControllerDB controllerDB = this.controllerDB;
+		return controllerDB.getTotalEncargosSIFI43();
+		
+		
+	
+		
+		
+	} 
+	
 	 
 
 }

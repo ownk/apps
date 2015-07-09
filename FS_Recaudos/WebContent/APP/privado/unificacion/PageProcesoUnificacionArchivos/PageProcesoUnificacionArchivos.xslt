@@ -104,7 +104,7 @@
 
 
 
-															<div class="col-md-8">
+															<div class="col-md-12">
 
 
 
@@ -182,9 +182,7 @@
 
 															</div>
 
-															<div class="col-xs-4">
-																<i class="fa fa-folder-open big-clear-icon " />
-															</div>
+															
 
 
 
@@ -207,7 +205,7 @@
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
 															<span class="label label-info pull-right">AZPU</span>
-															<h5>ZIP</h5>
+															<h5><small>ZIP</small></h5>
 														</div>
 														<div class="ibox-content">
 
@@ -222,7 +220,7 @@
 																100%
 																<i class="fa fa-bolt"></i>
 															</div>
-															<small>Total archivos</small>
+															<small>Total</small>
 															<br />
 														</div>
 													</div>
@@ -232,7 +230,7 @@
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
 															<span class="label label-info pull-right">ARPU</span>
-															<h5>Planos</h5>
+															<h5><small>Planos</small></h5>
 														</div>
 														<div class="ibox-content">
 															<h1 class="no-margins">
@@ -246,7 +244,7 @@
 																100%
 																<i class="fa fa-bolt"></i>
 															</div>
-															<small>Total archivos</small>
+															<small>archivos</small>
 															<br />
 														</div>
 													</div>
@@ -260,7 +258,7 @@
 														<div class="ibox-title">
 															<span class="label label-info pull-right">TRAR</span>
 															<h5>
-																<small>Asobancaria</small>
+																<small>Asoban...</small>
 															</h5>
 														</div>
 														<div class="ibox-content">
@@ -275,7 +273,7 @@
 																100%
 																<i class="fa fa-bolt"></i>
 															</div>
-															<small>Archivos Creados</small>
+															<small>Creados</small>
 															<br />
 														</div>
 													</div>
@@ -311,7 +309,7 @@
 
 																<i class="fa fa-bolt"></i>
 															</div>
-															<small>Total archivos</small>
+															<small>Total</small>
 															<br />
 														</div>
 													</div>
@@ -339,18 +337,18 @@
 																	<div class="panel-options">
 																		<ul class="nav nav-tabs">
 																			<li class="">
-																				<a href="#tab-1" data-toggle="tab">Archivos ZIP</a>
+																				<a href="#tab-1" data-toggle="tab">ZIP</a>
 																			</li>
 																			<li class="">
-																				<a href="#tab-2" data-toggle="tab">Archivos Por
+																				<a href="#tab-2" data-toggle="tab">Por
 																					Unificar</a>
 																			</li>
 																			<li class="">
-																				<a href="#tab-3" data-toggle="tab">Archivos
-																					Transformados</a>
+																				<a href="#tab-3" data-toggle="tab">
+																					Asobancaria</a>
 																			</li>
 																			<li class="">
-																				<a href="#tab-4" data-toggle="tab">Archivos Unificados</a>
+																				<a href="#tab-4" data-toggle="tab">Unificados</a>
 																			</li>
 																			
 																			<li class="active">

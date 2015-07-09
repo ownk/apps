@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
+import com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir;
 import com.developer.persistence.modulo.conversion.controllerdb.TipoArchivoRecaudoConvertidorControllerDB;
 
 public class TipoArchivoRecaudoConvertidorServicio {
@@ -54,6 +55,13 @@ public class TipoArchivoRecaudoConvertidorServicio {
 		
 		
 	}
-	 
+	
+	public List<TipoRecaudoExcluir>  getTipoRecaudoExcluirPorTPAR(String tpar_tpar){
+
+		TipoArchivoRecaudoConvertidorControllerDB controllerDB = this.controllerDB;
+		return controllerDB.getTipoRecaudoExcluirPorTPAR(tpar_tpar);
+		
+		
+	}
 
 }

@@ -9,7 +9,7 @@
 	<!-- properties se definen los datos para la conexion -->
 	<!-- como las tenemos en un archivo de propiedades -->	
 	<!-- utilizamos el atributo resource para referenciarlo -->
-	<properties resource="oracle-sifi43.properties"/>
+	<properties resource="oracle-sifi29.properties"/>
 	
 	<!-- settings configuracion-->
 	<!-- setting parametro de configuracion es una etiqueta llave valor -->	

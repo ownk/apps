@@ -1,5 +1,6 @@
 package com.developer.persistence.modulo.conversion.controllerdb;
 
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
@@ -34,14 +35,20 @@ public class OficinaRecaudoControllerDB {
 		
 	}
 
-	public OficinaRecaudo getOficinaSIFI(String ofic_bsc) {
+	public OficinaRecaudo getOficinaSIFI(String ofic_bsc, Long ofic_fond) {
 		SqlSession session = DBManagerFSRecaudos.openSession();
 		
 		
 		try{
 			
+			//Se crea el historico de estado
+			HashMap<String, Object> hashMap = new HashMap<String, Object>();
+			hashMap.put("ofic_bsc", ofic_bsc);
+			hashMap.put("ofic_fond", ofic_fond);
+			
+			
 			OficinaRecaudoDao dao = session.getMapper(OficinaRecaudoDao.class);
-			return dao.getOficinaSIFI(ofic_bsc);
+			return dao.getOficinaSIFI(hashMap);
 			
 			
 		}catch (Exception e) {

@@ -107,3 +107,12 @@ box-shadow: 0 1px 5px rgba(205, 202, 202, 0.3), 0 1px 2px
 .ownk-color-naranja{
 	color:#F8AF36 !important;
 }
+
+
+.ownk-menu-lateral{
+	/* border-radius: 5px 5px 5px 5px !important; */
+	margin: 0px 0px 0px 0px !important;
+	background-color: white; 
+	border: 1px solid #DDE1E3; 
+	
+}

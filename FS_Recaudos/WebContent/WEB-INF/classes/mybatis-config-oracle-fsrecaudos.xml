@@ -89,6 +89,7 @@
 		<typeAlias alias="encargoFiduciarioNoSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciarioNoSIFI" />
 		<typeAlias alias="estadoPlanAplicaPlanGenerico" type="com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico" />
 		<typeAlias alias="detalleResumenConversionSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI" />
+		<typeAlias alias="tipoRecaudoExcluir" type="com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir" />
 		
 		
 

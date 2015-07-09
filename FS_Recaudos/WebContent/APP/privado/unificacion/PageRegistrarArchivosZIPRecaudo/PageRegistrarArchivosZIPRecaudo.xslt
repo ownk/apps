@@ -51,8 +51,9 @@
 
 							<div class="col-lg-10">
 								<h2>
-								<i class="fa fa-file-archive-o mid-clear-icon "/>
-								Registro de Archivos de Recaudo </h2>
+									<i class="fa fa-file-archive-o mid-clear-icon " />
+									Registro de Archivos de Recaudo
+								</h2>
 								<ol class="breadcrumb">
 									<li>
 										<a>Consolidación Archivos</a>
@@ -66,12 +67,154 @@
 						</div>
 
 						<!-- CONTENIDO -->
+
+
+
+
+
 						<div class="row">
 							<div class="col-lg-12">
 								<div class="wrapper wrapper-content animated fadeInUp">
 
+									<div class="row">
 
-									<xsl:call-template name="popup_intrucciones"/>
+										<!-- SIFI29 -->
+										<div class="col-md-6">
+											<div class="ibox float-e-margins">
+												<div class="ibox-title">
+													<h5>Conexión SIFI29  </h5>
+
+												</div>
+
+												<div class="ibox-content">
+													<div class="row">
+
+														<div class="col-xs-12">
+
+															<xsl:choose>
+																<xsl:when test="count(//totalEncargosSIFI29)>0">
+																	<div class="alert alert-success">
+																		<div class="pull-left m-r-md">
+																			<i class="fa fa-database  mid-icon ownk-color-naranja"></i>
+																		</div>
+																		<div class="p-xs">
+
+																			<h3>Conexion Exitosa</h3>
+
+																			<span>
+																				En este momento hemos consultado
+																				<b>
+																					<xsl:value-of select="//totalEncargosSIFI29"></xsl:value-of>
+																				</b>
+																				encargos.
+																			</span>
+
+
+																		</div>
+
+																	</div>
+
+																</xsl:when>
+																<xsl:otherwise>
+																	<div class="alert alert-warning">
+																		<div class="pull-left m-r-md">
+																			<i class="fa fa-database  mid-icon "></i>
+																		</div>
+																		<div class="p-xs">
+
+																			<h3>Conexión Fallida</h3>
+
+																			<span>¡Lo sentimos!.  <b>NO</b> hemos podido establecer
+																				conexión. 
+																			</span>
+
+
+																		</div>
+
+																	</div>
+
+																</xsl:otherwise>
+
+															</xsl:choose>
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+
+
+										<!-- SIFI43 -->
+										<div class="col-md-6">
+											<div class="ibox float-e-margins">
+												<div class="ibox-title">
+													<h5>Conexión SIFI43  </h5>
+
+												</div>
+
+												<div class="ibox-content">
+													<div class="row">
+
+														<div class="col-xs-12">
+
+															<xsl:choose>
+																<xsl:when test="count(//totalEncargosSIFI43)>0">
+																	<div class="alert alert-success">
+																		<div class="pull-left m-r-md">
+																			<i class="fa fa-database  mid-icon ownk-color-naranja"></i>
+																		</div>
+																		<div class="p-xs">
+
+																			<h3>Conexion Exitosa</h3>
+
+																			<span>
+																				En este momento hemos consultado
+																				<b>
+																					<xsl:value-of select="//totalEncargosSIFI43"></xsl:value-of>
+																				</b>
+																				encargos.
+																			</span>
+
+
+																		</div>
+
+																	</div>
+
+																</xsl:when>
+																<xsl:otherwise>
+																	<div class="alert alert-warning">
+																		<div class="pull-left m-r-md">
+																			<i class="fa fa-database  mid-icon "></i>
+																		</div>
+																		<div class="p-xs">
+
+																			<h3>Conexión Fallida</h3>
+
+																			<span>¡Lo sentimos!. <b>NO</b> hemos podido establecer
+																				conexión. 
+																			</span>
+
+
+																		</div>
+
+																	</div>
+
+																</xsl:otherwise>
+
+															</xsl:choose>
+
+
+															
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+
+									<xsl:call-template name="popup_intrucciones" />
+
+
 
 
 									<div class="row">
@@ -84,11 +227,12 @@
 														<a onclick="showInstructions()">
 															<i class="fa fa-info-circle"></i>
 														</a>
-														<a href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
+														<a
+															href="{//contextPath}/unificacion/PageRegistrarArchivosZIPRecaudo.do">
 															<i class="fa fa-undo"></i>
 														</a>
-														</div>
-													
+													</div>
+
 												</div>
 												<div class="ibox-content">
 
@@ -108,10 +252,12 @@
 														method="post" enctype="multipart/form-data">
 														<div class="dropzone-previews"></div>
 														<button disabled="true" type="submit"
-															class="btn btn-primary btn-sm pull-right ownk_btn_shadow" id="btn_registrarArchivos">
-																<i class="fa fa-cloud-upload" />
-															
-															Registrar	Archivos</button>
+															class="btn btn-primary btn-sm pull-right ownk_btn_shadow"
+															id="btn_registrarArchivos">
+															<i class="fa fa-cloud-upload" />
+
+															Registrar Archivos
+														</button>
 														<input type="hidden" name="ProcesoUnificacionArchivos.prun_prun"
 															value="{//prun_prun}" />
 
@@ -150,8 +296,8 @@
 														<a onclick="showInstructions()">
 															<i class="fa fa-info-circle"></i>
 														</a>
-														
-														</div>
+
+													</div>
 
 												</div>
 												<div class="ibox-content">
@@ -236,11 +382,12 @@
 
 															<button disabled="true" id="btn_unificarArchivos"
 																onclick="validarEnviar('form_unificar')" class=" btn  btn-primary btn-sm ownk_btn_shadow">
-																
-																
+
+
 																<i class="fa fa-save" />
 																Crear
-																Proceso</button>
+																Proceso
+															</button>
 
 
 														</div>
@@ -299,8 +446,10 @@
 					<div class="modal-body">
 						<p>
 							Selecciona los archivos ZIP que quieres asociar al
-							proceso. Puedes arrastrar tus archivos o dar click sobre
-							el area para eligirlos. Una vez identifiques los archivos
+							proceso. Puedes
+							arrastrar tus archivos o dar click sobre
+							el area para eligirlos.
+							Una vez identifiques los archivos
 							da click en botón
 							<b>Registrar Archivos</b>
 							.
@@ -310,7 +459,8 @@
 							Luego de que hayas elegido los archivos, por favor selecciona las
 							<b>fechas de inicio y fin </b>
 							con las cuales quieres crear el proceso de unificación
-							de archivos. Recuerda que las fechas se utilizarán para generar el
+							de
+							archivos. Recuerda que las fechas se utilizarán para generar el
 							archivo consolidado
 							por cada cuenta.
 							<b> La fecha de fin no puede ser inferior a la fecha

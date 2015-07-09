@@ -15,7 +15,7 @@ Prompt
   CREATE TABLE "FS_RECAUDOS_US"."CO_TERDS" 
    (	"ERDS_ERDS" 		    VARCHAR2(100 BYTE) 			constraint NN_CO_TERDS_ERDS     not null, 
 		"ERDS_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TERDS_DESCRI   not null,
-        "ERDS_COLOR" 	        VARCHAR2(10   BYTE)			constraint NN_CO_TERDS_COLOR     not null
+        "ERDS_COLOR" 	        VARCHAR2(100   BYTE)			constraint NN_CO_TERDS_COLOR     not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  

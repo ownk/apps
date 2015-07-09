@@ -9,7 +9,8 @@ public class ParametroGeneralConversionServicio {
 	
 
 	
-	public static String TAMANHO_MAX_REFERENCIA = "co.tam_referencia_recaudo";
+	public static String TAMANHO_MAX_REFERENCIA = "co.tam_max_referencia_recaudo";
+	public static String TAMANHO_MIN_REFERENCIA = "co.tam_min_referencia_recaudo";
 	public static String PREFIJO_VOLANTE = "co.pefijo_volante";
 	
 	

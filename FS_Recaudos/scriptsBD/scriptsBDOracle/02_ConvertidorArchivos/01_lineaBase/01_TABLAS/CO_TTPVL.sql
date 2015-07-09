@@ -16,7 +16,7 @@ Prompt
    (	"TPVL_TPVL" 		    NUMBER          			constraint NN_CO_TTPVL_TPVL     not null, 
 		"TPVL_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TTPVL_DESCRI   not null,
         "TPVL_CODIGO" 	        VARCHAR2(100  BYTE)			constraint NN_CO_TTPVL_CODIGO   not null,
-        "TPVL_COLOR" 	        VARCHAR2(10   BYTE)	        constraint NN_CO_TTPVL_PLAN     not null
+        "TPVL_COLOR" 	        VARCHAR2(100   BYTE)	        constraint NN_CO_TTPVL_PLAN     not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  

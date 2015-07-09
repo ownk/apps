@@ -17,11 +17,13 @@ import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
 import com.developer.logic.modulo.conversion.dto.ErrorArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
+import com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.ValidacionArchivoRecaudo;
 import com.developer.logic.modulo.conversion.modelo.ArchivoRecaudoGeneradoSIFIServicio;
 import com.developer.logic.modulo.conversion.modelo.ArchivoRecaudoOriginalPorConvertirServicio;
 import com.developer.logic.modulo.conversion.modelo.ErrorArchivoRecaudoServicio;
+import com.developer.logic.modulo.conversion.modelo.TipoArchivoRecaudoConvertidorServicio;
 import com.developer.logic.modulo.conversion.modelo.TransformacionArchivoRecaudoServicio;
 import com.developer.logic.modulo.conversion.modelo.ValidacionArchivoRecaudoServicio;
 import com.developer.web.general.MensajeErrorWeb;
@@ -54,7 +56,7 @@ public class PageArchivoRecaudoOriginalPorConvertir extends PrivatePage{
 				ErrorArchivoRecaudoServicio errorServicio = new ErrorArchivoRecaudoServicio();
 				ValidacionArchivoRecaudoServicio validacionServicio = new ValidacionArchivoRecaudoServicio();
 				ArchivoRecaudoGeneradoSIFIServicio archivoSIFIServicio = new ArchivoRecaudoGeneradoSIFIServicio();
-				
+				TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
 				
 				if(archivoRecaudoOriginalPorConvertir!=null){
 					
@@ -65,7 +67,12 @@ public class PageArchivoRecaudoOriginalPorConvertir extends PrivatePage{
 					List<ErrorArchivoRecaudo> errores = errorServicio.getErroresPorAROR(aror);
 					List<ValidacionArchivoRecaudo> validaciones = validacionServicio.getValidacionesPorAROR(aror);
 					List<TransformacionArchivoRecaudo> transformaciones = transformacionServicio.getTransformacionesPorAROR(aror);
+					List<TipoRecaudoExcluir> tiposRecaudoExcluidos = tipoArchivoServicio.getTipoRecaudoExcluirPorTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 					ArchivoRecaudoGeneradoSIFI archivoSIFI = archivoSIFIServicio.getArchivoRecaudo(aror);
+					
+					if(tiposRecaudoExcluidos!=null && tiposRecaudoExcluidos.size()>0){
+						xmlPage.append(objectToXML.getXML(tiposRecaudoExcluidos));
+					}
 					
 					
 					if(errores!=null && errores.size()>0){

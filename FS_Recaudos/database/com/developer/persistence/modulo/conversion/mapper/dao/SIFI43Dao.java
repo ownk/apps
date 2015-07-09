@@ -9,7 +9,7 @@ import com.developer.logic.modulo.conversion.dto.EncargoFiduciarioSIFI;
 public interface SIFI43Dao {
 
 	
-	public List<EncargoFiduciarioSIFI> getAllEncargosSIFI();
+	public Long getTotalEncargosSIFI();
 	
 	public List<EncargoFiduciarioSIFI> getEncargoSIFI(EncargoFiduciarioSIFI encargoFiduciarioSIFI);
 

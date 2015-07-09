@@ -16,7 +16,7 @@ Prompt
    (	"TPER_TPER" 		    NUMBER          			constraint NN_CO_TTPER_TPER     not null, 
 		"TPER_DESCRI" 		    VARCHAR2(2000 BYTE)			constraint NN_CO_TTPER_DESCRI   not null,
         "TPER_CODIGO" 	        VARCHAR2(100  BYTE)			constraint NN_CO_TTPER_CODIGO   not null,
-        "TPER_COLOR" 	        VARCHAR2(10   BYTE)			constraint NN_CO_TTPER_PLAN     not null
+        "TPER_COLOR" 	        VARCHAR2(100   BYTE)			constraint NN_CO_TTPER_PLAN     not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  

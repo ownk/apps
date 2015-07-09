@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
+import com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir;
 import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.conversion.mapper.dao.TipoArchivoRecaudoConvertidorDao;
 
@@ -88,7 +89,21 @@ public class TipoArchivoRecaudoConvertidorControllerDB {
 		}
 	}
 	
+	public List<TipoRecaudoExcluir>  getTipoRecaudoExcluirPorTPAR(String tpar_tpar){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		try {
 	
+			TipoArchivoRecaudoConvertidorDao dao = session.getMapper(TipoArchivoRecaudoConvertidorDao.class);
+			return dao.getTipoRecaudoExcluirPorTPAR(tpar_tpar);
+			
+		} catch (Exception e) {
+			SimpleLogger.error("Error getTipoRecaudoExcluirPorTPAR", e);
+			return null;
+	
+		} finally {
+			session.close();
+		}
+	}
 
 	 
 

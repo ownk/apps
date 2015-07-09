@@ -5,6 +5,7 @@ import java.util.List;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico;
 import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
+import com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir;
 
 public interface TipoArchivoRecaudoConvertidorDao {
 	
@@ -20,5 +21,7 @@ public void crearArchivo(ArchivoRecaudoGeneradoSIFI archivoRecaudoGeneradoSIFI);
 	public List<EstadoPlanAplicaPlanGenerico> getEstadosAplicaPlanGenericoPorTPAR(String tpar_tpar);
 
 	public List<TipoArchivoRecaudoConvertidor> getAllTiposArchivo();
+	
+	public List<TipoRecaudoExcluir>  getTipoRecaudoExcluirPorTPAR(String tpar_tpar);
 	
 }

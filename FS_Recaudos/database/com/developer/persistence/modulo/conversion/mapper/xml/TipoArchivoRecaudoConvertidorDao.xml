@@ -24,6 +24,11 @@
 		where epsg_tpar = #{tpar_tpar}
 	</select>
 	
+	<select id="getTipoRecaudoExcluirPorTPAR" parameterType="java.lang.String" resultType="tipoRecaudoExcluir">
+		select * from co_ttrex
+		where trex_tpar = #{tpar_tpar}
+	</select>
+	
 	
 	<select id="getAllTiposArchivo" resultType="tipoArchivoRecaudoConvertidor">
 		select * from co_ttpar

@@ -28,6 +28,10 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 	
 	Double  daror_vtot_double;
 	
+	String daror_vtot_format;
+	String daror_vefe_format;
+	String daror_vche_format;
+	
 	public Long getDaror_aror() {
 		return daror_aror;
 	}
@@ -69,12 +73,28 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 	}
 	public void setDaror_vefe(String daror_vefe) {
 		this.daror_vefe = daror_vefe;
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(daror_vefe);
+			daror_vefe_format = DecimalFormat.getCurrencyInstance().format(getRound2Decimals(bigDecimal.doubleValue()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	public String getDaror_vche() {
 		return daror_vche;
 	}
 	public void setDaror_vche(String daror_vche) {
 		this.daror_vche = daror_vche;
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(daror_vche);
+			daror_vche_format = DecimalFormat.getCurrencyInstance().format(getRound2Decimals(bigDecimal.doubleValue()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	public String getDaror_vtot() {
 		return daror_vtot;
@@ -89,6 +109,16 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 		} catch (Exception e) {
 			daror_vtot_double = new Double(0);
 		}
+		
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(daror_vtot);
+			daror_vtot_format = DecimalFormat.getCurrencyInstance().format(getRound2Decimals(bigDecimal.doubleValue()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
 	}
 	public Double getDaror_vtot_double() {
 		return daror_vtot_double;
@@ -139,6 +169,26 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 		this.daror_cta_reca = daror_cta_reca;
 	}
 	
+	
+	
+	public String getDaror_vtot_format() {
+		return daror_vtot_format;
+	}
+	public void setDaror_vtot_format(String daror_vtot_format) {
+		this.daror_vtot_format = daror_vtot_format;
+	}
+	public String getDaror_vefe_format() {
+		return daror_vefe_format;
+	}
+	public void setDaror_vefe_format(String daror_vefe_format) {
+		this.daror_vefe_format = daror_vefe_format;
+	}
+	public String getDaror_vche_format() {
+		return daror_vche_format;
+	}
+	public void setDaror_vche_format(String daror_vche_format) {
+		this.daror_vche_format = daror_vche_format;
+	}
 	private BigDecimal getBigDecimal(String valor) {
 
 		try {
