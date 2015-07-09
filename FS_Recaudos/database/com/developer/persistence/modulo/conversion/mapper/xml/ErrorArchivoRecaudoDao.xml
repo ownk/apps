@@ -11,7 +11,7 @@
 			erar_tper, 		   
 			erar_aror,            
 			erar_daror_id_reg,    
-			erar_valor_descri,    
+			erar_error_descri,    
 			erar_fcrea 		     
 		)
 		values 
@@ -20,7 +20,7 @@
 			#{erar_tper}, 		   
 			#{erar_aror},            
 			#{erar_daror_id_reg},    
-			#{erar_valor_descri},    
+			#{erar_error_descri},    
 			now() 	
 		)
 	</insert>

@@ -2733,7 +2733,7 @@ a.forum-item-title:hover {
 body {
   font-family: "open sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
   background-color: #C3C3C3  /*#2f4050*/;
-  font-size: 14px;
+  font-size: 12px;
   color: #676a6c;
   overflow-x: hidden;
 }

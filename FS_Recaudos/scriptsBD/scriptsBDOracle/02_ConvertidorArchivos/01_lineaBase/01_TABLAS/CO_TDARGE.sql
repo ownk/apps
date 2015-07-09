@@ -18,6 +18,12 @@ Prompt
         "DARGE_ID_REG"          NUMBER		            constraint NN_CO_TDARGE_ID_REG not null,
 		"DARGE_FRECA" 		    VARCHAR2(10 BYTE)		constraint NN_CO_TDARGE_FRECA not null, 			
 		"DARGE_REFERENCIA" 	    VARCHAR2(100 BYTE)		constraint NN_CO_TDARGE_REFERENCIA not null,
+        "DARGE_ERDS" 	        VARCHAR2(100 BYTE)		constraint NN_CO_TDARGE_ERDS not null,
+        "DARGE_TITULAR_SN" 	    VARCHAR2(100 BYTE)		constraint NN_CO_TDARGE_TITULAR_SN not null,
+        "DARGE_FRDP_SN" 	    VARCHAR2(1 BYTE)		constraint NN_CO_TDARGE_FRDP_SN not null,
+        "DARGE_PNSA_SN" 	    VARCHAR2(1 BYTE)		constraint NN_CO_TDARGE_PNSA_SN not null,
+        "DARGE_PRCA_SN" 	    VARCHAR2(1 BYTE)		constraint NN_CO_TDARGE_PRCA_SN not null,
+        "DARGE_TRRF_SN" 	    VARCHAR2(1 BYTE)		constraint NN_CO_TDARGE_TRRF_SN not null,
         "DARGE_APORTANTE" 	    VARCHAR2(100 BYTE)		constraint NN_CO_TDARGE_APORTANTE not null, 
 		"DARGE_OFIC" 		    VARCHAR2(10 BYTE)		constraint NN_CO_TDARGE_OFIC not null,
 		"DARGE_VEFE" 		    VARCHAR2(100)          	constraint NN_CO_TDARGE_VEFE not null, 
@@ -38,7 +44,13 @@ Prompt
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_FRECA" 		IS 'Fecha de recaudo';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_REFERENCIA" 	IS 'Referencia o plan donde se hara recaudo';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_APORTANTE" 	IS 'Identificacion del aportante';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_TITULAR_SN" 	IS 'El aportante es titular S/N';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_FRDP_SN" 		IS 'la referencia presenta formula de distribucion S/N';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_PNSA_SN" 		IS 'El proyecto es un proyecto no sifi activo S/N';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_PRCA_SN" 		IS 'El proyecto es un proyecto cancelado S/N';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_TRRF_SN" 		IS 'Hay transformacion de referencia original';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_OFIC" 		IS 'Oficina desde la cual se hace el aporte';
+    COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_ERDS" 	    IS 'Estado consultado de la referencia de pago';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_VEFE" 		IS 'Valor en efectivo';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_VCHE" 		IS 'Valor en cheque';
     COMMENT ON COLUMN "FS_RECAUDOS_US"."CO_TDARGE"."DARGE_VTOT" 		IS 'Valor total del recaudo';

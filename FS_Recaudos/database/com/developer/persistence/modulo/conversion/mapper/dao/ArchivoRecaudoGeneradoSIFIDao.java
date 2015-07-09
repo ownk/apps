@@ -27,7 +27,7 @@ public interface ArchivoRecaudoGeneradoSIFIDao {
 	
 	public List<DetalleArchivoRecaudoGeneradoSIFI> getAllDetallesARGE(Long arge_arge);
 	
-	
+	public List<String> getAllERDS();
 	
 	
 }

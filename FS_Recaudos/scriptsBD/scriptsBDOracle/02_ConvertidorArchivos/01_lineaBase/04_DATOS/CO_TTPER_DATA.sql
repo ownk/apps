@@ -9,5 +9,6 @@ Insert into FS_RECAUDOS_US.CO_TTPER (TPER_TPER,TPER_CODIGO,TPER_DESCRI, TPER_COL
 Insert into FS_RECAUDOS_US.CO_TTPER (TPER_TPER,TPER_CODIGO,TPER_DESCRI, TPER_COLOR) values(6, 'TPER_PLAN_FRDP_MULTIPLE'  ,  'Plan presenta mas de una formula de distribucion de porcentaje asignada', 'info');
 Insert into FS_RECAUDOS_US.CO_TTPER (TPER_TPER,TPER_CODIGO,TPER_DESCRI, TPER_COLOR) values(7, 'TPER_PLAN_DPFD_NULO' 	 ,  'Plan asociado tiene una formula de distribucion sin porcentajes asignados ', 'info');
 Insert into FS_RECAUDOS_US.CO_TTPER (TPER_TPER,TPER_CODIGO,TPER_DESCRI, TPER_COLOR) values(9, 'TPER_OFIC_SIFI_NOEXISTE'  ,  'Oficina BSC no presenta homologacion SIFI', 'info');
- 
+
+Insert into FS_RECAUDOS_US.CO_TTPER (TPER_TPER,TPER_CODIGO,TPER_DESCRI, TPER_COLOR) values(10, 'TPER_ERROR_BD'  ,  'Error de base de datos no esperado', 'info'); 
 commit;

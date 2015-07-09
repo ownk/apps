@@ -16,6 +16,9 @@
 	
 }
 
+.ownk_align_center{
+	text-align: center;
+}
 
 .ownk_shadow {
 	/* -webkit-box-shadow: 0px 0px 20px #000;
@@ -89,6 +92,14 @@ box-shadow: 0 1px 5px rgba(205, 202, 202, 0.3), 0 1px 2px
 	
 
 	color:#0096AD !important;
+	
+	
+}
+
+.ownk-subrayado{
+	
+
+	text-decoration:underline;
 	
 	
 }

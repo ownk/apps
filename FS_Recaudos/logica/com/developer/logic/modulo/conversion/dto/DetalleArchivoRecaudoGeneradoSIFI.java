@@ -4,12 +4,19 @@ import java.util.Date;
 
 public class DetalleArchivoRecaudoGeneradoSIFI {
 	
+	
+	public static String ERDS_NO_ENCONTRADO = "NO_ENCONTRADO";
+	public static String ERDS_VACIO = "VACIO";
+	public static String ERDS_VOLANTE = "VOLANTE";
+	
+	
 	Long    darge_arge 		  ;
 	Long    darge_daror_id_reg;
 	Long    darge_id_reg      ;
 	String  darge_freca 	  ;
 	String  darge_referencia  ;
 	String  darge_aportante   ;
+	String  darge_erds	  ;
 	String  darge_ofic 		  ;
 	String  darge_vefe 		  ;
 	String  darge_vche 		  ;
@@ -19,8 +26,51 @@ public class DetalleArchivoRecaudoGeneradoSIFI {
 	String  darge_comp 		  ;
 	String  darge_cons_bsc_2  ;
 	Date    darge_fcrea 	  ;
+	String darge_titular_sn;
+	String darge_frdp_sn;
+	String darge_prca_sn;
+	String darge_pnsa_sn;
+	String darge_trrf_sn;
 	
 	
+	
+	
+	public String getDarge_trar_rf_sn() {
+		return darge_trrf_sn;
+	}
+	public void setDarge_trar_rf_sn(String darge_trrf_sn) {
+		this.darge_trrf_sn = darge_trrf_sn;
+	}
+	public String getDarge_titular_sn() {
+		return darge_titular_sn;
+	}
+	public void setDarge_titular_sn(String darge_titular_sn) {
+		this.darge_titular_sn = darge_titular_sn;
+	}
+	public String getDarge_frdp_sn() {
+		return darge_frdp_sn;
+	}
+	public void setDarge_frdp_sn(String darge_frdp_sn) {
+		this.darge_frdp_sn = darge_frdp_sn;
+	}
+	public String getDarge_prca_sn() {
+		return darge_prca_sn;
+	}
+	public void setDarge_prca_sn(String darge_prca_sn) {
+		this.darge_prca_sn = darge_prca_sn;
+	}
+	public String getDarge_pnsa_sn() {
+		return darge_pnsa_sn;
+	}
+	public void setDarge_pnsa_sn(String darge_pnsa_sn) {
+		this.darge_pnsa_sn = darge_pnsa_sn;
+	}
+	public String getDarge_erds() {
+		return darge_erds;
+	}
+	public void setDarge_erds(String darge_erds) {
+		this.darge_erds = darge_erds;
+	}
 	public Long getDarge_arge() {
 		return darge_arge;
 	}

@@ -88,6 +88,7 @@
 		<typeAlias alias="estadoPlanFormulaDistribucion" type="com.developer.logic.modulo.conversion.dto.EstadoPlanFormulaDistribucion" />
 		<typeAlias alias="encargoFiduciarioNoSIFI" type="com.developer.logic.modulo.conversion.dto.EncargoFiduciarioNoSIFI" />
 		<typeAlias alias="estadoPlanAplicaPlanGenerico" type="com.developer.logic.modulo.conversion.dto.EstadoPlanAplicaPlanGenerico" />
+		<typeAlias alias="detalleResumenConversionSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI" />
 		
 		
 

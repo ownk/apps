@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
 import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 
 
@@ -27,6 +28,6 @@ public interface ArchivoRecaudoOriginalPorConvertirDao {
 	
 	public List<DetalleArchivoRecaudoOriginalPorConvertir> getAllDetallesAROR(Long aror_aror);
 	
-	
-	
+	public List<DetalleResumenConversionSIFI> getResumenConversionSIFIAROR(Long aror_aror);
+
 }

@@ -9,6 +9,7 @@ import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
 import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.conversion.mapper.dao.ArchivoRecaudoOriginalPorConvertirDao;
@@ -214,5 +215,22 @@ public class ArchivoRecaudoOriginalPorConvertirControllerDB {
 		
 	}
 	 
+	public List<DetalleResumenConversionSIFI> getResumenConversionSIFIAROR(Long aror_aror){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ArchivoRecaudoOriginalPorConvertirDao dao = session.getMapper(ArchivoRecaudoOriginalPorConvertirDao.class);
+			return dao.getResumenConversionSIFIAROR(aror_aror);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getResumenConversionSIFIAROR", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
 
 }

@@ -1,6 +1,11 @@
 package com.developer.logic.modulo.conversion.dto;
 
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.Date;
+
+import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.utils.StringOsmoUtils;
 
 public class DetalleArchivoRecaudoOriginalPorConvertir {
 	
@@ -20,6 +25,8 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 	String  daror_registro 	;
 	Date    daror_fcrea 	;
 	String  daror_cta_reca 	;
+	
+	Double  daror_vtot_double;
 	
 	public Long getDaror_aror() {
 		return daror_aror;
@@ -74,6 +81,20 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 	}
 	public void setDaror_vtot(String daror_vtot) {
 		this.daror_vtot = daror_vtot;
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(daror_vtot);
+			daror_vtot_double = getRound2Decimals(bigDecimal.doubleValue());
+		} catch (Exception e) {
+			daror_vtot_double = new Double(0);
+		}
+	}
+	public Double getDaror_vtot_double() {
+		return daror_vtot_double;
+	}
+	public void setDaror_vtot_double(Double daror_vtot_double) {
+		this.daror_vtot_double = daror_vtot_double;
 	}
 	public String getDaror_cons_bsc_1() {
 		return daror_cons_bsc_1;
@@ -118,6 +139,38 @@ public class DetalleArchivoRecaudoOriginalPorConvertir {
 		this.daror_cta_reca = daror_cta_reca;
 	}
 	
+	private BigDecimal getBigDecimal(String valor) {
+
+		try {
+
+			if (StringOsmoUtils.esVacio(valor)) {
+				return null;
+			}
+
+			BigDecimal bigDecimal = new BigDecimal(valor.trim());
+			return bigDecimal;
+
+		} catch (Exception e) {
+			SimpleLogger.error("Error", e);
+			return null;
+		}
+	}
+
+	private BigDecimal getValorMoneda(String valor) {
+
+		BigDecimal resultado = getBigDecimal(valor);
+		return resultado;
+		
+	}
+	
+	private double getRound2Decimals(double valor) {
+
+		DecimalFormat twoDForm = new DecimalFormat("#.00");
+	    return Double.parseDouble(twoDForm.format(valor).replace(",", "."));
+
+		
+
+	}
 	
 
 }

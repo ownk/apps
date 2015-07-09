@@ -126,6 +126,20 @@
 	</select>
 	
 	
+	<select id="getResumenConversionSIFIAROR" parameterType="java.lang.Long" resultType="detalleResumenConversionSIFI" >
+		
+
+		select * from (
+			select distinct daror_aror, daror_id_reg, darge_id_reg, daror_freca, daror_referencia, darge_referencia, darge_erds, erds_color, daror_aportante, daror_ofic, darge_ofic, daror_tipo_reca, daror_vefe, darge_vefe, daror_vche, darge_vche, daror_vtot, darge_vtot, darge_titular_sn, darge_prca_sn, darge_pnsa_sn, darge_frdp_sn, darge_trrf_sn 
+			from co_tdarge arge, co_tdaror aror, co_terds
+			where  aror.daror_aror = arge.darge_arge (+)
+			and aror.daror_id_reg = arge.darge_daror_id_reg (+)
+			and arge.darge_erds = erds_erds (+)
+			and aror.daror_aror= #{aror_aror}
+			group by daror_aror, daror_id_reg, darge_id_reg, daror_freca, daror_referencia, darge_referencia, darge_erds, daror_aportante, daror_ofic, darge_ofic, daror_vefe, darge_vefe, daror_vche, darge_vche, daror_vtot, darge_vtot, daror_tipo_reca, erds_color, darge_titular_sn, darge_prca_sn, darge_pnsa_sn, darge_frdp_sn, darge_trrf_sn
+		) order by daror_id_reg asc
+	</select>
+	
 	
 	
 </mapper>

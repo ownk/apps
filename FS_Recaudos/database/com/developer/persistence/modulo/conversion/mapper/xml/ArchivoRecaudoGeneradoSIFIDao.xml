@@ -83,6 +83,7 @@
 		(
 			darge_arge, 		   
 			darge_daror_id_reg,   
+			darge_erds,   
 			darge_id_reg,         
 			darge_freca, 		   
 			darge_referencia, 	   
@@ -95,12 +96,19 @@
 			darge_tipo_reca, 	   
 			darge_comp, 		   
 			darge_cons_bsc_2,     
-			darge_fcrea		   	
+			darge_fcrea,
+			darge_titular_sn,
+			darge_frdp_sn,
+			darge_prca_sn,
+			darge_pnsa_sn,
+			darge_trrf_sn
+					   	
 		)
 		values
 		(
 			#{darge_arge}, 		   
-			#{darge_daror_id_reg},   
+			#{darge_daror_id_reg},
+			#{darge_erds},   
 			#{darge_id_reg},         
 			#{darge_freca}, 		   
 			#{darge_referencia}, 	   
@@ -113,7 +121,13 @@
 			#{darge_tipo_reca}, 	   
 			#{darge_comp}, 		   
 			#{darge_cons_bsc_2},     
-			now()	   
+			now(),
+			#{darge_titular_sn},
+			#{darge_frdp_sn},
+			#{darge_prca_sn},
+			#{darge_pnsa_sn},
+			#{darge_trrf_sn}
+				   
 		)
 	</insert>
 	
@@ -121,6 +135,11 @@
 		select * from co_tdarge
 		where darge_arge = #{arge_arge}
 		
+	</select>
+	
+	
+	<select id="getAllERDS" resultType="java.lang.String" >
+		select erds_erds from co_terds
 	</select>
 
 	

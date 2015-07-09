@@ -21,7 +21,13 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 	 * CONSULTAS ================================
 	 * ==========================================
 	 */
-	
+	public List<String> getAllERDS(){
+		ArchivoRecaudoGeneradoSIFIControllerDB controllerDB = this.controllerDB;
+		List<String> list = controllerDB.getAllERDS();
+		
+		return list;
+		
+	}
 	
 		
 	public List<ArchivoRecaudoGeneradoSIFI> getArchivosPorPRCO(Long prco_prco){
@@ -95,7 +101,7 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 				detalleArchivoRecaudoGeneradoSIFI.setDarge_arge(archivoRecaudoGeneradoSIFI.getArge_arge());
 				detalleArchivoRecaudoGeneradoSIFI.setDarge_id_reg(new Long(numRegistro));
 				numRegistro++;
-				sinErrores = sinErrores && this.controllerDB.crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoGeneradoSIFI);
+				sinErrores = sinErrores && this.controllerDB.crearDetalleArchivoTransaccional(session, detalleArchivoRecaudoGeneradoSIFI, mensajeErrorOut);
 				
 			}
 		
@@ -105,6 +111,7 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 		
 		
 		} catch (Exception e) {
+			mensajeErrorOut.append(e.getMessage());
 			return false;
 		}
 	}
@@ -121,7 +128,10 @@ public class ArchivoRecaudoGeneradoSIFIServicio {
 			if(archivoRecaudoGeneradoSIFI!=null && archivoRecaudoGeneradoSIFI.getArge_arge()!=null){
 			
 				List<DetalleArchivoRecaudoGeneradoSIFI> detalles = controllerDB.getAllDetallesARGE(archivoRecaudoGeneradoSIFI.getArge_arge());
+				
 				archivoRecaudoGeneradoSIFI.setDetalles(detalles);
+				
+				
 				
 			}
 			

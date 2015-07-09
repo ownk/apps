@@ -108,7 +108,7 @@ public class ArchivoRecaudoGeneradoSIFIControllerDB {
 	
 	
 		
-	public Boolean crearDetalleArchivoTransaccional(SqlSession session, DetalleArchivoRecaudoGeneradoSIFI detalleArchivoRecaudoGeneradoSIFI){
+	public Boolean crearDetalleArchivoTransaccional(SqlSession session, DetalleArchivoRecaudoGeneradoSIFI detalleArchivoRecaudoGeneradoSIFI, StringBuffer mensajeErrorOut){
 		
 		try{
 			
@@ -120,6 +120,7 @@ public class ArchivoRecaudoGeneradoSIFIControllerDB {
 			
 		}catch (Exception e) {
 			SimpleLogger.error("Error crearDetalleArchivoTransaccional", e);
+			mensajeErrorOut.append(e.getMessage());
 			return false;
 		}
 		
@@ -195,6 +196,23 @@ public class ArchivoRecaudoGeneradoSIFIControllerDB {
 			
 		}catch (Exception e) {
 			SimpleLogger.error("Error getAllDetallesARGE", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+	}
+	
+	public List<String> getAllERDS(){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ArchivoRecaudoGeneradoSIFIDao dao = session.getMapper(ArchivoRecaudoGeneradoSIFIDao.class);
+			return dao.getAllERDS();
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getAllERDS", e);
 			return null;
 		} 	finally {
 			session.close();

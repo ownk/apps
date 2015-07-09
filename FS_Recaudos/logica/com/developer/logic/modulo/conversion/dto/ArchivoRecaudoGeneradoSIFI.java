@@ -27,7 +27,17 @@ public class ArchivoRecaudoGeneradoSIFI {
 	Long    arge_aror 	    ;
 	
 	
+	double arge_vtot_recaudo;
+	
 	List<DetalleArchivoRecaudoGeneradoSIFI> detalles;
+	
+	public Double getArge_vtot_recaudo() {
+		return arge_vtot_recaudo;
+	}
+	public void setArge_vtot_recaudo(Double arge_vtot_recaudo) {
+		this.arge_vtot_recaudo = arge_vtot_recaudo;
+	}
+
 	
 	
 	

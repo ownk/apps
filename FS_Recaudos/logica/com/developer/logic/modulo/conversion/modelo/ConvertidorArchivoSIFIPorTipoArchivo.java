@@ -43,10 +43,12 @@ import com.developer.mybatis.DBManagerFSRecaudos;
 public class ConvertidorArchivoSIFIPorTipoArchivo {
 	
 	
+	
 	int tamMaximoReferencia;
 	List<EstadoPlanFormulaDistribucion> estadosPlanFormulaDistribucion;
 	List<EstadoPlanAplicaPlanGenerico> estadosPlanAplicaPlanGenerico;
 	List<TipoArchivoRecaudoConvertidor> tiposArchivoRecaudo;
+	List<String> estadosReferenciaDetalleSIFI;
 	
 	
 	
@@ -62,11 +64,6 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		List<DetalleArchivoRecaudoOriginalPorConvertir>	listDetallesArchivoOriginal = archivoServicio.getAllDetallesAROR(archivoRecaudoOriginalPorConvertir.getAror_aror());
 		List<DetalleArchivoRecaudoGeneradoSIFI> listDetallesArchivoGenerado = new ArrayList<DetalleArchivoRecaudoGeneradoSIFI>();
 		
-		
-		Double totalCheque = new Double(0);
-		Double totalEfectivo = new Double(0);
-		Double totalArchivo = new Double(0);
-		
 		ParametroGeneralConversionServicio parametroGeneralConversionServicio = new ParametroGeneralConversionServicio();
 		ParametroGeneralConversion parametroTamMax =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.TAMANHO_MAX_REFERENCIA);
 		ParametroGeneralConversion parametroPrefVolante =  parametroGeneralConversionServicio.getParametroGeneral(ParametroGeneralConversionServicio.PREFIJO_VOLANTE);
@@ -78,10 +75,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		ProyectoRecaudoServicio proyectoRecaudoServicio = new ProyectoRecaudoServicio();
 		FormulaDistribucionPorcentajeServicio formulaDistribucionPorcentajeServicio = new FormulaDistribucionPorcentajeServicio();
 		OficinaRecaudoServicio oficinaRecaudoServicio = new OficinaRecaudoServicio();
+		ArchivoRecaudoGeneradoSIFIServicio archivoSIFIServicio = new ArchivoRecaudoGeneradoSIFIServicio();
+		
+		
 		
 		estadosPlanFormulaDistribucion = formulaDistribucionPorcentajeServicio.getAllEstadosAplicaFormula();
 		estadosPlanAplicaPlanGenerico = tipoArchivoServicio.getEstadosAplicaPlanGenericoPorTPAR(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 		tiposArchivoRecaudo = tipoArchivoServicio.getAllTiposArchivo();
+		estadosReferenciaDetalleSIFI =  archivoSIFIServicio.getAllERDS();
 		
 		if(parametroTamMax!=null && parametroTamMax.getPara_valor()!=null && parametroPrefVolante!=null && parametroPrefVolante.getPara_valor()!=null){
 			
@@ -98,6 +99,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				
 				String estadoSIFI 		= null;
 				String estadoNOSIFI 	= null;
+				String estadoReferencia 		= null;
 				String formaRecaudo 	= null;
 				String oficinaOriginal 	= null;
 				String oficinaFinal 	= null;
@@ -108,13 +110,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 				Long 	proyecto = null;
 				
 				
-				
+				Boolean hayTransformacionRefencia = false;
 				Boolean esEncargo = true;
-				Boolean esProyectoCancelado = null;
-				Boolean esProyectoNOSIFI_ACTIVO= null;
-				Boolean isEstadoPlanFormulaDistribucion = null;
-				Boolean isEstadoPlanAplicaPlanGenerico = null;
-				Boolean tieneFormulaDistribucion = null;
+				Boolean esProyectoCancelado = false;
+				Boolean esProyectoNOSIFI_ACTIVO= false;
+				Boolean esTitular = false;
+				Boolean isEstadoPlanFormulaDistribucion = false;
+				Boolean isEstadoPlanAplicaPlanGenerico = false;
+				Boolean tieneFormulaDistribucion = false;
 				
 				Boolean detallesCreados = false;
 				/**
@@ -127,14 +130,19 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					aportante = getLong(detalleArchivo.getDaror_aportante());
 					oficinaOriginal = detalleArchivo.getDaror_ofic();
 					
-					//Tipo de recaudo -Excluir por forma de recaudo. Crear validacion
-					if(!formaRecaudo.equals("RNDB")){
+					//Validar el tamaño del numero de referencia. Crear validacion
+					if(detalleArchivo.getDaror_referencia()!=null){
 						
-						//Validar el tamaño del numero de referencia. Crear validacion
-						if(detalleArchivo.getDaror_referencia()!=null){
+						
+						//Se eliminan los espacios y ceros a la izquierda
+						referenciaOriginal = getLong(detalleArchivo.getDaror_referencia());
+						
+						//Tipo de recaudo -Excluir por forma de recaudo. Crear validacion
+						if(!formaRecaudo.equals("RNDB")){
+								
+								
 							
-							//Se eliminan los espacios y ceros a la izquierda
-							referenciaOriginal = getLong(detalleArchivo.getDaror_referencia());
+							
 							proyecto = getProyecto(""+referenciaOriginal);
 							
 							//Completar el tamaño con numero de fondo por tipo de archivo. Crear transformacion y validacion
@@ -155,17 +163,21 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								//Se crea transformacion de referencia final
 								
 								if(!referenciaOriginal.equals(referenciaFinal)){
-									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_COMP_RF_FOND);
-									transformacion.setTrar_valor_orig(""+referenciaOriginal);
-									transformacion.setTrar_valor_modi(""+referenciaFinal);
 									
-																									
-									listTransformaciones.add(transformacion);
 									
 									if(!detallesCreados){
+										
+										hayTransformacionRefencia = true;
+										
+										TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+										transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+										transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+										transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_COMP_RF_FOND);
+										transformacion.setTrar_valor_orig(""+referenciaOriginal);
+										transformacion.setTrar_valor_modi(""+referenciaFinal);
+										
+																										
+										listTransformaciones.add(transformacion);
 
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
@@ -205,20 +217,24 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								listValidaciones.add(validacion);
 								
 								
-								//Se crea transformacion de referencia final
-								referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 								
-								TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-								transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-								transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-								transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TAM_REF_MAX);
-								transformacion.setTrar_valor_orig(""+referenciaOriginal);
-								transformacion.setTrar_valor_modi(""+referenciaFinal);
-								
-																								
-								listTransformaciones.add(transformacion);
 								
 								if(!detallesCreados){
+									
+									hayTransformacionRefencia = true;
+									
+									//Se crea transformacion de referencia final
+									referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+									
+									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TAM_REF_MAX);
+									transformacion.setTrar_valor_orig(""+referenciaOriginal);
+									transformacion.setTrar_valor_modi(""+referenciaFinal);
+									
+																									
+									listTransformaciones.add(transformacion);
 
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
@@ -250,6 +266,8 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								validacion.setVlar_valor_descri("REF:"+referenciaOriginal+" PrefijoVol:"+parametroPrefVolante.getPara_valor());
 								
 								listValidaciones.add(validacion);
+								
+								estadoReferencia = DetalleArchivoRecaudoGeneradoSIFI.ERDS_VOLANTE;
 								
 								
 							}else{
@@ -347,18 +365,20 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 												if(proyectoCancelado.getPrca_plan_sifi()!=null){
 													
 													
-													referenciaFinal = proyectoCancelado.getPrca_plan_sifi();
-													
-													TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-													transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-													transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-													transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_PROY_CAN);
-													transformacion.setTrar_valor_orig(""+referenciaOriginal);
-													transformacion.setTrar_valor_modi(""+referenciaFinal);
-													
-													listTransformaciones.add(transformacion);
-													
 													if(!detallesCreados){
+														
+														hayTransformacionRefencia = true;
+														
+														referenciaFinal = proyectoCancelado.getPrca_plan_sifi();
+														
+														TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+														transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+														transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+														transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_PROY_CAN);
+														transformacion.setTrar_valor_orig(""+referenciaOriginal);
+														transformacion.setTrar_valor_modi(""+referenciaFinal);
+														
+														listTransformaciones.add(transformacion);
 
 														DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 														detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
@@ -406,7 +426,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										
 											
 										//Validar Identificacion de aportante con los titulares del encargo
-										Boolean esTitular = false;
+										
 										
 										if(aportante!=null){
 										
@@ -445,7 +465,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											validacion.setVlar_aror(detalleArchivo.getDaror_aror());
 											validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
 											validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_APOR_VACIO);
-											validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; Aportante:"+aportante);
+											validacion.setVlar_valor_descri("REF: "+referenciaOriginal);
 											
 											
 											listValidaciones.add(validacion);
@@ -515,18 +535,22 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											listValidaciones.add(validacionProy);
 											
 											
-											referenciaFinal = proyectoNoSIFIActivo.getPnsa_plan_sifi();
 											
-											TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-											transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-											transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-											transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_PROY_NOSIFI_ACT);
-											transformacion.setTrar_valor_orig(""+referenciaOriginal);
-											transformacion.setTrar_valor_modi(""+referenciaFinal);
-											
-											listTransformaciones.add(transformacion);
 											
 											if(!detallesCreados){
+												
+												hayTransformacionRefencia = true;
+												
+												referenciaFinal = proyectoNoSIFIActivo.getPnsa_plan_sifi();
+												
+												TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+												transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+												transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+												transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_PROY_NOSIFI_ACT);
+												transformacion.setTrar_valor_orig(""+referenciaOriginal);
+												transformacion.setTrar_valor_modi(""+referenciaFinal);
+												
+												listTransformaciones.add(transformacion);
 
 												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
@@ -565,18 +589,22 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										listValidaciones.add(validacionPlan);
 										
 										
-										referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 										
-										TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-										transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-										transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-										transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_NOSIFI_INACT);
-										transformacion.setTrar_valor_orig(""+referenciaOriginal);
-										transformacion.setTrar_valor_modi(""+referenciaFinal);
-										
-										listTransformaciones.add(transformacion);
 										
 										if(!detallesCreados){
+											
+											hayTransformacionRefencia = true;
+											
+											referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+											
+											TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+											transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+											transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+											transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_NOSIFI_INACT);
+											transformacion.setTrar_valor_orig(""+referenciaOriginal);
+											transformacion.setTrar_valor_modi(""+referenciaFinal);
+											
+											listTransformaciones.add(transformacion);
 
 											DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 											detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
@@ -601,21 +629,18 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								 * =============================================
 								 */
 								
-								
-								String estadoPlan = null;
-								
 								if(estadoSIFI!=null && !estadoSIFI.isEmpty()){
-									estadoPlan = estadoSIFI;
+									estadoReferencia = estadoSIFI;
 									
 								}else if(estadoNOSIFI !=null && !estadoNOSIFI.isEmpty()){
-									estadoPlan = estadoNOSIFI;
+									estadoReferencia = estadoNOSIFI;
 									
 								}
 								
 								
 								
-								if(estadoPlan!=null){
-									isEstadoPlanFormulaDistribucion = isEstadoPlanFormulaDistribucion(estadoPlan);
+								if(estadoReferencia!=null){
+									isEstadoPlanFormulaDistribucion = isEstadoPlanFormulaDistribucion(estadoReferencia);
 									
 									List<ProyectoConFormulaDistribucion> list = proyectoRecaudoServicio.getProyectoConFormulaDistribucion(proyecto);
 									
@@ -650,89 +675,94 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 												
 													for (DistribucionPorFormulaPorcentaje distribucionPorFormulaPorcentaje : distribuciones) {
 														
-														totalDistribuciones++;
-														
-														ValidacionArchivoRecaudo validacionDPFD = new ValidacionArchivoRecaudo();
-														validacionDPFD.setVlar_aror(detalleArchivo.getDaror_aror());
-														validacionDPFD.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														validacionDPFD.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_DPFD_ACT);
-														validacionDPFD.setVlar_valor_descri("REF: "+referenciaOriginal+"; Estado:"+estadoNOSIFI+"; Proyecto:"+proyecto+"; NuevoEncargo:"+distribucionPorFormulaPorcentaje.getDpfd_plan_dest()+" PorcentajeDistr. "+distribucionPorFormulaPorcentaje.getDpfd_porc_reca());
-														listValidaciones.add(validacionDPFD);
-														
-														
-														referenciaFinal = distribucionPorFormulaPorcentaje.getDpfd_plan_dest();
-														
-														TransformacionArchivoRecaudo transformacionPlan = new TransformacionArchivoRecaudo();
-														transformacionPlan.setTrar_aror(detalleArchivo.getDaror_aror());
-														transformacionPlan.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionPlan.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_DPFD_ACT);
-														transformacionPlan.setTrar_valor_orig(""+referenciaOriginal);
-														transformacionPlan.setTrar_valor_modi(""+referenciaFinal);
-														listTransformaciones.add(transformacionPlan);
-														
-														
-														BigDecimal valorCheque = getValorMoneda(detalleArchivo.getDaror_vche());
-														double nuevoValorCheque = getRound2Decimals(valorCheque.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
-														
-														BigDecimal valorEfectivo = getValorMoneda(detalleArchivo.getDaror_vefe());
-														double nuevoValorEfectivo = getRound2Decimals(valorEfectivo.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
-														
-														BigDecimal valorTotal = getValorMoneda(detalleArchivo.getDaror_vtot());
-														double nuevoValorTotal = getRound2Decimals(valorTotal.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
-														
-														valorTotalDistribuido = valorTotalDistribuido+nuevoValorTotal;
-														
-														if(totalDistribuciones== distribuciones.size()){
-															
-															
-															
-															Double valorDiferencia = valorTotal.doubleValue() - valorTotalDistribuido;
-															
-															//Ajusta el valor de diferencia
-															if(valorDiferencia!=0){
-																
-																if(nuevoValorEfectivo>0){
-																	nuevoValorEfectivo=nuevoValorEfectivo+valorDiferencia;
-																	nuevoValorEfectivo = getRound2Decimals(nuevoValorEfectivo);
-																	
-																}else if(nuevoValorCheque>0){
-																	nuevoValorCheque=nuevoValorCheque+valorDiferencia;
-																	nuevoValorCheque = getRound2Decimals(nuevoValorCheque);
-																}
-																
-																nuevoValorTotal = nuevoValorTotal+valorDiferencia;	
-																nuevoValorTotal = getRound2Decimals(nuevoValorTotal);
-															}
-															
-														}
-														
-														
-														TransformacionArchivoRecaudo transformacionValorCheque = new TransformacionArchivoRecaudo();
-														transformacionValorCheque.setTrar_aror(detalleArchivo.getDaror_aror());
-														transformacionValorCheque.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionValorCheque.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VCHE_DPFD_ACT);
-														transformacionValorCheque.setTrar_valor_orig(""+valorCheque.doubleValue());
-														transformacionValorCheque.setTrar_valor_modi(""+nuevoValorCheque);
-														listTransformaciones.add(transformacionValorCheque);
-														
-														TransformacionArchivoRecaudo transformacionValorEfectivo = new TransformacionArchivoRecaudo();
-														transformacionValorEfectivo.setTrar_aror(detalleArchivo.getDaror_aror());
-														transformacionValorEfectivo.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionValorEfectivo.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VEFE_DPFD_ACT);
-														transformacionValorEfectivo.setTrar_valor_orig(""+valorEfectivo.doubleValue());
-														transformacionValorEfectivo.setTrar_valor_modi(""+nuevoValorEfectivo);
-														listTransformaciones.add(transformacionValorEfectivo);
-														
-														TransformacionArchivoRecaudo transformacionValorTotal = new TransformacionArchivoRecaudo();
-														transformacionValorTotal.setTrar_aror(detalleArchivo.getDaror_aror());
-														transformacionValorTotal.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-														transformacionValorTotal.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VTOT_DPFD_ACT);
-														transformacionValorTotal.setTrar_valor_orig(""+valorTotal.doubleValue());
-														transformacionValorTotal.setTrar_valor_modi(""+nuevoValorTotal);
-														listTransformaciones.add(transformacionValorTotal);
-														
 														
 														if(!detallesCreados){
+															
+															hayTransformacionRefencia = true;
+														
+															totalDistribuciones++;
+															
+															ValidacionArchivoRecaudo validacionDPFD = new ValidacionArchivoRecaudo();
+															validacionDPFD.setVlar_aror(detalleArchivo.getDaror_aror());
+															validacionDPFD.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+															validacionDPFD.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_DPFD_ACT);
+															validacionDPFD.setVlar_valor_descri("REF: "+referenciaOriginal+"; Estado:"+estadoNOSIFI+"; Proyecto:"+proyecto+"; NuevoEncargo:"+distribucionPorFormulaPorcentaje.getDpfd_plan_dest()+" PorcentajeDistr. "+distribucionPorFormulaPorcentaje.getDpfd_porc_reca());
+															listValidaciones.add(validacionDPFD);
+															
+															
+															referenciaFinal = distribucionPorFormulaPorcentaje.getDpfd_plan_dest();
+															
+															TransformacionArchivoRecaudo transformacionPlan = new TransformacionArchivoRecaudo();
+															transformacionPlan.setTrar_aror(detalleArchivo.getDaror_aror());
+															transformacionPlan.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+															transformacionPlan.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_DPFD_ACT);
+															transformacionPlan.setTrar_valor_orig(""+referenciaOriginal);
+															transformacionPlan.setTrar_valor_modi(""+referenciaFinal);
+															listTransformaciones.add(transformacionPlan);
+															
+															
+															BigDecimal valorCheque = getValorMoneda(detalleArchivo.getDaror_vche());
+															double nuevoValorCheque = getRound2Decimals(valorCheque.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
+															
+															BigDecimal valorEfectivo = getValorMoneda(detalleArchivo.getDaror_vefe());
+															double nuevoValorEfectivo = getRound2Decimals(valorEfectivo.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
+															
+															BigDecimal valorTotal = getValorMoneda(detalleArchivo.getDaror_vtot());
+															double nuevoValorTotal = getRound2Decimals(valorTotal.multiply(new BigDecimal(distribucionPorFormulaPorcentaje.getDpfd_porc_reca())).doubleValue());
+															
+															valorTotalDistribuido = valorTotalDistribuido+nuevoValorTotal;
+															
+															if(totalDistribuciones== distribuciones.size()){
+																
+																
+																
+																Double valorDiferencia = valorTotal.doubleValue() - valorTotalDistribuido;
+																
+																//Ajusta el valor de diferencia
+																if(valorDiferencia!=0){
+																	
+																	if(nuevoValorEfectivo>0){
+																		nuevoValorEfectivo=nuevoValorEfectivo+valorDiferencia;
+																		nuevoValorEfectivo = getRound2Decimals(nuevoValorEfectivo);
+																		
+																	}else if(nuevoValorCheque>0){
+																		nuevoValorCheque=nuevoValorCheque+valorDiferencia;
+																		nuevoValorCheque = getRound2Decimals(nuevoValorCheque);
+																	}
+																	
+																	nuevoValorTotal = nuevoValorTotal+valorDiferencia;	
+																	nuevoValorTotal = getRound2Decimals(nuevoValorTotal);
+																}
+																
+															}
+															
+															
+															TransformacionArchivoRecaudo transformacionValorCheque = new TransformacionArchivoRecaudo();
+															transformacionValorCheque.setTrar_aror(detalleArchivo.getDaror_aror());
+															transformacionValorCheque.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+															transformacionValorCheque.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VCHE_DPFD_ACT);
+															transformacionValorCheque.setTrar_valor_orig(""+valorCheque.doubleValue());
+															transformacionValorCheque.setTrar_valor_modi(""+nuevoValorCheque);
+															listTransformaciones.add(transformacionValorCheque);
+															
+															TransformacionArchivoRecaudo transformacionValorEfectivo = new TransformacionArchivoRecaudo();
+															transformacionValorEfectivo.setTrar_aror(detalleArchivo.getDaror_aror());
+															transformacionValorEfectivo.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+															transformacionValorEfectivo.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VEFE_DPFD_ACT);
+															transformacionValorEfectivo.setTrar_valor_orig(""+valorEfectivo.doubleValue());
+															transformacionValorEfectivo.setTrar_valor_modi(""+nuevoValorEfectivo);
+															listTransformaciones.add(transformacionValorEfectivo);
+															
+															TransformacionArchivoRecaudo transformacionValorTotal = new TransformacionArchivoRecaudo();
+															transformacionValorTotal.setTrar_aror(detalleArchivo.getDaror_aror());
+															transformacionValorTotal.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+															transformacionValorTotal.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_VTOT_DPFD_ACT);
+															transformacionValorTotal.setTrar_valor_orig(""+valorTotal.doubleValue());
+															transformacionValorTotal.setTrar_valor_modi(""+nuevoValorTotal);
+															listTransformaciones.add(transformacionValorTotal);
+														
+														
+														
 															DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 															detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 															detalleArchivoSIFI.setDarge_vche(String.format("%016.2f", nuevoValorCheque ).replace(',', '.'));
@@ -789,12 +819,11 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 										 * =============================================
 										 */
 										
-										//Si el encargo esta ACT BPC o INA y es de universitas
-											//Se debe crear transformacion en la que se completa el numero de encargo con el numero de fondo
+										//Si el encargo esta ACT BPC o INA y es de universitas se debe crear transformacion en la que se completa el numero de encargo con el numero de fondo
 										
 										//Si es de universitas y no esta en los estados se debe colocar el encargo generico
 										
-										isEstadoPlanAplicaPlanGenerico = isEstadoPlanAplicaPlanGenerico(estadoPlan);
+										isEstadoPlanAplicaPlanGenerico = isEstadoPlanAplicaPlanGenerico(estadoReferencia);
 										
 										if(isEstadoPlanAplicaPlanGenerico){
 											
@@ -802,21 +831,23 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											validacionDPFD.setVlar_aror(detalleArchivo.getDaror_aror());
 											validacionDPFD.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
 											validacionDPFD.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_EPSG_ACT);
-											validacionDPFD.setVlar_valor_descri("REF: "+referenciaOriginal+"; Estado:"+estadoPlan);
+											validacionDPFD.setVlar_valor_descri("REF: "+referenciaOriginal+"; Estado:"+estadoReferencia);
 											listValidaciones.add(validacionDPFD);
 											
-											referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
-											
-											
-											TransformacionArchivoRecaudo transformacionPlan = new TransformacionArchivoRecaudo();
-											transformacionPlan.setTrar_aror(detalleArchivo.getDaror_aror());
-											transformacionPlan.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-											transformacionPlan.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_EPSG);
-											transformacionPlan.setTrar_valor_orig(""+referenciaOriginal);
-											transformacionPlan.setTrar_valor_modi(""+referenciaFinal);
-											listTransformaciones.add(transformacionPlan);
-											
 											if(!detallesCreados){
+												
+												hayTransformacionRefencia = true;
+												referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+												
+												
+												TransformacionArchivoRecaudo transformacionPlan = new TransformacionArchivoRecaudo();
+												transformacionPlan.setTrar_aror(detalleArchivo.getDaror_aror());
+												transformacionPlan.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+												transformacionPlan.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_EPSG);
+												transformacionPlan.setTrar_valor_orig(""+referenciaOriginal);
+												transformacionPlan.setTrar_valor_modi(""+referenciaFinal);
+												listTransformaciones.add(transformacionPlan);
+												
 												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 												
@@ -833,12 +864,13 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 											validacion.setVlar_aror(detalleArchivo.getDaror_aror());
 											validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
 											validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_EPSG_NOEXISTE);
-											validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; TipoArchivo:"+archivoRecaudoOriginalPorConvertir.getAror_tpar()+" Estado:"+estadoPlan);
+											validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; TipoArchivo:"+archivoRecaudoOriginalPorConvertir.getAror_tpar()+" Estado:"+estadoReferencia);
 											listValidaciones.add(validacion);
 											
-											referenciaFinal = referenciaOriginal;
-											
+																						
 											if(!detallesCreados){
+												referenciaFinal = referenciaOriginal;
+												
 												DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 												detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 												
@@ -856,19 +888,20 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 								}else{
 									
-									
-									referenciaFinal = referenciaOriginal;
+									estadoReferencia = DetalleArchivoRecaudoGeneradoSIFI.ERDS_NO_ENCONTRADO;
+																		
 									
 									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
 									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
 									validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
 									validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_PLAN_SIN_ESTADO);
-									validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; EstadoSIFI"+estadoSIFI+ "; EstadoNOSIFI:"+"; Proyecto:"+proyecto+
-											"; esProyectoCancelado: "+esProyectoCancelado+"; esProyectoNOSIFI_Activo:"+esProyectoNOSIFI_ACTIVO+
-											"; tieneFormulaDistribucion:"+tieneFormulaDistribucion+"; isEstadoPlanFormulaDistribucion"+isEstadoPlanFormulaDistribucion);
+									validacion.setVlar_valor_descri("REF: "+referenciaOriginal );
 									listValidaciones.add(validacion);
 									
 									if(!detallesCreados){
+										
+										referenciaFinal = referenciaOriginal;
+										
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 										
@@ -901,6 +934,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								 * La referencia corresponde a un VOLANTE 	
 								 */
 								
+								
 								Long nuevaReferencia = getReferenciaVolantePorTipoArchivo(referenciaOriginal, archivoRecaudoOriginalPorConvertir.getAror_tpar());
 								
 								if(!referenciaOriginal.equals(nuevaReferencia)){
@@ -913,18 +947,25 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									listValidaciones.add(validacion);
 									
 									
-									referenciaFinal = nuevaReferencia;
 									
-									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TPAR_VOL_NO);
-									transformacion.setTrar_valor_orig(""+referenciaOriginal);
-									transformacion.setTrar_valor_modi(""+referenciaFinal);
 									
-									listTransformaciones.add(transformacion);
+									
 									
 									if(!detallesCreados){
+										
+										hayTransformacionRefencia = true;
+										
+										referenciaFinal = nuevaReferencia;
+										
+										TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+										transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+										transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+										transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_TPAR_VOL_NO);
+										transformacion.setTrar_valor_orig(""+referenciaOriginal);
+										transformacion.setTrar_valor_modi(""+referenciaFinal);
+										
+										listTransformaciones.add(transformacion);
+										
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 									
@@ -938,7 +979,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									
 								}else{
 									
-									referenciaFinal = referenciaOriginal;
+									
 									
 									ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
 									validacion.setVlar_aror(detalleArchivo.getDaror_aror());
@@ -948,6 +989,8 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 									listValidaciones.add(validacion);
 									
 									if(!detallesCreados){
+										referenciaFinal = referenciaOriginal;
+										
 										DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 										detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 										
@@ -969,19 +1012,25 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							 */
 							if ((estadoSIFI == null && estadoNOSIFI == null && referenciaFinal==null)  ){
 								
-								referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 								
-								
-								TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-								transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-								transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-								transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_REF_NE);
-								transformacion.setTrar_valor_orig(""+referenciaOriginal);
-								transformacion.setTrar_valor_modi(""+referenciaFinal);
-								
-								listTransformaciones.add(transformacion);
 								
 								if(!detallesCreados){
+									
+									hayTransformacionRefencia = true;
+									
+									referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+									
+									
+									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_REF_NE);
+									transformacion.setTrar_valor_orig(""+referenciaOriginal);
+									transformacion.setTrar_valor_modi(""+referenciaFinal);
+									
+									listTransformaciones.add(transformacion);
+									
+									
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 									
@@ -996,20 +1045,25 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							
 							if((estadoSIFI == EncargoFiduciarioSIFI.ESTADO_CAN && estadoNOSIFI==null && referenciaFinal==null )){
 								
-								referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
-								
-								
-								TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-								transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-								transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-								transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_PLAN_CA);
-								transformacion.setTrar_valor_orig(""+referenciaOriginal);
-								transformacion.setTrar_valor_modi(""+referenciaFinal);
-								
-								listTransformaciones.add(transformacion);
 								
 								
 								if(!detallesCreados){
+									
+									hayTransformacionRefencia = true;
+									
+									referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+									
+									
+									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_PLAN_CA);
+									transformacion.setTrar_valor_orig(""+referenciaOriginal);
+									transformacion.setTrar_valor_modi(""+referenciaFinal);
+									
+									listTransformaciones.add(transformacion);
+									
+									
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 									
@@ -1024,19 +1078,24 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							
 							
 							if((formaRecaudo == "RCHE" && estadoSIFI==EncargoFiduciarioSIFI.ESTADO_PCA) ){
-								referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
 								
-								
-								TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-								transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-								transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-								transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_PLAN_PCA_RCHE);
-								transformacion.setTrar_valor_orig(""+referenciaOriginal);
-								transformacion.setTrar_valor_modi(""+referenciaFinal);
-								
-								listTransformaciones.add(transformacion);
 								
 								if(!detallesCreados){
+									
+									hayTransformacionRefencia = true;
+									
+									referenciaFinal = getEncargoGenericoPorTipoArchivo(archivoRecaudoOriginalPorConvertir.getAror_tpar());
+									
+									
+									TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+									transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+									transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+									transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_PLAN_GENERICO_PLAN_PCA_RCHE);
+									transformacion.setTrar_valor_orig(""+referenciaOriginal);
+									transformacion.setTrar_valor_modi(""+referenciaFinal);
+									
+									listTransformaciones.add(transformacion);
+									
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 									
@@ -1057,7 +1116,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							if(referenciaFinal==null){
 								
 								
-								referenciaFinal = referenciaOriginal;
+								
 								
 								ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
 								validacion.setVlar_aror(detalleArchivo.getDaror_aror());
@@ -1069,6 +1128,9 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								listValidaciones.add(validacion);
 								
 								if(!detallesCreados){
+									
+									referenciaFinal = referenciaOriginal;
+									
 									DetalleArchivoRecaudoGeneradoSIFI detalleArchivoSIFI = new DetalleArchivoRecaudoGeneradoSIFI();
 									detalleArchivoSIFI.setDarge_referencia(""+referenciaFinal);
 									
@@ -1080,100 +1142,121 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 								
 							}
 							
-					
+							
+							
+							/**
+							 * Se complementa los detallesSIFI por registro
+							 * ============================================
+							 */
+							OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(oficinaOriginal);
+							
+							if(oficinaRecaudoSIFI!=null && oficinaRecaudoSIFI.getOfic_sifi()!=null){
+								
+								oficinaFinal = oficinaRecaudoSIFI.getOfic_sifi();
+								TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
+								transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
+								transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_OFIC_SIFI_EXISTE);
+								transformacion.setTrar_valor_orig(""+oficinaOriginal);
+								transformacion.setTrar_valor_modi(""+oficinaFinal);
+								
+								listTransformaciones.add(transformacion);
+								
+							}else{
+								
+								oficinaFinal = oficinaOriginal;
+								
+								ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+								errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
+								errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_OFIC_SIFI_NOEXISTE);
+								errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal+" Ofic_BSC:"+oficinaOriginal);
+								
+								listErrores.add(errorArchivoRecaudo);
+								
+								
+							}
+							
+							
+							//Por cada detalle se debe complear la informacion faltante
+							for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : detallesPorRegistro) {
+								
+								
+								detalleSIFI.setDarge_arge(archivoRecaudoOriginalPorConvertir.getAror_aror());
+								detalleSIFI.setDarge_aportante(detalleArchivo.getDaror_aportante());
+								detalleSIFI.setDarge_comp(detalleArchivo.getDaror_comp());
+								detalleSIFI.setDarge_cons_bsc_1(detalleArchivo.getDaror_cons_bsc_1());
+								detalleSIFI.setDarge_cons_bsc_2(detalleArchivo.getDaror_cons_bsc_2());
+								detalleSIFI.setDarge_daror_id_reg(detalleArchivo.getDaror_id_reg());
+								detalleSIFI.setDarge_freca(detalleArchivo.getDaror_freca());
+								detalleSIFI.setDarge_ofic(oficinaFinal);
+								detalleSIFI.setDarge_tipo_reca(detalleArchivo.getDaror_tipo_reca());
+								
+								detalleSIFI.setDarge_titular_sn(booleanToStringSN(esTitular));
+								detalleSIFI.setDarge_pnsa_sn(booleanToStringSN(esProyectoNOSIFI_ACTIVO));
+								detalleSIFI.setDarge_prca_sn(booleanToStringSN(esProyectoCancelado));
+								detalleSIFI.setDarge_frdp_sn(booleanToStringSN(tieneFormulaDistribucion));
+								detalleSIFI.setDarge_trar_rf_sn(booleanToStringSN(hayTransformacionRefencia));
+								
+								
+								if(estadoReferencia!=null && isEstadoRefValido(estadoReferencia)){
+									
+									detalleSIFI.setDarge_erds(estadoReferencia);
+								}else{
+									
+									detalleSIFI.setDarge_erds(DetalleArchivoRecaudoGeneradoSIFI.ERDS_NO_ENCONTRADO);
+								}
+								
+														
+								if(detalleSIFI.getDarge_vche()==null){
+									
+									detalleSIFI.setDarge_vche(detalleArchivo.getDaror_vche());
+								}
+								
+								if(detalleSIFI.getDarge_vefe()==null){
+									
+									
+									
+									detalleSIFI.setDarge_vefe(detalleArchivo.getDaror_vefe());
+								}
+								
+								if(detalleSIFI.getDarge_vtot()==null){
+									
+									
+									
+									detalleSIFI.setDarge_vtot(detalleArchivo.getDaror_vtot());
+								}
+								
+								listDetallesArchivoGenerado.add(detalleSIFI);
+								
+							}
+							
+							
 						}else{
-							//TODO Crear error de que no existe referencia
-							ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
-							errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
-							errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-							errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_REF_NULO);
-							errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal);
+							//Crear validacion de que se excluye RNDB
 							
-							listErrores.add(errorArchivoRecaudo);
+							ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
+							validacion.setVlar_aror(detalleArchivo.getDaror_aror());
+							validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
+							validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_RNDB_EXCLUIDO);
+							validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; TipoREcaudo"+formaRecaudo);
+							listValidaciones.add(validacion);
 							
-						}
+						}	
 					
 					}else{
-						//Crear validacion de que se excluye RNDB
-						
-						ValidacionArchivoRecaudo validacion = new ValidacionArchivoRecaudo();
-						validacion.setVlar_aror(detalleArchivo.getDaror_aror());
-						validacion.setVlar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-						validacion.setVlar_tpvl(TipoValidacionArchivoRecaudo.TPVL_RNDB_EXCLUIDO);
-						validacion.setVlar_valor_descri("REF: "+referenciaOriginal+"; TipoREcaudo"+formaRecaudo);
-						listValidaciones.add(validacion);
-						
-					}
-					
-				
-					/**
-					 * Se complementa los detallesSIFI por registro
-					 * ============================================
-					 */
-					OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(oficinaOriginal);
-					
-					if(oficinaRecaudoSIFI!=null && oficinaRecaudoSIFI.getOfic_sifi()!=null){
-						
-						oficinaFinal = oficinaRecaudoSIFI.getOfic_sifi();
-						TransformacionArchivoRecaudo transformacion = new TransformacionArchivoRecaudo();
-						transformacion.setTrar_aror(detalleArchivo.getDaror_aror());
-						transformacion.setTrar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-						transformacion.setTrar_tptr(TipoTransformacionArchivoRecaudo.TPTR_OFIC_SIFI_EXISTE);
-						transformacion.setTrar_valor_orig(""+oficinaOriginal);
-						transformacion.setTrar_valor_modi(""+oficinaFinal);
-						
-						listTransformaciones.add(transformacion);
-						
-					}else{
-						
-						oficinaFinal = oficinaOriginal;
-						
+						//TODO Crear error de que no existe referencia
 						ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
 						errorArchivoRecaudo.setErar_aror(detalleArchivo.getDaror_aror());
 						errorArchivoRecaudo.setErar_daror_id_reg(detalleArchivo.getDaror_id_reg());
-						errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_OFIC_SIFI_NOEXISTE);
-						errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal+" Ofic_BSC:"+oficinaOriginal);
+						errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_REF_NULO);
+						errorArchivoRecaudo.setErar_error_descri("REF: "+referenciaOriginal);
 						
 						listErrores.add(errorArchivoRecaudo);
 						
-						
 					}
-					
-					//Por cada detalle se debe complear la informacion faltante
-					for (DetalleArchivoRecaudoGeneradoSIFI detalleSIFI : detallesPorRegistro) {
 						
 						
-						detalleSIFI.setDarge_arge(archivoRecaudoOriginalPorConvertir.getAror_aror());
-						detalleSIFI.setDarge_aportante(detalleArchivo.getDaror_aportante());
-						detalleSIFI.setDarge_comp(detalleArchivo.getDaror_comp());
-						detalleSIFI.setDarge_cons_bsc_1(detalleArchivo.getDaror_cons_bsc_1());
-						detalleSIFI.setDarge_cons_bsc_2(detalleArchivo.getDaror_cons_bsc_2());
-						detalleSIFI.setDarge_daror_id_reg(detalleArchivo.getDaror_id_reg());
-						detalleSIFI.setDarge_freca(detalleArchivo.getDaror_freca());
-						detalleSIFI.setDarge_ofic(oficinaFinal);
-						detalleSIFI.setDarge_tipo_reca(detalleArchivo.getDaror_tipo_reca());
-						if(detalleSIFI.getDarge_vche()==null){
-							
-							detalleSIFI.setDarge_vche(detalleArchivo.getDaror_vche());
-						}
-						
-						if(detalleSIFI.getDarge_vefe()==null){
-							
-							
-							
-							detalleSIFI.setDarge_vefe(detalleArchivo.getDaror_vefe());
-						}
-						
-						if(detalleSIFI.getDarge_vtot()==null){
-							
-							
-							
-							detalleSIFI.setDarge_vtot(detalleArchivo.getDaror_vtot());
-						}
-						
-						listDetallesArchivoGenerado.add(detalleSIFI);
-						
-					}
 					
 					
 					
@@ -1250,6 +1333,7 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 							session.commit();
 							
 						}else{
+							
 							session.rollback();
 							SimpleLogger.error("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
 							mensajeErrorOut.append("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
@@ -1258,21 +1342,38 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 						
 					}else{
 						session.rollback();
-						SimpleLogger.error("Error creando creandoArchivoSIFI. No ha crear registros en base de datos");
+						SimpleLogger.error("Error creando creandoArchivoSIFI. No ha creado archivo en servidor");
+						sinErrores=false;
 						
-						
-					}	
+					}
+					
+					
+					
 					
 				} catch (Exception e) {
 					SimpleLogger.error("Error ", e);
 					session.rollback();
 					mensajeErrorOut.append("Error creandoArchivoSIFI. No ha crear registros de archivo SIFI en en base de datos.");
-					
 					sinErrores=false;
+					
+					
 					
 					
 				} 	finally {
 					session.close();
+				}
+				
+				
+				if(!sinErrores){
+					archivoServicio.setEstado(archivoRecaudoOriginalPorConvertir.getAror_aror(), ArchivoRecaudoOriginalPorConvertir.CON_ERRORES, "Con errores "+mensajeErrorOut, usuario);
+					
+					ErrorArchivoRecaudo errorArchivoRecaudo = new ErrorArchivoRecaudo();
+					errorArchivoRecaudo.setErar_aror(archivoRecaudoOriginalPorConvertir.getAror_aror());
+					errorArchivoRecaudo.setErar_daror_id_reg(new Long(2));
+					errorArchivoRecaudo.setErar_tper(TipoErrorArchivoRecaudo.TPER_ERROR_BD);
+					errorArchivoRecaudo.setErar_error_descri(mensajeErrorOut.toString());
+					
+					listErrores.add(errorArchivoRecaudo);
 				}
 				
 			}else{
@@ -1322,7 +1423,8 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 					SimpleLogger.info("Informacion procesada archivo: +"+archivoRecaudoOriginalPorConvertir.getAror_aror());
 					session.commit();
 				}else{
-					
+					SimpleLogger.info("Informacion NO procesada archivo: +"+archivoRecaudoOriginalPorConvertir.getAror_aror());
+					session.rollback();
 				}
 				
 				
@@ -1649,14 +1751,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 	}
 	
-	private Boolean isEstadoPlanFormulaDistribucion(String estadoPlan){
+	private Boolean isEstadoPlanFormulaDistribucion(String estadoReferencia){
 		
 		Boolean isEstadoPlanFormulaDistribucion = false;
 		
 		if(estadosPlanFormulaDistribucion!=null && estadosPlanFormulaDistribucion.size()>0 ){
 			
-			for (EstadoPlanFormulaDistribucion estadoPlanFormulaDistribucion : estadosPlanFormulaDistribucion) {
-				if(estadoPlanFormulaDistribucion.getEpfd_esta().equals(estadoPlan)){
+			for (EstadoPlanFormulaDistribucion estadoReferenciaFormulaDistribucion : estadosPlanFormulaDistribucion) {
+				if(estadoReferenciaFormulaDistribucion.getEpfd_esta().equals(estadoReferencia)){
 					isEstadoPlanFormulaDistribucion=true;
 					break;
 				}
@@ -1667,14 +1769,14 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		
 	}
 	
-	private Boolean isEstadoPlanAplicaPlanGenerico(String estadoPlan){
+	private Boolean isEstadoPlanAplicaPlanGenerico(String estadoReferencia){
 		
 		Boolean isEstadoPlanAplicaPlanGenerico = false;
 		
 		if(estadosPlanAplicaPlanGenerico!=null && estadosPlanAplicaPlanGenerico.size()>0 ){
 			
-			for (EstadoPlanAplicaPlanGenerico estadoPlanAplicaPlanGenerico : estadosPlanAplicaPlanGenerico) {
-				if(estadoPlanAplicaPlanGenerico.getEpsg_esta().equals(estadoPlan)){
+			for (EstadoPlanAplicaPlanGenerico estadoReferenciaAplicaPlanGenerico : estadosPlanAplicaPlanGenerico) {
+				if(estadoReferenciaAplicaPlanGenerico.getEpsg_esta().equals(estadoReferencia)){
 					isEstadoPlanAplicaPlanGenerico=true;
 					break;
 				}
@@ -1682,6 +1784,25 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 		}
 		
 		return isEstadoPlanAplicaPlanGenerico;
+		
+	}
+	
+	
+	private Boolean isEstadoRefValido(String estadoReferencia){
+		
+		Boolean isEstadoRefValido = false;
+		
+		if(estadosReferenciaDetalleSIFI!=null && estadosReferenciaDetalleSIFI.size()>0 ){
+			
+			for (String estadoReferenciaDetalleSIFI : estadosReferenciaDetalleSIFI) {
+				if(estadoReferenciaDetalleSIFI.equals(estadoReferencia)){
+					isEstadoRefValido=true;
+					break;
+				}
+			}
+		}
+		
+		return isEstadoRefValido;
 		
 	}
 	
@@ -1703,6 +1824,15 @@ public class ConvertidorArchivoSIFIPorTipoArchivo {
 	}
 	
 	
-	
+	private String booleanToStringSN(Boolean valor){
+		String rspta = "N";
+		
+		if(valor){
+			rspta = "S";
+		}
+		
+		return rspta;
+		
+	}
 	
 }

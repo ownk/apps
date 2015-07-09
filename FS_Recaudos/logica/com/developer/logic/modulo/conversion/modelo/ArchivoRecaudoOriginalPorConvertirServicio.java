@@ -7,8 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
-import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
 import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.conversion.controllerdb.ArchivoRecaudoOriginalPorConvertirControllerDB;
@@ -119,6 +119,14 @@ public class ArchivoRecaudoOriginalPorConvertirServicio {
 		
 		return list;
 		
+	}
+	
+	public List<DetalleResumenConversionSIFI> getResumenConversionSIFIAROR(Long aror_aror){
+		
+		ArchivoRecaudoOriginalPorConvertirControllerDB controllerDB = this.controllerDB;
+		List<DetalleResumenConversionSIFI> list = controllerDB.getResumenConversionSIFIAROR(aror_aror);
+		
+		return list;
 	}
 	
 	

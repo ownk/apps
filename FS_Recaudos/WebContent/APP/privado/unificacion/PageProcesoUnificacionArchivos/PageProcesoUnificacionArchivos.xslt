@@ -806,10 +806,10 @@
 										<th>Id</th>
 										<th>Tipo Archivo</th>
 										<th>Nombre Archivo Unificado</th>
-										<th>Registros</th>
+										<th>Registros BSC</th>
 										<th>Estado</th>
 										<th>Nombre Archivo SIFI</th>
-										<th>Registros</th>
+										<th>Registros SIFI</th>
 
 									</tr>
 								</thead>

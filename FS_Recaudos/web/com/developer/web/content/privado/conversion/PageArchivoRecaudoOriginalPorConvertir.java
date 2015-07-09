@@ -1,5 +1,6 @@
 package com.developer.web.content.privado.conversion;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,6 +12,8 @@ import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
 import com.developer.logic.modulo.autenticacion.modelo.SessionAppUsuario;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoGeneradoSIFI;
 import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
+import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
 import com.developer.logic.modulo.conversion.dto.ErrorArchivoRecaudo;
 import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
@@ -55,17 +58,56 @@ public class PageArchivoRecaudoOriginalPorConvertir extends PrivatePage{
 				
 				if(archivoRecaudoOriginalPorConvertir!=null){
 					
+					xmlPage.append(objectToXML.getXML(archivoRecaudoOriginalPorConvertir));
+					
+					
 					
 					List<ErrorArchivoRecaudo> errores = errorServicio.getErroresPorAROR(aror);
 					List<ValidacionArchivoRecaudo> validaciones = validacionServicio.getValidacionesPorAROR(aror);
 					List<TransformacionArchivoRecaudo> transformaciones = transformacionServicio.getTransformacionesPorAROR(aror);
 					ArchivoRecaudoGeneradoSIFI archivoSIFI = archivoSIFIServicio.getArchivoRecaudo(aror);
 					
-					xmlPage.append(objectToXML.getXML(archivoRecaudoOriginalPorConvertir));
-					xmlPage.append(objectToXML.getXML(errores));
-					xmlPage.append(objectToXML.getXML(validaciones));
-					xmlPage.append(objectToXML.getXML(transformaciones));
-					xmlPage.append(objectToXML.getXML(archivoSIFI));
+					
+					if(errores!=null && errores.size()>0){
+						xmlPage.append(objectToXML.getXML(errores));
+					}
+					
+					if(validaciones!=null && validaciones.size()>0){
+						xmlPage.append(objectToXML.getXML(validaciones));
+					}
+					
+					if(transformaciones!=null && transformaciones.size()>0){
+						xmlPage.append(objectToXML.getXML(transformaciones));
+					}
+					
+					if(archivoSIFI!=null){
+						xmlPage.append(objectToXML.getXML(archivoSIFI));
+						
+						List<DetalleResumenConversionSIFI> listResumenSIFI = archivoServicio.getResumenConversionSIFIAROR(aror);
+						xmlPage.append(objectToXML.getXML(listResumenSIFI));
+						
+						Double totalRecaudoOriginal = new Double(0);
+						for (DetalleArchivoRecaudoOriginalPorConvertir detalleOriginal : archivoRecaudoOriginalPorConvertir.getDetalles()) {
+							totalRecaudoOriginal = totalRecaudoOriginal+detalleOriginal.getDaror_vtot_double();
+							
+						}
+						
+						Double totalRecaudoFinal = new Double(0);
+						for (DetalleResumenConversionSIFI detalleFinal :listResumenSIFI) {
+							totalRecaudoFinal = totalRecaudoFinal+detalleFinal.getDarge_vtot_double();
+							
+						}
+						
+						Double diferencia = totalRecaudoOriginal-totalRecaudoFinal;
+						
+						xmlPage.append("<totalRecaudoOriginal>"+DecimalFormat.getCurrencyInstance().format(totalRecaudoOriginal)+"</totalRecaudoOriginal>");
+						xmlPage.append("<totalRecaudoFinal>"+DecimalFormat.getCurrencyInstance().format(totalRecaudoFinal)+"</totalRecaudoFinal>");
+						xmlPage.append("<totalRecaudoDiferencia>"+DecimalFormat.getCurrencyInstance().format(diferencia)+"</totalRecaudoDiferencia>");
+						
+					}
+					
+					
+					
 					
 					
 				}else{
