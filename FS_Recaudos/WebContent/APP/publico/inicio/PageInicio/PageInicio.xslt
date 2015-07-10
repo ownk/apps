@@ -38,68 +38,90 @@
 			<body class="gray-bg">
 
 				<div class="middle-box text-center loginscreen  animated fadeInDown">
-					<div>
-						<div>
+					
+					<div style="margin:50px 0px 10px 0px">
 
-							<h1 class="logo-name">fs</h1>
-
+						<div class="ownk-logo-login">
+							<img alt="image" class=""
+								src="{//contextPath}/general/img/logo_fidu.png" />
 						</div>
-						<h3>Bienvenido</h3>
-						<p> Fundación Social
 
-						</p>
-						<p>App FS_Recaudos</p>
-						<form class="m-t" role="form">
-							<div class="form-group">
-								<input id="login" name="login" type="text" class="form-control"
-									placeholder="Username" required="" />
-							</div>
-							<div class="form-group">
-								<input id="pass" name="pass" type="password" class="form-control"
-									placeholder="Password" required="" />
-							</div>
-							<button class="btn btn-primary block full-width m-b ownk_btn_shadow"
-								onclick="enviarFormulario();">Login</button>
-
-							<a href="">
-								<small>Olvidaste tu password?</small>
-							</a>
-							<p class="text-muted text-center">
-								<small>Aun no tienes ingreso?</small>
-							</p>
-							<a class="btn btn-sm btn-white btn-block" href="">Crea tu usuario</a>
-						</form>
-
-
-						<form id="login_form" action="{//contextPath}/inicio/PageLogin.do"
-							method="post">
-							<input type="hidden" id="documento_usuario" name="documento_usuario" />
-							<input type="hidden" id="password" name="password" />
-
-						</form>
-
-						<p class="m-t">
-							<small>Fundación Social 2015</small>
-						</p>
 					</div>
 					
-					
-				
+					<div class="ibox float-e-margins ">
+						<div class="ibox-content">
+							<div class="row">
+								<div class="col-sm-12">
+									<div>
+										
+
+
+										<form class="m-t" role="form">
+											<div class="form-group">
+												<input id="login" name="login" type="text" class="form-control"
+													placeholder="Usuario" required="" />
+											</div>
+											<div class="form-group">
+												<input id="pass" name="pass" type="password" class="form-control"
+													placeholder="Password" required="" />
+											</div>
+											<button
+												class="btn btn-primary block full-width m-b ownk_btn_shadow"
+												onclick="enviarFormulario();">Ingresar</button>
+
+											<!-- <a href="">
+												<small>Olvidaste tu password?</small>
+											</a>
+											<p class="text-muted text-center">
+												<small>Aun no tienes ingreso?</small>
+											</p>
+											<a class="btn btn-sm btn-white btn-block" href="">Crea tu
+												usuario</a> -->
+										</form>
+
+
+										<form id="login_form" action="{//contextPath}/inicio/PageLogin.do"
+											method="post">
+											<input type="hidden" id="documento_usuario" name="documento_usuario" />
+											<input type="hidden" id="password" name="password" />
+
+										</form>
+
+										<p class="m-t">
+										
+											<small>Todos los derechos reservados</small>
+											<br/>
+											<small>Fundación Social 2015</small>
+										</p>
+									</div>
+
+
+
+
+
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+
 					<xsl:choose>
 						<xsl:when test="//MensajeErrorWeb/error='ERROR_AUTH'">
-							<input type="hidden" id="show_popup_error_auth" value="true"/>
+							<input type="hidden" id="show_popup_error_auth" value="true" />
 						</xsl:when>
-						
+
 						<xsl:otherwise>
-							<input type="hidden" id="show_popup_error_auth" value="false"/>
+							<input type="hidden" id="show_popup_error_auth" value="false" />
 						</xsl:otherwise>
-					
+
 					</xsl:choose>
-					
+
 					<xsl:call-template name="popup_error_auth"></xsl:call-template>
-			
-					
-					
+
+
+
 				</div>
 
 
@@ -115,17 +137,17 @@
 
 
 	<xsl:template name="popup_error_auth">
-		
-		
+
+
 		<div class="">
 			<button type="button" class="ownk_btn_hide" id="btn_popup_error_auth"
 				data-toggle="modal" data-target="#myModal">
 
 			</button>
 		</div>
-		
+
 		<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog"
-			aria-hidden="false" data-show="true" >
+			aria-hidden="false" data-show="true">
 			<div class="modal-dialog" data-show="true">
 				<div class="modal-content animated bounceInRight">
 					<div class="modal-header">
@@ -139,7 +161,8 @@
 					</div>
 					<div class="modal-body">
 						<p>
-							La información de nombre de usuario o contraseña que has registrado no es correcta. 
+							La información de nombre de usuario o contraseña que has
+							registrado no es correcta.
 							Ingresa nuevamente la información de acceso y vuelve a intentarlo.
 						</p>
 					</div>
@@ -152,7 +175,7 @@
 		</div>
 
 	</xsl:template>
-	
+
 
 	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
 

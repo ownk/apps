@@ -14,46 +14,73 @@
 
 			<xsl:apply-templates select="//XMLPAGE/*" />
 
-			<body>
-
+			<body class="top-navigation">
 				<div id="wrapper">
+					<div id="page-wrapper" class="gray-bg">
 
-					<!-- MENU -->
-					<xsl:call-template name="nav-bar-left" />
 
-					<div id="page-wrapper" class="gray-bg dashbard-1">
-						<div class="row border-bottom">
-							<xsl:call-template name="nav-bar-top" />
-						</div>
+						<!-- MENU -->
+						<xsl:call-template name="nav_bar-top-light" />
 
-						<!-- TITULO -->
-						<div class="row  border-bottom white-bg dashboard-header">
 
-							<div class="col-lg-10">
-								<h2>Inicio de proceso de unificación de archivos de recaudo </h2>
-								<ol class="breadcrumb">
-									<li>
-										<a>Consolidación Archivos</a>
-									</li>
-									<li class="active">
-										<strong>Iniciar Proceso Unificación </strong>
-									</li>
-								</ol>
+						<div class="wrapper wrapper-content animated fadeInUp">
+
+
+							<!-- TITULO -->
+							<div class="row ">
+								<div class="col-lg-12 ">
+									<div class="ibox float-e-margins ">
+										<div class="ibox-content">
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="pull-left m-r-md">
+														<i class="fa fa-flag  mid-icon ownk-color-naranja"></i>
+													</div>
+													<div class="p-xs">
+
+														<h2>
+															Inicio de proceso de unificación y conversión
+														</h2>
+														<ol class="breadcrumb">
+															<li>
+																<a>Consolidación Archivos</a>
+															</li>
+															<li class="active">
+																<strong>Inicio de Proceso  </strong>
+															</li>
+														</ol>
+														<br />
+
+														<span>
+															En esta sección podrás consultar el resultado
+															de
+															inicio de proceso de unificación y
+															conversión de archivos de recaudo BSC
+														</span>
+
+
+													</div>
+
+
+
+
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
 							</div>
 
-						</div>
 
-						<!-- CONTENIDO -->
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="wrapper wrapper-content">
+							<!-- CONTENIDO -->
+							<div class="row">
+								<div class="col-lg-12">
+
 									<xsl:choose>
 										<xsl:when test="count(//MensajeErrorWeb[error='1'])>0">
 
 
-											<div class="ibox float-e-margins">
-
-												<div class="" id="ibox-content">
 
 													<div id="vertical-timeline"
 														class="vertical-container light-timeline left-orientation">
@@ -99,9 +126,6 @@
 														</div>
 
 
-													</div>
-												</div>
-
 											</div>
 
 
@@ -111,10 +135,7 @@
 										<xsl:otherwise>
 
 
-											<div class="ibox float-e-margins">
-
-												<div class="" id="ibox-content">
-
+											
 													<div id="vertical-timeline"
 														class="vertical-container light-timeline left-orientation">
 														<div class="vertical-timeline-block">
@@ -163,7 +184,8 @@
 																			</b>
 																			se ha creado y se encuentra en progreso!. Por favor
 																			consulte periódicamente
-																			para obtener detalle del avance.
+																			para obtener detalle del
+																			avance.
 																		</p>
 																	</div>
 
@@ -171,7 +193,7 @@
 
 															</div>
 														</xsl:if>
-														
+
 														<xsl:if test="count(//MensajeErrorWeb[error='1'])>0">
 															<div class="vertical-timeline-block">
 																<div class="vertical-timeline-icon navy-bg">
@@ -184,8 +206,11 @@
 																	<div class="alert alert-danger">
 																		<p>
 																			El proceso conversión de archivos SIFI
-																			no se ha podido crear correctamente. Se presentado el siguiente
-																			error: <xsl:value-of select="//MensajeErrorWeb[error='1']/mensajeError"/>
+																			no se ha podido
+																			crear correctamente. Se presentado el siguiente
+																			error:
+																			<xsl:value-of
+																				select="//MensajeErrorWeb[error='1']/mensajeError" />
 																		</p>
 																	</div>
 
@@ -206,11 +231,12 @@
 																	<p>
 																		Para mas detalle puedes realizar la consulta del
 																		proceso creado.
-																		
+
 																	</p>
 																</div>
-																
-																<form action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
+
+																<form
+																	action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
 																	method="post">
 
 																	<button type="submit"
@@ -228,10 +254,6 @@
 
 
 
-
-													</div>
-												</div>
-
 											</div>
 
 										</xsl:otherwise>
@@ -239,11 +261,10 @@
 									</xsl:choose>
 
 
-
-
 								</div>
 							</div>
 						</div>
+
 					</div>
 
 				</div>

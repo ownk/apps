@@ -34,57 +34,81 @@
 			<!-- CONTENIDO GENERAL================= -->
 			<!-- ================================== -->
 
-			<body>
-
+			<body class="top-navigation">
 				<div id="wrapper">
+					<div id="page-wrapper" class="gray-bg">
 
-					<!-- MENU -->
-					<xsl:call-template name="nav-bar-left" />
+						<!-- MENU -->
+						<xsl:call-template name="nav_bar-top-light" />
 
-					<div id="page-wrapper" class="gray-bg dashbard-1">
-						<div class="row border-bottom">
-							<xsl:call-template name="nav-bar-top" />
-						</div>
-
-						<!-- TITULO -->
-						<div class="row  border-bottom white-bg dashboard-header">
-
-							<div class="col-lg-10">
-								<h2>
-									<i class="fa fa-file-archive-o mid-clear-icon " />
-									Registro de Archivos de Recaudo
-								</h2>
-								<ol class="breadcrumb">
-									<li>
-										<a>Consolidación Archivos</a>
-									</li>
-									<li class="active">
-										<strong>Registrar Archivos ZIP </strong>
-									</li>
-								</ol>
-							</div>
-
-						</div>
 
 						<!-- CONTENIDO -->
+						<div class="wrapper wrapper-content animated fadeInUp">
+
+							<!-- TITULO -->
+							<div class="row ">
+								<div class="col-lg-12 ">
+									<div class="ibox float-e-margins ">
+										<div class="ibox-content">
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="pull-left m-r-md">
+														<i class="fa fa-file-text  mid-icon ownk-color-naranja"></i>
+													</div>
+													<div class="p-xs">
+
+														<h2>
+															Registro de Archivos de Recaudo
+														</h2>
+														<ol class="breadcrumb">
+															<li>
+																<a>Consolidación Archivos</a>
+															</li>
+															<li class="active">
+																<strong>Registrar Archivos ZIP </strong>
+															</li>
+														</ol>
+														<br />
+
+														<span>
+															En esta sección podrás registrar los archivos
+															<strong>.ZIP</strong>
+															entregados por el banco y que deben ser
+															unificados y
+															convertidos a archivos SIFI.
+														</span>
+
+
+													</div>
 
 
 
 
 
-						<div class="row">
-							<div class="col-lg-12">
-								<div class="wrapper wrapper-content animated fadeInUp">
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- CONTENIDO -->
+
+
+
+
+
+							<div class="row">
+								<div class="col-lg-12">
+
 
 									<div class="row">
 
 										<!-- SIFI29 -->
-										<div class="col-md-6">
+										<div class="col-xs-6">
 											<div class="ibox float-e-margins">
-												<div class="ibox-title">
-													<h5>Conexión SIFI29  </h5>
-
-												</div>
+												
 
 												<div class="ibox-content">
 													<div class="row">
@@ -93,50 +117,57 @@
 
 															<xsl:choose>
 																<xsl:when test="count(//totalEncargosSIFI29)>0">
-																	<div class="alert alert-success">
-																		<div class="pull-left m-r-md">
-																			<i class="fa fa-database  mid-icon ownk-color-naranja"></i>
-																		</div>
-																		<div class="p-xs">
-
-																			<h3>Conexion Exitosa</h3>
-
-																			<span>
-																				En este momento hemos consultado
-																				<b>
-																					<xsl:value-of select="//totalEncargosSIFI29"></xsl:value-of>
-																				</b>
-																				encargos.
-																			</span>
+																	<div class="alert alert-success ownk-alert">
 
 
+																		<div class="feed-element">
+																			<div class="pull-left">
+																				<i class="fa fa-plug"></i>
+																			</div>
+																			<div class="media-body ">
+																				<small class="pull-right">1 min </small>
+																				<strong>Conexion SIFI29 Exitosa</strong>
+																				<br />
+																				<small class="text-muted">
+																					Se han consultado
+																					<b>
+																						<xsl:value-of select="//totalEncargosSIFI29"></xsl:value-of>
+																					</b>
+																					encargos
+																				</small>
+																			</div>
 																		</div>
 
 																	</div>
 
 																</xsl:when>
 																<xsl:otherwise>
-																	<div class="alert alert-warning">
-																		<div class="pull-left m-r-md">
-																			<i class="fa fa-database  mid-icon "></i>
+																	<div class="alert alert-warning ownk-alert">
+																		
+																		<div class="feed-element">
+																			<div class="pull-left">
+																				<i class="fa fa-plug"></i>
+																			</div>
+																			<div class="media-body ">
+																				<small class="pull-right">1 min </small>
+																				<strong>Conexion SIFI29 Fallida</strong>
+																				<br />
+																				<small class="text-muted">
+																					¡Lo sentimos!.
+																						<b>NO</b>
+																						hemos podido establecer
+																						conexión.
+																				</small>
+																			</div>
 																		</div>
-																		<div class="p-xs">
-
-																			<h3>Conexión Fallida</h3>
-
-																			<span>¡Lo sentimos!.  <b>NO</b> hemos podido establecer
-																				conexión. 
-																			</span>
-
-
-																		</div>
-
+																		
+																		
 																	</div>
 
 																</xsl:otherwise>
 
 															</xsl:choose>
-															
+
 														</div>
 													</div>
 												</div>
@@ -145,12 +176,9 @@
 
 
 										<!-- SIFI43 -->
-										<div class="col-md-6">
+										<div class="col-xs-6">
 											<div class="ibox float-e-margins">
-												<div class="ibox-title">
-													<h5>Conexión SIFI43  </h5>
-
-												</div>
+					
 
 												<div class="ibox-content">
 													<div class="row">
@@ -159,52 +187,57 @@
 
 															<xsl:choose>
 																<xsl:when test="count(//totalEncargosSIFI43)>0">
-																	<div class="alert alert-success">
-																		<div class="pull-left m-r-md">
-																			<i class="fa fa-database  mid-icon ownk-color-naranja"></i>
-																		</div>
-																		<div class="p-xs">
-
-																			<h3>Conexion Exitosa</h3>
-
-																			<span>
-																				En este momento hemos consultado
-																				<b>
-																					<xsl:value-of select="//totalEncargosSIFI43"></xsl:value-of>
-																				</b>
-																				encargos.
-																			</span>
+																	<div class="alert alert-success ownk-alert">
 
 
+																		<div class="feed-element">
+																			<div class="pull-left">
+																				<i class="fa fa-plug"></i>
+																			</div>
+																			<div class="media-body ">
+																				<small class="pull-right">1 min </small>
+																				<strong>Conexion SIFI43 Exitosa</strong>
+																				<br />
+																				<small class="text-muted">
+																					Se han consultado
+																					<b>
+																						<xsl:value-of select="//totalEncargosSIFI43"></xsl:value-of>
+																					</b>
+																					encargos
+																				</small>
+																			</div>
 																		</div>
 
 																	</div>
 
 																</xsl:when>
 																<xsl:otherwise>
-																	<div class="alert alert-warning">
-																		<div class="pull-left m-r-md">
-																			<i class="fa fa-database  mid-icon "></i>
+																	<div class="alert alert-warning ownk-alert">
+																		
+																		<div class="feed-element">
+																			<div class="pull-left">
+																				<i class="fa fa-plug"></i>
+																			</div>
+																			<div class="media-body ">
+																				<small class="pull-right">1 min </small>
+																				<strong>Conexion SIFI43 Fallida</strong>
+																				<br />
+																				<small class="text-muted">
+																					¡Lo sentimos!.
+																						<b>NO</b>
+																						hemos podido establecer
+																						conexión.
+																				</small>
+																			</div>
 																		</div>
-																		<div class="p-xs">
-
-																			<h3>Conexión Fallida</h3>
-
-																			<span>¡Lo sentimos!. <b>NO</b> hemos podido establecer
-																				conexión. 
-																			</span>
-
-
-																		</div>
-
+																		
+																		
 																	</div>
 
 																</xsl:otherwise>
 
 															</xsl:choose>
 
-
-															
 														</div>
 													</div>
 												</div>
@@ -400,18 +433,11 @@
 									</div>
 
 
-
-
-
-
-
-
 								</div>
 							</div>
+
+
 						</div>
-
-
-
 					</div>
 				</div>
 			</body>

@@ -26,52 +26,78 @@
 			<!-- CONTENIDO GENERAL================= -->
 			<!-- ================================== -->
 
-			<body>
+			<body class="top-navigation">
 				<div id="wrapper">
+					<div id="page-wrapper" class="gray-bg">
 
-					<!-- MENU -->
-					<xsl:call-template name="nav-bar-left" />
-
-					<div id="page-wrapper" class="gray-bg dashbard-1">
-						<div class="row border-bottom">
-							<xsl:call-template name="nav-bar-top" />
-						</div>
-
-
-						<!-- TITULO -->
-						<div class="row  border-bottom white-bg dashboard-header">
-
-							<div class="col-xs-10">
-								<h2>
-									<i class="fa fa-gears mid-clear-icon " />
-
-									Consulta de Archivo BSC 
-									<xsl:value-of select="//aror_aror" />
-								</h2>
-								<ol class="breadcrumb">
-									<li>
-										<a>Consultas</a>
-									</li>
-									<li class="active">
-										<strong>Consultar Archivos BSC Unificado </strong>
-									</li>
-								</ol>
-							</div>
-
-						</div>
+						<!-- MENU -->
+						<xsl:call-template name="nav_bar-top-light" />
 
 
 						<!-- CONTENIDO -->
+						<div class="wrapper wrapper-content animated fadeInUp">
 
-						<div class="row">
-							<div class="col-xs-12">
-								<div class="wrapper wrapper-content animated fadeInUp">
+							<!-- TITULO -->
+							<div class="row ">
+								<div class="col-lg-12 ">
+									<div class="ibox float-e-margins ">
+										<div class="ibox-content">
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="pull-left m-r-md">
+														<i class="fa fa-file-text  mid-icon ownk-color-naranja"></i>
+													</div>
+													<div class="p-xs">
+
+														<h2>
+															Consulta de Archivo BSC
+															<xsl:value-of select="//aror_aror" />
+														</h2>
+														<ol class="breadcrumb">
+															<li>
+																<a>Consultas</a>
+															</li>
+															<li class="active">
+																<strong>Consultar Archivos BSC Unificado </strong>
+															</li>
+														</ol>
+														<br />
+
+														<span>
+															En esta sección podrás consultar la
+															<strong>información general
+																del archivo</strong>
+															: validaciones, transformaciones, errores
+															y archivo SIFI
+															generado.
+														</span>
+
+
+													</div>
+
+
+
+
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+
+							<!-- Detallle -->
+
+							<div class="row">
+								<div class="col-xs-12">
+
 
 
 									<div class="row">
 
 										<!-- INFORMACION GENERAL -->
-										<div class="col-md-7">
+										<div class="col-xs-6">
 											<div class="ibox float-e-margins">
 												<div class="ibox-title">
 													<h5>Información general Archivo BSC  </h5>
@@ -82,12 +108,7 @@
 													<div class="row">
 
 														<div class="col-xs-12">
-															En esta sección podrás consultar la
-															<strong>información general
-																del archivo</strong>
-															: validaciones, transformaciones, errores
-															y archivo SIFI
-															generado.
+															Informacion básica del archivo
 														</div>
 
 													</div>
@@ -180,9 +201,8 @@
 
 															</div>
 
-															<!-- <div class="col-xs-4">
-																<i class="fa fa-file-o big-clear-icon " />
-															</div> -->
+															<!-- <div class="col-xs-4"> <i class="fa fa-file-o big-clear-icon 
+																" /> </div> -->
 
 
 
@@ -199,13 +219,15 @@
 
 										<!-- INDICADORES -->
 
-										<div class="col-md-5">
+										<div class="col-xs-6">
 											<div class="row">
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
 															<span class="label label-info pull-right">ERAR</span>
-															<h5><small>Errores</small></h5>
+															<h5>
+																<small>Errores</small>
+															</h5>
 														</div>
 														<div class="ibox-content">
 
@@ -353,8 +375,8 @@
 																					</b>
 																				</a>
 																			</li>
-																			
-																			
+
+
 																			<li class="active">
 																				<a href="#tab-3" data-toggle="tab">
 																					<b>Detalle Archivo SIFI</b>
@@ -381,7 +403,7 @@
 
 																		</div>
 
-																		
+
 
 																		<div class="tab-pane active" id="tab-3">
 																			<xsl:call-template name="detalleArchivoSIFI" />
@@ -403,9 +425,8 @@
 
 								</div>
 							</div>
+
 						</div>
-
-
 
 
 
@@ -429,98 +450,104 @@
 				<div class="row">
 					<div class="col-sm-12 m-b-xs">
 						<div style="font-size:10px">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th>Id registro</th>
-										<th>Fecha recaudo</th>
-										<th>Referencia </th>
-										<th>Aportante </th>
-										<th>Oficina BSC</th>
-										<th>V. Efectivo</th>
-										<th>V. Cheque</th>
-										<th>V. Recaudo</th>
-										<th>Forma Recaudo</th>
-										
-
-									</tr>
-								</thead>
-								<tbody>
-									<xsl:for-each
-										select="//ArchivoRecaudoOriginalPorConvertir/detalles/DetalleArchivoRecaudoOriginalPorConvertir">
-
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
 										<tr>
-											<td class=" align-center">
-												<xsl:value-of select="daror_id_reg" />
-											</td>
-											
-											
-											
-											
-											<td class=" align-center">
-												<xsl:value-of select="daror_freca" />
-											</td>
-											<td class=" align-center">
-												<xsl:value-of select="daror_referencia" />
-											</td>
-											<td class=" align-center">
-												<xsl:value-of select="daror_aportante" />
-											</td>
-											<td class=" align-center">
-												<xsl:value-of select="daror_ofic" />
-											</td>
-											<td class=" align-center">
-												<xsl:value-of select="daror_vefe_format" />
-											</td>
-											<td class=" align-center">
-												<xsl:value-of select="daror_vche_format" />
-											</td>
-											<td class=" align-center">
-											
-												<xsl:variable name="trex"> <xsl:value-of select="daror_tipo_reca" /> </xsl:variable>
-												<xsl:choose>
-													<xsl:when test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
-														<span class="label label-danger">
-															<xsl:value-of select="daror_vtot_format" />
-														</span>
-													</xsl:when>
-
-													<xsl:otherwise>
-														<xsl:value-of select="daror_vtot_format" />
-													</xsl:otherwise>
-
-												</xsl:choose>
-											
-												
-											</td>
-											
-											<td class=" align-center">
-											<xsl:variable name="trex"> <xsl:value-of select="daror_tipo_reca" /> </xsl:variable>
-												<xsl:choose>
-													<xsl:when test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
-														<span class="label label-danger">
-															<xsl:value-of select="daror_tipo_reca" />
-														</span>
-													</xsl:when>
-
-													<xsl:otherwise>
-														<xsl:value-of select="daror_tipo_reca" />
-													</xsl:otherwise>
-
-											</xsl:choose>
-											
-											</td>
-											
-
+											<th>Id registro</th>
+											<th>Fecha recaudo</th>
+											<th>Referencia </th>
+											<th>Aportante </th>
+											<th>Oficina BSC</th>
+											<th>V. Efectivo</th>
+											<th>V. Cheque</th>
+											<th>V. Recaudo</th>
+											<th>Forma Recaudo</th>
 
 
 										</tr>
+									</thead>
+									<tbody>
+										<xsl:for-each
+											select="//ArchivoRecaudoOriginalPorConvertir/detalles/DetalleArchivoRecaudoOriginalPorConvertir">
 
-									</xsl:for-each>
-								</tbody>
-							</table>
-						</div>
+											<tr>
+												<td class=" align-center">
+													<xsl:value-of select="daror_id_reg" />
+												</td>
+
+
+
+
+												<td class=" align-center">
+													<xsl:value-of select="daror_freca" />
+												</td>
+												<td class=" align-center">
+													<xsl:value-of select="daror_referencia" />
+												</td>
+												<td class=" align-center">
+													<xsl:value-of select="daror_aportante" />
+												</td>
+												<td class=" align-center">
+													<xsl:value-of select="daror_ofic" />
+												</td>
+												<td class=" align-center">
+													<xsl:value-of select="daror_vefe_format" />
+												</td>
+												<td class=" align-center">
+													<xsl:value-of select="daror_vche_format" />
+												</td>
+												<td class=" align-center">
+
+													<xsl:variable name="trex">
+														<xsl:value-of select="daror_tipo_reca" />
+													</xsl:variable>
+													<xsl:choose>
+														<xsl:when
+															test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
+															<span class="label label-danger">
+																<xsl:value-of select="daror_vtot_format" />
+															</span>
+														</xsl:when>
+
+														<xsl:otherwise>
+															<xsl:value-of select="daror_vtot_format" />
+														</xsl:otherwise>
+
+													</xsl:choose>
+
+
+												</td>
+
+												<td class=" align-center">
+													<xsl:variable name="trex">
+														<xsl:value-of select="daror_tipo_reca" />
+													</xsl:variable>
+													<xsl:choose>
+														<xsl:when
+															test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
+															<span class="label label-danger">
+																<xsl:value-of select="daror_tipo_reca" />
+															</span>
+														</xsl:when>
+
+														<xsl:otherwise>
+															<xsl:value-of select="daror_tipo_reca" />
+														</xsl:otherwise>
+
+													</xsl:choose>
+
+												</td>
+
+
+
+
+											</tr>
+
+										</xsl:for-each>
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
 				</div>
@@ -617,8 +644,7 @@
 	<xsl:template name="detalleArchivoSIFI">
 		<xsl:choose>
 
-			<xsl:when
-				test="count(//ArchivoRecaudoGeneradoSIFI)>0 and 1=1">
+			<xsl:when test="count(//ArchivoRecaudoGeneradoSIFI)>0 and 1=1">
 
 
 
@@ -696,7 +722,7 @@
 
 				<xsl:call-template name="detalleResumenConversionSIFI" />
 
-				
+
 
 			</xsl:when>
 
@@ -748,67 +774,70 @@
 
 
 				<div class="row">
-				
-				
-					
-					<h5 class="ownk-subrayado"><b>Detalle de validaciones y transformaciones</b></h5>
-					
+
+
+
+					<h5 class="ownk-subrayado">
+						<b>Detalle de validaciones y transformaciones</b>
+					</h5>
+
 					<div class="alert alert-warning">
-					<div style="font-size:10px">
-						<div class="table-responsive">
-							<table class="table table-striped">
-								<thead>
-									<tr>
-										<th class="ownk_align_center">Total Recaudos BSC</th>
-										<th class="ownk_align_center">Recaudo total Archivo BSC </th>
-										<th class="ownk_align_center">-</th>
-										<th class="ownk_align_center">Total Recaudos SIFI</th>
-										<th class="ownk_align_center">Recaudo total Archivo SIFI</th>
-										<th class="ownk_align_center">-</th>
-										<th class="ownk_align_center">Diferencia Recaudo</th>
-									</tr>
-								</thead>
-								<tbody>
-											<tr>
+						<div style="font-size:10px">
+							<div class="table-responsive">
+								<table class="table table-striped">
+									<thead>
+										<tr>
+											<th class="ownk_align_center">Total Recaudos BSC</th>
+											<th class="ownk_align_center">Recaudo total Archivo BSC </th>
+											<th class="ownk_align_center">-</th>
+											<th class="ownk_align_center">Total Recaudos SIFI</th>
+											<th class="ownk_align_center">Recaudo total Archivo SIFI</th>
+											<th class="ownk_align_center">-</th>
+											<th class="ownk_align_center">Diferencia Recaudo</th>
+										</tr>
+									</thead>
+									<tbody>
+										<tr>
 											<td class=" ownk_align_center">
-												 <xsl:value-of select="count(//DetalleArchivoRecaudoOriginalPorConvertir)" />
+												<xsl:value-of
+													select="count(//DetalleArchivoRecaudoOriginalPorConvertir)" />
 											</td>
 											<td class=" ownk_align_center">
-												 <xsl:value-of select="//totalRecaudoOriginal" />
+												<xsl:value-of select="//totalRecaudoOriginal" />
 											</td>
 
 											<td class=" ownk_align_center">
 												-
 											</td>
 											<td class=" ownk_align_center">
-												 <xsl:value-of select="count(//DetalleArchivoRecaudoGeneradoSIFI)" />
+												<xsl:value-of select="count(//DetalleArchivoRecaudoGeneradoSIFI)" />
 											</td>
 
 											<td class=" ownk_align_center">
-												 <xsl:value-of select="//totalRecaudoFinal" />
+												<xsl:value-of select="//totalRecaudoFinal" />
 											</td>
-											
+
 											<td class=" ownk_align_center">
 												-
 											</td>
-											
+
 											<td class=" ownk_align_center">
-												 <xsl:value-of select="//totalRecaudoDiferencia" />
+												<xsl:value-of select="//totalRecaudoDiferencia" />
 											</td>
 
-											</tr>
+										</tr>
 
-									
-								</tbody>
-							</table>
+
+									</tbody>
+								</table>
+							</div>
 						</div>
 					</div>
-					</div>
-				</div>	
-					
-					
-				<div class="row">	
-				
+				</div>
+
+
+				<div class="row">
+
 					<div style="font-size:10px">
 						<div class="table-responsive">
 							<table class="table table-striped">
@@ -821,8 +850,12 @@
 										<th class="ownk_align_center">Ref. Final</th>
 										<th class="ownk_align_center">Aportante</th>
 										<th class="ownk_align_center">V. Tot final</th>
-										<th class="ownk_align_center"><i class="fa fa-exchange modal-icon"/></th>
-										<th class="ownk_align_center"><i class="fa fa-check-square-o modal-icon"/></th>
+										<th class="ownk_align_center">
+											<i class="fa fa-exchange modal-icon" />
+										</th>
+										<th class="ownk_align_center">
+											<i class="fa fa-check-square-o modal-icon" />
+										</th>
 
 									</tr>
 								</thead>
@@ -835,11 +868,14 @@
 											</td>
 
 											<td class=" ownk_align_center">
-											
-											
-												<xsl:variable name="trex"> <xsl:value-of select="daror_tipo_reca" /> </xsl:variable>
+
+
+												<xsl:variable name="trex">
+													<xsl:value-of select="daror_tipo_reca" />
+												</xsl:variable>
 												<xsl:choose>
-													<xsl:when test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
+													<xsl:when
+														test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
 														<span class="label label-danger">
 															<xsl:value-of select="daror_tipo_reca" />
 														</span>
@@ -910,13 +946,13 @@
 															<xsl:value-of select="darge_vtot_format" />
 														</span>
 													</xsl:when>
-													
+
 													<xsl:when test="not(darge_vtot)">
 														<span class="label label-danger">
 															<xsl:value-of select="darge_vtot_format" />
 														</span>
 													</xsl:when>
-													
+
 													<xsl:otherwise>
 
 														<xsl:value-of select="darge_vtot_format" />
@@ -930,8 +966,11 @@
 													<button type="button"
 														class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_trar_darge"
 														data-toggle="modal" data-target="#myModalTrarDarge_{daror_id_reg}">
-														<xsl:variable name="id_reg"><xsl:value-of select="daror_id_reg" /></xsl:variable>
-														<xsl:value-of select="count(//ArrayList/TransformacionArchivoRecaudo[trar_daror_id_reg=$id_reg])" />
+														<xsl:variable name="id_reg">
+															<xsl:value-of select="daror_id_reg" />
+														</xsl:variable>
+														<xsl:value-of
+															select="count(//ArrayList/TransformacionArchivoRecaudo[trar_daror_id_reg=$id_reg])" />
 													</button>
 
 													<xsl:call-template name="popup_transformaciones_darge">
@@ -940,17 +979,20 @@
 														</xsl:with-param>
 													</xsl:call-template>
 												</div>
-												
+
 											</td>
-											
+
 											<td class=" ownk_align_center">
-												
+
 												<div class="">
 													<button type="button"
 														class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_vlar_darge"
 														data-toggle="modal" data-target="#myModalVlarDarge_{daror_id_reg}">
-														<xsl:variable name="id_reg"><xsl:value-of select="daror_id_reg" /></xsl:variable>
-														<xsl:value-of select="count(//ArrayList/ValidacionArchivoRecaudo[vlar_daror_id_reg=$id_reg])" />
+														<xsl:variable name="id_reg">
+															<xsl:value-of select="daror_id_reg" />
+														</xsl:variable>
+														<xsl:value-of
+															select="count(//ArrayList/ValidacionArchivoRecaudo[vlar_daror_id_reg=$id_reg])" />
 													</button>
 
 													<xsl:call-template name="popup_validaciones_darge">
@@ -1120,7 +1162,8 @@
 											</tr>
 										</thead>
 										<tbody>
-											<xsl:for-each select="//ArrayList/ValidacionArchivoRecaudo[vlar_daror_id_reg=$id_reg]">
+											<xsl:for-each
+												select="//ArrayList/ValidacionArchivoRecaudo[vlar_daror_id_reg=$id_reg]">
 
 												<tr>
 													<td class=" align-center">
@@ -1130,7 +1173,7 @@
 															</span>
 														</div>
 													</td>
-													
+
 													<td class=" align-center">
 														<xsl:value-of select="vlar_daror_id_reg" />
 													</td>
