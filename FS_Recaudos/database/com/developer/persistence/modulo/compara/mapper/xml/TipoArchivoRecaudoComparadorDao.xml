@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.compara.mapper.dao.TipoArchivoRecaudoComparadorDao">
+	
+	<select id="getTipoArchivo" parameterType="java.lang.String" resultType="tipoArchivoRecaudoComparador">
+		select * from cp_ttpar
+		where tpar_tpar = #{tpar_tpar}
+	</select>
+	
+	
+	<select id="getAllTiposArchivo" resultType="tipoArchivoRecaudoComparador">
+		select * from cp_ttpar
+	</select>
+	
+</mapper>

@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.compara.mapper.dao.ComparacionArchivoRecaudoDao">
+	
+	
+	<select id="getSiguienteID" resultType="java.lang.Long" >
+		select nextvalue('cp_scpar') from dual
+	</select>	
+		
+	<insert id="crearComparacion" parameterType="comparacionArchivoRecaudo">
+		insert into cp_tcpar
+		(
+			cpar_cpar,	
+			cpar_usua,	
+			cpar_tpar,	
+			cpar_observ,	
+			cpar_ecpar,	
+			cpar_fcrea,	
+			cpar_fini,	
+			cpar_ffin,	
+			cpar_arun,   
+			cpar_ibsc
+			  
+		) values (
+			#{cpar_cpar},		
+			#{cpar_usua},		
+			#{cpar_tpar},		
+			#{cpar_observ},		
+			#{cpar_ecpar},		
+			now(),		
+			#{cpar_fini},		
+			#{cpar_ffin},		
+			#{cpar_arun},	   
+			#{cpar_ibsc}	   
+		)
+	</insert>
+	
+	
+	<select id="getComparacion" parameterType="java.lang.Long" resultType="comparacionArchivoRecaudo" >
+		select * from cp_tcpar
+		where cpar_cpar = #{cpar_cpar}
+	</select>
+	
+	<select id="getComparacionesPorARUN" parameterType="java.lang.Long" resultType="comparacionArchivoRecaudo" >
+		select * from cp_tcpar
+		where cpar_arun = #{arun_arun}
+		order by cpar_fcrea desc
+	</select>
+
+	
+	<insert id="crearDetalleComparacion" parameterType="detalleComparacionArchivoRecaudo">
+		insert into cp_tdcpar
+		(
+			dcpar_cpar, 		
+			dcpar_id_reg_orig,
+			dcpar_fuente, 		
+			dcpar_freca_norm, 
+			dcpar_freca_orig, 
+			dcpar_treca_norm, 
+			dcpar_treca_orig, 
+			dcpar_ofic_norm,  
+			dcpar_ofic_orig,  
+			dcpar_referencia, 
+			dcpar_observ, 	   
+			dcpar_valor, 		
+			dcpar_fcrea, 	   
+		
+		) values (
+			#{dcpar_cpar}, 		
+			#{dcpar_id_reg_orig},
+			#{dcpar_fuente}, 		
+			#{dcpar_freca_norm}, 
+			#{dcpar_freca_orig}, 
+			#{dcpar_treca_norm}, 
+			#{dcpar_treca_orig}, 
+			#{dcpar_ofic_norm},  
+			#{dcpar_ofic_orig},  
+			#{dcpar_referencia}, 
+			#{dcpar_observ}, 	   
+			#{dcpar_valor}, 		
+			now() 	   
+		)
+	</insert>
+	
+	<select id="getAllDetallesCPAR" parameterType="java.lang.Long" resultType="detalleComparacionArchivoRecaudo" >
+		select * from cp_tdcpar
+		where dcpar_cpar = #{cpar_cpar}
+		
+	</select>
+	
+	
+	
+	
+</mapper>

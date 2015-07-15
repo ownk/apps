@@ -5,9 +5,9 @@
 ******************************************************************************/
 
 Prompt 
-Prompt Creando secuencia CO_SARCP
+Prompt Creando secuencia CP_SCPAR
 Prompt
 
-CREATE SEQUENCE  "FS_RECAUDOS_US"."CO_SARCP"  
+CREATE SEQUENCE  "FS_RECAUDOS_US"."CP_SCPAR"  
 MINVALUE 1 MAXVALUE 999999999999999999999999999 
 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;

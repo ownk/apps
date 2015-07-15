@@ -91,6 +91,13 @@
 		<typeAlias alias="detalleResumenConversionSIFI" type="com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI" />
 		<typeAlias alias="tipoRecaudoExcluir" type="com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir" />
 		
+		<!-- ================================ -->
+		<!-- Modulo Comparacion Archivos ==== -->
+		<!-- ================================ -->
+		<typeAlias alias="tipoArchivoRecaudoComparador" type="com.developer.logic.modulo.compara.dto.TipoArchivoRecaudoComparador" />
+		<typeAlias alias="comparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo" />
+		<typeAlias alias="detalleComparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo" />
+		
 		
 
 
@@ -174,6 +181,11 @@
 		<mapper resource="com/developer/persistence/modulo/conversion/mapper/xml/ErrorArchivoRecaudoDao.xml" />
 		
 		
+		<!-- ================================ -->
+		<!-- Modulo Comparacion Archivos ==== -->
+		<!-- ================================ -->
+		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/TipoArchivoRecaudoComparadorDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/ComparacionArchivoRecaudoDao.xml" />
 		
 		
 		

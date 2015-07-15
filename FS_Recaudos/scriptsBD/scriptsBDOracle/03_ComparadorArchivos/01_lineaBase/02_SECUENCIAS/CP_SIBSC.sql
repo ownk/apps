@@ -5,9 +5,9 @@
 ******************************************************************************/
 
 Prompt 
-Prompt Creando secuencia UN_SIBSC
+Prompt Creando secuencia CP_SIBSC
 Prompt
 
-CREATE SEQUENCE  "FS_RECAUDOS_US"."UN_SIBSC"  
+CREATE SEQUENCE  "FS_RECAUDOS_US"."CP_SIBSC"  
 MINVALUE 1 MAXVALUE 999999999999999999999999999 
 INCREMENT BY 1 START WITH 1 NOCACHE  NOORDER  NOCYCLE ;
