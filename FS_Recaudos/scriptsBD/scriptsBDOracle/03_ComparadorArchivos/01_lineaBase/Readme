@@ -1,0 +1,13 @@
+Proceso de instalacion utilizando la clase Install.class
+
+El siguiente procedimiento generara un archivo INSTALL.sql por cada carpeta
+
+
+-java install D:\Desarrollo\workspaces\tesis\UDProject\scriptsBDOracle\TABLAS
+-java install ~/SECUENCIAS
+-java install ~/FUNCIONES
+-java install ~/DATOS
+-java install ~/FOREIGN_KEY
+
+y posteriormente se debe ejecutar cada INSTALL.sql en el mismo orden
+

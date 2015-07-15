@@ -45,5 +45,14 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/poi-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/poi-examples-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/poi-excelant-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/poi-ooxml-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/poi-ooxml-schemas-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/poi-scratchpad-3.10.1-20140818.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/stax-api-1.0.1.jar"/>
+	<classpathentry kind="lib" path="/JCoreWeb/WebContent/WEB-INF/lib/xmlbeans-2.6.0.jar"/>
 	<classpathentry kind="output" path="WebContent/WEB-INF/classes"/>
 </classpath>
