@@ -65,7 +65,7 @@
 			dcpar_referencia, 
 			dcpar_observ, 	   
 			dcpar_valor, 		
-			dcpar_fcrea, 	   
+			dcpar_fcrea 	   
 		
 		) values (
 			#{dcpar_cpar}, 		
@@ -91,6 +91,8 @@
 	</select>
 	
 	
-	
+	<select id="getAllHomologacionesTipoRecaudo" resultType="homologacionTipoRecaudoComparador" >
+		select * from cp_thtpr
+	</select>
 	
 </mapper>

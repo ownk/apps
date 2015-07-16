@@ -5,6 +5,11 @@ import java.util.Date;
 
 public class DetalleComparacionArchivoRecaudo {
 	
+	
+	public static final String FUENTE_PLANO = "PLANO";
+	public static final String FUENTE_INTERNET = "INTERNET";		
+			
+	
 	Long dcpar_cpar;
 	String dcpar_id_reg_orig;
 	String dcpar_fuente;
@@ -16,7 +21,7 @@ public class DetalleComparacionArchivoRecaudo {
 	String dcpar_ofic_orig;
 	String dcpar_referencia;
 	String dcpar_observ;
-	String dcpar_valor;
+	Double dcpar_valor;
 	Date dcpar_fcrea;
 	
 	public Long getDcpar_cpar() {
@@ -85,10 +90,11 @@ public class DetalleComparacionArchivoRecaudo {
 	public void setDcpar_observ(String dcpar_observ) {
 		this.dcpar_observ = dcpar_observ;
 	}
-	public String getDcpar_valor() {
+	
+	public Double getDcpar_valor() {
 		return dcpar_valor;
 	}
-	public void setDcpar_valor(String dcpar_valor) {
+	public void setDcpar_valor(Double dcpar_valor) {
 		this.dcpar_valor = dcpar_valor;
 	}
 	public Date getDcpar_fcrea() {

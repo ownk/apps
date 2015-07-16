@@ -13,6 +13,7 @@ import com.developer.logic.modulo.autenticacion.dto.Usuario;
 import com.developer.logic.modulo.compara.dto.ArchivoInternetBSC;
 import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
 import com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo;
+import com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
@@ -31,8 +32,8 @@ public class ComparacionArchivoRecaudoServicio {
 	}
 
 	/**
-	 * ========================================== CONSULTAS
-	 * ================================
+	 * ========================================== 
+	 * CONSULTAS ================================
 	 * ==========================================
 	 */
 
@@ -60,10 +61,17 @@ public class ComparacionArchivoRecaudoServicio {
 		return comparacionArchivo;
 
 	}
+	
+	public List<HomologacionTipoRecaudoComparador> getAllHomologacionesTipoRecaudo(){
+		ComparacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
+		return  controllerDB.getAllHomologacionesTipoRecaudo();
+
+	}
 
 	/**
-	 * ========================================== OPERACIONES TRANSACCIONES
-	 * ================ ==========================================
+	 * ========================================== 
+	 * OPERACIONES TRANSACCIONES ================ 
+	 * ==========================================
 	 */
 
 	public Long getSiguienteID() {
@@ -181,15 +189,31 @@ public class ComparacionArchivoRecaudoServicio {
 						sinErrores = sinErrores
 								&& this.controllerDB.crearComparacionTransaccional(
 										session, comparacionArchivoRecaudo);
-
+						
+						
+						//Se crean los detalles del archivo plano
+						File fileBSC = new File(archivoUnificado.getArun_url());
+						LectorArchivoPlanoComparador lectorArchivoPlanoComparador = new LectorArchivoPlanoComparador(fileBSC);
+						List<DetalleComparacionArchivoRecaudo> detallesBSC = lectorArchivoPlanoComparador.generarDetalleArchivo(mensajeErrorOut);
+						
+						sinErrores= sinErrores && crearDetallesTransaccional(session,comparacionArchivoRecaudo, detallesBSC, mensajeErrorOut);
+						
+						
+						//Se crean los detalle del archivo internet
+						LectorArchivoInternetComparador lectorArchivoInternetComparador = new LectorArchivoInternetComparador(fileServidor);
+						List<DetalleComparacionArchivoRecaudo> detallesInternet = lectorArchivoInternetComparador.generarDetalleArchivo(mensajeErrorOut);
+						
+						sinErrores= sinErrores && crearDetallesTransaccional(session,comparacionArchivoRecaudo, detallesInternet, mensajeErrorOut);
+						
+						
 						if (sinErrores) {
 
 							session.commit();
 
 						} else {
 							session.rollback();
-							SimpleLogger.error("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al procesoUnificacionArchivos de forma correcta");
-							mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al  procesoUnificacionArchivos de forma correcta");
+							SimpleLogger.error("Error creando Comparacion. No se ha podido crear los registros en BD");
+							mensajeErrorOut.append("Error creando Comparacion. No se ha podido crear los registros en BD");
 						}
 
 					}

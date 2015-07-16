@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
 import com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo;
+import com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador;
 import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.compara.mapper.dao.ComparacionArchivoRecaudoDao;
 
@@ -130,6 +131,23 @@ public class ComparacionArchivoRecaudoControllerDB {
 		
 	}
 	 
+	public List<HomologacionTipoRecaudoComparador> getAllHomologacionesTipoRecaudo(){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ComparacionArchivoRecaudoDao dao = session.getMapper(ComparacionArchivoRecaudoDao.class);
+			return dao.getAllHomologacionesTipoRecaudo();
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getAllHomologacionesTipoRecaudo", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
 	
 
 }

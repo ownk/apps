@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
 import com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo;
+import com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador;
 
 
 
@@ -22,6 +23,6 @@ public interface ComparacionArchivoRecaudoDao {
 	
 	public List<DetalleComparacionArchivoRecaudo> getAllDetallesCPAR(Long cpar_cpar);
 	
-	
+	public List<HomologacionTipoRecaudoComparador> getAllHomologacionesTipoRecaudo();
 
 }

@@ -98,8 +98,7 @@
 		<typeAlias alias="comparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo" />
 		<typeAlias alias="detalleComparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo" />
 		<typeAlias alias="archivoInternetBSC" type="com.developer.logic.modulo.compara.dto.ArchivoInternetBSC" />
-		
-		
+		<typeAlias alias="homologacionTipoRecaudoComparador" type="com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador" />
 		
 
 

@@ -24,7 +24,7 @@ Prompt
         "DCPAR_OFIC_ORIG"   VARCHAR2(1000 BYTE)		constraint NN_CP_TDCPAR_TOFIC_ORIG not null,
         "DCPAR_REFERENCIA" 	VARCHAR2(1000 BYTE)		constraint NN_CP_TDCPAR_REFERENCIA not null,
         "DCPAR_OBSERV" 	    VARCHAR2(1000 BYTE)		constraint NN_CP_TDCPAR_APORTANTE not null, 
-		"DCPAR_VALOR" 		VARCHAR2(100) 		    constraint NN_CP_TDCPAR_VTOT not null,
+		"DCPAR_VALOR" 		NUMBER(21, 2) 		    constraint NN_CP_TDCPAR_VALOR not null,
         "DCPAR_FCREA" 	    DATE				    constraint NN_CP_TDCPAR_FCREA not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
