@@ -272,7 +272,7 @@
 													<label class="font-noraml">
 														Selecciona los archivos ZIP que quieres asociar al
 														proceso. Puedes arrastrar tus archivos o dar click sobre
-														el area para eligirlos. Una vez identifiques los archivos
+														el área para eligirlos. Una vez identifiques los archivos
 														da click en botón
 														<b>Registrar Archivos</b>
 													</label>
@@ -301,7 +301,7 @@
 														<div class="m text-right">
 
 															<small>
-																Recurda que el proceso actual presenta un identificador
+																Recuerda que el proceso actual presenta un identificador
 																único para su consulta.
 																<b>
 																	Proceso de unificación de archivos No.

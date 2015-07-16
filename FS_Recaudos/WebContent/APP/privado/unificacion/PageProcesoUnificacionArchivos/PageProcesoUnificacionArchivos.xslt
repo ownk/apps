@@ -681,6 +681,7 @@
 										<th>Repetidos</th>
 										<th>Fecha de creación</th>
 										<th>Descarga</th>
+										<th>Internet</th>
 
 									</tr>
 								</thead>
@@ -689,6 +690,11 @@
 										<form id="form_arun_{arun_arun}" action="{//contextPath}/unificacion/download.darun"
 											method="post">
 											<input type="hidden" name="darun" value="{arun_arun}" />
+
+										</form>
+										<form id="form_internet_{arun_arun}" action="{//contextPath}/compara/PageRegistrarArchivoInternetBSC.do"
+											method="post">
+											<input type="hidden" name="arun_arun" value="{arun_arun}" />
 
 										</form>
 										<tr>
@@ -758,6 +764,12 @@
 											<td class=" align-center">
 												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
 													onclick="osm_enviarFormulario('form_arun_{arun_arun}');">
+													<i class="fa fa-download text-navy"></i>
+												</a>
+											</td>
+											<td class=" align-center">
+												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
+													onclick="osm_enviarFormulario('form_internet_{arun_arun}');">
 													<i class="fa fa-download text-navy"></i>
 												</a>
 											</td>

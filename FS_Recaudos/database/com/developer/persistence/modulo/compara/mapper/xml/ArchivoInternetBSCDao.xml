@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.developer.persistence.modulo.compara.mapper.dao.ArchivoInternetBSCDao">
+	
+	<select id="getSiguienteID" resultType="java.lang.Long" >
+		select nextvalue('cp_sibsc') from dual
+	</select>
+	
+	<insert id="crearArchivo" parameterType="archivoInternetBSC">
+		insert into CP_TIBSC
+		(
+			ibsc_ibsc, 		
+			ibsc_usua, 		
+			ibsc_arun, 		
+			ibsc_url, 		    
+			ibsc_hash, 		
+			ibsc_bytes, 		
+			ibsc_nombre, 		
+			ibsc_extension, 	
+			ibsc_observ, 		
+			ibsc_fcrea 		
+
+		)
+		values
+		(
+			#{ibsc_ibsc}, 		
+			#{ibsc_usua}, 		
+			#{ibsc_arun}, 		
+			#{ibsc_url}, 		    
+			#{ibsc_hash}, 		
+			#{ibsc_bytes}, 		
+			#{ibsc_nombre}, 		
+			#{ibsc_extension}, 	
+			#{ibsc_observ}, 		
+			now()		
+
+		)
+	</insert>
+	
+	
+	<select id="getArchivo" parameterType="java.lang.Long" resultType="archivoInternetBSC" >
+		select * from cp_tibsc
+		where ibsc_ibsc = #{ibsc_ibsc}
+		
+		
+	</select>
+	
+	
+	<select id="getArchivosPorARUN" parameterType="java.lang.Long" resultType="archivoInternetBSC" >
+		select * from cp_tibsc
+		where ibsc_prun = #{arun_arun}
+	
+	</select>
+	
+	
+	
+</mapper>

@@ -17,7 +17,6 @@ Prompt
 
   CREATE TABLE "FS_RECAUDOS_US"."CP_TIBSC" 
    (	"IBSC_IBSC" 		NUMBER					constraint NN_CP_TIBSC_IBSC not null,
-		"IBSC_TPAR"			VARCHAR2(100 BYTE)		constraint NN_CP_TIBSC_TPAR not null,
 		"IBSC_USUA" 		VARCHAR2(100 BYTE)		constraint NN_CP_TIBSC_USUA not null,
 		"IBSC_ARUN" 		NUMBER					constraint NN_CP_TIBSC_ARUN not null,
 		"IBSC_URL" 		    VARCHAR2(2000 BYTE)		constraint NN_CP_TIBSC_URL not null, 
@@ -25,7 +24,6 @@ Prompt
 		"IBSC_BYTES" 		VARCHAR2(100 BYTE)		constraint NN_CP_TIBSC_BYTES not null, 
 		"IBSC_NOMBRE" 		VARCHAR2(1000 BYTE)		constraint NN_CP_TIBSC_NOMBRE not null, 
 		"IBSC_EXTENSION" 	VARCHAR2(100 BYTE)		constraint NN_CP_TIBSC_EXTENSION not null,
-		"IBSC_REGISTROS" 	NUMBER					constraint NN_CP_TIBSC_REGISTROS not null,
 		"IBSC_OBSERV" 		VARCHAR2(2000 BYTE)		constraint NN_CP_TIBSC_OBSERV not null, 
 		"IBSC_FCREA" 		DATE					constraint NN_CP_TIBSC_FCREA not null 
    ) 
@@ -52,10 +50,6 @@ Prompt
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TIBSC"."IBSC_NOMBRE" IS 'Nombre del archivo';
  
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TIBSC"."IBSC_EXTENSION" IS 'Extension original del archivo, la cual determina el tipo de documento almacenado';
-   
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TIBSC"."IBSC_TPAR" IS 'Tipo de archivo de recaudo';
-
-   COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TIBSC"."IBSC_REGISTROS"  IS 'Cantidad de registros que contiene el archivo';
    
    COMMENT ON TABLE "FS_RECAUDOS_US"."CP_TIBSC"  IS 'Archivo Internet BSC';
    

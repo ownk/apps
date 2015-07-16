@@ -5,7 +5,7 @@ import java.util.List;
 
 public class ComparacionArchivoRecaudo {
 	
-	public static String COMPARADO = "COMPARADO";
+	public static String EJECUTADA = "EJECUTADA";
 	
 	Long    cpar_cpar 	;
 	String  cpar_usua 	;

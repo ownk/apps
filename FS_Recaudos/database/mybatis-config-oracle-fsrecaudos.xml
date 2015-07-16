@@ -97,6 +97,8 @@
 		<typeAlias alias="tipoArchivoRecaudoComparador" type="com.developer.logic.modulo.compara.dto.TipoArchivoRecaudoComparador" />
 		<typeAlias alias="comparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo" />
 		<typeAlias alias="detalleComparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo" />
+		<typeAlias alias="archivoInternetBSC" type="com.developer.logic.modulo.compara.dto.ArchivoInternetBSC" />
+		
 		
 		
 
@@ -186,6 +188,7 @@
 		<!-- ================================ -->
 		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/TipoArchivoRecaudoComparadorDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/ComparacionArchivoRecaudoDao.xml" />
+		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/ArchivoInternetBSCDao.xml" />
 		
 		
 		

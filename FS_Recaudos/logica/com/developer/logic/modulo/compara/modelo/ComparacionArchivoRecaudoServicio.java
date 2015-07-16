@@ -1,152 +1,315 @@
 package com.developer.logic.modulo.compara.modelo;
 
+import java.io.File;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.ibatis.session.SqlSession;
 
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.autenticacion.dto.Usuario;
+import com.developer.logic.modulo.compara.dto.ArchivoInternetBSC;
 import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
 import com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo;
+import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
+import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
+import com.developer.logic.modulo.unificacion.dto.ProcesoUnificacionArchivos;
+import com.developer.logic.modulo.unificacion.modelo.ArchivoRecaudoUnificadoServicio;
+import com.developer.logic.modulo.unificacion.modelo.ProcesoUnificacionArchivosServicio;
+import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.compara.controllerdb.ComparacionArchivoRecaudoControllerDB;
 
 public class ComparacionArchivoRecaudoServicio {
-	
+
 	ComparacionArchivoRecaudoControllerDB controllerDB;
+
 	public ComparacionArchivoRecaudoServicio() {
 		controllerDB = new ComparacionArchivoRecaudoControllerDB();
 	}
-	
+
 	/**
-	 * ==========================================
-	 * CONSULTAS ================================
+	 * ========================================== CONSULTAS
+	 * ================================
 	 * ==========================================
 	 */
-	
-	
-		
-	public List<ComparacionArchivoRecaudo> getComparacionesPorARUN(Long arun_arun){
+
+	public List<ComparacionArchivoRecaudo> getComparacionesPorARUN(
+			Long arun_arun) {
 		ComparacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
-		List<ComparacionArchivoRecaudo> list = controllerDB.getComparacionesPorARUN(arun_arun);
-		
+		List<ComparacionArchivoRecaudo> list = controllerDB
+				.getComparacionesPorARUN(arun_arun);
+
 		for (ComparacionArchivoRecaudo comparacionArchivo : list) {
 			completarInformacionAdicionalArchivo(comparacionArchivo);
 		}
-		
+
 		return list;
-		
+
 	}
-	
-	public ComparacionArchivoRecaudo getComparacion(Long cpar_cpar){
+
+	public ComparacionArchivoRecaudo getComparacion(Long cpar_cpar) {
 		ComparacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
-		ComparacionArchivoRecaudo comparacionArchivo = controllerDB.getComparacion(cpar_cpar);
-		
+		ComparacionArchivoRecaudo comparacionArchivo = controllerDB
+				.getComparacion(cpar_cpar);
+
 		completarInformacionAdicionalArchivo(comparacionArchivo);
-		
+
 		return comparacionArchivo;
-		
+
 	}
-	
-	
-	
+
 	/**
-	 * ==========================================
-	 * OPERACIONES TRANSACCIONES ================
-	 * ==========================================
+	 * ========================================== OPERACIONES TRANSACCIONES
+	 * ================ ==========================================
 	 */
-	
-	
-	public Long getSiguienteID(){
-		
+
+	public Long getSiguienteID() {
+
 		ComparacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
 		return controllerDB.getSiguienteID();
-		
+
 	}
-	
-	
-	public Boolean crearComparacionTransaccional(SqlSession session, 
-											   ComparacionArchivoRecaudo comparacionArchivo, 
-											   StringBuffer mensajeErrorOut ) {
-		
-		
-		
+
+	public ComparacionArchivoRecaudo iniciarComparacionTransaccional(
+			Long arun_arun, Long cpar_cpar, String observacionDeInicio,
+			Date currentDate, File fileExcel, Usuario usuario,
+			StringBuffer mensajeErrorOut) {
+
+		SqlSession session = DBManagerFSRecaudos.openSession();
+
+		ComparacionArchivoRecaudo comparacionArchivoRecaudo = null;
+
+		ArchivoRecaudoUnificadoServicio archivoUnificadoServicio = new ArchivoRecaudoUnificadoServicio();
+		ProcesoUnificacionArchivosServicio procesoUnificacionServicio = new ProcesoUnificacionArchivosServicio();
+		ArchivoInternetBSCServicio ibscServicio = new ArchivoInternetBSCServicio();
+
 		try {
+			Boolean sinErrores = true;
+
+			// Se valida la informacion
+			if (observacionDeInicio == null) {
+				String error = "Error iniciando comparacion de archivo. No se ha especificado correctamente la observación de inicio.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+
+			if (arun_arun == null) {
+				String error = "Error iniciando comparacion de archivo. No se ha especificado el archivo unificado para comparar.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+
+			if (cpar_cpar == null) {
+				String error = "Error iniciando comparacion de archivo. No se ha especificado el identificador unico de comparacion.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+
+			if (usuario == null) {
+				String error = "Error iniciando comparacion de archivo. No se ha especificado el solicitante para el inicio del mismo.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+
+			if (currentDate == null) {
+				String error = "Error iniciando comparacion de archivo. No se ha especificado la fecha para el inicio del mismo.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+
+			if (fileExcel == null) {
+				String error = "Error iniciando comparacion de archivo. No se ha especificado los archivos para el inicio del mismo.";
+				SimpleLogger.error(error);
+				mensajeErrorOut.append(error);
+				sinErrores = false;
+				return null;
+			}
+
+			// Se verifica que no existan errores para crear la comparacion
+			if (sinErrores) {
+
+				ArchivoRecaudoUnificado archivoUnificado = archivoUnificadoServicio.getArchivo(arun_arun);
+				ProcesoUnificacionArchivos procesoUnificacionArchivos = procesoUnificacionServicio.getProcesoUnificacionArchivos(archivoUnificado.getArun_prun());
+				
+				
+				
+				//Se crean los documentos asociados al proceso
+				String nombreEnServidor = ibscServicio.getNombreArchivoEnServidor(fileExcel);
+				String rutabaseExcel = this.getRutaFinalArchivosBSC(cpar_cpar, currentDate);	
+				String ruta = rutabaseExcel+"/"+nombreEnServidor;
+				
 			
-			boolean sinErrores = true;
-			
-			
-			sinErrores = sinErrores && this.controllerDB.crearComparacionTransaccional(session, comparacionArchivo);
-			
-			
-			return sinErrores;		
-					
-        
+				File fileServidor = new File(ruta);
+				
+				if(fileExcel.exists() && sinErrores){
+				
+					FileUtils.copyFile(fileExcel, fileServidor);
+				
+					// Se crea archivo BSC
+					ArchivoInternetBSC archivoInternetBSC = ibscServicio.crearDocumentoTransaccional(	session, 
+																										archivoUnificado,
+																										fileServidor, 
+																										observacionDeInicio, 
+																										usuario,
+																										mensajeErrorOut);
+
+					if (archivoInternetBSC != null) {
+						comparacionArchivoRecaudo = new ComparacionArchivoRecaudo();
+						comparacionArchivoRecaudo.setCpar_arun(arun_arun);
+						comparacionArchivoRecaudo.setCpar_cpar(cpar_cpar);
+						comparacionArchivoRecaudo.setCpar_ecpar(ComparacionArchivoRecaudo.EJECUTADA);
+						comparacionArchivoRecaudo.setCpar_fini(procesoUnificacionArchivos.getPrun_fini());
+						comparacionArchivoRecaudo.setCpar_ffin(procesoUnificacionArchivos.getPrun_ffin());
+						comparacionArchivoRecaudo.setCpar_ibsc(archivoInternetBSC.getIbsc_ibsc());
+						comparacionArchivoRecaudo.setCpar_observ(observacionDeInicio);
+						comparacionArchivoRecaudo.setCpar_tpar(archivoUnificado.getArun_tpar());
+						comparacionArchivoRecaudo.setCpar_usua(usuario.getUsua_usua());
+
+						sinErrores = sinErrores
+								&& this.controllerDB.crearComparacionTransaccional(
+										session, comparacionArchivoRecaudo);
+
+						if (sinErrores) {
+
+							session.commit();
+
+						} else {
+							session.rollback();
+							SimpleLogger.error("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al procesoUnificacionArchivos de forma correcta");
+							mensajeErrorOut.append("Error creando procesoUnificacionArchivos. No se ha podido crear el documento asociado al  procesoUnificacionArchivos de forma correcta");
+						}
+
+					}
+				}
+				
+				
+
+				
+
+			} else {
+				session.rollback();
+				SimpleLogger
+						.error("Error creando procesoUnificacionArchivos. No ha sido posible crear la información del Formulario de ProcesoUnificacionArchivos para el inicio del mismo");
+				mensajeErrorOut
+						.append("Error creando procesoUnificacionArchivos. No ha sido posible crear la información del Formulario de ProcesoUnificacionArchivos para el inicio del mismo");
+				comparacionArchivoRecaudo = null;
+			}
+
+			return comparacionArchivoRecaudo;
+
 		} catch (Exception e) {
-			return false;
+			SimpleLogger.error("Error ", e);
+			session.rollback();
+			mensajeErrorOut
+					.append("Error iniciarProcesoUnificacionArchivos. No se ha podido finalizar correctamente.");
+
+			return null;
+
+		} finally {
+			session.close();
 		}
+
 	}
-	
-	
-	public Boolean crearDetallesTransaccional(SqlSession session, 
-											 ComparacionArchivoRecaudo comparacionArchivo,
-											 List<DetalleComparacionArchivoRecaudo> detallesComparacionArchivoRecaudo, 
-											 StringBuffer mensajeErrorOut ) {
+
+	private Boolean crearDetallesTransaccional(
+			SqlSession session,
+			ComparacionArchivoRecaudo comparacionArchivo,
+			List<DetalleComparacionArchivoRecaudo> detallesComparacionArchivoRecaudo,
+			StringBuffer mensajeErrorOut) {
 
 		boolean sinErrores = true;
-		
-		try {
-			
-			for (DetalleComparacionArchivoRecaudo detalleComparacionArchivoRecaudo : detallesComparacionArchivoRecaudo) {
-				detalleComparacionArchivoRecaudo.setDcpar_cpar(comparacionArchivo.getCpar_cpar());
-				detalleComparacionArchivoRecaudo.setDcpar_fcrea(comparacionArchivo.getCpar_fcrea());
 
-				
-				sinErrores = sinErrores && this.controllerDB.crearDetalleComparacionTransaccional(session, detalleComparacionArchivoRecaudo);
-				
+		try {
+
+			for (DetalleComparacionArchivoRecaudo detalleComparacionArchivoRecaudo : detallesComparacionArchivoRecaudo) {
+				detalleComparacionArchivoRecaudo
+						.setDcpar_cpar(comparacionArchivo.getCpar_cpar());
+				detalleComparacionArchivoRecaudo
+						.setDcpar_fcrea(comparacionArchivo.getCpar_fcrea());
+
+				sinErrores = sinErrores
+						&& this.controllerDB
+								.crearDetalleComparacionTransaccional(session,
+										detalleComparacionArchivoRecaudo);
+
 			}
-		
-			
-		
-			return sinErrores;		
-		
-		
+
+			return sinErrores;
+
 		} catch (Exception e) {
 			return false;
 		}
 	}
 
-	
-	public List<DetalleComparacionArchivoRecaudo> getAllDetallesCPAR(Long cpar_cpar){
-		
-		ComparacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
-		List<DetalleComparacionArchivoRecaudo> list = controllerDB.getAllDetallesCPAR(cpar_cpar);
-		
-		return list;
-		
-	}
-	
-	
+	public List<DetalleComparacionArchivoRecaudo> getAllDetallesCPAR(
+			Long cpar_cpar) {
 
-	private void completarInformacionAdicionalArchivo(ComparacionArchivoRecaudo comparacionArchivo){
-		try {
-			
-			if(comparacionArchivo!=null && comparacionArchivo.getCpar_cpar()!=null){
-			
-				List<DetalleComparacionArchivoRecaudo> detalles = controllerDB.getAllDetallesCPAR(comparacionArchivo.getCpar_cpar());
-				comparacionArchivo.setDetalles(detalles);
-				
-				
-				
-			}
-			
-			
-		} catch (Exception e) {
-			SimpleLogger.error("Error consultando informacion adicional Archivo.",e);
-		
-		}
-		
+		ComparacionArchivoRecaudoControllerDB controllerDB = this.controllerDB;
+		List<DetalleComparacionArchivoRecaudo> list = controllerDB
+				.getAllDetallesCPAR(cpar_cpar);
+
+		return list;
+
 	}
-			
-	
-	 
+
+	public String getRutaTemporalArchivosBSC(Long cpar_cpar) {
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio()
+				.getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+
+		return rutaGeneral + "/temp/cpar/" + cpar_cpar + "/";
+
+	}
+
+	public String getRutaFinalArchivosBSC(Long cpar_cpar, Date currentDate) {
+		ParametroConfiguracionGeneral parametroRutas = new ConfiguracionGeneralServicio()
+				.getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+
+		Calendar cal = Calendar.getInstance();
+		cal.setTime(currentDate);
+		int year = cal.get(Calendar.YEAR);
+		int month = cal.get(Calendar.MONTH) + 1;
+		int day = cal.get(Calendar.DAY_OF_MONTH);
+
+		return rutaGeneral + "/cpar/" + year + "/" + month + "/" + day
+				+ "/cpar_" + cpar_cpar
+				+ "/01_ibsc/";
+
+	}
+
+	private void completarInformacionAdicionalArchivo(
+			ComparacionArchivoRecaudo comparacionArchivo) {
+		try {
+
+			if (comparacionArchivo != null
+					&& comparacionArchivo.getCpar_cpar() != null) {
+
+				List<DetalleComparacionArchivoRecaudo> detalles = controllerDB
+						.getAllDetallesCPAR(comparacionArchivo.getCpar_cpar());
+				comparacionArchivo.setDetalles(detalles);
+
+			}
+
+		} catch (Exception e) {
+			SimpleLogger.error(
+					"Error consultando informacion adicional Archivo.", e);
+
+		}
+
+	}
 
 }
