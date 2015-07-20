@@ -12,6 +12,10 @@ import java.util.List;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo;
 import com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador;
+import com.developer.logic.modulo.conversion.dto.OficinaRecaudo;
+import com.developer.logic.modulo.conversion.dto.TipoArchivoRecaudoConvertidor;
+import com.developer.logic.modulo.conversion.modelo.OficinaRecaudoServicio;
+import com.developer.logic.modulo.conversion.modelo.TipoArchivoRecaudoConvertidorServicio;
 import com.developer.logic.modulo.general.modelo.LectorArchivoPlanoUtils;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 
@@ -21,18 +25,24 @@ public class LectorArchivoPlanoComparador {
 	String[][] registroEncabezado;
 	String[][] registrosDetalle;
 	Boolean hayRegistros = false;
+	String tpar_tpar;
 	
+	List<TipoArchivoRecaudoConvertidor> tiposArchivoRecaudo;
 	List<HomologacionTipoRecaudoComparador> homologacionesTipoRecaudo;
 	
 	Long totalRegistrosFileOrigen;
 
 
-	public LectorArchivoPlanoComparador(File fileBSC) {
+	public LectorArchivoPlanoComparador(File fileBSC, String tpar_tpar) {
 		
 		totalRegistrosFileOrigen = new Long(0);
 		ComparacionArchivoRecaudoServicio comparacionServicio = new ComparacionArchivoRecaudoServicio();
 		this.homologacionesTipoRecaudo = comparacionServicio.getAllHomologacionesTipoRecaudo();
 		
+		TipoArchivoRecaudoConvertidorServicio tipoArchivoServicio = new TipoArchivoRecaudoConvertidorServicio();
+		this.tiposArchivoRecaudo = tipoArchivoServicio.getAllTiposArchivo();
+		
+		this.tpar_tpar = tpar_tpar;
 		
 		leerRegistros(fileBSC);
 	}
@@ -136,6 +146,7 @@ public class LectorArchivoPlanoComparador {
 		if (hayRegistros) {			
 			
 			List<DetalleComparacionArchivoRecaudo> detalles = new ArrayList<DetalleComparacionArchivoRecaudo>();
+			OficinaRecaudoServicio oficinaRecaudoServicio = new OficinaRecaudoServicio();
 			
 			try {
 				
@@ -148,6 +159,9 @@ public class LectorArchivoPlanoComparador {
 					SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyyMMdd");
 					Date dateNormalizado = simpleDateFormat.parse(fechaRecaudo);
 					
+					OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(registrosDetalle[i][2], getFondoPorTipoArchivo(this.tpar_tpar));
+					
+					
 					
 					//Si el recaudo es combinado se debe crear un detalle para efectivo y cheque
 					if(tipoRecaudo.equals("RCOM")){
@@ -159,7 +173,7 @@ public class LectorArchivoPlanoComparador {
 						detalleEfectivo.setDcpar_fuente(DetalleComparacionArchivoRecaudo.FUENTE_PLANO);
 						detalleEfectivo.setDcpar_id_reg_orig(""+(i+1));
 						detalleEfectivo.setDcpar_observ("Recaudo Combinado, Aportante: "+registrosDetalle[i][4]+", Oficina: "+registrosDetalle[i][2]+", Jornada: "+registrosDetalle[i][8]+", Comprobante: "+registrosDetalle[i][10]+" Valor total: "+registrosDetalle[i][7]);
-						detalleEfectivo.setDcpar_ofic_norm(registrosDetalle[i][2]);
+						detalleEfectivo.setDcpar_ofic_norm(oficinaRecaudoSIFI.getOfic_descri());
 						detalleEfectivo.setDcpar_ofic_orig(registrosDetalle[i][2]);
 						detalleEfectivo.setDcpar_referencia(registrosDetalle[i][3]);
 						detalleEfectivo.setDcpar_treca_norm(getHomologacionTipoRecaudo("REFE"));
@@ -180,7 +194,7 @@ public class LectorArchivoPlanoComparador {
 						detalleCheque.setDcpar_fuente(DetalleComparacionArchivoRecaudo.FUENTE_PLANO);
 						detalleCheque.setDcpar_id_reg_orig(""+(i+1));
 						detalleCheque.setDcpar_observ("Recaudo Combinado, Aportante: "+registrosDetalle[i][4]+", Oficina: "+registrosDetalle[i][2]+", Jornada: "+registrosDetalle[i][8]+", Comprobante: "+registrosDetalle[i][10]+" Valor total: "+registrosDetalle[i][7]);
-						detalleCheque.setDcpar_ofic_norm(registrosDetalle[i][2]);
+						detalleCheque.setDcpar_ofic_norm(oficinaRecaudoSIFI.getOfic_descri());
 						detalleCheque.setDcpar_ofic_orig(registrosDetalle[i][2]);
 						detalleCheque.setDcpar_referencia(registrosDetalle[i][3]);
 						detalleCheque.setDcpar_treca_norm(getHomologacionTipoRecaudo("RCHE"));
@@ -208,7 +222,7 @@ public class LectorArchivoPlanoComparador {
 						detalle.setDcpar_fuente(DetalleComparacionArchivoRecaudo.FUENTE_PLANO);
 						detalle.setDcpar_id_reg_orig(""+(i+1));
 						detalle.setDcpar_observ("Recaudo Simple, Aportante: "+registrosDetalle[i][4]+", Oficina: "+registrosDetalle[i][2]+", Jornada: "+registrosDetalle[i][8]+", Comprobante: "+registrosDetalle[i][10]);
-						detalle.setDcpar_ofic_norm(registrosDetalle[i][2]);
+						detalle.setDcpar_ofic_norm(oficinaRecaudoSIFI.getOfic_descri());
 						detalle.setDcpar_ofic_orig(registrosDetalle[i][2]);
 						detalle.setDcpar_referencia(registrosDetalle[i][3]);
 						detalle.setDcpar_treca_norm(getHomologacionTipoRecaudo(tipoRecaudo));
@@ -298,12 +312,38 @@ public class LectorArchivoPlanoComparador {
 
 	}
 	
+	private Long getFondoPorTipoArchivo(String tpar_tpar){
+		
+		Long fondo = null;
+		
+		if(tiposArchivoRecaudo!=null && tiposArchivoRecaudo.size()>0){
+			
+			for (TipoArchivoRecaudoConvertidor tipoArchivo : tiposArchivoRecaudo) {
+				if(tipoArchivo.getTpar_tpar().equals(tpar_tpar)){
+					
+					fondo = tipoArchivo.getTpar_fondo();
+					break;
+					
+				}
+				
+			}
+			
+		}
+		
+		
+		return fondo;
+		
+		
+		
+	}
+	
+	
 		
 	
 	public static void main(String[] args) {
 		File file = new File("Cta_4125_3004.d25");
 		StringBuffer mensajeErrorOut = new StringBuffer();
-		LectorArchivoPlanoComparador lector = new LectorArchivoPlanoComparador(file);
+		LectorArchivoPlanoComparador lector = new LectorArchivoPlanoComparador(file, "D45");
 		lector.generarDetalleArchivo(mensajeErrorOut);
 
 

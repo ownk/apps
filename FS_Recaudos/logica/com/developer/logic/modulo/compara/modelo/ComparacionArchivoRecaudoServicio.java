@@ -193,7 +193,7 @@ public class ComparacionArchivoRecaudoServicio {
 						
 						//Se crean los detalles del archivo plano
 						File fileBSC = new File(archivoUnificado.getArun_url());
-						LectorArchivoPlanoComparador lectorArchivoPlanoComparador = new LectorArchivoPlanoComparador(fileBSC);
+						LectorArchivoPlanoComparador lectorArchivoPlanoComparador = new LectorArchivoPlanoComparador(fileBSC, archivoUnificado.getArun_tpar());
 						List<DetalleComparacionArchivoRecaudo> detallesBSC = lectorArchivoPlanoComparador.generarDetalleArchivo(mensajeErrorOut);
 						
 						sinErrores= sinErrores && crearDetallesTransaccional(session,comparacionArchivoRecaudo, detallesBSC, mensajeErrorOut);
