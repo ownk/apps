@@ -33,3 +33,9 @@ v.1.3.0
 v.2.0.0
 -----------------------------------------------------------------------------------------------------
 1. Se crea funcionalidad para la conversion de archivos unificados a version SIFI
+
+
+v.3.0.0
+-----------------------------------------------------------------------------------------------------
+1. Se crea funcionalidad para la comparacion de archivos unificados BSC vs archivos de INTERNET
+
