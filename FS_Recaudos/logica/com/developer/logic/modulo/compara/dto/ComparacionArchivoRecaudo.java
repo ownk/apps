@@ -1,7 +1,10 @@
 package com.developer.logic.modulo.compara.dto;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+
+import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoUnificado;
 
 public class ComparacionArchivoRecaudo {
 	
@@ -17,11 +20,18 @@ public class ComparacionArchivoRecaudo {
 	Date    cpar_ffin 	;
 	Long    cpar_arun 	;
 	Long    cpar_ibsc 	;
+	String  cpar_arun_cta;
+	String 	cpar_ibsc_cta;
 
+	String cpar_fini_string;
+	String cpar_ffin_string; 
 	
 	List<DetalleComparacionArchivoRecaudo> detalles;
-
-
+	
+	List<DetalleResumenComparacion> resumen;
+	
+	List<DiferenciaResumenComparacion> diferenciasResumen;
+	
 	public Long getCpar_cpar() {
 		return cpar_cpar;
 	}
@@ -89,6 +99,13 @@ public class ComparacionArchivoRecaudo {
 
 	public void setCpar_fini(Date cpar_fini) {
 		this.cpar_fini = cpar_fini;
+		
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			this.cpar_fini_string = format.format(cpar_fini).replace(" 00:00:00", "").trim();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 
@@ -99,6 +116,13 @@ public class ComparacionArchivoRecaudo {
 
 	public void setCpar_ffin(Date cpar_ffin) {
 		this.cpar_ffin = cpar_ffin;
+		
+		try {
+			SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			this.cpar_ffin_string = format.format(cpar_ffin).replace(" 00:00:00", "").trim();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 
 
@@ -130,8 +154,72 @@ public class ComparacionArchivoRecaudo {
 	public void setDetalles(List<DetalleComparacionArchivoRecaudo> detalles) {
 		this.detalles = detalles;
 	}
-	
+
+
+	public String getCpar_arun_cta() {
+		return cpar_arun_cta;
+	}
+
+
+	public void setCpar_arun_cta(String cpar_arun_cta) {
+		this.cpar_arun_cta = cpar_arun_cta;
+	}
+
+
+	public String getCpar_ibsc_cta() {
+		return cpar_ibsc_cta;
+	}
+
+
+	public void setCpar_ibsc_cta(String cpar_ibsc_cta) {
+		this.cpar_ibsc_cta = cpar_ibsc_cta;
+	}
+
+
+	public String getCpar_fini_string() {
+		return cpar_fini_string;
+	}
+
+
+	public void setCpar_fini_string(String cpar_fini_string) {
+		this.cpar_fini_string = cpar_fini_string;
+	}
+
+
+	public String getCpar_ffin_string() {
+		return cpar_ffin_string;
+	}
+
+
+	public void setCpar_ffin_string(String cpar_ffin_string) {
+		this.cpar_ffin_string = cpar_ffin_string;
+	}
+
+
+	public List<DetalleResumenComparacion> getResumen() {
+		return resumen;
+	}
+
+
+	public void setResumen(List<DetalleResumenComparacion> resumen) {
+		this.resumen = resumen;
+	}
+
+
+	public List<DiferenciaResumenComparacion> getDiferenciasResumen() {
+		return diferenciasResumen;
+	}
+
+
+	public void setDiferenciasResumen(
+			List<DiferenciaResumenComparacion> diferenciasResumen) {
+		this.diferenciasResumen = diferenciasResumen;
+	}
+
+
+
 	
 	
 
+	
 }

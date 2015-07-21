@@ -179,7 +179,7 @@
 																	<button type="submit"
 																		class="btn btn-primary btn-sm pull-right ownk_btn_shadow">Consultar Comparación</button>
 																	<input type="hidden"
-																		name="ComparacionArchivoRecaudo.cpar_cpar" value="{//ComparacionArchivoRecaudo/cpar_cpar}" />
+																		name="cpar_cpar" value="{//ComparacionArchivoRecaudo/cpar_cpar}" />
 
 
 																</form>

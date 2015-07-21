@@ -1,0 +1,27 @@
+<ResumenCompara>
+	<Detalle>
+		<FuenteRecaudo>Efectivo</FuenteRecaudo>
+		<ValorArchivoInternet>$91.015.360,02</ValorArchivoInternet>
+		<RegistrosArchivoInternet>38</RegistrosArchivoInternet>
+		<ValorArchivoPlano>$91.015.360,02</ValorArchivoPlano>
+		<RegistrosArchivoPlano>38</RegistrosArchivoPlano>
+		<ValorDiferencia>$0,00</ValorDiferencia>
+		<RegistrosDiferencia>0</RegistrosDiferencia>
+	</Detalle>
+	<Detalle>
+		<FuenteRecaudo>Transferencia</FuenteRecaudo>
+		<ValorArchivoInternet>($165.000.000,00)</ValorArchivoInternet>
+		<RegistrosArchivoInternet>1</RegistrosArchivoInternet>
+		<ValorDiferencia>($165.000.000,00)</ValorDiferencia>
+		<RegistrosDiferencia>1</RegistrosDiferencia>
+	</Detalle>
+	<Detalle>
+		<FuenteRecaudo>Cheque</FuenteRecaudo>
+		<ValorArchivoInternet>$139.089.696,78</ValorArchivoInternet>
+		<RegistrosArchivoInternet>5</RegistrosArchivoInternet>
+		<ValorArchivoPlano>$139.089.696,78</ValorArchivoPlano>
+		<RegistrosArchivoPlano>5</RegistrosArchivoPlano>
+		<ValorDiferencia>$0,00</ValorDiferencia>
+		<RegistrosDiferencia>0</RegistrosDiferencia>
+	</Detalle>
+</ResumenCompara>

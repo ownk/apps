@@ -3,6 +3,8 @@ package com.developer.logic.modulo.unificacion.dto;
 import java.util.Date;
 import java.util.List;
 
+import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
+
 public class ArchivoRecaudoUnificado {
 	
 	
@@ -26,6 +28,8 @@ public class ArchivoRecaudoUnificado {
 	Long arun_archivos_repetidos;
 	
 	List<ArchivoRecaudoPorUnificarRepetido> archivosPorUnificarRepetidos;
+	
+	List<ComparacionArchivoRecaudo> comparacionesArchivoRecaudos;
 	
 	
 	public Long getArun_archivos_repetidos() {
@@ -124,6 +128,13 @@ public class ArchivoRecaudoUnificado {
 	public void setArchivosPorUnificarRepetidos(
 			List<ArchivoRecaudoPorUnificarRepetido> archivosPorUnificarRepetidos) {
 		this.archivosPorUnificarRepetidos = archivosPorUnificarRepetidos;
+	}
+	public List<ComparacionArchivoRecaudo> getComparacionesArchivoRecaudos() {
+		return comparacionesArchivoRecaudos;
+	}
+	public void setComparacionesArchivoRecaudos(
+			List<ComparacionArchivoRecaudo> comparacionesArchivoRecaudos) {
+		this.comparacionesArchivoRecaudos = comparacionesArchivoRecaudos;
 	}
 	
 	

@@ -4,7 +4,7 @@
 
 <mapper namespace="com.developer.persistence.modulo.conversion.mapper.dao.SIFI43Dao">
 	
-	<select id="getTotalEncargosSIFI" resultType="java.lang.Long">
+	<!-- <select id="getTotalEncargosSIFI" resultType="java.lang.Long">
 		select count(*) from sf_tplan
 	</select>
 	
@@ -26,9 +26,9 @@
 	    and ptpl_status = 'A'
 		and plan_plan = #{plts_plan}
 	</select>
+	  -->
 	 
-	 
-	<!-- Query temporal contra la misma base de datos FS_RECAUDOS app 
+	<!-- Query temporal contra la misma base de datos FS_RECAUDOS app -->
 	<select id="getEncargoSIFI" parameterType="encargoFiduciarioSIFI" resultType="encargoFiduciarioSIFI">
 		select PLTS_FOND, 
 				 PLTS_PLAN, 
@@ -41,6 +41,10 @@
 	    from co_tplts
 	    where plts_plan = #{plts_plan}
 	</select>
-	-->
+	
+	<select id="getTotalEncargosSIFI" resultType="java.lang.Long">
+		select count(*) from co_tplts
+	</select>
+	
 	
 </mapper>

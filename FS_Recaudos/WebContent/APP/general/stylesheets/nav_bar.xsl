@@ -6,7 +6,7 @@
 	<xsl:template name="nav_bar-top-light">
 
 		<div class="row white-bg ownk_shadow">
-			<nav class="navbar navbar-static-top " role="navigation">
+			<nav class="navbar navbar-fixed-top " role="navigation">
 				<div class="navbar-header">
 					<button aria-controls="navbar" aria-expanded="false"
 						data-target="#navbar" data-toggle="collapse" class="navbar-toggle collapsed"

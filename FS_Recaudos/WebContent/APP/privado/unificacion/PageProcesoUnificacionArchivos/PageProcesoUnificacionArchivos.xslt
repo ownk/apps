@@ -36,21 +36,24 @@
 						<!-- CONTENIDO -->
 						<div class="wrapper wrapper-content animated fadeInUp">
 
-						
-								<!-- TITULO -->
-								
-								<div class="row ">
-									<div class="col-lg-12 ">
-										<div class="ibox float-e-margins ">
-											<div class="ibox-content">
-												<div class="row">
+
+							<!-- TITULO -->
+
+							<div class="row ">
+								<div class="col-lg-12 ">
+									<div class="ibox float-e-margins ">
+										<div class="ibox-content">
+											<div class="row">
 												<div class="col-sm-12">
 													<div class="pull-left m-r-md">
 														<i class="fa fa-gears  mid-icon ownk-color-naranja"></i>
 													</div>
 													<div class="p-xs">
 
-														<h2>Consulta de Proceso No.	<xsl:value-of select="//prun_prun" /></h2>
+														<h2>
+															Consulta de Proceso No.
+															<xsl:value-of select="//prun_prun" />
+														</h2>
 														<ol class="breadcrumb">
 															<li>
 																<a>Consultas</a>
@@ -61,14 +64,16 @@
 														</ol>
 														<br />
 
-														<span>En esta sección podrás consultar la
-																	<strong>información general
-																		del proceso</strong>
-																	: histórico de estados,
-																	fechas y archivos
-																	cargados
-																	y
-																	generados.</span>
+														<span>
+															En esta sección podrás consultar la
+															<strong>información general
+																del proceso</strong>
+															: histórico de estados,
+															fechas y archivos
+															cargados
+															y
+															generados.
+														</span>
 
 
 													</div>
@@ -77,344 +82,342 @@
 
 
 
-												</div>
 												</div>
 											</div>
 										</div>
 									</div>
 								</div>
-								
-								
+							</div>
 
 
-								<!-- CONTENIDO -->
 
-								<div class="row">
-									<div class="col-xs-12">
+
+							<!-- CONTENIDO -->
+
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="row">
+
+										<!-- INFORMACION GENERAL -->
+										<div class="col-xs-6">
+											<div class="ibox float-e-margins">
+												<div class="ibox-title">
+													<h5>Detalle Proceso  </h5>
+
+												</div>
+
+												<div class="ibox-content">
+													<div class="row">
+
+														<div class="col-xs-12">
+															Informacion básica del proceso
+														</div>
+
+													</div>
+
+													<div class="row">
+														<div class="ownk_separador_h" />
+
+													</div>
+
+													<div class="row">
+														<div class="col-md-12">
+															<div class="row">
+																<div>
+																	<dl class="dl-horizontal">
+
+																		<dt>Creado por</dt>
+																		<dd>
+																			<xsl:value-of select="//prun_usua" />
+																		</dd>
+
+																		<dt>Fecha de creación</dt>
+																		<dd>
+																			<xsl:value-of select="//prun_fcrea" />
+																		</dd>
+
+
+																		<dt>Fecha Inicio</dt>
+																		<dd>
+																			<xsl:value-of select="//prun_fini" />
+																		</dd>
+																		<dt>Fecha Fin</dt>
+																		<dd>
+																			<xsl:value-of select="//prun_ffin" />
+																		</dd>
+
+
+																		<dt>Observación</dt>
+																		<dd>
+																			<xsl:value-of select="//prun_observ" />
+																		</dd>
+
+
+																	</dl>
+																</div>
+															</div>
+
+															<div class="row">
+
+																<dl class="dl-horizontal">
+																	<dt>Unificación:</dt>
+																	<dd>
+
+																		<div class="">
+																			<button type="button"
+																				class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_historico"
+																				data-toggle="modal" data-target="#myModalHistoricoPrun">
+																				<xsl:value-of select="//prun_eprun" />
+																			</button>
+
+																			<xsl:call-template name="popup_historico_prun" />
+																		</div>
+																	</dd>
+
+																	<xsl:if test="count(//ProcesoConversionArchivos)>0">
+																		<dt>Conversión:</dt>
+																		<dd>
+
+																			<div class="">
+																				<button type="button"
+																					class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_historico_prco"
+																					data-toggle="modal" data-target="#myModalHistoricoPrco">
+																					<xsl:value-of select="//prco_eprco" />
+																				</button>
+
+																				<xsl:call-template name="popup_historico_prco" />
+																			</div>
+																		</dd>
+																	</xsl:if>
+
+																</dl>
+
+															</div>
+														</div>
+													</div>
+
+
+												</div>
+
+
+											</div>
+										</div>
+
+
+										<!-- INDICADORES -->
+
+										<div class="col-xs-6">
 											<div class="row">
-
-												<!-- INFORMACION GENERAL -->
 												<div class="col-xs-6">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
-															<h5>Detalle Proceso  </h5>
-
+															<span class="label label-info pull-right">AZPU</span>
+															<h5>
+																<small>ZIP</small>
+															</h5>
 														</div>
-
 														<div class="ibox-content">
-															<div class="row">
 
-																<div class="col-xs-12">
-																	Informacion básica del proceso
-																</div>
+															<h1 class="no-margins">
+																<i class="fa fa-file-zip-o modal-icon">
+																</i>
+																<xsl:value-of
+																	select="concat('  ', count(//ArchivoZIPProcesoUnificacion))" />
+															</h1>
 
+															<div class="stat-percent font-bold text-warning">
+																100%
+																<i class="fa fa-bolt"></i>
 															</div>
-
-															<div class="row">
-																<div class="ownk_separador_h" />
-
-															</div>
-
-															<div class="row">
-																<div class="col-md-12">
-																		<div class="row">
-																			<div>
-																				<dl class="dl-horizontal">
-
-																					<dt>Creado por</dt>
-																					<dd>
-																						<xsl:value-of select="//prun_usua" />
-																					</dd>
-
-																					<dt>Fecha de creación</dt>
-																					<dd>
-																						<xsl:value-of select="//prun_fcrea" />
-																					</dd>
-
-
-																					<dt>Fecha Inicio</dt>
-																					<dd>
-																						<xsl:value-of select="//prun_fini" />
-																					</dd>
-																					<dt>Fecha Fin</dt>
-																					<dd>
-																						<xsl:value-of select="//prun_ffin" />
-																					</dd>
-
-
-																					<dt>Observación</dt>
-																					<dd>
-																						<xsl:value-of select="//prun_observ" />
-																					</dd>
-
-
-																				</dl>
-																			</div>
-																		</div>
-
-																		<div class="row">
-
-																			<dl class="dl-horizontal">
-																				<dt>Unificación:</dt>
-																				<dd>
-
-																					<div class="">
-																						<button type="button"
-																							class="btn btn-sm btn-primary ownk_btn_shadow"
-																							id="btn_popup_historico" data-toggle="modal"
-																							data-target="#myModalHistoricoPrun">
-																							<xsl:value-of select="//prun_eprun" />
-																						</button>
-
-																						<xsl:call-template name="popup_historico_prun" />
-																					</div>
-																				</dd>
-
-																				<xsl:if test="count(//ProcesoConversionArchivos)>0">
-																					<dt>Conversión:</dt>
-																					<dd>
-
-																						<div class="">
-																							<button type="button"
-																								class="btn btn-sm btn-primary ownk_btn_shadow"
-																								id="btn_popup_historico_prco" data-toggle="modal"
-																								data-target="#myModalHistoricoPrco">
-																								<xsl:value-of select="//prco_eprco" />
-																							</button>
-
-																							<xsl:call-template name="popup_historico_prco" />
-																						</div>
-																					</dd>
-																				</xsl:if>
-
-																			</dl>
-
-																		</div>
-																</div>
-															</div>
-
-
+															<small>Total</small>
+															<br />
 														</div>
-
-
 													</div>
 												</div>
-
-
-												<!-- INDICADORES -->
 
 												<div class="col-xs-6">
-													<div class="row">
-														<div class="col-xs-6">
-															<div class="ibox float-e-margins">
-																<div class="ibox-title">
-																	<span class="label label-info pull-right">AZPU</span>
-																	<h5>
-																		<small>ZIP</small>
-																	</h5>
-																</div>
-																<div class="ibox-content">
-
-																	<h1 class="no-margins">
-																		<i class="fa fa-file-zip-o modal-icon">
-																		</i>
-																		<xsl:value-of
-																			select="concat('  ', count(//ArchivoZIPProcesoUnificacion))" />
-																	</h1>
-
-																	<div class="stat-percent font-bold text-warning">
-																		100%
-																		<i class="fa fa-bolt"></i>
-																	</div>
-																	<small>Total</small>
-																	<br />
-																</div>
-															</div>
-														</div>
-
-														<div class="col-xs-6">
-															<div class="ibox float-e-margins">
-																<div class="ibox-title">
-																	<span class="label label-info pull-right">ARPU</span>
-																	<h5>
-																		<small>Planos</small>
-																	</h5>
-																</div>
-																<div class="ibox-content">
-																	<h1 class="no-margins">
-
-																		<i class="fa fa-files-o modal-icon">
-																		</i>
-																		<xsl:value-of
-																			select="concat('  ',count(//ArchivoRecaudoPorUnificar ))" />
-																	</h1>
-																	<div class="stat-percent font-bold text-warning">
-																		100%
-																		<i class="fa fa-bolt"></i>
-																	</div>
-																	<small>archivos</small>
-																	<br />
-																</div>
-															</div>
-														</div>
-													</div>
-
-
-													<div class="row">
-														<div class="col-xs-6">
-															<div class="ibox float-e-margins">
-																<div class="ibox-title">
-																	<span class="label label-info pull-right">TRAR</span>
-																	<h5>
-																		<small>Asoban...</small>
-																	</h5>
-																</div>
-																<div class="ibox-content">
-																	<h1 class="no-margins">
-																		<i class="fa fa-exchange modal-icon">
-																		</i>
-
-																		<xsl:value-of
-																			select="concat('  ',count(//TransformacionArchivoRecaudo))" />
-																	</h1>
-																	<div class="stat-percent font-bold text-warning">
-																		100%
-																		<i class="fa fa-bolt"></i>
-																	</div>
-																	<small>Creados</small>
-																	<br />
-																</div>
-															</div>
-														</div>
-														<div class="col-xs-6">
-															<div class="ibox float-e-margins">
-																<div class="ibox-title">
-																	<span class="label label-info pull-right">ARUN</span>
-																	<h5>
-																		<small>Unifi...</small>
-																	</h5>
-																</div>
-																<div class="ibox-content">
-																	<h1 class="no-margins">
-																		<i class="fa fa-file-text modal-icon">
-																		</i>
-																		<xsl:value-of
-																			select="concat('  ',count(//ArchivoRecaudoUnificado))" />
-																	</h1>
-																	<div class="stat-percent font-bold text-warning">
-
-																		<xsl:choose>
-																			<xsl:when test="count(//ArchivoRecaudoUnificado)>0">
-																				100%
-																			</xsl:when>
-																			<xsl:otherwise>
-																				0%
-																			</xsl:otherwise>
-
-
-																		</xsl:choose>
-
-
-																		<i class="fa fa-bolt"></i>
-																	</div>
-																	<small>Total</small>
-																	<br />
-																</div>
-															</div>
-														</div>
-													</div>
-
-												</div>
-											</div>
-
-											<!-- ARCHIVOS -->
-											<div class="row">
-												<div class="col-xs-12">
 													<div class="ibox float-e-margins">
 														<div class="ibox-title">
-															<h5>Detalle Archivos  </h5>
-
-
-
+															<span class="label label-info pull-right">ARPU</span>
+															<h5>
+																<small>Planos</small>
+															</h5>
 														</div>
 														<div class="ibox-content">
-															<div class="row m-t-sm">
-																<div class="col-xs-12">
-																	<div class="panel blank-panel">
-																		<div class="panel-heading">
-																			<div class="panel-options">
-																				<ul class="nav nav-tabs">
-																					<li class="">
-																						<a href="#tab-1" data-toggle="tab">ZIP</a>
-																					</li>
-																					<li class="">
-																						<a href="#tab-2" data-toggle="tab">Por
-																							Unificar</a>
-																					</li>
-																					<li class="">
-																						<a href="#tab-3" data-toggle="tab">
-																							Asobancaria</a>
-																					</li>
-																					<li class="">
-																						<a href="#tab-4" data-toggle="tab">Unificados</a>
-																					</li>
+															<h1 class="no-margins">
 
-																					<li class="active">
-																						<a href="#tab-5" data-toggle="tab">Archivos SIFI</a>
-																					</li>
-																				</ul>
-																			</div>
-																		</div>
-
-																		<div class="panel-body">
-
-																			<div class="tab-content">
-																				<div class="tab-pane " id="tab-1">
-																					<xsl:call-template name="archivosAZPU" />
-
-																				</div>
-
-
-																				<div class="tab-pane" id="tab-2">
-																					<xsl:call-template name="archivosARPU" />
-
-
-
-																				</div>
-
-																				<div class="tab-pane" id="tab-3">
-																					<xsl:call-template name="archivosTRAR" />
-
-																				</div>
-
-																				<div class="tab-pane" id="tab-4">
-																					<xsl:call-template name="archivosARUN" />
-
-
-																				</div>
-
-																				<div class="tab-pane active" id="tab-5">
-																					<xsl:call-template name="archivosSIFI" />
-
-
-																				</div>
-																			</div>
-
-																		</div>
-
-																	</div>
-																</div>
+																<i class="fa fa-files-o modal-icon">
+																</i>
+																<xsl:value-of
+																	select="concat('  ',count(//ArchivoRecaudoPorUnificar ))" />
+															</h1>
+															<div class="stat-percent font-bold text-warning">
+																100%
+																<i class="fa fa-bolt"></i>
 															</div>
+															<small>archivos</small>
+															<br />
 														</div>
 													</div>
-
 												</div>
 											</div>
 
-										
+
+											<div class="row">
+												<div class="col-xs-6">
+													<div class="ibox float-e-margins">
+														<div class="ibox-title">
+															<span class="label label-info pull-right">TRAR</span>
+															<h5>
+																<small>Asoban...</small>
+															</h5>
+														</div>
+														<div class="ibox-content">
+															<h1 class="no-margins">
+																<i class="fa fa-exchange modal-icon">
+																</i>
+
+																<xsl:value-of
+																	select="concat('  ',count(//TransformacionArchivoRecaudo))" />
+															</h1>
+															<div class="stat-percent font-bold text-warning">
+																100%
+																<i class="fa fa-bolt"></i>
+															</div>
+															<small>Creados</small>
+															<br />
+														</div>
+													</div>
+												</div>
+												<div class="col-xs-6">
+													<div class="ibox float-e-margins">
+														<div class="ibox-title">
+															<span class="label label-info pull-right">ARUN</span>
+															<h5>
+																<small>Unifi...</small>
+															</h5>
+														</div>
+														<div class="ibox-content">
+															<h1 class="no-margins">
+																<i class="fa fa-file-text modal-icon">
+																</i>
+																<xsl:value-of
+																	select="concat('  ',count(//ArchivoRecaudoUnificado))" />
+															</h1>
+															<div class="stat-percent font-bold text-warning">
+
+																<xsl:choose>
+																	<xsl:when test="count(//ArchivoRecaudoUnificado)>0">
+																		100%
+																	</xsl:when>
+																	<xsl:otherwise>
+																		0%
+																	</xsl:otherwise>
+
+
+																</xsl:choose>
+
+
+																<i class="fa fa-bolt"></i>
+															</div>
+															<small>Total</small>
+															<br />
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
 									</div>
+
+									<!-- ARCHIVOS -->
+									<div class="row">
+										<div class="col-xs-12">
+											<div class="ibox float-e-margins">
+												<div class="ibox-title">
+													<h5>Detalle Archivos  </h5>
+
+
+
+												</div>
+												<div class="ibox-content">
+													<div class="row m-t-sm">
+														<div class="col-xs-12">
+															<div class="panel blank-panel">
+																<div class="panel-heading">
+																	<div class="panel-options">
+																		<ul class="nav nav-tabs">
+																			<li class="">
+																				<a href="#tab-1" data-toggle="tab">ZIP</a>
+																			</li>
+																			<li class="">
+																				<a href="#tab-2" data-toggle="tab">Por
+																					Unificar</a>
+																			</li>
+																			<li class="">
+																				<a href="#tab-3" data-toggle="tab">
+																					Asobancaria</a>
+																			</li>
+																			<li class="active">
+																				<a href="#tab-4" data-toggle="tab">Unificados</a>
+																			</li>
+
+																			<li class="">
+																				<a href="#tab-5" data-toggle="tab">Archivos SIFI</a>
+																			</li>
+																		</ul>
+																	</div>
+																</div>
+
+																<div class="panel-body">
+
+																	<div class="tab-content">
+																		<div class="tab-pane " id="tab-1">
+																			<xsl:call-template name="archivosAZPU" />
+
+																		</div>
+
+
+																		<div class="tab-pane" id="tab-2">
+																			<xsl:call-template name="archivosARPU" />
+
+
+
+																		</div>
+
+																		<div class="tab-pane" id="tab-3">
+																			<xsl:call-template name="archivosTRAR" />
+
+																		</div>
+
+																		<div class="tab-pane active" id="tab-4">
+																			<xsl:call-template name="archivosARUN" />
+
+
+																		</div>
+
+																		<div class="tab-pane " id="tab-5">
+																			<xsl:call-template name="archivosSIFI" />
+
+
+																		</div>
+																	</div>
+
+																</div>
+
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+
 								</div>
-						
+							</div>
+
 						</div>
 
 
@@ -680,8 +683,8 @@
 										<th>Consolidados</th>
 										<th>Repetidos</th>
 										<th>Fecha de creación</th>
-										<th>Descarga</th>
-										<th>Internet</th>
+										<th class="ownk_align_center">Descarga</th>
+										<th class="ownk_align_center">Comparaciones Internet</th>
 
 									</tr>
 								</thead>
@@ -692,11 +695,7 @@
 											<input type="hidden" name="darun" value="{arun_arun}" />
 
 										</form>
-										<form id="form_internet_{arun_arun}" action="{//contextPath}/compara/PageRegistrarArchivoInternetBSC.do"
-											method="post">
-											<input type="hidden" name="arun_arun" value="{arun_arun}" />
-
-										</form>
+										
 										<tr>
 											<td class=" align-center">
 												<xsl:value-of select="position()" />
@@ -728,10 +727,7 @@
 
 												<xsl:choose>
 													<xsl:when test="arun_archivos_repetidos>0">
-														<xsl:variable name="idpopup">
-															myModalArchivoRepetido_
-															<xsl:value-of select="arun_arun" />
-														</xsl:variable>
+														<xsl:variable name="idpopup">myModalArchivoRepetido_<xsl:value-of select="arun_arun"/></xsl:variable>
 
 														<div class="">
 															<button type="button"
@@ -761,18 +757,40 @@
 												<xsl:value-of select="arun_fcrea" />
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_align_center">
 												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
 													onclick="osm_enviarFormulario('form_arun_{arun_arun}');">
 													<i class="fa fa-download text-navy"></i>
 												</a>
 											</td>
-											<td class=" align-center">
-												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
-													onclick="osm_enviarFormulario('form_internet_{arun_arun}');">
-													<i class="fa fa-download text-navy"></i>
-												</a>
+
+
+
+											<td class=" ownk_align_center">
+
+												<xsl:variable name="idpopup">myModalComparacionesARUN_<xsl:value-of select="arun_arun" />
+												</xsl:variable>
+
+												<div class="">
+													<button type="button"
+														class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_historico"
+														data-toggle="modal" data-target="#{$idpopup}">
+														<xsl:value-of
+															select="count(comparacionesArchivoRecaudos/ComparacionArchivoRecaudo)" />
+													</button>
+
+
+													<xsl:call-template name="popup_comparaciones_arun">
+														<xsl:with-param name="idpopup" select="$idpopup" />
+													</xsl:call-template>
+
+
+												</div>
 											</td>
+
+
+
+
 										</tr>
 
 									</xsl:for-each>
@@ -1268,6 +1286,155 @@
 						</div>
 
 
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-white ownk_btn_shadow"
+							data-dismiss="modal">Retornar</button>
+
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</xsl:template>
+
+	<xsl:template name="popup_comparaciones_arun">
+		<xsl:param name="idpopup" />
+
+
+		<div class="modal inmodal" id="{$idpopup}" tabindex="-1" role="dialog"
+			aria-hidden="false" data-show="true">
+			<div class="modal-dialog" data-show="true">
+				<div class="modal-content animated bounceInRight">
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal">
+							<span aria-hidden="true"></span>
+							<span class="sr-only">Close</span>
+						</button>
+						<i class="fa fa-list-ul modal-icon"></i>
+						<h4 class="modal-title">Comparaciones Archivos Internet</h4>
+						<small class="font-bold">Listado de comparaciones encontradas</small>
+					</div>
+					<div class="modal-body">
+						<p>
+							A continuación podrás consultar las comparaciones (<xsl:value-of select="count(comparacionesArchivoRecaudos/ComparacionArchivoRecaudo)"/>)
+							realizadas sobre el archivo unificado 
+							<b>
+								<span class="label label-default">
+								.
+								<xsl:value-of select="arun_tpar" />
+								</span>
+							</b>
+							Si deseas crear una nueva comparación por favor selecciona
+									la opción <b>Nueva Comparación</b>.
+						</p>
+
+						<br />
+
+						<xsl:if test="count(comparacionesArchivoRecaudos/ComparacionArchivoRecaudo)>0">
+							<div class="row">
+								<div class="col-sm-12 m-b-xs">
+									<div class="table-responsive">
+										<table class="table table-striped">
+											<thead>
+												<tr>
+													<th class="ownk_align_center"></th>
+													<th class="ownk_align_center">id</th>
+													<th class="ownk_align_center">Fecha de creación</th>
+													<th class="ownk_align_center">Validación Cuenta Bancaria</th>
+													<th class="ownk_align_center">Consultar</th>
+	
+												</tr>
+											</thead>
+											<tbody>
+												<xsl:for-each
+													select="comparacionesArchivoRecaudos/ComparacionArchivoRecaudo">
+													<tr>
+														<td class=" ownk_align_center">
+															<xsl:value-of select="position()" />
+														</td>
+														<td class=" ownk_align_center">
+															<xsl:value-of select="cpar_cpar" />
+														</td>
+	
+														<td class=" ownk_align_center">
+															<span class="label label-default">
+																<xsl:value-of select="cpar_fcrea" />
+															</span>
+	
+														</td>
+	
+														<td class=" ownk_align_center">
+															<xsl:choose>
+																<xsl:when test="cpar_arun_cta = cpar_ibsc_cta">
+																	<span class="ownk_text_verde">
+																		<b>EXITOSA</b>
+																	</span>
+																</xsl:when>
+
+																<xsl:otherwise>
+																	<span class="ownk_text_rojo">
+																		<b>ERRONEA</b>
+																	</span>
+																</xsl:otherwise>
+
+															</xsl:choose>
+
+
+														</td>
+														
+																
+														<td class=" ownk_align_center">
+															
+															<form id="form_cpar_{cpar_cpar}"
+																action="{//contextPath}/compara/PageComparacionArchivoRecaudo.do"
+																method="post">
+																<input type="hidden" name="cpar_cpar" value="{cpar_cpar}" />
+			
+															</form>
+			
+															<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
+																onclick="osm_enviarFormulario('form_cpar_{cpar_cpar}');">
+																<i class="fa fa-search text-navy"></i>
+															</a>
+
+															
+															
+														</td>
+	
+	
+													</tr>
+	
+												</xsl:for-each>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+						</xsl:if>
+						
+						<div class="row">
+							<div class="col-sm-12 m-b-xs">
+								<form id="form_internet_{arun_arun}"
+									action="{//contextPath}/compara/PageRegistrarArchivoInternetBSC.do"
+									method="post">
+									<input type="hidden" name="arun_arun" value="{arun_arun}" />
+								</form>
+								
+								<div class="btn-group">
+							
+									<button id="btn_compararArchivos" onclick="osm_enviarFormulario('form_internet_{arun_arun}');"
+										class="btn btn-primary btn-sm ownk_btn_shadow">
+										<i class="fa fa-save" />
+										Nueva
+										Comparación
+									</button>
+							
+								</div>
+												
+							</div>
+						
+						</div>
 					</div>
 					<div class="modal-footer">
 						<button type="button" class="btn btn-white ownk_btn_shadow"

@@ -455,6 +455,7 @@
 									<thead>
 										<tr>
 											<th>Id registro</th>
+											<th>Forma Recaudo</th>
 											<th>Fecha recaudo</th>
 											<th>Referencia </th>
 											<th>Aportante </th>
@@ -462,7 +463,7 @@
 											<th>V. Efectivo</th>
 											<th>V. Cheque</th>
 											<th>V. Recaudo</th>
-											<th>Forma Recaudo</th>
+											
 
 
 										</tr>
@@ -476,7 +477,23 @@
 													<xsl:value-of select="daror_id_reg" />
 												</td>
 
+												<td class=" align-center">
+													<xsl:variable name="trex" select="daror_tipo_reca"/>
+													<xsl:choose>
+														<xsl:when
+															test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
+															<span class="label label-danger">
+																<xsl:value-of select="daror_tipo_reca" />
+															</span>
+														</xsl:when>
 
+														<xsl:otherwise>
+															<xsl:value-of select="daror_tipo_reca" />
+														</xsl:otherwise>
+
+													</xsl:choose>
+
+												</td>
 
 
 												<td class=" align-center">
@@ -498,10 +515,10 @@
 													<xsl:value-of select="daror_vche_format" />
 												</td>
 												<td class=" align-center">
-
-													<xsl:variable name="trex">
-														<xsl:value-of select="daror_tipo_reca" />
-													</xsl:variable>
+													
+													<xsl:variable name="trex" select="daror_tipo_reca"/>
+													
+													
 													<xsl:choose>
 														<xsl:when
 															test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
@@ -519,25 +536,7 @@
 
 												</td>
 
-												<td class=" align-center">
-													<xsl:variable name="trex">
-														<xsl:value-of select="daror_tipo_reca" />
-													</xsl:variable>
-													<xsl:choose>
-														<xsl:when
-															test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
-															<span class="label label-danger">
-																<xsl:value-of select="daror_tipo_reca" />
-															</span>
-														</xsl:when>
-
-														<xsl:otherwise>
-															<xsl:value-of select="daror_tipo_reca" />
-														</xsl:otherwise>
-
-													</xsl:choose>
-
-												</td>
+												
 
 
 
@@ -782,7 +781,7 @@
 					</h5>
 
 					<div class="alert alert-warning">
-						<div style="font-size:10px">
+						<div style="">
 							<div class="table-responsive">
 								<table class="table table-striped">
 									<thead>
@@ -870,9 +869,7 @@
 											<td class=" ownk_align_center">
 
 
-												<xsl:variable name="trex">
-													<xsl:value-of select="daror_tipo_reca" />
-												</xsl:variable>
+												<xsl:variable name="trex" select="daror_tipo_reca"/>
 												<xsl:choose>
 													<xsl:when
 														test="count(//TipoRecaudoExcluir[trex_trex = $trex])>0">
@@ -966,11 +963,8 @@
 													<button type="button"
 														class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_trar_darge"
 														data-toggle="modal" data-target="#myModalTrarDarge_{daror_id_reg}">
-														<xsl:variable name="id_reg">
-															<xsl:value-of select="daror_id_reg" />
-														</xsl:variable>
-														<xsl:value-of
-															select="count(//ArrayList/TransformacionArchivoRecaudo[trar_daror_id_reg=$id_reg])" />
+														<xsl:variable name="id_reg"  select="daror_id_reg" />
+														<xsl:value-of select="count(//ArrayList/TransformacionArchivoRecaudo[trar_daror_id_reg=$id_reg])" />
 													</button>
 
 													<xsl:call-template name="popup_transformaciones_darge">
@@ -988,11 +982,8 @@
 													<button type="button"
 														class="btn btn-sm btn-primary ownk_btn_shadow" id="btn_popup_vlar_darge"
 														data-toggle="modal" data-target="#myModalVlarDarge_{daror_id_reg}">
-														<xsl:variable name="id_reg">
-															<xsl:value-of select="daror_id_reg" />
-														</xsl:variable>
-														<xsl:value-of
-															select="count(//ArrayList/ValidacionArchivoRecaudo[vlar_daror_id_reg=$id_reg])" />
+														<xsl:variable name="id_reg"  select="daror_id_reg" />
+														<xsl:value-of select="count(//ArrayList/ValidacionArchivoRecaudo[vlar_daror_id_reg=$id_reg])" />
 													</button>
 
 													<xsl:call-template name="popup_validaciones_darge">

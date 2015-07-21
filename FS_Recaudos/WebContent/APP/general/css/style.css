@@ -328,7 +328,7 @@ body.mini-navbar .navbar-default .nav > li > .nav-second-level li a {
 .navbar-fixed-top {
   background: #fff;
   transition-duration: 0.5s;
-  border-bottom: 3px solid #F8AF36 !important;
+  /* border-bottom: 3px solid #F8AF36 !important; */
 }
 .navbar-fixed-top,
 .navbar-static-top {
@@ -494,7 +494,7 @@ body-small.fixed-sidebar.mini-navbar .top-navigation #page-wrapper {
   margin-left: 0 !important;
 }
 .top-navigation .wrapper.wrapper-content {
-  padding: 40px;
+  padding: 90px 20px;
 }
 .top-navigation.body-small .wrapper.wrapper-content,
 .body-small .top-navigation .wrapper.wrapper-content {

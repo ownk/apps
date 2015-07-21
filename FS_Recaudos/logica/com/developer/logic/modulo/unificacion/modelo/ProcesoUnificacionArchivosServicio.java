@@ -409,7 +409,7 @@ public class ProcesoUnificacionArchivosServicio {
 				List<ArchivoZIPProcesoUnificacion> archivosAZPU = servicio.getArchivosPorProceso(procesoUnificacionArchivos.getPrun_prun());
 				
 				ArchivoRecaudoUnificadoServicio unificadoServicio = new ArchivoRecaudoUnificadoServicio();
-				List<ArchivoRecaudoUnificado> archivosARUN = unificadoServicio.getArchivosPorPRUN(procesoUnificacionArchivos.getPrun_prun());
+				List<ArchivoRecaudoUnificado> archivosARUN = unificadoServicio.getArchivosPorPRUN(procesoUnificacionArchivos.getPrun_prun(), true);
 				
 				TransformadorArchivoRecaudoServicio transformadorArchivoRecaudoServicio = new TransformadorArchivoRecaudoServicio();
 				List<TransformacionArchivoRecaudo> archivosTRAR = transformadorArchivoRecaudoServicio.getTranformacionsPorPRUN(procesoUnificacionArchivos.getPrun_prun());

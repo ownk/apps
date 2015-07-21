@@ -99,7 +99,8 @@
 		<typeAlias alias="detalleComparacionArchivoRecaudo" type="com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo" />
 		<typeAlias alias="archivoInternetBSC" type="com.developer.logic.modulo.compara.dto.ArchivoInternetBSC" />
 		<typeAlias alias="homologacionTipoRecaudoComparador" type="com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador" />
-		
+		<typeAlias alias="detalleResumenComparacion" type="com.developer.logic.modulo.compara.dto.DetalleResumenComparacion" />
+		<typeAlias alias="diferenciaResumenComparacion" type="com.developer.logic.modulo.compara.dto.DiferenciaResumenComparacion" />
 
 
 	
@@ -188,6 +189,7 @@
 		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/TipoArchivoRecaudoComparadorDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/ComparacionArchivoRecaudoDao.xml" />
 		<mapper resource="com/developer/persistence/modulo/compara/mapper/xml/ArchivoInternetBSCDao.xml" />
+		
 		
 		
 		

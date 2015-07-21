@@ -12,7 +12,7 @@
 
 		<PAGE>
 
-			<xsl:apply-templates select="//XMLPAGE/*" />
+			<xsl:apply-templates select="//XMLPAGE/*" />	
 
 			<!-- ================================== -->
 			<!-- RECUERSOS ESPECIFICOS============= -->
@@ -72,8 +72,7 @@
 														<span>
 															En esta sección podrás registrar el archivo
 															<strong>EXCEL</strong>
-															descargado desde el portal del banco y que deben ser
-															comparado con el archivo unificado.
+															descargado desde el portal del banco.
 														</span>
 
 
@@ -123,9 +122,21 @@
 														Selecciona el archivo EXCEL con el cual quieres
 														comparar el archivo unificado. Puedes arrastrar tus archivo o dar click sobre
 														el area para elegirlo. Una vez identifiques el archivo
-														da click en botón
-														<b>Registrar Archivo</b>
+														da click en botón: 
+														<b>Registrar Archivo</b>.
+														
 													</label>
+														
+														<br/>
+														<br/>
+													<div class="alert alert-warning">
+					
+				
+													<label class="font-noraml">
+														Recuerda que el archivo debe corresponder al archivo unificado <b><xsl:value-of select="//arun_nombre"></xsl:value-of></b> asociado al tipo de archivo  <b>.<xsl:value-of select="//arun_tpar"></xsl:value-of></b>.
+													</label>
+													</div>		
+													
 
 													<div class="hr-line-dashed"></div>
 

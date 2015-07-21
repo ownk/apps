@@ -22,7 +22,9 @@ Prompt
         "CPAR_FINI" 		DATE					constraint NN_CP_TCPAR_FINI not null, 
         "CPAR_FFIN" 		DATE					constraint NN_CP_TCPAR_FFIN not null, 
         "CPAR_ARUN" 	    NUMBER					constraint NN_CP_TCPAR_ARUN not null,
-        "CPAR_IBSC" 	    NUMBER					constraint NN_CP_TCPAR_IBSC not null
+        "CPAR_IBSC" 	    NUMBER					constraint NN_CP_TCPAR_IBSC not null,
+        "CPAR_ARUN_CTA" 	VARCHAR2(100 BYTE)  	constraint NN_CP_TCPAR_ARUN_CTA not null,
+        "CPAR_IBSC_CTA" 	VARCHAR2(100 BYTE)		constraint NN_CP_TCPAR_IBSC_CTA not null
    ) 
    storage( initial 10k  next 10k  pctincrease 0 )
 /  
@@ -44,6 +46,10 @@ Prompt
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TCPAR"."CPAR_ARUN"  IS 'Archivo Unificado del Modulo Unificador';
    
    COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TCPAR"."CPAR_IBSC"  IS 'Archivo Internet Banco Caja Social';
+   
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TCPAR"."CPAR_ARUN_CTA"  IS 'Ultimos 4 digitos Cuenta bancaria asociada al archivo unificado';
+      
+   COMMENT ON COLUMN "FS_RECAUDOS_US"."CP_TCPAR"."CPAR_IBSC_CTA"  IS 'Ultimos 4 digitos Cuenta bancaria asociada al archivo internet';
    
    COMMENT ON TABLE "FS_RECAUDOS_US"."CP_TCPAR"  IS 'Comparacion de Archivos de Recaudo';
    

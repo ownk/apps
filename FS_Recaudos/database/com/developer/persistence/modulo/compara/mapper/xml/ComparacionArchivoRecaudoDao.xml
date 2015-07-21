@@ -21,7 +21,9 @@
 			cpar_fini,	
 			cpar_ffin,	
 			cpar_arun,   
-			cpar_ibsc
+			cpar_ibsc,
+			cpar_arun_cta,
+			cpar_ibsc_cta
 			  
 		) values (
 			#{cpar_cpar},		
@@ -33,7 +35,9 @@
 			#{cpar_fini},		
 			#{cpar_ffin},		
 			#{cpar_arun},	   
-			#{cpar_ibsc}	   
+			#{cpar_ibsc},
+			#{cpar_arun_cta},
+			#{cpar_ibsc_cta}	   
 		)
 	</insert>
 	
@@ -41,6 +45,7 @@
 	<select id="getComparacion" parameterType="java.lang.Long" resultType="comparacionArchivoRecaudo" >
 		select * from cp_tcpar
 		where cpar_cpar = #{cpar_cpar}
+		
 	</select>
 	
 	<select id="getComparacionesPorARUN" parameterType="java.lang.Long" resultType="comparacionArchivoRecaudo" >
@@ -85,10 +90,41 @@
 	</insert>
 	
 	<select id="getAllDetallesCPAR" parameterType="java.lang.Long" resultType="detalleComparacionArchivoRecaudo" >
-		select * from cp_tdcpar
+		select d.* from cp_tdcpar d,  cp_tcpar
 		where dcpar_cpar = #{cpar_cpar}
+		and dcpar_cpar = cpar_cpar
+		and dcpar_freca_norm between cpar_fini and cpar_ffin
+		order by dcpar_freca_norm asc, dcpar_treca_norm asc, dcpar_valor asc,  dcpar_ofic_norm asc, dcpar_fuente asc
 		
 	</select>
+	
+	<select id="getDetallesResumenCPAR" parameterType="java.lang.Long" resultType="detalleResumenComparacion" >
+		select * from 
+			(
+				select dcpar_cpar, dcpar_fuente, dcpar_treca_norm, sum(dcpar_valor) dcpar_valor, count(1) dcpar_cantidad 
+				from  cp_tdcpar, cp_tcpar
+				where dcpar_cpar =  #{cpar_cpar}
+		    	and dcpar_cpar = cpar_cpar
+				and dcpar_freca_norm between cpar_fini and cpar_ffin
+		    	group by dcpar_cpar, dcpar_fuente, dcpar_treca_norm
+	    	)
+		order by dcpar_treca_norm asc, dcpar_fuente asc
+	</select>
+	
+	
+	<select id="getDiferenciasResumenCPAR" parameterType="java.lang.Long" resultType="diferenciaResumenComparacion" >
+		    	select dcpar_treca_norm, sum(dcpar_valor) dcpar_valor, sum(cantidad) dcpar_cantidad
+		    	from (
+						select dcpar_cpar, dcpar_fuente, dcpar_treca_norm, sum(decode(dcpar_fuente, 'PLANO', -1*dcpar_valor,dcpar_valor )) dcpar_valor, decode(dcpar_fuente, 'PLANO', -1*count(1),count(1) ) cantidad 
+						from  cp_tdcpar, cp_tcpar
+						where dcpar_cpar =  #{cpar_cpar}
+				   		and dcpar_cpar = cpar_cpar
+						and dcpar_freca_norm between cpar_fini and cpar_ffin
+				    	group by dcpar_cpar, dcpar_fuente, dcpar_treca_norm
+				     )
+			    group by dcpar_treca_norm
+	</select>
+	
 	
 	
 	<select id="getAllHomologacionesTipoRecaudo" resultType="homologacionTipoRecaudoComparador" >

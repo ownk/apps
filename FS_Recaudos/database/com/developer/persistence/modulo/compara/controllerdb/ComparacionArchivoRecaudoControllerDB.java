@@ -7,6 +7,8 @@ import org.apache.ibatis.session.SqlSession;
 import com.developer.core.utils.SimpleLogger;
 import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
 import com.developer.logic.modulo.compara.dto.DetalleComparacionArchivoRecaudo;
+import com.developer.logic.modulo.compara.dto.DetalleResumenComparacion;
+import com.developer.logic.modulo.compara.dto.DiferenciaResumenComparacion;
 import com.developer.logic.modulo.compara.dto.HomologacionTipoRecaudoComparador;
 import com.developer.mybatis.DBManagerFSRecaudos;
 import com.developer.persistence.modulo.compara.mapper.dao.ComparacionArchivoRecaudoDao;
@@ -124,6 +126,42 @@ public class ComparacionArchivoRecaudoControllerDB {
 			
 		}catch (Exception e) {
 			SimpleLogger.error("Error getAllDetallesCPAR", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
+	public List<DetalleResumenComparacion> getDetallesResumenCPAR(Long cpar_cpar){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ComparacionArchivoRecaudoDao dao = session.getMapper(ComparacionArchivoRecaudoDao.class);
+			return dao.getDetallesResumenCPAR(cpar_cpar);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getDetallesResumenCPAR", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}
+	
+	public List<DiferenciaResumenComparacion> getDiferenciasResumenCPAR(Long cpar_cpar){
+		SqlSession session = DBManagerFSRecaudos.openSession();
+		
+		try{
+			
+			ComparacionArchivoRecaudoDao dao = session.getMapper(ComparacionArchivoRecaudoDao.class);
+			return dao.getDiferenciasResumenCPAR(cpar_cpar);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getDiferenciasResumenCPAR", e);
 			return null;
 		} 	finally {
 			session.close();

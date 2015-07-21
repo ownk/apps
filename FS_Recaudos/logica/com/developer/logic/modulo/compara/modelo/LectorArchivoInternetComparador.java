@@ -34,6 +34,7 @@ public class LectorArchivoInternetComparador {
 	List<Row> listRow;
 	List<HomologacionTipoRecaudoComparador> homologacionesTipoRecaudo;
 
+	String cuentaBancaria=null;
 	public LectorArchivoInternetComparador(File fileInternet) {
 		this.fileExcel = fileInternet;
 
@@ -131,14 +132,23 @@ public class LectorArchivoInternetComparador {
 			int filas = 0;
 			for (Row row : listRow) {
 				filas++;
+				
+				//Se consulta la cuenta bancaria
+				
 
 				// Se lee los detalles apartir de la 3ra fial del archivo
 				if (filas > 2) {
 
 					Iterator<Cell> cellIterator = row.cellIterator();
 					Cell cell = cellIterator.next();
-
 					int columna = 1;
+					
+					//Cuenta bancaria
+					if(filas ==3 && columna ==1){
+						
+						cuentaBancaria = cell.getStringCellValue();
+						cuentaBancaria = cuentaBancaria.substring(cuentaBancaria.length()-4);
+					}
 					
 					
 					DetalleComparacionArchivoRecaudo detalle = new DetalleComparacionArchivoRecaudo();
@@ -157,6 +167,8 @@ public class LectorArchivoInternetComparador {
 					while (cellIterator.hasNext()) {
 						columna++;
 						cell = cellIterator.next();
+						
+						
 
 						//Fecha 
 						if (columna == 2) {
@@ -232,7 +244,7 @@ public class LectorArchivoInternetComparador {
 					
 					detalle.setDcpar_freca_norm(dateNormalizado);
 					detalle.setDcpar_freca_orig(fechaRecaudo);
-					detalle.setDcpar_observ("Recaudo Simple,"+observacion );
+					detalle.setDcpar_observ("."+observacion );
 					detalle.setDcpar_ofic_norm(oficina);
 					detalle.setDcpar_ofic_orig(oficina);
 					detalle.setDcpar_referencia(referencia);
@@ -263,6 +275,10 @@ public class LectorArchivoInternetComparador {
 		
 	}
 
+	public String getCuentaBancaria(){
+		return this.cuentaBancaria;
+		
+	}
 	
 	private String getHomologacionTipoRecaudo(String tipoRecaudoOriginal){
 		

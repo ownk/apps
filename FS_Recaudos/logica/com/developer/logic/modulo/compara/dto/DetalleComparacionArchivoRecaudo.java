@@ -1,5 +1,7 @@
 package com.developer.logic.modulo.compara.dto;
 
+import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 
@@ -23,6 +25,9 @@ public class DetalleComparacionArchivoRecaudo {
 	String dcpar_observ;
 	Double dcpar_valor;
 	Date dcpar_fcrea;
+	String dcpar_freca_norm_string; 
+	
+	String dcpar_valor_format = DecimalFormat.getCurrencyInstance().format(0);
 	
 	public Long getDcpar_cpar() {
 		return dcpar_cpar;
@@ -47,6 +52,13 @@ public class DetalleComparacionArchivoRecaudo {
 	}
 	public void setDcpar_freca_norm(Date dcpar_freca_norm) {
 		this.dcpar_freca_norm = dcpar_freca_norm;
+		
+		try {
+				SimpleDateFormat format = new SimpleDateFormat("dd/MM/yyyy");
+			this.dcpar_freca_norm_string = format.format(dcpar_freca_norm).replace(" 00:00:00", "").trim();
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	public String getDcpar_freca_orig() {
 		return dcpar_freca_orig;
@@ -92,17 +104,43 @@ public class DetalleComparacionArchivoRecaudo {
 	}
 	
 	public Double getDcpar_valor() {
+		
 		return dcpar_valor;
 	}
 	public void setDcpar_valor(Double dcpar_valor) {
+		
 		this.dcpar_valor = dcpar_valor;
+		
+		try {
+			
+			dcpar_valor_format = DecimalFormat.getCurrencyInstance().format(getRound2Decimals(dcpar_valor));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
 	}
 	public Date getDcpar_fcrea() {
 		return dcpar_fcrea;
 	}
 	public void setDcpar_fcrea(Date dcpar_fcrea) {
 		this.dcpar_fcrea = dcpar_fcrea;
-	}		
+	}
+	public String getDcpar_freca_norm_string() {
+		return dcpar_freca_norm_string;
+	}
+	public void setDcpar_freca_norm_string(String dcpar_freca_norm_string) {
+		this.dcpar_freca_norm_string = dcpar_freca_norm_string;
+	}	
+	
+	
+	
+	private double getRound2Decimals(double valor) {
+
+		DecimalFormat twoDForm = new DecimalFormat("#.00");
+	    return Double.parseDouble(twoDForm.format(valor).replace(",", "."));
+
+		
+
+	}
 
 	
 	

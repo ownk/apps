@@ -15,7 +15,6 @@ import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConver
 import com.developer.logic.modulo.conversion.dto.DetalleArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
 import com.developer.logic.modulo.conversion.dto.ErrorArchivoRecaudo;
-import com.developer.logic.modulo.conversion.dto.HistoricoArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.conversion.dto.TipoRecaudoExcluir;
 import com.developer.logic.modulo.conversion.dto.TransformacionArchivoRecaudo;

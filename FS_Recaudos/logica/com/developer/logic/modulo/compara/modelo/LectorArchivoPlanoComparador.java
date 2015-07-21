@@ -27,6 +27,8 @@ public class LectorArchivoPlanoComparador {
 	Boolean hayRegistros = false;
 	String tpar_tpar;
 	
+	String cuentaBancaria = null;
+	
 	List<TipoArchivoRecaudoConvertidor> tiposArchivoRecaudo;
 	List<HomologacionTipoRecaudoComparador> homologacionesTipoRecaudo;
 	
@@ -80,6 +82,8 @@ public class LectorArchivoPlanoComparador {
 				Integer[] longitudes = new Integer[] { 1, 80, 13, 18, 5, 8};
 				registroEncabezado = LectorArchivoPlanoUtils.leerArchivo(
 						fileBSC.getAbsolutePath(), longitudes);
+				
+				
 			}
 			
 			
@@ -149,6 +153,11 @@ public class LectorArchivoPlanoComparador {
 			OficinaRecaudoServicio oficinaRecaudoServicio = new OficinaRecaudoServicio();
 			
 			try {
+				
+				cuentaBancaria = registroEncabezado[0][2];
+				cuentaBancaria = cuentaBancaria.substring(9, 13);
+				
+				
 				
 				for (int i = 1; i < registrosDetalle.length; i++) {
 					
@@ -254,6 +263,11 @@ public class LectorArchivoPlanoComparador {
 			return null;
 		}
 
+	}
+	
+	public String getCuentaBancaria(){
+		return this.cuentaBancaria;
+		
 	}
 
 	

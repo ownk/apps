@@ -4,6 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
+import com.developer.logic.modulo.compara.dto.ComparacionArchivoRecaudo;
+import com.developer.logic.modulo.compara.modelo.ComparacionArchivoRecaudoServicio;
 import com.developer.logic.modulo.general.dto.ParametroConfiguracionGeneral;
 import com.developer.logic.modulo.general.modelo.ConfiguracionGeneralServicio;
 import com.developer.logic.modulo.unificacion.dto.ArchivoRecaudoPorUnificarRepetido;
@@ -38,13 +40,16 @@ public class ArchivoRecaudoUnificadoServicio {
 		
 	}
 	
-	public List<ArchivoRecaudoUnificado> getArchivosPorPRUN(Long prun_prun){
+	public List<ArchivoRecaudoUnificado> getArchivosPorPRUN(Long prun_prun, Boolean infoCompleta){
 		ArchivoRecaudoUnificadoControllerDB controllerDB = this.controllerDB;
 		List<ArchivoRecaudoUnificado> list = controllerDB.getArchivosPorProcesoUnificacion(prun_prun);
 		
-		for (ArchivoRecaudoUnificado archivoRecaudoUnificado : list) {
-			completarInformacionAdicionalArchivo(archivoRecaudoUnificado);
-			
+		
+		if(infoCompleta){
+			for (ArchivoRecaudoUnificado archivoRecaudoUnificado : list) {
+				completarInformacionAdicionalArchivo(archivoRecaudoUnificado);
+				
+			}
 		}
 		
 		return list;
@@ -92,6 +97,12 @@ public class ArchivoRecaudoUnificadoServicio {
 				List<ArchivoRecaudoPorUnificarRepetido> list = servicio.getArchivosPorARUN(archivoRecaudoUnificado.getArun_arun());
 				
 				archivoRecaudoUnificado.setArchivosPorUnificarRepetidos(list);
+				
+				ComparacionArchivoRecaudoServicio comparacionArchivoRecaudoServicio = new ComparacionArchivoRecaudoServicio();
+				List<ComparacionArchivoRecaudo> comparacionesArchivoRecaudos = comparacionArchivoRecaudoServicio.getComparacionesPorARUN(archivoRecaudoUnificado.getArun_arun(), true);
+				
+				archivoRecaudoUnificado.setComparacionesArchivoRecaudos(comparacionesArchivoRecaudos);
+				
 				
 			}
 			
