@@ -121,7 +121,7 @@
 													<label class="font-noraml">
 														Selecciona el archivo EXCEL con el cual quieres
 														comparar el archivo unificado. Puedes arrastrar tus archivo o dar click sobre
-														el area para elegirlo. Una vez identifiques el archivo
+														el área para elegirlo. Una vez identifiques el archivo
 														da click en botón: 
 														<b>Registrar Archivo</b>.
 														
@@ -307,7 +307,7 @@
 							Selecciona el archivo EXCEL con el cual quieres
 							comparar el archivo unificado. Puedes
 							arrastrar tu archivo o dar click sobre
-							el area para eligirlo.
+							el área para eligirlo.
 							Una vez identifiques el archivo
 							da click en botón
 							<b>Registrar Archivo</b>

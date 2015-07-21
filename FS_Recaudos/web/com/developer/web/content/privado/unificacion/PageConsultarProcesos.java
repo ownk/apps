@@ -54,7 +54,7 @@ public class PageConsultarProcesos extends PrivatePage{
 				totalProcesos =  new Long(PaginatorWeb.MAX_SIZE);
 			}
 			
-			List<ProcesoUnificacionArchivos> procesos = procesosServicio.getProcesosUnificacionArchivosPaginado(pageNumberLong, pageSizeLong, null);
+			List<ProcesoUnificacionArchivos> procesos = procesosServicio.getProcesosUnificacionArchivosPaginado(pageNumberLong, pageSizeLong, false, null);
 			
 			
 			double totalPages = Math.ceil(totalProcesos.doubleValue()/pageSizeLong.doubleValue());

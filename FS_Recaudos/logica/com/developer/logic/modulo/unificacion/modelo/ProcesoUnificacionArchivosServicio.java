@@ -430,13 +430,13 @@ public class ProcesoUnificacionArchivosServicio {
 		
 	}
 	
-	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, String...prun_estados){
+	public List<ProcesoUnificacionArchivos> getProcesosUnificacionArchivosPaginado(Long pageNumber, Long pageSize, Boolean infoCompleta, String...prun_estados){
 		
 		ProcesoUnificacionArchivosControllerDB controllerDB = this.controllerDB;
 		
 		List<ProcesoUnificacionArchivos> procesos = controllerDB.getProcesosUnificacionArchivosPaginado(pageNumber, pageSize, prun_estados);
 
-		if(procesos!=null){
+		if(procesos!=null && infoCompleta){
 			
 			//Se completa la informacion adicional al anteproyecto
 			for (ProcesoUnificacionArchivos proceso : procesos) {
