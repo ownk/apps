@@ -27,7 +27,7 @@ public class SIFIServicio {
 		
 		list = getEncargoSIFI29(encargoFiduciarioSIFI);
 		
-		if(list==null){
+		if(list==null || list.size()==0){
 			list = getEncargoSIFI43(encargoFiduciarioSIFI);
 			
 		}
@@ -42,7 +42,7 @@ public class SIFIServicio {
 	
 	private List<EncargoFiduciarioSIFI> getEncargoSIFI29(EncargoFiduciarioSIFI encargoFiduciarioSIFI){
 		SIFIControllerDB controllerDB = this.controllerDB;
-		List<EncargoFiduciarioSIFI> list =  controllerDB.getEncargoSIFI43(encargoFiduciarioSIFI);
+		List<EncargoFiduciarioSIFI> list =  controllerDB.getEncargosSIFI29(encargoFiduciarioSIFI);
 		
 		return list;
 		

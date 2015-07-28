@@ -28,6 +28,12 @@ public class DetalleResumenConversionSIFI {
 	String daror_vtot; 
 	String darge_vtot; 
 
+	String daror_cons_bsc_1; 
+	String daror_comp; 
+	String daror_cons_bsc_2;
+	
+	
+	
 	String darge_titular_sn;
 	String darge_frdp_sn;
 	String darge_prca_sn;
@@ -35,8 +41,13 @@ public class DetalleResumenConversionSIFI {
 	String darge_trrf_sn;
 	
 	String darge_vtot_format = DecimalFormat.getCurrencyInstance().format(0);
+	String darge_vefe_format = DecimalFormat.getCurrencyInstance().format(0);
+	String darge_vche_format = DecimalFormat.getCurrencyInstance().format(0);
+	
 	
 	Double darge_vtot_double;
+	Double darge_vefe_double;
+	Double darge_vche_double;
 	
 	public Double getDarge_vtot_double() {
 		
@@ -46,9 +57,42 @@ public class DetalleResumenConversionSIFI {
 		
 		return darge_vtot_double;
 	}
+	
+	
 	public void setDarge_vtot_double(Double darge_vtot_double) {
 		this.darge_vtot_double = darge_vtot_double;
 	}
+
+	
+	
+	public Double getDarge_vefe_double() {
+		
+		if(darge_vefe_double==null){
+			darge_vefe_double = new Double(0);
+		}
+		
+		return darge_vefe_double;
+	}
+
+
+	public void setDarge_vefe_double(Double darge_vefe_double) {
+		this.darge_vefe_double = darge_vefe_double;
+	}
+
+
+	public Double getDarge_vche_double() {
+		
+		if(darge_vche_double==null){
+			darge_vche_double = new Double(0);
+		}
+		return darge_vche_double;
+	}
+
+
+	public void setDarge_vche_double(Double darge_vche_double) {
+		this.darge_vche_double = darge_vche_double;
+	}
+
 
 	public String getDarge_trrf_sn() {
 		return darge_trrf_sn;
@@ -144,6 +188,25 @@ public class DetalleResumenConversionSIFI {
 	}
 	public void setDarge_vefe(String darge_vefe) {
 		this.darge_vefe = darge_vefe;
+		
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(darge_vefe);
+			darge_vefe_format = DecimalFormat.getCurrencyInstance().format(getRound2Decimals(bigDecimal.doubleValue()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(darge_vefe);
+			darge_vefe_double = getRound2Decimals(bigDecimal.doubleValue());
+		} catch (Exception e) {
+			darge_vefe_double = new Double(0);
+		}
+		
 	}
 	public String getDaror_vche() {
 		return daror_vche;
@@ -156,6 +219,26 @@ public class DetalleResumenConversionSIFI {
 	}
 	public void setDarge_vche(String darge_vche) {
 		this.darge_vche = darge_vche;
+		
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(darge_vche);
+			darge_vche_format = DecimalFormat.getCurrencyInstance().format(getRound2Decimals(bigDecimal.doubleValue()));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		
+		
+		try {
+			
+			BigDecimal bigDecimal = getValorMoneda(darge_vche);
+			darge_vche_double = getRound2Decimals(bigDecimal.doubleValue());
+		} catch (Exception e) {
+			darge_vche_double = new Double(0);
+		}
+		
+		
 	}
 	public String getDaror_vtot() {
 		return daror_vtot;
@@ -197,6 +280,30 @@ public class DetalleResumenConversionSIFI {
 	public void setDarge_vtot_format(String darge_vtot_format) {
 		this.darge_vtot_format = darge_vtot_format;
 	}
+	
+	public String getDarge_vefe_format() {
+		
+		if(darge_vefe_format==null){
+			
+			darge_vefe_format = DecimalFormat.getCurrencyInstance().format(0);
+		}
+		return darge_vefe_format;
+	}
+	public void setDarge_vefe_format(String darge_vefe_format) {
+		this.darge_vefe_format = darge_vefe_format;
+	}
+	
+	public String getDarge_vche_format() {
+		
+		if(darge_vche_format==null){
+			
+			darge_vche_format = DecimalFormat.getCurrencyInstance().format(0);
+		}
+		return darge_vche_format;
+	}
+	public void setDarge_vche_format(String darge_vche_format) {
+		this.darge_vche_format = darge_vche_format;
+	}
 
 	public String getDarge_titular_sn() {
 		return darge_titular_sn;
@@ -225,6 +332,26 @@ public class DetalleResumenConversionSIFI {
 	
 	
 	
+	
+	
+	public String getDaror_cons_bsc_1() {
+		return daror_cons_bsc_1;
+	}
+	public void setDaror_cons_bsc_1(String daror_cons_bsc_1) {
+		this.daror_cons_bsc_1 = daror_cons_bsc_1;
+	}
+	public String getDaror_comp() {
+		return daror_comp;
+	}
+	public void setDaror_comp(String daror_comp) {
+		this.daror_comp = daror_comp;
+	}
+	public String getDaror_cons_bsc_2() {
+		return daror_cons_bsc_2;
+	}
+	public void setDaror_cons_bsc_2(String daror_cons_bsc_2) {
+		this.daror_cons_bsc_2 = daror_cons_bsc_2;
+	}
 	private BigDecimal getBigDecimal(String valor) {
 
 		try {
