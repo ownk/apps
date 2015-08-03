@@ -261,20 +261,25 @@ public class GeneradorArchivoExcelConvertidor {
 	            FileOutputStream out = new FileOutputStream(new File(rutaArchivo+nombreArchivo));
 	            workbook.write(out);
 	            out.close();
-	            System.out.println(rutaArchivo+"on disk.");
+	            System.out.println(rutaArchivo+nombreArchivo+"on disk.");
+	            fileExcel = new File(rutaArchivo+nombreArchivo);
 	        }
 	        catch (Exception e)
 	        {
 	            e.printStackTrace();
+	            fileExcel=null;
 	        }
 			
 			
 		}else{
 			mensajeErrorOut.append("No existen registros por generar ");
+			fileExcel=null;
 			
 		}
+		
+		
 
-		return null;
+		return fileExcel;
 		
 	}
 	
