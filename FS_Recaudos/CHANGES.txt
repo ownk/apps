@@ -48,3 +48,6 @@ consultar las conversiones realizadas.
 2. Se ajustan colores, validaciones y ordenamientos en las consultas de las conversiones y 
 comparaciones
 
+v.3.2.0
+-----------------------------------------------------------------------------------------------------
+1. Se crea funcionalidad de descarga de excel para descargar directamente el archivo
