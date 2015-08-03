@@ -109,13 +109,13 @@
 
 													<div class="row">
 														<div class="col-sm-12 m-b-xs">
-															<label class="font-noraml">Selecciona el proceso que quieres revisar en detalle</label>
+															<label class="font-noraml">Selecciona el proceso que quieres revisar en detalle. </label>
 
 															<div class="hr-line-dashed"></div>
 														</div>
 													</div>
 													<div class="row">
-														<div class="col-sm-9 m-b-xs">
+														<!-- <div class="col-sm-9 m-b-xs">
 															<div data-toggle="buttons" class="btn-group">
 																<label class="btn btn-sm btn-white">
 																	<input type="radio" id="option1" name="options" />
@@ -130,8 +130,8 @@
 																	Mensual
 																</label>
 															</div>
-														</div>
-														<div class="col-sm-3">
+														</div> -->
+														<!-- <div class="col-sm-3">
 															<div class="input-group">
 																<input type="text" placeholder="Search"
 																	class="input-sm form-control" />
@@ -140,7 +140,7 @@
 																		class="btn btn-sm btn-primary ownk_btn_shadow"> Ir!</button>
 																</span>
 															</div>
-														</div>
+														</div> -->
 													</div>
 
 													<xsl:choose>
@@ -162,7 +162,7 @@
 																					<th>Fecha Inicio</th>
 																					<th>Fecha FIn</th>
 																					<th>Estado</th>
-																					<th>Action</th>
+																					<th>Opción</th>
 																				</tr>
 																			</thead>
 																			<tbody>

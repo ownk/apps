@@ -158,7 +158,7 @@ public class PageComparacionArchivoRecaudo extends PrivatePage{
 			xmlResumen.append("</ValorDiferencia>");
 			
 			xmlResumen.append("<RegistrosDiferencia>");
-			xmlResumen.append(diferencia.getDcpar_cantidad());
+			xmlResumen.append(Math.abs(diferencia.getDcpar_cantidad()));
 			xmlResumen.append("</RegistrosDiferencia>");
 			
 			xmlResumen.append("</Detalle>");

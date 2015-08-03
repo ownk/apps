@@ -125,6 +125,13 @@
 			    group by dcpar_treca_norm
 	</select>
 	
+	<select id="getFechasCPAR" parameterType="java.lang.Long" resultType="detalleComparacionArchivoRecaudo" >
+		select dcpar_freca_norm, count(1) dcpar_valor from cp_tdcpar d,  cp_tcpar
+		where dcpar_cpar = #{cpar_cpar}
+		and dcpar_cpar = cpar_cpar
+    	group by dcpar_freca_norm 
+	</select>
+	
 	
 	
 	<select id="getAllHomologacionesTipoRecaudo" resultType="homologacionTipoRecaudoComparador" >

@@ -328,6 +328,9 @@ public class ProcesoConversionArchivosServicio {
 	
 	
 	
+	
+	
+	
 
 	
 	public String getRutaFinalArchivosConvertidos(ProcesoConversionArchivos procesoConversionArchivos){
@@ -341,6 +344,20 @@ public class ProcesoConversionArchivosServicio {
 	    int day = cal.get(Calendar.DAY_OF_MONTH);
 		
 	    return rutaGeneral+ "/prco/"+year+"/"+month+"/"+day+"/prco_"+procesoConversionArchivos.getPrco_prco()+"/01_arge/";
+		
+	}
+	
+	public String getRutaFinalReporteExcelConversion(ProcesoConversionArchivos procesoConversionArchivos){
+		ParametroConfiguracionGeneral parametroRutas = ConfiguracionGeneralServicio.getInstance().getParametro(ConfiguracionGeneralServicio.RUTA_GRAL_ARCHIVOS);
+		String rutaGeneral = parametroRutas.getConfig_valor();
+		
+		Calendar cal = Calendar.getInstance();
+	    cal.setTime(procesoConversionArchivos.getPrco_fcrea());
+	    int year = cal.get(Calendar.YEAR);
+	    int month = cal.get(Calendar.MONTH)+1;
+	    int day = cal.get(Calendar.DAY_OF_MONTH);
+		
+	    return rutaGeneral+ "/prco/"+year+"/"+month+"/"+day+"/prco_"+procesoConversionArchivos.getPrco_prco()+"/02_excel/";
 		
 	}
 	

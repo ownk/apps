@@ -113,7 +113,23 @@ public class ComparacionArchivoRecaudoControllerDB {
 		
 	}
 	
+	public List<DetalleComparacionArchivoRecaudo> getFechasCPAR(Long cpar_cpar){
+		SqlSession session = DBManagerFSRecaudos.openSession();
 		
+		try{
+			
+			ComparacionArchivoRecaudoDao dao = session.getMapper(ComparacionArchivoRecaudoDao.class);
+			return dao.getFechasCPAR(cpar_cpar);
+			
+			
+		}catch (Exception e) {
+			SimpleLogger.error("Error getFechasCPAR", e);
+			return null;
+		} 	finally {
+			session.close();
+		}
+		
+	}	
 	
 	public List<DetalleComparacionArchivoRecaudo> getAllDetallesCPAR(Long cpar_cpar){
 		SqlSession session = DBManagerFSRecaudos.openSession();

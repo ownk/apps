@@ -346,7 +346,9 @@ public class ComparacionArchivoRecaudoServicio {
 						.getDiferenciasResumenCPAR(comparacionArchivo.getCpar_cpar());
 				comparacionArchivo.setDiferenciasResumen(diferencias);
 				
-				
+				List<DetalleComparacionArchivoRecaudo> fechas = controllerDB
+						.getFechasCPAR(comparacionArchivo.getCpar_cpar());
+				comparacionArchivo.setFechas(fechas);
 				
 
 			}

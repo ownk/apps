@@ -18,23 +18,46 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
 import com.developer.core.utils.SimpleLogger;
+import com.developer.logic.modulo.conversion.dto.ArchivoRecaudoOriginalPorConvertir;
 import com.developer.logic.modulo.conversion.dto.DetalleResumenConversionSIFI;
+import com.developer.logic.modulo.conversion.dto.ProcesoConversionArchivos;
 import com.developer.logic.modulo.utils.StringOsmoUtils;
 import com.developer.mybatis.DBManagerFSRecaudos;
 
 //import statements
 public class GeneradorArchivoExcelConvertidor {
 
-
-	public GeneradorArchivoExcelConvertidor() {
-		
-	}
-
 	
-	public File generarArchivo(Long aror_aror , String rutaArchivo, StringBuffer mensajeErrorOut) {
+	public File generarArchivo(Long aror_aror , StringBuffer mensajeErrorOut) {
 
 		
+		ProcesoConversionArchivosServicio prcoServicio = new ProcesoConversionArchivosServicio();
 		ArchivoRecaudoOriginalPorConvertirServicio archivoServicio = new ArchivoRecaudoOriginalPorConvertirServicio();
+		ArchivoRecaudoOriginalPorConvertir aror = archivoServicio.getArchivoRecaudo(aror_aror);
+		Long prco_prco = aror.getAror_prco();
+		
+		ProcesoConversionArchivos prco = prcoServicio.getProcesoConversionArchivos(prco_prco);
+		String rutaArchivo = prcoServicio.getRutaFinalReporteExcelConversion(prco);
+		String nombreArchivo = aror.getAror_nombre()+".xlsx";
+		
+		
+		//Si el archvivo existe se retorna
+		File fileExcel = new File(rutaArchivo+nombreArchivo);
+		if(fileExcel!= null && fileExcel.exists()){
+			
+			return fileExcel;
+		}else{
+			//Se crea la ruta de archivo
+			
+			File folder = new File(rutaArchivo);
+    		if(!folder.exists()){
+    		   	folder.mkdirs();
+    		}
+			
+		}
+		
+		
+		//En caso de no existir el archivo se construye
 		List<DetalleResumenConversionSIFI> listResumenSIFI = archivoServicio.getResumenConversionSIFIAROR(aror_aror);
 		
 		
@@ -222,9 +245,6 @@ public class GeneradorArchivoExcelConvertidor {
 				            	   cell.setCellStyle(styleCurrency);
 				            	   
 				            	   
-				            	   
-				            	   
-				            	   
 			            	   
 			               }
 		               }
@@ -235,8 +255,10 @@ public class GeneradorArchivoExcelConvertidor {
 	        }
 	        try
 	        {
+	        	
+	        	
 	            //Write the workbook in file system
-	            FileOutputStream out = new FileOutputStream(new File(rutaArchivo));
+	            FileOutputStream out = new FileOutputStream(new File(rutaArchivo+nombreArchivo));
 	            workbook.write(out);
 	            out.close();
 	            System.out.println(rutaArchivo+"on disk.");
@@ -320,7 +342,7 @@ public class GeneradorArchivoExcelConvertidor {
 		DBManagerFSRecaudos.initConfiguration();
 		
 		GeneradorArchivoExcelConvertidor excelConvertidor = new GeneradorArchivoExcelConvertidor();
-		excelConvertidor.generarArchivo(new Long(1242), "excel.xlsx", new StringBuffer());
+		excelConvertidor.generarArchivo(new Long(1242), new StringBuffer());
 		
 		
 	}

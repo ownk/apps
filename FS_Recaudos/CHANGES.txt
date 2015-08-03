@@ -39,3 +39,12 @@ v.3.0.0
 -----------------------------------------------------------------------------------------------------
 1. Se crea funcionalidad para la comparacion de archivos unificados BSC vs archivos de INTERNET
 
+
+v.3.1.0
+-----------------------------------------------------------------------------------------------------
+1. Se crea funcionalidad de descarga de excel para el modulo de conversion en el que se puede 
+consultar las conversiones realizadas.
+
+2. Se ajustan colores, validaciones y ordenamientos en las consultas de las conversiones y 
+comparaciones
+

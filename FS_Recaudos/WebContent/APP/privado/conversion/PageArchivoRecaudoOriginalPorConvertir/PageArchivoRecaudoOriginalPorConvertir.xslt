@@ -146,7 +146,28 @@
 
 																			<dt>Proceso Conversión</dt>
 																			<dd>
-																				<xsl:value-of select="//aror_prco" />
+																				
+																				<form id="form_prun_{//aror_prco}"
+																						action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
+																						method="post">
+																						<input type="hidden"
+																							name="ProcesoUnificacionArchivos.prun_prun"
+																							value="{//aror_prco}" />
+																						<input type="hidden"
+																							name="tabActive"
+																							value="5" />	
+
+																				</form>
+																				
+																				
+																				<a class="ownk_link"
+																					onclick="osm_enviarFormulario('form_prun_{//aror_prco}');">
+																					No. <xsl:value-of select="//aror_prco" />
+																				</a>
+																				
+																				
+																			
+																				
 																			</dd>
 
 
@@ -200,9 +221,6 @@
 																</div>
 
 															</div>
-
-															<!-- <div class="col-xs-4"> <i class="fa fa-file-o big-clear-icon 
-																" /> </div> -->
 
 
 
@@ -350,7 +368,30 @@
 											<div class="ibox float-e-margins">
 												<div class="ibox-title">
 													<h5>Validaciones y Transformaciones  </h5>
+													
+													
+													<div class="ibox-tools">
+														
+													
+														<form id="form_prun_{//aror_prco}"
+																action="{//contextPath}/unificacion/PageProcesoUnificacionArchivos.do"
+																method="post">
+																<input type="hidden"
+																	name="ProcesoUnificacionArchivos.prun_prun"
+																	value="{//aror_prco}" />
+																<input type="hidden"
+																	name="tabActive"
+																	value="5" />	
 
+														</form>
+														
+														
+														<a class="ownk_link"
+															onclick="osm_enviarFormulario('form_prun_{//aror_prco}');">
+															Regresar a consulta de proceso
+														</a>
+	
+													</div>
 
 
 												</div>
@@ -407,7 +448,7 @@
 
 																		<div class="tab-pane active" id="tab-3">
 																			<xsl:call-template name="detalleArchivoSIFI" />
-
+																			<xsl:call-template name="detalleResumenConversionSIFI" />
 
 																		</div>
 																	</div>
@@ -645,21 +686,28 @@
 
 			<xsl:when test="count(//ArchivoRecaudoGeneradoSIFI)>0 and 1=1">
 
-
+		
 
 				<div class="row">
+					<div class="col-sm-12 m-b-xs">
+					
+				
+					<h5 class="ownk-subrayado">
+						<b>Archivo SIFI</b>
+					</h5>
+					
 					<div class="alert alert-success">
 						<div class="table-responsive">
 							<table class="table table-striped">
 								<thead>
 									<tr>
-										<th>Estado </th>
-										<th>Nombre Archivo</th>
-										<th>Registros</th>
-										<th>Bytes</th>
-										<th>Fecha Creación</th>
-										<th>Usuario</th>
-										<th></th>
+										<th class=" ownk_align_left">Estado</th>
+										<th class=" ownk_align_center">Nombre Archivo</th>
+										<th class=" ownk_align_center">Registros</th>
+										<th class=" ownk_align_center">Bytes</th>
+										<th class=" ownk_align_center">Fecha Creación</th>
+										<th class=" ownk_align_center">Usuario</th>
+										<th class=" ownk_align_right">Opciones</th>
 
 									</tr>
 								</thead>
@@ -672,33 +720,33 @@
 										</form>
 
 										<tr>
-											<td class=" align-center">
+											<td class=" ownk_align_left">
 												<span class="badge badge-primary">
 													<xsl:value-of select="arge_earge" />
 												</span>
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_align_center">
 												<xsl:value-of select="arge_nombre" />
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_align_center">
 												<xsl:value-of select="arge_registros" />
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_align_center">
 												<xsl:value-of select="arge_bytes" />
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_align_center">
 												<xsl:value-of select="arge_fcrea" />
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_align_center">
 												<xsl:value-of select="arge_usua" />
 											</td>
 
-											<td class=" align-center">
+											<td class=" ownk_right">
 												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
 													onclick="osm_enviarFormulario('form_arge_{arge_arge}');">
 													<i class="fa fa-download text-navy"></i>
@@ -715,11 +763,12 @@
 							</table>
 						</div>
 					</div>
+					</div>
 
 				</div>
 
 
-				<xsl:call-template name="detalleResumenConversionSIFI" />
+				
 
 
 
@@ -770,14 +819,16 @@
 
 			<xsl:when test="count(//ArrayList/DetalleResumenConversionSIFI)>0 and 1=1">
 
-
+			<div class="row">
+			<div class="col-sm-12 m-b-xs">
 
 				<div class="row">
-
+					<div class="col-sm-12 m-b-xs">	
+	
 
 
 					<h5 class="ownk-subrayado">
-						<b>Detalle de validaciones y transformaciones</b>
+						<b>Remumen general de conversión </b>
 					</h5>
 
 					<div class="alert alert-warning">
@@ -786,18 +837,25 @@
 								<table class="table table-striped">
 									<thead>
 										<tr>
-											<th class="ownk_align_center">Total Recaudos BSC</th>
+											<th class="ownk_align_left">Total Recaudos BSC</th>
 											<th class="ownk_align_center">Recaudo total Archivo BSC </th>
 											<th class="ownk_align_center">-</th>
 											<th class="ownk_align_center">Total Recaudos SIFI</th>
 											<th class="ownk_align_center">Recaudo total Archivo SIFI</th>
 											<th class="ownk_align_center">-</th>
 											<th class="ownk_align_center">Diferencia Recaudo</th>
+											<th class="ownk_right">Opciones</th>
 										</tr>
 									</thead>
 									<tbody>
+									
+										<form id="form_excel_cpar_{//aror_aror}" action="{//contextPath}/conversion/download.dcpar_excel"
+											method="post">
+											<input type="hidden" name="dcpar" value="{//aror_aror}" />
+		
+										</form>
 										<tr>
-											<td class=" ownk_align_center">
+											<td class=" ownk_align_left">
 												<xsl:value-of
 													select="count(//DetalleArchivoRecaudoOriginalPorConvertir)" />
 											</td>
@@ -823,6 +881,19 @@
 											<td class=" ownk_align_center">
 												<xsl:value-of select="//totalRecaudoDiferencia" />
 											</td>
+											
+											
+											<td class=" ownk_right">
+												
+												<a class="btn btn-white btn-circle btn-sm ownk_btn_shadow"
+													onclick="osm_enviarFormulario('form_excel_cpar_{//aror_aror}');">
+													<i class="fa fa-download text-navy"></i>
+												</a>
+											
+
+											</td>
+											
+						
 
 										</tr>
 
@@ -832,11 +903,16 @@
 							</div>
 						</div>
 					</div>
+					</div>
 				</div>
 
 
 				<div class="row">
-
+					<div class="col-sm-12 m-b-xs">
+					
+					<h5 class="ownk-subrayado">
+						<b>Detalle de validaciones y transformaciones</b>
+					</h5>
 					<div style="font-size:10px">
 						<div class="table-responsive">
 							<table class="table table-striped">
@@ -860,6 +936,7 @@
 								</thead>
 								<tbody>
 									<xsl:for-each select="//DetalleResumenConversionSIFI">
+										<xsl:sort order="ascending" data-type="text" select="daror_referencia"/>
 
 										<tr>
 											<td class=" ownk_align_center">
@@ -1001,10 +1078,13 @@
 								</tbody>
 							</table>
 						</div>
+						
+						</div>
 					</div>
 
 				</div>
-
+				</div>
+			</div>	
 
 
 

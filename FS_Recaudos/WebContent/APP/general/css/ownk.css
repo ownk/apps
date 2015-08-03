@@ -16,6 +16,17 @@
 	
 }
 
+.ownk_align_right{
+	text-align: right;
+	
+}
+
+
+.ownk_align_left{
+	text-align: left;
+	
+}
+
 .ownk-alert{
 	margin-bottom: 0px !important;
 	
@@ -172,4 +183,19 @@ box-shadow: 0 1px 5px rgba(205, 202, 202, 0.3), 0 1px 2px
 .ownk_text_verde{
 	font-weight:bolder !important;
 	color: #008000 !important;
+}
+
+.ownk_link{
+	text-decoration: underline;
+	color: #0096AD !important;
+	
+}
+
+
+a.ownk_link:hover{
+	text-decoration: underline;
+	color: #0096AD !important;
+	font-weight: bolder;
+	
+	
 }

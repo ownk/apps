@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.poi.openxml4j.opc.TargetMode;
+
 import com.developer.core.page.PrivatePage;
 import com.developer.core.utils.ObjectToXML;
 import com.developer.logic.modulo.autenticacion.modelo.AutenticadorServicio;
@@ -34,6 +36,8 @@ public class PageProcesoUnificacionArchivos extends PrivatePage{
 		if (sessionAppUsuario != null) {
 			
 			String prun_prun = request.getParameter("ProcesoUnificacionArchivos.prun_prun");
+			String tabActive = request.getParameter("tabActive");
+			
 			
 			if(prun_prun !=null){
 				ProcesoUnificacionArchivosServicio servicio = new ProcesoUnificacionArchivosServicio();
@@ -69,6 +73,11 @@ public class PageProcesoUnificacionArchivos extends PrivatePage{
 					errorWeb.setError("2");
 					errorWeb.setMensajeError("Acceso incorrecto. El numero de proceso especificado no es válido.");
 					
+				}
+				
+				//Tab active
+				if(tabActive!=null){
+					xmlPage.append("<tabActive>"+tabActive+"</tabActive>");
 				}
 			}
 			

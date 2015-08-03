@@ -30,5 +30,7 @@ public interface ComparacionArchivoRecaudoDao {
 	public List<DiferenciaResumenComparacion> getDiferenciasResumenCPAR(Long cpar_cpar);
 	
 	public List<HomologacionTipoRecaudoComparador> getAllHomologacionesTipoRecaudo();
+	
+	public List<DetalleComparacionArchivoRecaudo> getFechasCPAR(Long cpar_cpar);
 
 }

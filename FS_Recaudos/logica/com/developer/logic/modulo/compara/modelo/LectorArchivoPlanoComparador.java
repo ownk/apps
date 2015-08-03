@@ -170,6 +170,10 @@ public class LectorArchivoPlanoComparador {
 					
 					OficinaRecaudo oficinaRecaudoSIFI = oficinaRecaudoServicio.getOficinaSIFI(registrosDetalle[i][2], getFondoPorTipoArchivo(this.tpar_tpar));
 					
+					if(oficinaRecaudoSIFI==null){
+						oficinaRecaudoSIFI = new OficinaRecaudo();
+						oficinaRecaudoSIFI.setOfic_descri("ERROR: Oficina SIFI no encontrada");
+					}
 					
 					
 					//Si el recaudo es combinado se debe crear un detalle para efectivo y cheque

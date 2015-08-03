@@ -17,15 +17,21 @@
 			<param-value>200</param-value>
 		</init-param>
 	</servlet>
-	<!-- Servlet descarga documentos ARUN -->
+	<!-- Servlet Unificador archivos Unificado -->
 	<servlet>
 		<servlet-name>DownloadDocARUNServlet</servlet-name>
 		<servlet-class>com.developer.web.content.servlet.modulo.unificacion.DownloadDocARUNServlet</servlet-class>
 	</servlet>
-	<!-- Servlet descarga documentos ARGE -->
+	<!-- Servlet Convertidor archivo SIFI -->
 	<servlet>
 		<servlet-name>DownloadDocARGEServlet</servlet-name>
 		<servlet-class>com.developer.web.content.servlet.modulo.conversion.DownloadDocARGEServlet</servlet-class>
+	</servlet>
+	
+	<!-- Servlet Convertidor archivo EXCEL Comparacion  -->
+	<servlet>
+		<servlet-name>DownloadDocExcelCPARServlet</servlet-name>
+		<servlet-class>com.developer.web.content.servlet.modulo.conversion.DownloadDocExcelCPARServlet</servlet-class>
 	</servlet>
 	
 	
@@ -49,6 +55,11 @@
 	<servlet-mapping>
 		<servlet-name>DownloadDocARGEServlet</servlet-name>
 		<url-pattern>*.darge</url-pattern>
+	</servlet-mapping>
+	<!-- Descarga de archivos Excel AROR-->
+	<servlet-mapping>
+		<servlet-name>DownloadDocExcelCPARServlet</servlet-name>
+		<url-pattern>*.dcpar_excel</url-pattern>
 	</servlet-mapping>
 	
 

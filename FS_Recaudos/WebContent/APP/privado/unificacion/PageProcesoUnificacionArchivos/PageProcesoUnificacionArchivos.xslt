@@ -344,25 +344,43 @@
 													<div class="row m-t-sm">
 														<div class="col-xs-12">
 															<div class="panel blank-panel">
+															
+																<xsl:variable name="tabActive" select="//tabActive"/>
+																
 																<div class="panel-heading">
 																	<div class="panel-options">
 																		<ul class="nav nav-tabs">
 																			<li class="">
+																				<xsl:if test="$tabActive=1">
+																				<xsl:attribute name="class">active</xsl:attribute>
+																				</xsl:if>
 																				<a href="#tab-1" data-toggle="tab">ZIP</a>
 																			</li>
 																			<li class="">
+																				<xsl:if test="$tabActive=2">
+																				<xsl:attribute name="class">active</xsl:attribute>
+																				</xsl:if>
 																				<a href="#tab-2" data-toggle="tab">Por
 																					Unificar</a>
 																			</li>
 																			<li class="">
+																				<xsl:if test="$tabActive=3">
+																				<xsl:attribute name="class">active</xsl:attribute>
+																				</xsl:if>
 																				<a href="#tab-3" data-toggle="tab">
 																					Asobancaria</a>
 																			</li>
-																			<li class="active">
+																			<li class="">
+																				<xsl:if test="$tabActive=4 or string-length($tabActive)=0">
+																				<xsl:attribute name="class">active</xsl:attribute>
+																				</xsl:if>
 																				<a href="#tab-4" data-toggle="tab">Unificados</a>
 																			</li>
 
 																			<li class="">
+																				<xsl:if test="$tabActive=5">
+																				<xsl:attribute name="class">active</xsl:attribute>
+																				</xsl:if>
 																				<a href="#tab-5" data-toggle="tab">Archivos SIFI</a>
 																			</li>
 																		</ul>
@@ -370,15 +388,20 @@
 																</div>
 
 																<div class="panel-body">
-
 																	<div class="tab-content">
 																		<div class="tab-pane " id="tab-1">
+																			<xsl:if test="$tabActive=1">
+																				<xsl:attribute name="class">tab-pane active</xsl:attribute>
+																			</xsl:if>
 																			<xsl:call-template name="archivosAZPU" />
 
 																		</div>
 
 
 																		<div class="tab-pane" id="tab-2">
+																			<xsl:if test="$tabActive=2">
+																				<xsl:attribute name="class">tab-pane active</xsl:attribute>
+																			</xsl:if>
 																			<xsl:call-template name="archivosARPU" />
 
 
@@ -386,17 +409,26 @@
 																		</div>
 
 																		<div class="tab-pane" id="tab-3">
+																			<xsl:if test="$tabActive=3">
+																				<xsl:attribute name="class">tab-pane active</xsl:attribute>
+																			</xsl:if>
 																			<xsl:call-template name="archivosTRAR" />
 
 																		</div>
 
-																		<div class="tab-pane active" id="tab-4">
+																		<div class="tab-pane" id="tab-4">
+																			<xsl:if test="$tabActive=4 or string-length($tabActive)=0">
+																				<xsl:attribute name="class">tab-pane active</xsl:attribute>
+																			</xsl:if>
 																			<xsl:call-template name="archivosARUN" />
 
 
 																		</div>
 
 																		<div class="tab-pane " id="tab-5">
+																			<xsl:if test="$tabActive=5">
+																				<xsl:attribute name="class">tab-pane active</xsl:attribute>
+																			</xsl:if>
 																			<xsl:call-template name="archivosSIFI" />
 
 
@@ -716,7 +748,27 @@
 											</td>
 
 											<td class=" align-center">
-												<xsl:value-of select="arun_registros" />
+												
+												
+												<xsl:choose>
+													<xsl:when test="arun_registros='0'">
+														<span class="badge badge-warning">
+
+															<xsl:value-of select="arun_registros" />
+														</span>
+													</xsl:when>
+													
+													<xsl:otherwise>
+														<span class="badge badge-info">
+
+															<xsl:value-of select="arun_registros" />
+														</span>
+													</xsl:otherwise>
+
+												</xsl:choose>
+												
+												
+												
 											</td>
 
 											<td class=" align-center">
@@ -850,6 +902,7 @@
 										<th>Estado</th>
 										<th>Nombre Archivo SIFI</th>
 										<th>Registros SIFI</th>
+										<th>Opción</th>
 
 									</tr>
 								</thead>
@@ -1368,7 +1421,7 @@
 															<xsl:choose>
 																<xsl:when test="cpar_arun_cta = cpar_ibsc_cta">
 																	<span class="ownk_text_verde">
-																		<b>EXITOSA</b>
+																		<b>REALIZADA</b>
 																	</span>
 																</xsl:when>
 

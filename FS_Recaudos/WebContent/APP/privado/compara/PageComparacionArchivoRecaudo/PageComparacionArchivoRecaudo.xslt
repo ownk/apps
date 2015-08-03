@@ -455,143 +455,178 @@
 														<div class="ownk_separador_h" />
 
 													</div>
-
-													<div class="row">
-														<div class="col-md-12">
-
-
+													
+													
+													
+													<xsl:choose>
+														<xsl:when test="count(//ResumenCompara/Detalle)>0">
 															<div class="row">
 																<div class="col-md-12">
-																	<div style="font-size:11px " class="alert alert-success">
-																		<div class="table-responsive">
-																			<table class="table table-striped">
-																				<thead>
-																					<tr>
-																						<th class="ownk_align_center">Descripción </th>
-																						<th class="ownk_align_center">Datos</th>
-																						<th class="ownk_align_center">Internet</th>
-																						<th class="ownk_align_center">Plano</th>
-																						<th class="ownk_align_center">Diferencia</th>
-
-
-																					</tr>
-																				</thead>
-																				<tbody>
-																					<xsl:for-each select="//ResumenCompara/Detalle">
-
-																						<tr>
-
-																							<xsl:if test="(position() mod 2) > 0">
-																								<xsl:attribute name="class">ownk_tr_bg_gray</xsl:attribute>
-																							</xsl:if>
-																							<xsl:if test="(position() mod 2) = 0 ">
-																								<xsl:attribute name="class">ownk_tr_bg_verde</xsl:attribute>
-																							</xsl:if>
-
-
-
-																							<td class=" ownk_align_center">
-																								<xsl:value-of select="FuenteRecaudo" />
-																							</td>
-
-																							<td class=" ownk_align_center">
-																								Valor_Tx
-
-																							</td>
-
-
-																							<td class=" ownk_align_center">
-																								<xsl:value-of select="ValorArchivoInternet" />
-																							</td>
-
-																							<td class=" ownk_align_center">
-																								<xsl:value-of select="ValorArchivoPlano" />
-																							</td>
-
-																							<td class=" ownk_align_center">
-
-
-
-																								<xsl:choose>
-																									<xsl:when test="ValorDiferencia = '$0,00'">
-																										<xsl:value-of select="ValorDiferencia" />
-
-																									</xsl:when>
-
-																									<xsl:otherwise>
-																										<span class="ownk_text_rojo">
-																											<xsl:value-of select="ValorDiferencia" />
-																										</span>
-																									</xsl:otherwise>
-
-																								</xsl:choose>
-																							</td>
-
-
-																						</tr>
-
-																						<tr>
-
-																							<xsl:if test="(position() mod 2) > 0">
-																								<xsl:attribute name="class">ownk_tr_bg_gray</xsl:attribute>
-																							</xsl:if>
-																							<xsl:if test="(position() mod 2) = 0 ">
-																								<xsl:attribute name="class">ownk_tr_bg_verde</xsl:attribute>
-																							</xsl:if>
-
-
-
-																							<td class=" ownk_align_center">
-
-																							</td>
-
-																							<td class=" ownk_align_center">
-																								No._Tx
-																							</td>
-
-
-																							<td class=" ownk_align_center">
-																								<xsl:value-of select="RegistrosArchivoInternet" />
-																							</td>
-
-																							<td class=" ownk_align_center">
-																								<xsl:value-of select="RegistrosArchivoPlano" />
-																							</td>
-
-																							<td class=" ownk_align_center">
-																								<xsl:choose>
-																									<xsl:when test="RegistrosDiferencia = 0">
-																										<xsl:value-of select="RegistrosDiferencia" />
-
-																									</xsl:when>
-
-																									<xsl:otherwise>
-																										<span class="ownk_text_rojo">
-																											<xsl:value-of select="RegistrosDiferencia" />
-																										</span>
-																									</xsl:otherwise>
-
-																								</xsl:choose>
-
-
-
-																							</td>
-
-
-																						</tr>
-
-																					</xsl:for-each>
-																				</tbody>
-																			</table>
+		
+		
+																	<div class="row">
+																		<div class="col-md-12">
+																			<div style="font-size:11px " class="alert alert-success">
+																				<div class="table-responsive">
+																					<table class="table table-striped">
+																						<thead>
+																							<tr>
+																								<th class="ownk_align_center">Descripción </th>
+																								<th class="ownk_align_center">Datos</th>
+																								<th class="ownk_align_center">Internet</th>
+																								<th class="ownk_align_center">Plano</th>
+																								<th class="ownk_align_center">Diferencia</th>
+		
+		
+																							</tr>
+																						</thead>
+																						<tbody>
+																							<xsl:for-each select="//ResumenCompara/Detalle">
+																								<xsl:sort order="ascending" data-type="text" select="FuenteRecaudo"></xsl:sort>
+		
+																								<tr>
+		
+																									<xsl:if test="(position() mod 2) > 0">
+																										<xsl:attribute name="class">ownk_tr_bg_gray</xsl:attribute>
+																									</xsl:if>
+																									<xsl:if test="(position() mod 2) = 0 ">
+																										<xsl:attribute name="class">ownk_tr_bg_verde</xsl:attribute>
+																									</xsl:if>
+		
+		
+		
+																									<td class=" ownk_align_center">
+																										<xsl:value-of select="FuenteRecaudo" />
+																									</td>
+		
+																									<td class=" ownk_align_center">
+																										Valor_Tx
+		
+																									</td>
+		
+		
+																									<td class=" ownk_align_center">
+																										<xsl:value-of select="ValorArchivoInternet" />
+																									</td>
+		
+																									<td class=" ownk_align_center">
+																										<xsl:value-of select="ValorArchivoPlano" />
+																									</td>
+		
+																									<td class=" ownk_align_center">
+		
+		
+		
+																										<xsl:choose>
+																											<xsl:when test="ValorDiferencia = '$0,00'">
+																												<xsl:value-of select="ValorDiferencia" />
+		
+																											</xsl:when>
+		
+																											<xsl:otherwise>
+																												<span class="ownk_text_rojo">
+																													<xsl:value-of select="ValorDiferencia" />
+																												</span>
+																											</xsl:otherwise>
+		
+																										</xsl:choose>
+																									</td>
+		
+		
+																								</tr>
+		
+																								<tr>
+		
+																									<xsl:if test="(position() mod 2) > 0">
+																										<xsl:attribute name="class">ownk_tr_bg_gray</xsl:attribute>
+																									</xsl:if>
+																									<xsl:if test="(position() mod 2) = 0 ">
+																										<xsl:attribute name="class">ownk_tr_bg_verde</xsl:attribute>
+																									</xsl:if>
+		
+		
+		
+																									<td class=" ownk_align_center">
+		
+																									</td>
+		
+																									<td class=" ownk_align_center">
+																										No._Tx
+																									</td>
+		
+		
+																									<td class=" ownk_align_center">
+																										<xsl:value-of select="RegistrosArchivoInternet" />
+																									</td>
+		
+																									<td class=" ownk_align_center">
+																										<xsl:value-of select="RegistrosArchivoPlano" />
+																									</td>
+		
+																									<td class=" ownk_align_center">
+																										<xsl:choose>
+																											<xsl:when test="RegistrosDiferencia = 0">
+																												<xsl:value-of select="RegistrosDiferencia" />
+		
+																											</xsl:when>
+		
+																											<xsl:otherwise>
+																												<span class="ownk_text_rojo">
+																													<xsl:value-of select="RegistrosDiferencia" />
+																												</span>
+																											</xsl:otherwise>
+		
+																										</xsl:choose>
+		
+		
+		
+																									</td>
+		
+		
+																								</tr>
+		
+																							</xsl:for-each>
+																						</tbody>
+																					</table>
+																				</div>
+																			</div>
+																		</div>
+		
+																	</div>
+		
+		
+																</div>
+															</div>
+														</xsl:when>
+														
+														
+														<xsl:otherwise>
+															<div class="row">
+																<div class="col-md-12">
+															
+															
+																	<div class="row">
+																		<div class="col-md-12">
+																			<div style="font-size:11px " class="alert alert-danger">
+																				No existen registros por comparar. Por favor revisa las fechas
+																				de los movimientos del archivo descargado de internet vs las
+																				fechas con las que fue registrado el proceso.
+																			</div>
 																		</div>
 																	</div>
 																</div>
-
 															</div>
+														
+															
+														</xsl:otherwise>
+													
+													</xsl:choose>
+													
+													
+													
+													
 
-
-														</div>
-													</div>
+													
 												</div>
 											</div>
 
@@ -615,7 +650,7 @@
 
 														<div class="col-xs-12">
 															Informacion detallada de la comparación
-															realizada
+															realizada.
 														</div>
 
 													</div>
@@ -629,7 +664,68 @@
 
 															<div class="row">
 																<div class="col-md-12">
-																	<xsl:call-template name="detalleComparacion" />
+																
+																	<xsl:choose>
+																		<xsl:when test="count(//detalles/DetalleComparacionArchivoRecaudo)>0">
+																			<xsl:call-template name="detalleComparacion" />	
+																		</xsl:when>
+																		
+																		<xsl:otherwise>
+																			<div class="row">
+																				<div class="col-md-12">
+																					No existen detalles de comparación ya que no existen
+																					registros por comparar entre las fechas <b>(<xsl:value-of select="//cpar_fini_string"/>)</b> y  <b>(<xsl:value-of select="//cpar_ffin_string"/>)</b>. A continuación
+																					te mostramos las fechas del contenido del archivo de excel:
+																		
+																					
+																					<div style="font-size:11px">
+																						<div class="table-responsive">
+																							<table class="table table-striped">
+																								<thead>
+																									<tr>
+																										<th class="ownk_align_center">No.</th>
+																										<th class="ownk_align_center">Fecha en el archivo</th>
+																										<th class="ownk_align_center">Cantidad de registros </th>
+																									</tr>
+																								</thead>
+																								<tbody>
+																									<xsl:for-each select="//fechas/DetalleComparacionArchivoRecaudo">
+															
+																										<tr>
+															
+																											
+																											<td class=" ownk_align_center">
+																												<xsl:value-of select="position()" />
+																											</td>
+															
+															
+																											<td class=" ownk_align_center">
+																												<xsl:value-of select="dcpar_freca_norm_string" />
+																											</td>
+															
+																											<td class=" ownk_align_center">
+																												<xsl:value-of select="dcpar_valor" />
+																											</td>
+															
+															
+																										</tr>
+															
+																									</xsl:for-each>
+																								</tbody>
+																							</table>
+																						</div>
+																					</div>
+																					
+																					
+																					
+																				</div>
+																			</div>
+																			
+																		</xsl:otherwise>
+																	
+																	
+																	</xsl:choose>	
+																	
 																</div>
 															</div>
 
@@ -662,7 +758,7 @@
 	<xsl:template name="detalleComparacion">
 		<xsl:choose>
 
-			<xsl:when test="count(//DetalleComparacionArchivoRecaudo)>0 and 1=1">
+			<xsl:when test="count(//detalles/DetalleComparacionArchivoRecaudo)>0 and 1=1">
 
 				<div class="row">
 					<div class="col-md-12">
@@ -686,12 +782,12 @@
 										</tr>
 									</thead>
 									<tbody>
-										<xsl:for-each select="//DetalleComparacionArchivoRecaudo">
+										<xsl:for-each select="//detalles/DetalleComparacionArchivoRecaudo">
 
 											<tr>
 
 												<xsl:if test="dcpar_fuente = 'PLANO' ">
-													<xsl:attribute name="class">ownk_tr_bg_gray</xsl:attribute>
+													<xsl:attribute name="class">ownk_tr_bg_azul</xsl:attribute>
 												</xsl:if>
 												<xsl:if test="dcpar_fuente = 'INTERNET' ">
 													<xsl:attribute name="class">ownk_tr_bg_white</xsl:attribute>

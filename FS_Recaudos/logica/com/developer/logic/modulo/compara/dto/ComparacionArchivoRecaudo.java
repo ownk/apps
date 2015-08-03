@@ -32,6 +32,8 @@ public class ComparacionArchivoRecaudo {
 	
 	List<DiferenciaResumenComparacion> diferenciasResumen;
 	
+	List<DetalleComparacionArchivoRecaudo> fechas;
+	
 	public Long getCpar_cpar() {
 		return cpar_cpar;
 	}
@@ -216,6 +218,18 @@ public class ComparacionArchivoRecaudo {
 		this.diferenciasResumen = diferenciasResumen;
 	}
 
+
+	public List<DetalleComparacionArchivoRecaudo> getFechas() {
+		return fechas;
+	}
+
+
+	public void setFechas(List<DetalleComparacionArchivoRecaudo> fechas) {
+		this.fechas = fechas;
+	}
+
+	
+	
 
 
 	
